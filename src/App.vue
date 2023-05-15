@@ -15,8 +15,7 @@ export default {
   name: "App",
 
   components: {
-    NavigationBar: () =>
-      import("@/views/landing/components/landing-nav-bar.vue"),
+    NavigationBar: () => import("@/components/navigation-bar.vue"),
     PluginLoading: () => import("@/components/plugin/PluginLoading.vue"),
     PluginSnackbar: () => import("@/components/plugin/PluginAlert.vue"),
     PluginConfirmDialog: () =>
@@ -167,7 +166,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 8px white;
+  -webkit-box-shadow: inset 0 0 8px #1e1e20;
   background-color: transparent !important;
 }
 ::-webkit-scrollbar {
@@ -176,11 +175,34 @@ body {
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  -webkit-box-shadow: 0 0 8px white;
+  -webkit-box-shadow: 0 0 8px #1e1e20;
   background-color: var(--v-primary-base);
 }
 
 //Vuetify component setting
+.v-carousel__controls__item .v-icon {
+  opacity: 0 !important;
+}
+.v-carousel__controls__item {
+  margin: 0 6px !important;
+}
+.v-carousel__controls__item.v-btn.v-btn--icon {
+  background-color: var(--v-neutral30-base) !important;
+  height: 8px; /* Height you want */
+  width: 8px; /* Width you want */
+  border-radius: 4px; /* Remove default border radius */
+}
+
+.v-carousel__controls__item.v-btn.v-btn--icon.v-btn--active {
+  background-color: var(
+    --v-primary60-base
+  ) !important; /* Colour for active one */
+}
+
+.v-btn__content .v-icon {
+  display: none; /* Removes the default icon */
+}
+
 // .theme--light.v-list-item--active::before {
 //   opacity: 0 !important;
 // }

@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="home mx-auto d-flex flex-column">
+  <div class="home">
     <firstSection></firstSection>
     <secondSection></secondSection>
   </div>
@@ -9,9 +9,8 @@
 <script>
 export default {
   components: {
-    firstSection: () => import("@/views/landing/components/first-section.vue"),
-    secondSection: () =>
-      import("@/views/landing/components/second-section.vue"),
+    firstSection: () => import("../components/first-section.vue"),
+    secondSection: () => import("../components/second-section.vue"),
   },
 };
 </script>
