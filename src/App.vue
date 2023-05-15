@@ -42,6 +42,9 @@ nav {
     }
   }
 }
+.page-container {
+  max-width: 1200px;
+}
 
 .v-application,
 body {
@@ -163,6 +166,9 @@ body {
   font-size: 72px !important;
   line-height: 80px !important;
   letter-spacing: -2% !important;
+}
+.font-weight-semibold {
+  font-weight: 600 !important;
 }
 
 ::-webkit-scrollbar-track {

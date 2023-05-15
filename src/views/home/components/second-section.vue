@@ -1,96 +1,51 @@
 <template>
-  <div
-    class="second-section d-flex flex-column align-center justify-center full-width"
-  >
-    <div class="title text-center text-dp-md pt-10">Tính năng</div>
-    <div class="d-flex justify-center col-gap-72 pt-10">
-      <div class="content">
+  <div class="page-container mx-auto py-16">
+    <div class="font-weight-semibold text-dp-md text-center">Tính năng</div>
+    <v-row no-gutters class="text-center mt-12">
+      <v-col cols="4">
         <div class="image mx-auto">
           <v-img
             :src="require(`@/assets/components/landing/section2-icon1.webp`)"
           >
           </v-img>
         </div>
-        <div class="font-weight-bold text-dp-xs mt-3">
+        <div class="font-weight-medium text-dp-xs mt-2">
           Nền tảng truy xuất nguồn gốc
         </div>
-        <div class="text-lg pt-2">
-          Tăng tính minh bạch về thông tin sản phẩm khi đến tay người tiêu dùng
-        </div>
-      </div>
-      <div class="content">
-        <div class="image mx-auto">
-          <v-img
-            :src="require(`@/assets/components/landing/section2-icon1.webp`)"
-          >
-          </v-img>
-        </div>
-        <div class="font-weight-bold text-dp-xs">
-          Nền tảng truy xuất nguồn gốc
-        </div>
-        <div class="text-lg pt-2">
-          Tăng tính minh bạch về thông tin sản phẩm khi đến tay người tiêu dùng
-        </div>
-      </div>
-      <div class="content">
-        <div class="image mx-auto">
-          <v-img
-            :src="require(`@/assets/components/landing/section2-icon1.webp`)"
-          >
-          </v-img>
-        </div>
-        <div class="font-weight-bold text-dp-xs">
-          Nền tảng truy xuất nguồn gốc
-        </div>
-        <div class="text-lg pt-2">
-          Tăng tính minh bạch về thông tin sản phẩm khi đến tay người tiêu dùng
-        </div>
-      </div>
-    </div>
-    <!-- <v-row no-gutters class="text-center">
-      <v-col cols="3" class="content">
-        <div class="image mx-auto">
-          <v-img
-            :src="require(`@/assets/components/landing/section2-icon1.webp`)"
-          >
-          </v-img>
-        </div>
-        <div class="font-weight-bold text-dp-xs">
-          Nền tảng truy xuất nguồn gốc
-        </div>
-        <div class="text-lg pt-2">
+        <div class="neutral60--text mt-2 content mx-auto text-lg">
           Tăng tính minh bạch về thông tin sản phẩm khi đến tay người tiêu dùng
         </div>
       </v-col>
-      <v-col cols="3" class="content">
+      <v-col cols="4">
         <div class="image mx-auto">
           <v-img
             :src="require(`@/assets/components/landing/section2-icon1.webp`)"
           >
           </v-img>
         </div>
-        <div class="font-weight-bold text-dp-xs">
-          Nền tảng truy xuất nguồn gốc
+        <div class="font-weight-medium text-dp-xs mt-2">
+          Tem cho sản phẩm xuất khẩu
         </div>
-        <div class="text-lg pt-2">
-          Tăng tính minh bạch về thông tin sản phẩm khi đến tay người tiêu dùng
+        <div class="neutral60--text mt-2 content mx-auto text-lg">
+          Cung cấp tem xuất khẩu đạt chuẩn yêu cầu quốc tế
         </div>
       </v-col>
-      <v-col cols="3" class="content">
+      <v-col cols="4">
         <div class="image mx-auto">
           <v-img
             :src="require(`@/assets/components/landing/section2-icon1.webp`)"
           >
           </v-img>
         </div>
-        <div class="font-weight-bold text-dp-xs">
-          Nền tảng truy xuất nguồn gốc
+        <div class="font-weight-medium text-dp-xs mt-2">
+          Cung cấp mã tiêu chuẩn
         </div>
-        <div class="text-lg pt-2">
-          Tăng tính minh bạch về thông tin sản phẩm khi đến tay người tiêu dùng
+        <div class="neutral60--text mt-2 content mx-auto text-lg">
+          Hỗ trợ việc tìm kiếm nguồn gốc sản phẩm một cách nhanh chóng và tiện
+          lợi
         </div>
       </v-col>
-    </v-row> -->
+    </v-row>
   </div>
 </template>
 
@@ -99,18 +54,11 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-.second-section {
-  height: 500px;
-}
-.title {
-  width: 170px;
-}
 .image {
   width: 80px;
   height: 80px;
 }
 .content {
   width: 360px;
-  text-align: center;
 }
 </style>
