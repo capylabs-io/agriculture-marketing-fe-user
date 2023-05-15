@@ -28,10 +28,11 @@
 export default {};
 </script>
 
-<style>
+<style lang="scss" scoped>
 .fisrt-section {
   height: 736px;
   z-index: 1;
+  position: relative;
 }
 .content {
   position: absolute;

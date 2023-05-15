@@ -92,6 +92,9 @@ body {
 .col-gap-36 {
   column-gap: 36px;
 }
+.col-gap-72 {
+  column-gap: 72px;
+}
 
 .full-width {
   width: 100% !important;
