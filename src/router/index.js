@@ -1,16 +1,15 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 // import alert from "@/plugins/alert";
 
-// import i18n from "@/i18n";
 Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
     name: "",
-    // component: () => import("../views/login/pages/login-admin.vue"),
+    component: () => import("../views/landing/pages/landingpage.vue"),
   },
-  
 ];
 
 const router = new VueRouter({
