@@ -9,7 +9,7 @@
           >
           </v-img>
         </div>
-        <div class="font-weight-medium text-dp-xs mt-2">
+        <div class="font-weight-medium text-dp-xs mt-4">
           Nền tảng truy xuất nguồn gốc
         </div>
         <div class="neutral60--text mt-2 content mx-auto text-lg">
@@ -19,11 +19,11 @@
       <v-col cols="4">
         <div class="image mx-auto">
           <v-img
-            :src="require(`@/assets/components/landing/section2-icon1.webp`)"
+            :src="require(`@/assets/components/landing/section2-icon2.webp`)"
           >
           </v-img>
         </div>
-        <div class="font-weight-medium text-dp-xs mt-2">
+        <div class="font-weight-medium text-dp-xs mt-4">
           Tem cho sản phẩm xuất khẩu
         </div>
         <div class="neutral60--text mt-2 content mx-auto text-lg">
@@ -33,11 +33,11 @@
       <v-col cols="4">
         <div class="image mx-auto">
           <v-img
-            :src="require(`@/assets/components/landing/section2-icon1.webp`)"
+            :src="require(`@/assets/components/landing/section2-icon3.webp`)"
           >
           </v-img>
         </div>
-        <div class="font-weight-medium text-dp-xs mt-2">
+        <div class="font-weight-medium text-dp-xs mt-4">
           Cung cấp mã tiêu chuẩn
         </div>
         <div class="neutral60--text mt-2 content mx-auto text-lg">

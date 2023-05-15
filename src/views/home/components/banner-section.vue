@@ -2,7 +2,7 @@
   <v-row class="banner-section" no-gutters>
     <v-col cols="12" md="6">
       <v-img
-        class="banner-img"
+        class="full-height"
         :src="require(`@/assets/components/landing/section1-left.webp`)"
         cover
       >

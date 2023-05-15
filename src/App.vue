@@ -7,6 +7,7 @@
       <PluginConfirmDialog />
       <router-view></router-view>
     </v-main>
+    <PageFooter />
   </v-app>
 </template>
 
@@ -16,6 +17,7 @@ export default {
 
   components: {
     NavigationBar: () => import("@/components/navigation-bar.vue"),
+    PageFooter: () => import("@/components/page-footer.vue"),
     PluginLoading: () => import("@/components/plugin/PluginLoading.vue"),
     PluginSnackbar: () => import("@/components/plugin/PluginAlert.vue"),
     PluginConfirmDialog: () =>
@@ -44,6 +46,9 @@ nav {
 }
 .page-container {
   max-width: 1200px;
+}
+.border-neutral30 {
+  border: 1px solid var(--v-neutral30-base) !important;
 }
 
 .v-application,
@@ -207,6 +212,11 @@ body {
 
 .v-btn__content .v-icon {
   display: none; /* Removes the default icon */
+}
+
+.v-slide-group__content {
+  padding: 24px;
+  gap: 24px;
 }
 
 // .theme--light.v-list-item--active::before {

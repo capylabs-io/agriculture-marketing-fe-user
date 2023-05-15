@@ -73,11 +73,10 @@ export default {};
 
 <style scoped>
 .nav-link {
-  color: var(--v-neutral60-base) !important;
+  color: var(--v-neutral60-base);
   font-weight: 500;
 }
-.active {
-  color: var(--v-primary-base) !important;
-  opacity: 1 !important;
+.active div.nav-link {
+  color: var(--v-primary50-base) !important;
 }
 </style>
