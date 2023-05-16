@@ -27,7 +27,7 @@
           <div class="text-none nav-link">Giới thiệu</div>
         </router-link>
         <router-link
-          to="/redeem"
+          to="/product"
           class="text-decoration-none align-self-center"
           active-class="active"
         >

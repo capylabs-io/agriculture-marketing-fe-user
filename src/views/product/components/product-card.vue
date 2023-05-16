@@ -2,8 +2,12 @@
   <div class="card-shadow border-radius-16 overflow-hidden white-bg">
     <v-img src="@/assets/components/landing/product-example.png"></v-img>
     <div class="product-id text-center text-sm py-1">NSHN-12345</div>
-    <div class="text-center text-xl font-weight-medium pa-4">
-      Cây Bonsai cỡ nhỏ
+    <div class="text-sm font-weight-medium px-4 py-2">
+      Bonsai ngân lượng màu vàng kim 2 dòng test thử
+    </div>
+    <div class="text-sm font-weight-medium px-4 py-1 d-flex align-center">
+      <div class="text-dp-xs font-weight-semibold">150.000</div>
+      <div class="ml-1 text-sm neutral80--text">vnd</div>
     </div>
   </div>
 </template>

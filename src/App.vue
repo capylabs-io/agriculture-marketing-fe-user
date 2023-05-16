@@ -223,7 +223,12 @@ body {
   padding: 24px;
   gap: 24px;
 }
-
+.v-pagination__navigation,
+.v-pagination__item {
+  border: 1px solid var(--v-neutral30-base) !important;
+  box-shadow: none !important;
+  border-radius: 8px !important;
+}
 // .theme--light.v-list-item--active::before {
 //   opacity: 0 !important;
 // }
