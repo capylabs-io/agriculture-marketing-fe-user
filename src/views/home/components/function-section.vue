@@ -1,8 +1,19 @@
 <template>
   <div class="page-container mx-auto py-16">
-    <div class="font-weight-semibold text-dp-md text-center">Tính năng</div>
+    <div
+      class="font-weight-semibold text-dp-md text-center"
+      data-aos="fade-up"
+      data-aos-duration="600"
+    >
+      Tính năng
+    </div>
     <v-row no-gutters class="text-center mt-12">
-      <v-col cols="4">
+      <v-col
+        cols="4"
+        data-aos="fade-up"
+        data-aos-duration="600"
+        data-aos-delay="0"
+      >
         <div class="image mx-auto">
           <v-img
             :src="require(`@/assets/components/landing/section2-icon1.png`)"
@@ -16,7 +27,12 @@
           Tăng tính minh bạch về thông tin sản phẩm khi đến tay người tiêu dùng
         </div>
       </v-col>
-      <v-col cols="4">
+      <v-col
+        cols="4"
+        data-aos="fade-up"
+        data-aos-duration="600"
+        data-aos-delay="300"
+      >
         <div class="image mx-auto">
           <v-img
             :src="require(`@/assets/components/landing/section2-icon2.png`)"
@@ -30,7 +46,12 @@
           Cung cấp tem xuất khẩu đạt chuẩn yêu cầu quốc tế
         </div>
       </v-col>
-      <v-col cols="4">
+      <v-col
+        cols="4"
+        data-aos="fade-up"
+        data-aos-duration="600"
+        data-aos-delay="600"
+      >
         <div class="image mx-auto">
           <v-img
             :src="require(`@/assets/components/landing/section2-icon3.png`)"

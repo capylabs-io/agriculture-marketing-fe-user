@@ -1,7 +1,13 @@
 <template>
   <div class="expert-section">
     <div class="page-container mx-auto py-16">
-      <div class="font-weight-semibold text-dp-md text-center">Chuyên Gia</div>
+      <div
+        class="font-weight-semibold text-dp-md text-center"
+        data-aos="fade-up"
+        data-aos-duration="600"
+      >
+        Chuyên Gia
+      </div>
       <div class="mt-12">
         <!-- <v-slide-group
           :max="4"
@@ -28,16 +34,15 @@
         </v-slide-group> -->
 
         <v-row>
-          <v-col cols="12" md="3">
-            <ExpertCard />
-          </v-col>
-          <v-col cols="12" md="3">
-            <ExpertCard />
-          </v-col>
-          <v-col cols="12" md="3">
-            <ExpertCard />
-          </v-col>
-          <v-col cols="12" md="3">
+          <v-col
+            cols="12"
+            md="3"
+            v-for="i in 4"
+            :key="i"
+            data-aos="fade-up"
+            data-aos-duration="600"
+            :data-aos-delay="300 * i"
+          >
             <ExpertCard />
           </v-col>
         </v-row>

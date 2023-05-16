@@ -9,8 +9,20 @@
         <div
           class="content mx-auto d-flex flex-column justify-center full-width"
         >
-          <div class="font-weight-bold text-dp-xxl">Nâng tầm nông sản Việt</div>
-          <div class="text-xl mt-6">
+          <div
+            class="font-weight-bold text-dp-xxl"
+            data-aos="fade-right"
+            data-aos-duration="600"
+            data-aos-delay="0"
+          >
+            Nâng tầm nông sản Việt
+          </div>
+          <div
+            class="text-xl mt-6"
+            data-aos="fade-right"
+            data-aos-duration="600"
+            data-aos-delay="300"
+          >
             Nhanh chóng, tiện lợi giúp người nông dân đáp ứng yêu cầu thị
             trường, bảo vệ người tiêu dùng và tiếp cận thị trường mới
           </div>

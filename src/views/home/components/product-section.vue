@@ -1,9 +1,17 @@
 <template>
   <div class="page-container mx-auto py-16">
-    <div class="font-weight-semibold text-dp-md text-center">
+    <div
+      class="font-weight-semibold text-dp-md text-center"
+      data-aos="fade-up"
+      data-aos-duration="600"
+    >
       Sản phẩm tiêu biểu
     </div>
-    <div class="d-flex justify-center mt-6 gap-8">
+    <div
+      class="d-flex justify-center mt-6 gap-8"
+      data-aos="zoom-in"
+      data-aos-duration="600"
+    >
       <v-btn
         class="text-none text-capitalize px-4 border-radius-8 category active-category"
         elevation="0"
@@ -26,7 +34,7 @@
       >
     </div>
     <div class="mt-12">
-      <v-row>
+      <v-row data-aos="zoom-in-up" data-aos-duration="1000">
         <v-col cols="12" md="3">
           <productCard />
         </v-col>

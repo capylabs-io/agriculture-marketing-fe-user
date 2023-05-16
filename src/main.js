@@ -12,6 +12,8 @@ import utils from "@/plugins/utils";
 import dialog from "@/plugins/dialog";
 import { rules } from "@/plugins/rules";
 import { vueFilterRegister } from "@/plugins/filter";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const pinia = createPinia();
 Vue.use(PiniaVuePlugin);
@@ -36,4 +38,7 @@ new Vue({
   vuetify,
   router,
   render: (h) => h(App),
+  mounted() {
+    AOS.init();
+  },
 }).$mount("#app");
