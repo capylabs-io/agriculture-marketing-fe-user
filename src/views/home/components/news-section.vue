@@ -18,7 +18,7 @@
         data-aos-delay="500"
       >
         <v-img
-          class="border-radius-16 border-neutral30"
+          class="border-radius-16 neutral30-border"
           :src="require('@/assets/components/landing/image-3.webp')"
           max-height="420px"
         >
@@ -51,7 +51,7 @@
           :data-aos-delay="300 * i"
         >
           <v-img
-            class="border-radius-16 border-neutral30"
+            class="border-radius-16 neutral30-border"
             :src="require('@/assets/components/landing/image-3.webp')"
             max-height="132px"
             max-width="176px"

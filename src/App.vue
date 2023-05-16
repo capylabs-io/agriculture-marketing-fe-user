@@ -47,8 +47,11 @@ nav {
 .page-container {
   max-width: 1200px;
 }
-.border-neutral30 {
+.neutral30-border {
   border: 1px solid var(--v-neutral30-base) !important;
+}
+.neutral20-border {
+  border: 1px solid var(--v-neutral20-base) !important;
 }
 .card-shadow {
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0px 2px 4px rgba(0, 0, 0, 0.1) !important;

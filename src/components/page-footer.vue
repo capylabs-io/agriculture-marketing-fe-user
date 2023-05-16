@@ -29,7 +29,7 @@
           <div class="text-none nav-link">Vật tư</div>
         </router-link>
       </div>
-      <div class="d-flex justify-space-between full-width mt-10 pt-6 watermark">
+      <div class="d-flex justify-space-between full-width mt-12 pt-6 watermark">
         <div class="white--text">© 2023 CapyLabs. All rights reserved.</div>
         <div class="d-flex col-gap-36">
           <router-link
