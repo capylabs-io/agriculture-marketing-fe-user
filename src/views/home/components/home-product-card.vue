@@ -1,11 +1,11 @@
 <template>
-  <v-card class="border-radius-16" elevation="2">
-    <v-img src="@/assets/components/landing/image-2.webp"></v-img>
+  <div class="card-shadow border-radius-16 overflow-hidden white-bg">
+    <v-img src="@/assets/components/landing/product-example.png"></v-img>
     <div class="product-id text-center text-sm py-1">NSHN-12345</div>
     <div class="text-center text-xl font-weight-medium pa-4">
-      Mía đường Cực ngon cực ngọt
+      Cây Bonsai cỡ nhỏ
     </div>
-  </v-card>
+  </div>
 </template>
 
 <style scoped>

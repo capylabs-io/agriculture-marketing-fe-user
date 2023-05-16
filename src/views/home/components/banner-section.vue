@@ -3,7 +3,7 @@
     <v-col cols="12" md="6">
       <v-img
         class="full-height"
-        :src="require(`@/assets/components/landing/section1-left.webp`)"
+        :src="require(`@/assets/components/landing/section1-left.png`)"
         cover
       >
         <div
@@ -29,7 +29,7 @@
     <v-col cols="12" md="6">
       <v-carousel
         height="100%"
-        :interval="5000"
+        :interval="10000"
         show-arrows-on-hover
         hide-delimiter-background
         cycle
@@ -52,9 +52,10 @@ export default {
   data() {
     return {
       imageUrls: [
-        require("@/assets/components/landing/section1-right.webp"),
-        require("@/assets/components/landing/right1.png"),
-        require("@/assets/components/landing/right2.png"),
+        require("@/assets/components/landing/section1-right3.jpeg"),
+        require("@/assets/components/landing/section1-right1.png"),
+        require("@/assets/components/landing/section1-right2.jpeg"),
+        require("@/assets/components/landing/section1-right4.jpeg"),
       ],
     };
   },

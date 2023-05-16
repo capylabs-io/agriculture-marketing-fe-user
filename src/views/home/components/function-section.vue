@@ -5,7 +5,7 @@
       <v-col cols="4">
         <div class="image mx-auto">
           <v-img
-            :src="require(`@/assets/components/landing/section2-icon1.webp`)"
+            :src="require(`@/assets/components/landing/section2-icon1.png`)"
           >
           </v-img>
         </div>
@@ -19,7 +19,7 @@
       <v-col cols="4">
         <div class="image mx-auto">
           <v-img
-            :src="require(`@/assets/components/landing/section2-icon2.webp`)"
+            :src="require(`@/assets/components/landing/section2-icon2.png`)"
           >
           </v-img>
         </div>
@@ -33,7 +33,7 @@
       <v-col cols="4">
         <div class="image mx-auto">
           <v-img
-            :src="require(`@/assets/components/landing/section2-icon3.webp`)"
+            :src="require(`@/assets/components/landing/section2-icon3.png`)"
           >
           </v-img>
         </div>

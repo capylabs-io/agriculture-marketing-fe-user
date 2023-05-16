@@ -77,6 +77,7 @@ export default {};
   font-weight: 500;
 }
 .active div.nav-link {
-  color: var(--v-primary50-base) !important;
+  color: var(--v-primary60-base) !important;
+  font-weight: 600;
 }
 </style>

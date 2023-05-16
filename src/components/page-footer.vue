@@ -3,8 +3,8 @@
     <div class="page-container mx-auto d-flex flex-column align-center">
       <v-img
         :src="require('@/assets/footer-logo.png')"
-        max-height="64px"
-        max-width="352px"
+        max-height="52px"
+        max-width="282px"
       ></v-img>
       <div class="d-flex col-gap-36 mt-6">
         <router-link to="/" class="text-decoration-none align-self-center">

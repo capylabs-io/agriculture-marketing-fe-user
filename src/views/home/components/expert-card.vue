@@ -1,7 +1,6 @@
 <template>
-  <v-card
-    class="default-card-shadow border-radius-16 pa-6 text-center"
-    elevation="2"
+  <div
+    class="card-shadow border-radius-16 pa-6 text-center overflow-hidden white-bg"
   >
     <div class="avatar mx-auto">
       <v-img :src="require('@/assets/components/landing/image-4.webp')"></v-img>
@@ -15,7 +14,7 @@
       <v-icon small>mdi-phone</v-icon>
       <div class="text-sm font-weight-semibold ml-1">(+84) 931382179</div>
     </div>
-  </v-card>
+  </div>
 </template>
 
 <style scoped>
