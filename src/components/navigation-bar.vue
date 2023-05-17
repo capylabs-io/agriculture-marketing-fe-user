@@ -8,17 +8,13 @@
     color="white"
   >
     <div class="d-flex justify-space-between full-width align-center">
-      <div class="nav-left justify-start font-weight-bold">
+      <div
+        class="nav-left justify-start font-weight-bold cursor-pointer"
+        @click="goToHome()"
+      >
         <span class="text-xl">Logo Website</span>
       </div>
       <div class="d-flex col-gap-36">
-        <router-link
-          to="/"
-          class="text-decoration-none align-self-center"
-          active-class="active"
-        >
-          <div class="text-none nav-link">Trang chủ</div>
-        </router-link>
         <router-link
           to="/world"
           class="text-decoration-none align-self-center"
@@ -27,7 +23,7 @@
           <div class="text-none nav-link">Giới thiệu</div>
         </router-link>
         <router-link
-          to="/redeem"
+          to="/product"
           class="text-decoration-none align-self-center"
           active-class="active"
         >
@@ -68,7 +64,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    goToHome() {
+      this.$router.push("/");
+    },
+  },
+};
 </script>
 
 <style scoped>
