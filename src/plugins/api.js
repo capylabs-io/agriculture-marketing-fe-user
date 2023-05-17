@@ -1,11 +1,13 @@
 import axios from "axios";
 import utils from "@/plugins/utils";
 
-// axios.defaults.baseURL = process.env.VUE_APP_API_ENDPOINT;
-axios.defaults.baseURL = "https://neobank-dev-api.capylabs.io/api/";
+axios.defaults.baseURL = process.env.VUE_APP_API_ENDPOINT;
+// axios.defaults.baseURL = "https://neobank-dev-api.capylabs.io/api/";
 
 const USER_API = "/users/";
-const CATEGORY_API = "/campaign-categories/";
+const POST_API = "/posts/";
+const PRODUCT_API = "/products/";
+const PRODUCT_CATEGORY_API = "/product-categories/";
 
 const APIHelper = (api) => ({
   search: (params, option) => axios.get(api, { params: utils.filterObject(params) }, option),
@@ -24,7 +26,13 @@ export const Auth = {
 export const User = {
   ...APIHelper(USER_API),
 };
-
-export const Category = {
-  ...APIHelper(CATEGORY_API),
+export const Category = {};
+export const Post = {
+  ...APIHelper(POST_API),
+};
+export const Product = {
+  ...APIHelper(PRODUCT_API),
+};
+export const ProductCategory = {
+  ...APIHelper(PRODUCT_CATEGORY_API),
 };

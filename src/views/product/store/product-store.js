@@ -1,43 +1,38 @@
 import { defineStore } from "pinia";
-// import loading from "@/plugins/loading";
-// import alert from "@/plugins/alert";
-// import { get } from "lodash-es";
+import { Product } from "@/plugins/api.js";
+import loading from "@/plugins/loading";
+import alert from "@/plugins/alert";
+import { get } from "lodash";
 
-export const campaignStore = defineStore("campaign", {
+export const productStore = defineStore("product", {
   state: () => ({
     productPage: 1,
-    productPerPage: 8,
-    product: null,
+    productsPerPage: 12,
+    categories: [],
+    product: {},
     products: [],
     searchKey: "",
   }),
   getters: {
-    // slicedVoucherStore() {
-    //   if (!this.voucherData || this.voucherData.length == 0) return [];
-    //   return this.filteredCampaigns.slice(
-    //     (this.voucherPage - 1) * this.vouchersPerPage,
-    //     this.voucherPage * this.vouchersPerPage
-    //   );
-    // },
-    // filteredCampaigns() {
-    //   if (!this.voucherData || this.voucherData.length == 0) return [];
-    //   let filtered = this.sortedCampaigns;
-    //   if (this.searchKey)
-    //     filtered = filtered.filter((campaign) =>
-    //       campaign.title.toLowerCase().includes(this.searchKey.trim().toLowerCase())
-    //     );
-    //   if (this.filterPartner && this.filterPartner.length > 0) {
-    //     const filterIds = this.filterPartner.map((filter) => filter.id);
-    //     filtered = filtered.filter((campaign) => campaign.partner && filterIds.includes(campaign.partner.id));
-    //   }
-    //   if (this.filterCategory && this.filterCategory.length > 0) {
-    //     const filterIds = this.filterCategory.map((filter) => filter.id);
-    //     filtered = filtered.filter(
-    //       (campaign) => campaign.campaignCategory && filterIds.includes(campaign.campaignCategory.id)
-    //     );
-    //   }
-    //   return filtered;
-    // },
+    slicedProducts() {
+      if (!this.products || this.products.length == 0) return [];
+      return this.filteredProducts.slice(
+        (this.productPage - 1) * this.productsPerPage,
+        this.productPage * this.productsPerPage
+      );
+    },
+    filteredProducts() {
+      if (!this.products || this.products.length == 0) return [];
+      let filtered = this.products;
+      if (this.searchKey)
+        filtered = filtered.filter(
+          (product) =>
+            product.name.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+            product.code.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+            product.origin.toLowerCase().includes(this.searchKey.trim().toLowerCase())
+        );
+      return filtered;
+    },
     // sortedCampaigns() {
     //   if (!this.voucherData || this.voucherData.length == 0) return [];
     //   let sortedCampaigns = this.voucherData;
@@ -69,55 +64,73 @@ export const campaignStore = defineStore("campaign", {
     //   }
     //   return sortedCampaigns;
     // },
-    // totalVoucherPage() {
-    //   if (!this.voucherData || this.filteredCampaigns.length == 0) return 1;
-    //   if (this.filteredCampaigns.length % this.vouchersPerPage == 0)
-    //     return this.filteredCampaigns.length / this.vouchersPerPage;
-    //   else return Math.floor(this.filteredCampaigns.length / this.vouchersPerPage) + 1;
-    // },
+    totalProductPage() {
+      if (!this.products || this.filteredProducts.length == 0) return 1;
+      if (this.filteredProducts.length % this.productsPerPage == 0)
+        return this.filteredProducts.length / this.productsPerPage;
+      else return Math.floor(this.filteredProducts.length / this.productsPerPage) + 1;
+    },
+    totalProduct() {
+      if (!this.products || this.filteredProducts.length == 0) return 1;
+      return this.filteredProducts.length;
+    },
   },
   actions: {
-    // async fetchCategories() {
-    //   try {
-    //     loading.show();
-    //     const res = await Category.fetch();
-    //     if (!res) {
-    //       alert.error("Error occurred when fetching categories!", "Please try again later!");
-    //       return;
-    //     }
-    //     const categories = get(res, "data.data", []);
-    //     if (!categories && categories.length == 0) return;
-    //     const mappedCategories = categories.map((category) => {
-    //       return {
-    //         id: category.id,
-    //         name: get(category, "attributes.name", "Category Name"),
-    //         icon: get(category, "attributes.iconUrl", ""),
-    //       };
-    //     });
-    //     this.categories = mappedCategories;
-    //   } catch (error) {
-    //     alert.error("Error occurred!", error.message);
-    //   } finally {
-    //     loading.hide();
-    //   }
-    // },
-    // async fetchVoucher() {
-    //   const user = userStore();
-    //   try {
-    //     loading.show();
-    //     const res = await Voucher.fetchVouchers();
-    //     if (!res) {
-    //       alert.error(`Error occurred! Please try again later!`);
-    //       return;
-    //     }
-    //     this.voucherData = res.data;
-    //     this.voucherDataId = this.voucherData.map((index) => index.id);
-    //   } catch (error) {
-    //     console.error(`Error: ${error}`);
-    //     alert.error(error);
-    //   } finally {
-    //     loading.hide();
-    //   }
-    // },
+    async fetchProducts() {
+      try {
+        loading.show();
+        const res = await Product.fetch({
+          populate: "*",
+        });
+        if (!res) {
+          alert.error("Error occurred when fetching products!", "Please try again later!");
+          return;
+        }
+        const products = get(res, "data.data", []);
+        if (!products && products.length == 0) return;
+        const mappedProducts = products.map((product) => {
+          return {
+            id: product.id,
+            ...product.attributes,
+            productCategory: get(product, "attributes.productCategory.data.attributes", {}),
+            author: get(product, "attributes.user.data.attributes", {}),
+          };
+        });
+        this.products = mappedProducts;
+      } catch (error) {
+        alert.error("Error occurred!", error.message);
+      } finally {
+        loading.hide();
+      }
+    },
+    async fetchProduct(productCode) {
+      try {
+        loading.show();
+        const res = await Product.fetch({
+          populate: "*",
+          filters: {
+            code: productCode,
+          },
+        });
+        if (!res) {
+          alert.error(`Error occurred! Please try again later!`);
+          return;
+        }
+        const products = get(res, "data.data", []);
+        if (!products || products.length == 0) return;
+        this.product = {
+          id: products[0],
+          ...products[0].attributes,
+        };
+        this.product.productCategory = get(this.product, "productCategory.data.attributes.name", "---");
+        this.product.user = get(this.product, "user.data.attributes");
+      } catch (error) {
+        console.error(`Error: ${error}`);
+        alert.error(error);
+      } finally {
+        loading.hide();
+      }
+    },
   },
 });
+/* eslint-enable */

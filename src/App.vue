@@ -5,9 +5,7 @@
       <PluginLoading />
       <PluginSnackbar />
       <PluginConfirmDialog />
-      <v-container fill-height fluid>
-        <router-view></router-view>
-      </v-container>
+      <router-view></router-view>
     </v-main>
     <PageFooter />
   </v-app>

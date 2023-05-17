@@ -1,37 +1,47 @@
 <template>
-  <div class="page-container py-8 mx-auto">
-    <div class="neutral60--text font-weight-semibold">
-      Trang chủ / Danh mục / Tên sản phẩm
+  <div class="page-container mx-auto pt-6 pb-8">
+    <div class="neutral60--text font-weight-semibold d-flex">
+      <div class="cursor-pointer" @click="$router.push('/')">Trang chủ</div>
+      <span class="mx-2">/</span>
+      <div class="cursor-pointer" @click="$router.push('/product')">
+        Danh sách sản phẩm
+      </div>
+      <span class="mx-2">/</span>
+      <div class="primary--text text-capitalize">
+        {{ productStore.product.name || "Product Name" }}
+      </div>
     </div>
-    <v-row class="mt-4" no-gutters>
+    <v-row class="mt-6" no-gutters>
       <v-col cols="12" md="6" class="right-border pr-6">
-        <v-img
-          class="border-radius-16"
-          src="@/assets/product-image.png"
-          cover
-        ></v-img>
+        <v-img class="border-radius-16" :src="productImage" cover></v-img>
       </v-col>
       <v-col cols="12" md="6" class="pl-6">
         <div class="d-flex justify-space-between">
           <div>
-            <div class="font-weight-semibold text-dp-md">Cây Cau Cảnh</div>
+            <div class="font-weight-semibold text-dp-md text-capitalize">
+              {{ productStore.product.name || "Product Name" }}
+            </div>
             <div
               class="font-weight-semibold text-dp-xs d-flex align-center my-2"
             >
-              150.000<span class="neutral80--text text-xs ml-1">vnđ</span>
+              {{ productStore.product.price || "---"
+              }}<span class="neutral80--text text-xs ml-1">vnđ</span>
             </div>
-            <div class="neutral80--text text-sm">
-              Danh mục sản phẩm: Cây cảnh văn phòng
+            <div class="neutral80--text text-sm text-capitalize">
+              Danh mục sản phẩm:
+              {{ productStore.product.productCategory }}
             </div>
             <div class="neutral80--text text-sm mt-1">
-              Mã sản phẩm: CC-VP-12345
+              Mã sản phẩm: {{ productStore.product.code }}
             </div>
-            <div class="neutral80--text text-sm mt-1">Xuất xứ: Nhật Bản</div>
+            <div class="neutral80--text text-sm mt-1 text-capitalize">
+              Xuất xứ: {{ productStore.product.origin }}
+            </div>
           </div>
           <div>
             <v-img
               class="neutral20-border border-radius-16 qrcode-img"
-              src="@/assets/qrcode-example.png"
+              :src="productQRImage"
             ></v-img>
           </div>
         </div>
@@ -66,63 +76,51 @@
           <div class="text-start mt-4" v-if="currentTab == 0">
             <div>
               <div class="font-weight-semibold">Mô tả sản phẩm</div>
-              <div class="mt-2">
-                Cây Cau Cảnh là loài cây có sức sống mãnh liệt, mang nhiều ý
-                nghĩa về may mắn và tài lộc. Hiện nay loại cây này được trồng
-                nhiều trong không gian nhà ở, môi trường làm việc hay các quán
-                cafe,…
-              </div>
+              <div class="mt-2" v-html="productStore.product.description"></div>
               <v-divider class="mt-4"></v-divider>
             </div>
             <div class="mt-4">
               <div class="font-weight-semibold">Hướng dẫn sử dụng</div>
-              <div class="mt-2">
-                Ánh sáng: Để cây luôn có màu lá tươi, giàu sức sống bạn nên đặt
-                cây ở những nơi có đủ ánh sáng cần thiết. Nếu đặt cây ở những vị
-                trí nắng gay gắt sẽ làm cây dễ bị vàng lá, khô héo và chết dần.
-                <br /><br />
-                Tưới nước: Cây Cau Cảnh là loại ưa ẩm, cần nhiều nước nhưng
-                không ưa ngập úng. Do đó bạn cần chú ý lượng nước khi tưới cây.
-                Chỉ nên cung cấp lượng nước vừa đủ để làm ướt đất.
-                <br /><br />
-                Nhiệt độ: Cây sinh trưởng và phát triển tốt nhất trong 18-23°C.
-                Mức nhiệt thấp nhất mà cây có thể chịu được là 10°C. Nếu dưới
-                nhiệt độ này cây sẽ chậm phát triển và chết.
-                <br /><br />
-                Sâu bệnh: Cây thường gặp phải các loại sâu bệnh có hại như nấm,
-                rệp lá, hay sâu bọ trú ngụ. Do đó, cần kiểm tra thường xuyên cây
-                trồng, cắt bỏ lá khô hay vàng úa và có thể phun thuốc trừ sâu
-                trong trường hợp cần thiết.
-              </div>
+              <div class="mt-2" v-html="productStore.product.instruction"></div>
             </div>
           </div>
           <div class="text-start mt-4" v-if="currentTab == 1">
             <div>
               <div class="font-weight-semibold">Nơi trồng</div>
-              <div class="mt-2">Cây cảnh đồng bằng sông Cửu Long</div>
+              <div class="mt-2">Không có thông tin</div>
               <v-divider class="mt-4"></v-divider>
             </div>
             <div class="mt-4">
               <div class="font-weight-semibold">Địa chỉ</div>
-              <div class="mt-2">
-                Ấp Trường Phước A, xã Tường Long Tây, tỉnh Hậu Long
-              </div>
+              <div class="mt-2">Không có thông tin</div>
               <v-divider class="mt-4"></v-divider>
             </div>
             <div class="mt-4">
               <div class="font-weight-semibold">Số điện thoại</div>
-              <div class="mt-2">+84 32958459</div>
+              <div class="mt-2">Không có thông tin</div>
             </div>
           </div>
           <div class="text-start mt-4" v-if="currentTab == 2">
             <div>
               <div class="font-weight-semibold">Giấy chứng nhận</div>
-              <v-img class="mt-2" src="@/assets/verify-example.png"></v-img>
+              <v-img
+                class="mt-2"
+                :src="productCertificationImage"
+                :aspect-ratio="16 / 9"
+                max-height="200"
+                contain
+              ></v-img>
               <v-divider class="mt-6"></v-divider>
             </div>
             <div class="mt-4">
               <div class="font-weight-semibold">Giấy kiểm định</div>
-              <v-img class="mt-2" src="@/assets/verify-example2.png"></v-img>
+              <v-img
+                class="mt-2"
+                :src="productAccreditationImage"
+                :aspect-ratio="16 / 9"
+                max-height="200"
+                contain
+              ></v-img>
             </div>
           </div>
         </div>
@@ -132,11 +130,47 @@
 </template>
 
 <script>
+import { mapStores } from "pinia";
+import { productStore } from "../store/product-store";
+
 export default {
+  computed: {
+    ...mapStores(productStore),
+    productImage() {
+      if (!this.productStore.product || !this.productStore.product.images)
+        return require("@/assets/no-image.png");
+      return this.productStore.product.images;
+    },
+    productCertificationImage() {
+      if (
+        !this.productStore.product ||
+        !this.productStore.product.certificationImages
+      )
+        return require("@/assets/no-image.png");
+      return this.productStore.product.certificationImages;
+    },
+    productAccreditationImage() {
+      if (
+        !this.productStore.product ||
+        !this.productStore.product.accreditationImages
+      )
+        return require("@/assets/no-image.png");
+      return this.productStore.product.accreditationImages;
+    },
+    productQRImage() {
+      if (!this.productStore.product || !this.productStore.product.qrCodeImage)
+        return require("@/assets/qrcode-example.png");
+      return this.productStore.product.qrCodeImage;
+    },
+  },
   data() {
     return {
       currentTab: 0,
     };
+  },
+  async created() {
+    const code = this.$route.params.code;
+    await this.productStore.fetchProduct(code);
   },
 };
 </script>
