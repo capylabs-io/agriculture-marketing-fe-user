@@ -50,6 +50,9 @@ nav {
 .border-neutral30 {
   border: 1px solid var(--v-neutral30-base) !important;
 }
+.border-neutral20 {
+  border: 1px solid var(--v-neutral20-base) !important;
+}
 .card-shadow {
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0px 2px 4px rgba(0, 0, 0, 0.1) !important;
 }
@@ -228,6 +231,12 @@ body {
   border: 1px solid var(--v-neutral30-base) !important;
   box-shadow: none !important;
   border-radius: 8px !important;
+}
+.v-expansion-panel-content__wrap {
+  padding: 0 !important;
+}
+.v-expansion-panel-header {
+  padding: 0 !important;
 }
 // .theme--light.v-list-item--active::before {
 //   opacity: 0 !important;
