@@ -1,20 +1,16 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="d-flex">
-    <NavigationDrawer />
-    <div class="container mx-auto">
+  <div>
+    <FilterDrawer />
+    <div class="page-container mx-auto pa-6">
       <v-row>
         <v-col v-for="i in 12" :key="i" cols="12" md="3" xl="2">
           <ProductCard class="card mx-auto"> </ProductCard>
         </v-col>
       </v-row>
 
-      <div class="pagination mt-10">
-        <v-pagination
-          class="pa-0 mr-n2"
-          color="primary"
-          :length="10"
-        ></v-pagination>
+      <div class="mt-4">
+        <v-pagination color="primary" :length="10"></v-pagination>
       </div>
     </div>
   </div>
@@ -23,7 +19,7 @@
 <script>
 export default {
   components: {
-    NavigationDrawer: () => import("../components/navigation-drawer.vue"),
+    FilterDrawer: () => import("../components/filter-drawer.vue"),
     ProductCard: () => import("../components/product-card.vue"),
   },
   data() {
@@ -36,8 +32,5 @@ export default {
 .card {
   width: 248px;
   height: max-content;
-}
-.container {
-  width: 1700px;
 }
 </style>

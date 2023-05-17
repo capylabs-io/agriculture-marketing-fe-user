@@ -1,12 +1,8 @@
 <template>
-  <div class="footer-bg px-16 py-12">
-    <div class="page-container mx-auto d-flex flex-column align-center">
-      <v-img
-        :src="require('@/assets/footer-logo.png')"
-        max-height="52px"
-        max-width="282px"
-      ></v-img>
-      <div class="d-flex col-gap-36 mt-6">
+  <v-footer class="footer-bg py-12" app absolute inset>
+    <div class="page-container mx-auto text-center full-width">
+      <img class="footer-logo" :src="require('@/assets/footer-logo.png')" />
+      <div class="d-flex col-gap-36 mt-6 justify-center">
         <router-link to="/" class="text-decoration-none align-self-center">
           <div class="text-none nav-link">Trang chủ</div>
         </router-link>
@@ -53,12 +49,16 @@
         </div>
       </div>
     </div>
-  </div>
+  </v-footer>
 </template>
 
 <style scoped>
 .footer-bg {
   background: #333232 !important;
+}
+.footer-logo {
+  max-width: 282px;
+  max-height: 52px;
 }
 .watermark {
   border-top: 1px solid #666564;

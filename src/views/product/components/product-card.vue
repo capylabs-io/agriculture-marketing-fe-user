@@ -5,12 +5,14 @@
   >
     <v-img src="@/assets/components/landing/product-example.png"></v-img>
     <div class="product-id text-center text-sm py-1">NSHN-12345</div>
-    <div class="text-sm font-weight-medium px-4 py-2">
-      Bonsai ngân lượng màu vàng kim 2 dòng test thử
-    </div>
-    <div class="text-sm font-weight-medium px-4 py-1 d-flex align-center">
-      <div class="text-dp-xs font-weight-semibold">150.000</div>
-      <div class="ml-1 text-sm neutral80--text">vnd</div>
+    <div class="pa-4">
+      <div class="text-sm font-weight-semibold">
+        Bonsai ngân lượng màu vàng kim 2 dòng test thử
+      </div>
+      <div class="text-sm font-weight-medium d-flex align-center mt-1">
+        <div class="text-dp-xs font-weight-semibold">150.000</div>
+        <div class="ml-1 text-sm neutral80--text">vnd</div>
+      </div>
     </div>
   </div>
 </template>

@@ -5,7 +5,9 @@
       <PluginLoading />
       <PluginSnackbar />
       <PluginConfirmDialog />
-      <router-view></router-view>
+      <v-container fill-height fluid>
+        <router-view></router-view>
+      </v-container>
     </v-main>
     <PageFooter />
   </v-app>
@@ -237,6 +239,9 @@ body {
 }
 .v-expansion-panel-header {
   padding: 0 !important;
+}
+.v-expansion-panel--active > .v-expansion-panel-header {
+  min-height: 32px !important;
 }
 // .theme--light.v-list-item--active::before {
 //   opacity: 0 !important;

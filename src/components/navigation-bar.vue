@@ -3,9 +3,10 @@
     class="elevation-2"
     width="100%"
     height="64px"
+    color="white"
     app
     flat
-    color="white"
+    clipped-left
   >
     <div class="d-flex justify-space-between full-width align-center">
       <div

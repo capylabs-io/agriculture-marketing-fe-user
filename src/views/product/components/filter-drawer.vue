@@ -1,11 +1,17 @@
 <template>
-  <v-navigation-drawer class="pa-0" max-width="284px" permanent height="1000px">
-    <div class="d-flex flex-column full-height overflow-hidden pa-5">
-      <div class="d-flex justify-space-between align-center py-3 full-width">
-        <div class="text-md">
+  <v-navigation-drawer
+    class="pa-0 fill-height"
+    width="280"
+    permanent
+    app
+    clipped
+  >
+    <div class="px-6 py-3">
+      <div class="d-flex justify-space-between align-center py-3">
+        <div class="text-md font-weight-medium">
           <v-icon class="mr-2 mb-1">mdi-filter-variant</v-icon>Bộ lọc
         </div>
-        <div class="neutral80--text">Reset filter</div>
+        <v-btn class="px-0 text-none neutral80--text" text>Reset Filter</v-btn>
       </div>
       <v-divider class="mt-2"></v-divider>
 
@@ -34,12 +40,12 @@
               </div>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <v-checkbox>
+              <v-checkbox hide-details>
                 <template v-slot:label>
                   <div class="text-sm font-weight-bold">Cây cảnh</div>
                 </template>
               </v-checkbox>
-              <v-checkbox>
+              <v-checkbox hide-details>
                 <template v-slot:label>
                   <div class="text-sm font-weight-bold">Hoa kiểng</div>
                 </template>
@@ -56,31 +62,31 @@
               </div>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <v-checkbox>
+              <v-checkbox hide-details>
                 <template v-slot:label>
                   <div class="text-sm font-weight-bold">Dưới 500k</div>
                 </template>
               </v-checkbox>
-              <v-checkbox>
+              <v-checkbox hide-details>
                 <template v-slot:label>
                   <div class="text-sm font-weight-bold">
                     Từ 500k đến 1 triệu
                   </div>
                 </template>
               </v-checkbox>
-              <v-checkbox>
+              <v-checkbox hide-details>
                 <template v-slot:label>
                   <div class="text-sm font-weight-bold">
                     Từ 1 triệu đến 5 Triệu
                   </div>
                 </template>
               </v-checkbox>
-              <v-checkbox>
+              <v-checkbox hide-details>
                 <template v-slot:label>
                   <div class="text-sm font-weight-bold">Từ 5 triệu trở lên</div>
                 </template>
               </v-checkbox>
-              <v-checkbox>
+              <v-checkbox hide-details>
                 <template v-slot:label>
                   <div class="text-sm font-weight-bold">Tuỳ chọn</div>
                 </template>
@@ -97,7 +103,6 @@
           >Lọc khoảng giá</v-btn
         >
       </div>
-      <v-spacer></v-spacer>
     </div>
   </v-navigation-drawer>
 </template>
