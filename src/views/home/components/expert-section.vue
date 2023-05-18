@@ -37,13 +37,13 @@
           <v-col
             cols="12"
             md="3"
-            v-for="i in 4"
-            :key="i"
+            v-for="expert in experts"
+            :key="expert.name"
             data-aos="fade-up"
             data-aos-duration="600"
             :data-aos-delay="300 * i"
           >
-            <ExpertCard />
+            <ExpertCard :expert="expert" />
           </v-col>
         </v-row>
       </div>
@@ -55,6 +55,36 @@
 export default {
   components: {
     ExpertCard: () => import("./expert-card.vue"),
+  },
+  data() {
+    return {
+      experts: [
+        {
+          name: "Mai Hồng Hạnh",
+          title: "Tiến sĩ Nông nghiệp quốc gia",
+          phone: "0342371435",
+          avatar: require("@/assets/components/landing/avatar.png"),
+        },
+        {
+          name: "Hoàng Bửu Phát",
+          title: "Giám đốc Hiệp hội cây cảnh Việt Nam",
+          phone: "0274562213",
+          avatar: require("@/assets/components/landing/avatar2.png"),
+        },
+        {
+          name: "Nguyễn Linh Trương",
+          title: "Chủ tịch Hiệp hội bảo toàn Cây và Hoa",
+          phone: "0253782234",
+          avatar: require("@/assets/components/landing/avatar3.png"),
+        },
+        {
+          name: "Phùng Thanh Độ",
+          title: "Chuyên viên kiểm định",
+          phone: "0931382179",
+          avatar: require("@/assets/components/landing/image-3.webp"),
+        },
+      ],
+    };
   },
 };
 </script>

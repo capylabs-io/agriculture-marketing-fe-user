@@ -6,22 +6,28 @@
         <router-link to="/" class="text-decoration-none align-self-center">
           <div class="text-none nav-link">Trang chủ</div>
         </router-link>
-        <router-link to="/world" class="text-decoration-none align-self-center">
+        <!-- <router-link to="/world" class="text-decoration-none align-self-center">
           <div class="text-none nav-link">Giới thiệu</div>
+        </router-link> -->
+        <router-link to="/login" class="text-decoration-none align-self-center">
+          <div class="text-none nav-link">Bảng tin</div>
         </router-link>
         <router-link
-          to="/redeem"
+          to="/product"
           class="text-decoration-none align-self-center"
         >
           <div class="text-none nav-link">Sản phẩm</div>
         </router-link>
-        <router-link to="/login" class="text-decoration-none align-self-center">
-          <div class="text-none nav-link">Bảng tin</div>
-        </router-link>
-        <router-link to="/login" class="text-decoration-none align-self-center">
+        <router-link
+          to="/seedling"
+          class="text-decoration-none align-self-center"
+        >
           <div class="text-none nav-link">Trại giống</div>
         </router-link>
-        <router-link to="/login" class="text-decoration-none align-self-center">
+        <router-link
+          to="/supply"
+          class="text-decoration-none align-self-center"
+        >
           <div class="text-none nav-link">Vật tư</div>
         </router-link>
       </div>

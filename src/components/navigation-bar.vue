@@ -16,12 +16,19 @@
         <span class="text-xl">Logo Website</span>
       </div>
       <div class="d-flex col-gap-36">
-        <router-link
+        <!-- <router-link
           to="/world"
           class="text-decoration-none align-self-center"
           active-class="active"
         >
           <div class="text-none nav-link">Giới thiệu</div>
+        </router-link> -->
+        <router-link
+          to="/login"
+          class="text-decoration-none align-self-center"
+          active-class="active"
+        >
+          <div class="text-none nav-link">Bảng tin</div>
         </router-link>
         <router-link
           to="/product"
@@ -31,21 +38,14 @@
           <div class="text-none nav-link">Sản phẩm</div>
         </router-link>
         <router-link
-          to="/login"
-          class="text-decoration-none align-self-center"
-          active-class="active"
-        >
-          <div class="text-none nav-link">Bảng tin</div>
-        </router-link>
-        <router-link
-          to="/login"
+          to="/seedling"
           class="text-decoration-none align-self-center"
           active-class="active"
         >
           <div class="text-none nav-link">Trại giống</div>
         </router-link>
         <router-link
-          to="/login"
+          to="/supply"
           class="text-decoration-none align-self-center"
           active-class="active"
         >

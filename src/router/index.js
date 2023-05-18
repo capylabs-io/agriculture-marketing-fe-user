@@ -20,6 +20,26 @@ const routes = [
     name: "Product Detail",
     component: () => import("../views/product/pages/product-detail.vue"),
   },
+  {
+    path: "/seedling",
+    name: "Seedling",
+    component: () => import("../views/seedling/pages/list-seedling.vue"),
+  },
+  {
+    path: "/seedling/:code",
+    name: "Seedling Detail",
+    component: () => import("../views/seedling/pages/seedling-detail.vue"),
+  },
+  {
+    path: "/supply",
+    name: "Supply",
+    component: () => import("../views/supply/pages/list-supply.vue"),
+  },
+  {
+    path: "/supply/:code",
+    name: "Supply Detail",
+    component: () => import("../views/supply/pages/supply-detail.vue"),
+  },
 ];
 
 const router = new VueRouter({

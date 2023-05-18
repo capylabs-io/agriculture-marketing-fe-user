@@ -5,7 +5,7 @@
       data-aos="fade-up"
       data-aos-duration="600"
     >
-      Sản phẩm tiêu biểu
+      Giống tiêu biểu
     </div>
     <div
       class="d-flex justify-center mt-6 gap-8"
@@ -15,10 +15,10 @@
       <v-btn
         class="text-none text-capitalize px-4 border-radius-8 category"
         elevation="0"
-        v-for="category in homeStore.productCategories"
-        :class="{ 'active-category': category.id == homeStore.productCategory }"
+        v-for="category in homeStore.seedCategories"
+        :class="{ 'active-category': category.id == homeStore.seedCategory }"
         :key="category.id"
-        @click="homeStore.productCategory = category.id"
+        @click="homeStore.seedCategory = category.id"
         >{{ category.name }}</v-btn
       >
     </div>
@@ -27,10 +27,10 @@
         <v-col
           cols="12"
           md="3"
-          v-for="product in homeStore.slicedProducts"
-          :key="product.id"
+          v-for="seed in homeStore.slicedSeeds"
+          :key="seed.id"
         >
-          <productCard :product="product" />
+          <seedCard :product="seed" />
         </v-col>
       </v-row>
     </div>
@@ -38,7 +38,7 @@
       <v-btn
         class="text-none text-capitalize px-3 py-5 border-radius-8 btn-show-more"
         elevation="0"
-        @click="$router.push('/product')"
+        @click="$router.push('/seed')"
         >Xem thêm</v-btn
       >
     </div>
@@ -53,7 +53,7 @@ export default {
     ...mapStores(homeStore),
   },
   components: {
-    productCard: () => import("./home-product-card.vue"),
+    seedCard: () => import("./home-product-card.vue"),
   },
 };
 </script>

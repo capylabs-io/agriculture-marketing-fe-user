@@ -13,7 +13,7 @@
         </div>
         <v-btn
           class="px-0 text-none neutral80--text font-weight-semibold"
-          @click="productStore.resetFilter()"
+          @click="supplyStore.resetFilter()"
           text
           >Xóa bộ lọc</v-btn
         >
@@ -21,7 +21,7 @@
       <v-divider class="mt-2"></v-divider>
       <div class="d-flex justify-space-between align-center py-4 full-width">
         <v-text-field
-          v-model="productStore.searchKey"
+          v-model="supplyStore.searchKey"
           class="border-radius-6 border-neutral20"
           placeholder="Tìm kiếm từ khóa"
           prepend-inner-icon="mdi-magnify"
@@ -45,8 +45,8 @@
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-checkbox
-                v-for="category in productStore.categories"
-                v-model="productStore.filterCategory"
+                v-for="category in supplyStore.categories"
+                v-model="supplyStore.filterCategory"
                 :key="category.id"
                 :value="category.id"
                 hide-details
@@ -70,7 +70,7 @@
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-checkbox
-                v-model="productStore.filterPrice"
+                v-model="supplyStore.filterPrice"
                 value="lowerThan500k"
                 hide-details
               >
@@ -79,7 +79,7 @@
                 </template>
               </v-checkbox>
               <v-checkbox
-                v-model="productStore.filterPrice"
+                v-model="supplyStore.filterPrice"
                 value="between500kAnd1mil"
                 hide-details
               >
@@ -90,7 +90,7 @@
                 </template>
               </v-checkbox>
               <v-checkbox
-                v-model="productStore.filterPrice"
+                v-model="supplyStore.filterPrice"
                 value="between1mAnd5mil"
                 hide-details
               >
@@ -101,7 +101,7 @@
                 </template>
               </v-checkbox>
               <v-checkbox
-                v-model="productStore.filterPrice"
+                v-model="supplyStore.filterPrice"
                 value="over5mil"
                 hide-details
               >
@@ -132,11 +132,11 @@
 
 <script>
 import { mapStores } from "pinia";
-import { productStore } from "../store/product-store";
+import { supplyStore } from "../store/supply-store";
 
 export default {
   computed: {
-    ...mapStores(productStore),
+    ...mapStores(supplyStore),
   },
   methods: {
     onLogoutClicked() {
