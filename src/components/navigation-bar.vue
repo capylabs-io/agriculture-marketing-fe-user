@@ -31,7 +31,7 @@
           <div class="text-none nav-link">Sản phẩm</div>
         </router-link>
         <router-link
-          to="/login"
+          to="/news"
           class="text-decoration-none align-self-center"
           active-class="active"
         >

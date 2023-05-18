@@ -20,6 +20,16 @@ const routes = [
     name: "Product Detail",
     component: () => import("../views/product/pages/product-detail.vue"),
   },
+  {
+    path: "/news",
+    name: "List New",
+    component: () => import("../views/news/pages/list-news.vue"),
+  },
+  {
+    path: "/news/:code",
+    name: "News Detail",
+    component: () => import("../views/news/pages/news-detail.vue"),
+  },
 ];
 
 const router = new VueRouter({
