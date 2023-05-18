@@ -8,17 +8,17 @@
           <div class="neutral70--text">
             Hiển thị
             <span class="text-lg font-weight-bold">{{
-              productStore.totalFilteredProduct
+              seedStore.totalFilteredSeed
             }}</span>
             trên
             <span class="text-lg font-weight-bold">{{
-              productStore.totalProduct
+              seedStore.totalSeed
             }}</span>
             kết quả
           </div>
           <v-select
             class="sort-select border-radius-6"
-            v-model="productStore.sortBy"
+            v-model="seedStore.sortBy"
             :items="sortBy"
             item-text="text"
             item-value="value"
@@ -27,25 +27,25 @@
             dense
           ></v-select>
         </div>
-        <div v-if="productStore.totalFilteredProduct > 0">
+        <div v-if="seedStore.totalFilteredSeed > 0">
           <v-row class="mt-4">
             <v-col
-              v-for="product in productStore.slicedProducts"
-              :key="product.id"
+              v-for="seed in seedStore.slicedSeeds"
+              :key="seed.id"
               cols="12"
               sm="6"
               md="4"
               xl="3"
             >
-              <ProductCard :product="product"></ProductCard>
+              <SeedCard :seed="seed"></SeedCard>
             </v-col>
           </v-row>
 
           <div class="mt-4">
             <v-pagination
               color="primary"
-              :length="productStore.totalProductPage"
-              v-model="productStore.productPage"
+              :length="seedStore.totalSeedPage"
+              v-model="seedStore.seedPage"
             ></v-pagination>
           </div>
         </div>
@@ -62,20 +62,20 @@
 
 <script>
 import { mapStores } from "pinia";
-import { productStore } from "../store/product-store";
+import { seedStore } from "../store/seed-store";
 
 export default {
   components: {
     FilterDrawer: () => import("../components/filter-drawer.vue"),
-    ProductCard: () => import("../components/product-card.vue"),
+    SeedCard: () => import("../components/seedling-card.vue"),
   },
   computed: {
-    ...mapStores(productStore),
+    ...mapStores(seedStore),
   },
   async created() {
     await Promise.all([
-      this.productStore.fetchProducts(),
-      this.productStore.fetchCategories(),
+      this.seedStore.fetchSeeds(),
+      this.seedStore.fetchCategories(),
     ]);
   },
   data() {

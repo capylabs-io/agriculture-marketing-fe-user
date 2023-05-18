@@ -3,19 +3,44 @@
     class="card-shadow border-radius-16 pa-6 text-center overflow-hidden white-bg"
   >
     <div class="avatar mx-auto">
-      <v-img :src="require('@/assets/components/landing/image-4.webp')"></v-img>
+      <v-img :src="expertImage" :aspect-ratio="1 / 1"></v-img>
     </div>
     <div class="mt-6">
-      <div class="text-lg font-weight-semibold">Phùng Thanh Độ</div>
-      <div class="text-sm neutral70--text">Chuyên viên kiểm định</div>
+      <div class="text-lg font-weight-semibold">{{ expertName }}</div>
+      <div class="text-sm neutral70--text">{{ expertTitle }}</div>
     </div>
     <v-divider class="my-4"></v-divider>
     <div class="d-flex align-center justify-center">
       <v-icon small>mdi-phone</v-icon>
-      <div class="text-sm font-weight-semibold ml-1">(+84) 931382179</div>
+      <div class="text-sm font-weight-semibold ml-1">{{ expertPhone }}</div>
     </div>
   </div>
 </template>
+
+<script>
+import { get } from "lodash";
+export default {
+  computed: {
+    expertImage() {
+      if (!this.expert || !this.expert.avatar)
+        return require("@/assets/components/landing/image-3.webp");
+      return this.expert.avatar;
+    },
+    expertName() {
+      return get(this.expert, "name", "Họ và tên");
+    },
+    expertTitle() {
+      return get(this.expert, "name", "Chuyên gia");
+    },
+    expertPhone() {
+      return get(this.expert, "phone", "Số điện thoại");
+    },
+  },
+  props: {
+    expert: Object,
+  },
+};
+</script>
 
 <style scoped>
 .avatar {

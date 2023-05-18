@@ -1,12 +1,36 @@
 <template>
   <div class="card-shadow border-radius-16 overflow-hidden white-bg">
-    <v-img src="@/assets/components/landing/product-example.png"></v-img>
-    <div class="product-id text-center text-sm py-1">NSHN-12345</div>
+    <v-img :src="productImage" :aspect-ratio="1 / 1" cover></v-img>
+    <div class="product-id text-center text-sm py-1">
+      {{ productCode }}
+    </div>
     <div class="text-center text-xl font-weight-medium pa-4">
-      Cây Bonsai cỡ nhỏ
+      {{ productName }}
     </div>
   </div>
 </template>
+
+<script>
+import { get } from "lodash";
+export default {
+  computed: {
+    productImage() {
+      if (!this.product || !this.product.images)
+        return require("@/assets/no-image.png");
+      return this.product.images;
+    },
+    productCode() {
+      return get(this.product, "code", "Mã sản phẩm");
+    },
+    productName() {
+      return get(this.product, "name", "Tên sản phẩm");
+    },
+  },
+  props: {
+    product: Object,
+  },
+};
+</script>
 
 <style scoped>
 .product-id {

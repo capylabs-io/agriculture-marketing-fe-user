@@ -7,8 +7,12 @@ axios.defaults.baseURL = process.env.VUE_APP_API_ENDPOINT;
 const USER_API = "/users/";
 const POST_API = "/posts/";
 const PRODUCT_API = "/products/";
+const SEED_API = "/seedlings/";
+const SUPPLY_CATEGORY_API = "/supply-categories/";
+const SUPPLY_API = "/supplies/";
 const PRODUCT_CATEGORY_API = "/product-categories/";
 const POST_CATEGORY_API = "/post-categories/";
+const SEED_CATEGORY_API = "/seedling-categories/";
 
 const APIHelper = (api) => ({
   search: (params, option) =>
@@ -48,4 +52,16 @@ export const ProductCategory = {
 };
 export const PostCategory = {
   ...APIHelper(POST_CATEGORY_API),
+};
+export const Seed = {
+  ...APIHelper(SEED_API),
+};
+export const SeedCategory = {
+  ...APIHelper(SEED_CATEGORY_API),
+};
+export const Supply = {
+  ...APIHelper(SUPPLY_API),
+};
+export const SupplyCategory = {
+  ...APIHelper(SUPPLY_CATEGORY_API),
 };
