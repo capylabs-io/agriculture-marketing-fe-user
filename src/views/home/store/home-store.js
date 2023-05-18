@@ -1,42 +1,38 @@
 import { defineStore } from "pinia";
-import { Product, ProductCategory, Seed, SeedCategory } from "@/plugins/api.js";
+import { Product, ProductCategory, Post } from "@/plugins/api.js";
 import loading from "@/plugins/loading";
 import alert from "@/plugins/alert";
 import { get } from "lodash";
 
 export const homeStore = defineStore("home", {
   state: () => ({
-    productCategory: "",
+    productCategory: "all",
     productCategories: [],
     products: [],
-    seedCategory: "",
-    seedCategories: [],
-    seeds: [],
+    posts: [],
   }),
   getters: {
     slicedProducts() {
       if (!this.products || this.products.length == 0) return [];
-      return this.filteredProducts.slice(0, 9);
+      return this.filteredProducts.slice(0, 8);
     },
     filteredProducts() {
       if (!this.products || this.products.length == 0) return [];
-      if (!this.productCategory) return this.products;
+      if (!this.productCategory || this.productCategory == "all")
+        return this.products;
       return this.products.filter(
         (product) =>
           product.productCategory &&
           product.productCategory.id == this.productCategory
       );
     },
-    slicedSeeds() {
-      if (!this.seeds || this.seeds.length == 0) return [];
-      return this.filteredSeeds.slice(0, 9);
+    newestPost() {
+      if (!this.posts || this.posts.length == 0) return {};
+      return this.posts[0];
     },
-    filteredSeeds() {
-      if (!this.seeds || this.seeds.length == 0) return [];
-      if (!this.seedCategory) return this.seeds;
-      return this.seeds.filter(
-        (seed) => seed.seedCategory && seed.seedCategory.id == this.seedCategory
-      );
+    otherPosts() {
+      if (!this.posts || this.posts.length == 0) return [];
+      return this.posts.slice(1, 4);
     },
   },
   actions: {
@@ -73,6 +69,47 @@ export const homeStore = defineStore("home", {
         loading.hide();
       }
     },
+    async fetchPosts() {
+      try {
+        loading.show();
+        const res = await Post.fetch({
+          pagination: {
+            page: 1,
+            pageSize: 4,
+          },
+          populate: "*",
+        });
+        if (!res) {
+          alert.error(
+            "Error occurred when fetching news!",
+            "Please try again later!"
+          );
+          return;
+        }
+        const posts = get(res, "data.data", []);
+        if (!posts && posts.length == 0) return;
+        const mappedPosts = posts.map((post) => {
+          return {
+            id: post.id,
+            ...post.attributes,
+            postCategory: {
+              id: get(post, "attributes.postCategory.data.id", -1),
+              ...get(post, "attributes.postCategory.data.attributes", {}),
+            },
+            author: get(
+              post,
+              "attributes.user.data.attributes.username",
+              "Admin"
+            ),
+          };
+        });
+        this.posts = mappedPosts;
+      } catch (error) {
+        alert.error("Error occurred!", error.message);
+      } finally {
+        loading.hide();
+      }
+    },
     async fetchProductCategories() {
       try {
         loading.show();
@@ -93,65 +130,6 @@ export const homeStore = defineStore("home", {
           };
         });
         this.productCategories = mappedCategories;
-      } catch (error) {
-        alert.error("Error occurred!", error.message);
-      } finally {
-        loading.hide();
-      }
-    },
-    async fetchSeeds() {
-      try {
-        loading.show();
-        const res = await Seed.fetch({
-          populate: "*",
-        });
-        if (!res) {
-          alert.error(
-            "Error occurred when fetching seeds!",
-            "Please try again later!"
-          );
-          return;
-        }
-        const seeds = get(res, "data.data", []);
-        if (!seeds && seeds.length == 0) return;
-        const mappedSeeds = seeds.map((seed) => {
-          return {
-            id: seed.id,
-            ...seed.attributes,
-            seedCategory: {
-              id: get(seed, "attributes.seedCategory.data.id", -1),
-              ...get(seed, "attributes.seedCategory.data.attributes", {}),
-            },
-            author: get(seed, "attributes.user.data.attributes", {}),
-          };
-        });
-        this.seeds = mappedSeeds;
-      } catch (error) {
-        alert.error("Error occurred!", error.message);
-      } finally {
-        loading.hide();
-      }
-    },
-    async fetchSeedCategories() {
-      try {
-        loading.show();
-        const res = await SeedCategory.fetch();
-        if (!res) {
-          alert.error(
-            "Error occurred when fetching seed categories!",
-            "Please try again later!"
-          );
-          return;
-        }
-        const categories = get(res, "data.data", []);
-        if (!categories && categories.length == 0) return;
-        const mappedCategories = categories.map((category) => {
-          return {
-            id: category.id,
-            name: get(category, "attributes.name", "Category Name"),
-          };
-        });
-        this.seedCategories = mappedCategories;
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {

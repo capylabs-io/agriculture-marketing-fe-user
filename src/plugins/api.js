@@ -40,9 +40,6 @@ export const User = {
 export const Category = {};
 export const Post = {
   ...APIHelper(POST_API),
-  topNewPost: () => {
-    axios.get("posts?sort[0]=createdAt%3Adesc&populate=*&pagination[limit]=3");
-  },
 };
 export const Product = {
   ...APIHelper(PRODUCT_API),

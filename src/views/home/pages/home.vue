@@ -28,8 +28,7 @@ export default {
     await Promise.all([
       this.homeStore.fetchProducts(),
       this.homeStore.fetchProductCategories(),
-      this.homeStore.fetchSeeds(),
-      this.homeStore.fetchSeedCategories(),
+      this.homeStore.fetchPosts(),
     ]);
   },
 };

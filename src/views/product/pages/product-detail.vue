@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container mx-auto pt-6 pb-8">
+  <div class="page-container mx-auto pt-6 pb-8 px-6">
     <div class="neutral60--text font-weight-semibold d-flex">
       <div class="cursor-pointer" @click="$router.push('/')">Trang chủ</div>
       <span class="mx-2">/</span>

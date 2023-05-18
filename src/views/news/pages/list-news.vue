@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div>
-    <div class="page-container mx-auto">
+    <div class="page-container mx-auto pa-6">
       <v-row class="mt-8">
         <v-col cols="6">
           <div class="text-dp-md font-weight-semibold">Tin tức</div>
@@ -33,7 +33,7 @@
               :class="{ active: currentTab == 2 }"
               @click="currentTab = 2"
             >
-              kiến thức
+              Kiến thức
             </div>
             <v-divider vertical></v-divider>
             <div
@@ -86,13 +86,14 @@
 
       <v-row>
         <v-col
+          class="align-self-scretch"
           v-for="obj in newStore.slicedlistNew"
           :key="obj.id"
           cols="12"
           md="4"
           xl="4"
         >
-          <NewCard class="card mx-auto" :post="obj"> </NewCard>
+          <NewCard :post="obj"> </NewCard>
         </v-col>
       </v-row>
 

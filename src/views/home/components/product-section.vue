@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container mx-auto py-16">
+  <div class="page-container mx-auto py-16 px-6">
     <div
       class="font-weight-semibold text-dp-md text-center"
       data-aos="fade-up"
@@ -12,6 +12,13 @@
       data-aos="zoom-in"
       data-aos-duration="600"
     >
+      <v-btn
+        class="text-none text-capitalize px-4 border-radius-8 category"
+        elevation="0"
+        :class="{ 'active-category': homeStore.productCategory == 'all' }"
+        @click="homeStore.productCategory = 'all'"
+        >All</v-btn
+      >
       <v-btn
         class="text-none text-capitalize px-4 border-radius-8 category"
         elevation="0"

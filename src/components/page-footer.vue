@@ -1,5 +1,5 @@
 <template>
-  <v-footer class="footer-bg py-12" app absolute>
+  <v-footer class="footer-bg py-12">
     <div class="page-container mx-auto text-center full-width">
       <img class="footer-logo" :src="require('@/assets/footer-logo.png')" />
       <div class="d-flex col-gap-36 mt-6 justify-center">

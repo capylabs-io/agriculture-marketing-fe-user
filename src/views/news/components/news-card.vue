@@ -1,15 +1,15 @@
 <template>
   <div
-    class="card-shadow border-radius-16 overflow-hidden white-bg cursor-pointer neutral20-border"
+    class="card-shadow border-radius-16 overflow-hidden white-bg cursor-pointer neutral20-border full-height d-flex flex-column"
     @click="goToNewsDetail()"
   >
-    <v-img max-height="170px" :src="postImage"></v-img>
+    <v-img :aspect-ratio="16 / 9" :src="postImage" cover></v-img>
     <!-- <div class="product-id text-center text-sm py-1">NSHN-12345</div> -->
-    <div class="pa-5">
+    <div class="pa-5 d-flex flex-column full-height">
       <div class="text-sm font-weight-medium title">
         {{ post.newsCategory.name }}
       </div>
-      <div class="text-xl font-weight-semibold mt-2">
+      <div class="text-xl font-weight-semibold mt-2 flex-grow-1">
         {{ post.title }}
       </div>
       <div class="text-sm font-weight-medium mt-2 neutral40--text">
@@ -29,9 +29,9 @@ export default {
   },
   computed: {
     postImage() {
-      if (!this.new || !this.new.images)
+      if (!this.post || !this.post.images)
         return require("@/assets/no-image.png");
-      return this.new.images;
+      return this.post.images;
     },
   },
   methods: {

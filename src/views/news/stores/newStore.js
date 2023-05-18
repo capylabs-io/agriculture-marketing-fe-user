@@ -85,34 +85,38 @@ export const newStore = defineStore("new", {
     },
   },
   actions: {
-    async fetchlistNew() {
+    async fetchlistNew(params) {
       try {
         loading.show();
         const res = await Post.fetch({
-          populate: "postCategory",
+          ...params,
+          populate: "*",
         });
         if (!res) {
           alert.error(
-            "Error occurred when fetching listNew!",
+            "Error occurred when fetching news!",
             "Please try again later!"
           );
           return;
         }
-        const listNew = get(res, "data.data", []);
-        if (!listNew && listNew.length == 0) return;
-        const mappedlistNew = listNew.map((news) => {
+        const posts = get(res, "data.data", []);
+        if (!posts && posts.length == 0) return;
+        const mappedPosts = posts.map((post) => {
           return {
-            id: news.id,
-            ...news.attributes,
-            newsCategory: get(
-              news,
-              "attributes.postCategory.data.attributes",
-              {}
+            id: post.id,
+            ...post.attributes,
+            newsCategory: {
+              id: get(post, "attributes.postCategory.data.id", -1),
+              ...get(post, "attributes.postCategory.data.attributes", {}),
+            },
+            author: get(
+              post,
+              "attributes.user.data.attributes.username",
+              "Admin"
             ),
-            author: get(news, "attributes.user.data.attributes", {}),
           };
         });
-        this.listNew = mappedlistNew;
+        this.listNew = mappedPosts;
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -123,10 +127,7 @@ export const newStore = defineStore("new", {
       try {
         loading.show();
         const res = await Post.fetchOne(newsCode, {
-          populate: "postCategory",
-          // filters: {
-          //   code: newsCode,
-          // },
+          populate: "*",
         });
         if (!res) {
           alert.error(`Error occurred! Please try again later!`);
@@ -134,21 +135,22 @@ export const newStore = defineStore("new", {
         }
         const listNew = get(res, "data.data", {});
         if (!listNew || listNew.length == 0) return;
+        const post = listNew;
+        console.log("post", post);
         this.news = {
-          id: listNew.id,
-          ...listNew.attributes,
+          id: post.id,
+          ...post.attributes,
           newsCategory: get(
-            listNew,
-            "attributes.postCategory.data.attributes",
-            {}
+            post,
+            "attributes.postCategory.data.attributes.name",
+            "Danh mục bài viết"
+          ),
+          author: get(
+            post,
+            "attributes.user.data.attributes.username",
+            "Admin"
           ),
         };
-        // this.news.newsCategory = get(
-        //   this.news,
-        //   "newsCategory.data.attributes.name",
-        //   "---"
-        // );
-        // this.news.user = get(this.news, "user.data.attributes");
       } catch (error) {
         console.error(`Error: ${error}`);
         alert.error(error);

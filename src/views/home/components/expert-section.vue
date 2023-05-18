@@ -1,6 +1,6 @@
 <template>
   <div class="expert-section">
-    <div class="page-container mx-auto py-16">
+    <div class="page-container mx-auto py-16 px-6">
       <div
         class="font-weight-semibold text-dp-md text-center"
         data-aos="fade-up"
@@ -37,7 +37,7 @@
           <v-col
             cols="12"
             md="3"
-            v-for="expert in experts"
+            v-for="(expert, i) in experts"
             :key="expert.name"
             data-aos="fade-up"
             data-aos-duration="600"
