@@ -4,7 +4,7 @@
     <v-img
       max-width="100%"
       max-height="560px"
-      src="@/assets/components/landing/product-example.png"
+      :src="postImage"
       :aspect-ratio="16 / 9"
     ></v-img>
     <div class="mt-8 content-container mx-auto">
@@ -20,35 +20,28 @@
             >
               Phùng Thanh Độ
             </div>
-            <div class="text-caption neutral70--text">20/10/2023</div>
+            <div class="text-caption neutral70--text">
+              {{ newStore.news.createdAt | ddmmyyyyhhmmss }}
+            </div>
           </div>
         </div>
-        <div class="text-sm font-weight-medium title">KIẾN THỨC</div>
+        <div class="text-sm font-weight-medium title">
+          {{ newStore.news.newsCategory.name }}
+        </div>
       </div>
       <div class="tex-left mt-7">
         <div class="text-dp-lg font-weight-semibold">
-          Cây Cau Cảnh – Loại cây mang ý nghĩa tài lộc và phú quý
+          {{ newStore.news.title }}
         </div>
         <div class="mt-8">
-          <p class="text-dp-sm font-weight-semibold">
+          <div v-html="newStore.news.content" />
+          <!-- <p class="text-dp-sm font-weight-semibold">
             Đặc điểm của cây Cau Cảnh
           </p>
           <div class="text-lg neutral80--text">
-            <p>
-              Cây Cau Cảnh hay còn được còn được gọi là cây Cau Vàng hay cây Cau
-              Kiểng. Loại cây này có danh pháp khoa học là Chrysalidocarpus
-              lutescens, thuộc họ Arecaceae. Cau Cảnh có chiều cao trung bình
-              khoảng 70-2m. Cây mọc thành bụi, thân cây vươn thẳng và có màu
-              xanh ngả vàng. Các tàu lá mọc thẳng từ gốc, đối xứng với nhau tỏa
-              đều và xanh mướt. Ở giữa các phiến lá là phần gân cứng màu vàng.
-            </p>
-            <p>
-              Cau Cảnh khó có hoa hơn những cây cau thường, trung bình 1 năm chỉ
-              nở 1-2 lần. Hoa có mùi thơm ngát mọc thành từng chùm vàng. Quả Cau
-              Cảnh tròn, nhỏ, màu vàng hoặc màu đỏ.
-            </p>
-          </div>
-          <p class="text-dp-sm font-weight-semibold">
+           {{newStore.news.content}}
+          </div> -->
+          <!-- <p class="text-dp-sm font-weight-semibold">
             Cách trồng Cau Cảnh tại nhà
           </p>
           <div class="text-lg neutral80--text">
@@ -104,7 +97,7 @@
               trồng, cắt bỏ lá khô hay vàng úa và có thể phun thuốc trừ sâu
               trong trường hợp cần thiết.
             </p>
-          </div>
+          </div> -->
         </div>
       </div>
       <v-divider class="mt-16"></v-divider>
@@ -129,18 +122,45 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col v-for="i in 3" :key="i" cols="12" md="4" xl="4">
-          <ProductCard class="card mx-auto"> </ProductCard>
+        <v-col
+          v-for="obj in newStore.slicedlistNew"
+          :key="obj.id"
+          cols="12"
+          md="4"
+          xl="4"
+        >
+          <NewCard class="card mx-auto" :post="obj"> </NewCard>
         </v-col>
       </v-row>
+      <!-- <v-row>
+        <v-col
+          v-for="obj in newStore.newPosts"
+          :key="obj.id"
+          cols="12"
+          md="4"
+          xl="4"
+        >
+          <NewCard class="card mx-auto" :post="obj"> </NewCard>
+        </v-col>
+      </v-row> -->
     </div>
   </div>
 </template>
 
 <script>
+import { mapStores } from "pinia";
+import { newStore } from "../stores/newStore";
 export default {
+  computed: {
+    ...mapStores(newStore),
+    postImage() {
+      if (!this.newStore.news || !this.newStore.news.images)
+        return require("@/assets/no-image.png");
+      return this.newStore.news.images;
+    },
+  },
   components: {
-    ProductCard: () => import("../components/news-card.vue"),
+    NewCard: () => import("../components/news-card.vue"),
   },
   data() {
     return {
@@ -156,6 +176,13 @@ export default {
         },
       ],
     };
+  },
+  async created() {
+    const code = this.$route.params.code;
+    await this.newStore.fetchnews(code);
+    await this.newStore.fetchlistNew();
+    // await this.newStore.top3NewPost();
+    console.log("data", this.newStore.newPosts);
   },
 };
 </script>

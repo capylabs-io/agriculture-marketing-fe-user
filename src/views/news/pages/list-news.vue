@@ -55,6 +55,7 @@
         </v-col>
         <v-col cols="3">
           <v-text-field
+            v-model="newStore.searchKey"
             class="border-radius-6 border-neutral20"
             placeholder="Tìm kiếm từ khóa"
             prepend-inner-icon="mdi-magnify"
@@ -84,22 +85,37 @@
       </v-row>
 
       <v-row>
-        <v-col v-for="i in 12" :key="i" cols="12" md="4" xl="4">
-          <ProductCard class="card mx-auto"> </ProductCard>
+        <v-col
+          v-for="obj in newStore.slicedlistNew"
+          :key="obj.id"
+          cols="12"
+          md="4"
+          xl="4"
+        >
+          <NewCard class="card mx-auto" :post="obj"> </NewCard>
         </v-col>
       </v-row>
 
       <div class="mt-4 mb-16">
-        <v-pagination color="primary" :length="10"></v-pagination>
+        <v-pagination
+          color="primary"
+          :length="newStore.totalnewsPage"
+          v-model="newStore.newsPage"
+        ></v-pagination>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapStores } from "pinia";
+import { newStore } from "../stores/newStore";
 export default {
+  computed: {
+    ...mapStores(newStore),
+  },
   components: {
-    ProductCard: () => import("../components/news-card.vue"),
+    NewCard: () => import("../components/news-card.vue"),
   },
   data() {
     return {
@@ -115,6 +131,9 @@ export default {
         },
       ],
     };
+  },
+  created() {
+    this.newStore.fetchlistNew();
   },
 };
 </script>

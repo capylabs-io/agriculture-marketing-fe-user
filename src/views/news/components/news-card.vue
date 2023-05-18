@@ -2,19 +2,18 @@
   <div
     class="card-shadow border-radius-16 overflow-hidden white-bg cursor-pointer neutral20-border"
     @click="goToNewsDetail()"
-    >
-    <v-img
-      max-height="170px"
-      src="@/assets/components/landing/product-example.png"
-    ></v-img>
+  >
+    <v-img max-height="170px" :src="postImage"></v-img>
     <!-- <div class="product-id text-center text-sm py-1">NSHN-12345</div> -->
     <div class="pa-5">
-      <div class="text-sm font-weight-medium title">KIẾN THỨC</div>
+      <div class="text-sm font-weight-medium title">
+        {{ post.newsCategory.name }}
+      </div>
       <div class="text-xl font-weight-semibold mt-2">
-        Cây Cau Cảnh – Loại cây mang ý nghĩa tài lộc và phú quý
+        {{ post.title }}
       </div>
       <div class="text-sm font-weight-medium mt-2 neutral40--text">
-        20/10/2023
+        {{ post.createdAt | ddmmyyyyhhmmss }}
       </div>
     </div>
   </div>
@@ -22,9 +21,22 @@
 
 <script>
 export default {
+  props: {
+    post: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  computed: {
+    postImage() {
+      if (!this.new || !this.new.images)
+        return require("@/assets/no-image.png");
+      return this.new.images;
+    },
+  },
   methods: {
     goToNewsDetail() {
-      this.$router.push("/news/1");
+      this.$router.push(`/news/${this.post.id}`);
     },
   },
 };
