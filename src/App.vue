@@ -44,6 +44,9 @@ nav {
     }
   }
 }
+.sort-select {
+  max-width: 260px !important;
+}
 .page-container {
   max-width: 1200px;
 }
