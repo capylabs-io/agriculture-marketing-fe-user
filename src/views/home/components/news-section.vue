@@ -20,25 +20,24 @@
         <v-img
           class="border-radius-16 neutral30-border cursor-pointer"
           :src="productImage(homeStore.newestPost.images)"
-          max-height="420px"
           @click="goToPost(homeStore.newestPost.id)"
         >
           <v-img
             class="image-gradient"
             :src="require('@/assets/components/landing/image-gradient.png')"
           ></v-img>
-          <div class="big-new-title white--text pa-6">
+          <div class="big-new-title white--text pa-6 full-width">
             <div class="font-weight-semibold text-dp-xs">
-              {{ newestPostTitle }}
+              {{ homeStore.newestPost.title }}
             </div>
-            <div class="text-md mt-1 font-weight-light">
-              {{ newestPostContent }}
+            <div class="text-md mt-1 font-weight-light text-truncate">
+              {{ stripHtml(homeStore.newestPost.content) }}
             </div>
           </div>
         </v-img>
       </v-col>
       <v-col
-        class="d-flex flex-column justify-space-between pl-6"
+        class="d-flex flex-column justify-space-between pl-6 gap-16"
         cols="12"
         md="6"
       >
@@ -59,12 +58,12 @@
               width="176px"
             ></v-img>
           </div>
-          <div class="ml-4">
+          <div class="ml-4 full-width d-flex flex-column">
             <div class="font-weight-semibold text-lg">
               {{ post.title }}
             </div>
-            <div class="neutral70--text text-sm mt-1">
-              {{ post.content.slice(0, 100) }}
+            <div class="neutral70--text text-sm mt-1 flex-grow-1 text-truncate">
+              {{ stripHtml(post.content) }}
             </div>
           </div>
         </div>
@@ -74,6 +73,7 @@
       <v-btn
         class="text-none text-capitalize px-3 py-5 border-radius-8 btn-show-more"
         elevation="0"
+        @click="$router.push('/news')"
         >Xem thêm</v-btn
       >
     </div>
@@ -104,6 +104,16 @@ export default {
     goToPost(id) {
       if (!id) return;
       this.$router.push("/news/" + id);
+    },
+    stripHtml(html) {
+      // Create a new div element
+      var temporalDivElement = document.createElement("div");
+      // Set the HTML content with the providen
+      temporalDivElement.innerHTML = html;
+      // Retrieve the text property of the element (cross-browser support)
+      return (
+        temporalDivElement.textContent || temporalDivElement.innerText || ""
+      );
     },
   },
 };

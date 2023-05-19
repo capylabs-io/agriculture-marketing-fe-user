@@ -1,7 +1,11 @@
 <template>
   <v-footer class="footer-bg py-12">
     <div class="page-container mx-auto text-center full-width">
-      <img class="footer-logo" :src="require('@/assets/footer-logo.png')" />
+      <div class="mx-auto footer-logo">
+        <v-img
+          :src="require('@/assets/components/landing/web-logo-white.png')"
+        ></v-img>
+      </div>
       <div class="d-flex col-gap-36 mt-6 justify-center">
         <router-link to="/" class="text-decoration-none align-self-center">
           <div class="text-none nav-link">Trang chủ</div>
@@ -63,8 +67,8 @@
   background: #333232 !important;
 }
 .footer-logo {
-  max-width: 282px;
-  max-height: 52px;
+  max-width: 375px;
+  max-height: 64px;
 }
 .watermark {
   border-top: 1px solid #666564;

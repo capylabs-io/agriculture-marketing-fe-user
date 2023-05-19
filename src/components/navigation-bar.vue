@@ -13,7 +13,12 @@
         class="nav-left justify-start font-weight-bold cursor-pointer"
         @click="goToHome()"
       >
-        <span class="text-xl">Logo Website</span>
+        <!-- <span class="text-xl">Logo Website</span> -->
+        <v-img
+          width="164"
+          max-height="28"
+          :src="require('@/assets/components/landing/web-logo-black.png')"
+        ></v-img>
       </div>
       <div class="d-flex col-gap-36">
         <router-link

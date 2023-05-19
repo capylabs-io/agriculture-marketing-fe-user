@@ -1,13 +1,13 @@
 <template>
   <v-row class="banner-section" no-gutters>
-    <v-col cols="12" md="6">
+    <v-col cols="12" md="6" class="inherit-height">
       <v-img
         class="full-height"
         :src="require(`@/assets/components/landing/section1-left.png`)"
         cover
       >
         <div
-          class="content mx-auto d-flex flex-column justify-center full-width"
+          class="content mx-auto"
         >
           <div
             class="font-weight-bold text-dp-xxl"
@@ -89,5 +89,8 @@ export default {
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+.inherit-height{
+  height: inherit !important;
 }
 </style>

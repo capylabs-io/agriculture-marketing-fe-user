@@ -4,6 +4,7 @@ import vuetify from "./plugins/vuetify";
 import router from "./router";
 import { createPinia, PiniaVuePlugin } from "pinia";
 import { markRaw } from "vue";
+import VueSnip from 'vue-snip'
 // Vue.config.productionTip = false;
 import alert from "@/plugins/alert";
 import loading from "@/plugins/loading";
@@ -32,6 +33,7 @@ Vue.use(
   })
 );
 Vue.use(pinia);
+Vue.use(VueSnip);
 vueFilterRegister();
 
 new Vue({

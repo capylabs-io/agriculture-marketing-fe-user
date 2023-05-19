@@ -27,7 +27,9 @@ export const homeStore = defineStore("home", {
       );
     },
     newestPost() {
+      console.log("posts", this.posts);
       if (!this.posts || this.posts.length == 0) return {};
+      console.log("newpost", this.posts[0]);
       return this.posts[0];
     },
     otherPosts() {
