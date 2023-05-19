@@ -1,6 +1,8 @@
 <template>
   <v-app>
-    <NavigationBar></NavigationBar>
+    <NavigationBar v-if="$vuetify.breakpoint.mdAndUp" />
+    <MobileNavigationBar v-else />
+    <MobileDrawer />
     <v-main>
       <PluginLoading />
       <PluginSnackbar />
@@ -17,6 +19,8 @@ export default {
 
   components: {
     NavigationBar: () => import("@/components/navigation-bar.vue"),
+    MobileNavigationBar: () => import("@/components/mobile-navigation-bar.vue"),
+    MobileDrawer: () => import("@/components/mobile-drawer.vue"),
     PageFooter: () => import("@/components/page-footer.vue"),
     PluginLoading: () => import("@/components/plugin/PluginLoading.vue"),
     PluginSnackbar: () => import("@/components/plugin/PluginAlert.vue"),

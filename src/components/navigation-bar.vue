@@ -33,7 +33,7 @@
           class="text-decoration-none align-self-center"
           active-class="active"
         >
-          <div class="text-none nav-link">Sản phẩm</div>
+          <div class="text-none nav-link">Cây cảnh</div>
         </router-link>
         <router-link
           to="/seedling"
