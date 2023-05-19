@@ -102,6 +102,9 @@ body {
 .gap-16 {
   gap: 16px;
 }
+.row-gap-32 {
+  row-gap: 32px;
+}
 .col-gap-36 {
   column-gap: 36px;
 }

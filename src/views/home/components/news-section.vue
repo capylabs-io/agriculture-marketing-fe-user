@@ -10,15 +10,15 @@
     </div>
     <v-row class="mt-12" no-gutters>
       <v-col
-        class="d-flex right-border pr-6"
         cols="12"
         md="6"
         data-aos="fade-right"
         data-aos-duration="1000"
         data-aos-delay="500"
+        :class="{ 'right-border pr-6': $vuetify.breakpoint.mdAndUp }"
       >
         <v-img
-          class="border-radius-16 neutral30-border cursor-pointer"
+          class="border-radius-16 neutral30-border cursor-pointer full-height"
           :src="productImage(homeStore.newestPost.images)"
           @click="goToPost(homeStore.newestPost.id)"
         >
@@ -40,9 +40,45 @@
         class="d-flex flex-column justify-space-between pl-6 gap-16"
         cols="12"
         md="6"
+        v-if="$vuetify.breakpoint.mdAndUp"
       >
         <div
+          v-for="(post, i) in homeStore.otherPosts"
           class="d-flex cursor-pointer"
+          data-aos="fade-left"
+          data-aos-duration="500"
+          :key="post.id"
+          :data-aos-delay="300 * i"
+          @click="goToPost(post.id)"
+        >
+          <div>
+            <v-img
+              class="border-radius-16 neutral30-border"
+              width="200px"
+              :aspect-ratio="16 / 9"
+              :src="productImage(post.images)"
+              cover
+            />
+          </div>
+          <div class="ml-4 flex-grow-1">
+            <div class="font-weight-semibold text-lg">
+              {{ post.title }}
+            </div>
+            <!-- <div class="neutral70--text text-sm mt-1 text-truncate">
+              {{ stripHtml(post.content) }}
+            </div> -->
+            <div class="primary--text font-weight-bold mt-2">
+              {{ post.postCategory.name }}
+            </div>
+          </div>
+        </div>
+      </v-col>
+    </v-row>
+    <div v-if="$vuetify.breakpoint.smAndDown">
+      <v-divider class="mt-6"></v-divider>
+      <div>
+        <div
+          class="cursor-pointer mt-6"
           v-for="(post, i) in homeStore.otherPosts"
           :key="post.id"
           data-aos="fade-left"
@@ -50,15 +86,13 @@
           :data-aos-delay="300 * i"
           @click="goToPost(post.id)"
         >
-          <div>
-            <v-img
-              class="border-radius-16 neutral30-border"
-              :src="productImage(post.images)"
-              height="132px"
-              width="176px"
-            ></v-img>
-          </div>
-          <div class="ml-4 full-width d-flex flex-column">
+          <v-img
+            class="border-radius-16 neutral30-border full-width"
+            :src="productImage(post.images)"
+            height="132px"
+            width="176px"
+          ></v-img>
+          <div class="full-width d-flex flex-column mt-3">
             <div class="font-weight-semibold text-lg">
               {{ post.title }}
             </div>
@@ -67,8 +101,8 @@
             </div>
           </div>
         </div>
-      </v-col>
-    </v-row>
+      </div>
+    </div>
     <div class="mt-12 text-center">
       <v-btn
         class="text-none text-capitalize px-3 py-5 border-radius-8 btn-show-more"
@@ -130,5 +164,9 @@ export default {
 }
 .right-border {
   border-right: 1px solid var(--v-neutral20-base) !important;
+}
+.sm-post-title {
+  display: block;
+  max-height: 48px;
 }
 </style>

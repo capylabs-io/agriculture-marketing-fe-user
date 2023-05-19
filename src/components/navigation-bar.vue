@@ -54,6 +54,7 @@
         <v-btn
           class="elevation-0 border-radius-8 text-none btn-text py-5"
           color="black"
+          @click="goToLogin()"
           dark
           >Đăng nhập</v-btn
         >
@@ -67,6 +68,9 @@ export default {
   methods: {
     goToHome() {
       this.$router.push("/");
+    },
+    goToLogin() {
+      window.open("https://admin-mocmien.capylabs.io");
     },
   },
 };

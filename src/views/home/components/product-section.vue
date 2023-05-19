@@ -1,5 +1,8 @@
 <template>
-  <div class="page-container mx-auto py-16 px-6">
+  <div
+    class="page-container mx-auto px-6"
+    :class="{ 'py-16': $vuetify.breakpoint.mdAndUp }"
+  >
     <div
       class="font-weight-semibold text-dp-md text-center"
       data-aos="fade-up"
@@ -8,7 +11,7 @@
       Sản phẩm tiêu biểu
     </div>
     <div
-      class="d-flex justify-center mt-6 gap-8"
+      class="d-flex justify-center mt-6 gap-8 flex-wrap"
       data-aos="zoom-in"
       data-aos-duration="600"
     >

@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container mx-auto py-16">
+  <div class="page-container mx-auto py-16 px-4">
     <div
       class="font-weight-semibold text-dp-md text-center"
       data-aos="fade-up"
@@ -7,9 +7,10 @@
     >
       Tính năng
     </div>
-    <v-row no-gutters class="text-center mt-12">
+    <v-row no-gutters class="text-center mt-12 row-gap-32">
       <v-col
-        cols="4"
+        cols="12"
+        md="4"
         data-aos="fade-up"
         data-aos-duration="600"
         data-aos-delay="0"
@@ -28,7 +29,8 @@
         </div>
       </v-col>
       <v-col
-        cols="4"
+        cols="12"
+        md="4"
         data-aos="fade-up"
         data-aos-duration="600"
         data-aos-delay="300"
@@ -47,7 +49,8 @@
         </div>
       </v-col>
       <v-col
-        cols="4"
+        cols="12"
+        md="4"
         data-aos="fade-up"
         data-aos-duration="600"
         data-aos-delay="600"

@@ -1,44 +1,62 @@
 <template>
-  <v-row class="banner-section" no-gutters>
-    <v-col cols="12" md="6" class="inherit-height">
-      <v-img
-        class="full-height"
-        :src="require(`@/assets/components/landing/section1-left.png`)"
-        cover
+  <v-row :class="{ 'banner-section': $vuetify.breakpoint.mdAndUp }" no-gutters>
+    <v-col
+      cols="12"
+      md="6"
+      class="inherit-height"
+      :class="{ 'mobile-section': $vuetify.breakpoint.smAndDown }"
+    >
+      <div
+        class="full-height full-width d-flex flex-column justify-center"
+        :class="
+          $vuetify.breakpoint.smAndDown
+            ? 'left-section-bg px-6'
+            : 'left-section-image'
+        "
       >
         <div
           class="content mx-auto"
+          :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
         >
           <div
-            class="font-weight-bold text-dp-xxl"
+            class="font-weight-bold"
             data-aos="fade-right"
             data-aos-duration="600"
             data-aos-delay="0"
+            :class="$vuetify.breakpoint.mdAndUp ? 'text-dp-xl' : 'text-dp-lg'"
           >
-            Nâng tầm nông sản Việt
+            Nâng tầm cây cảnh Việt
           </div>
           <div
-            class="text-xl mt-6"
+            class="mt-6"
             data-aos="fade-right"
             data-aos-duration="600"
             data-aos-delay="300"
+            :class="$vuetify.breakpoint.mdAndUp ? 'text-xl' : 'text-md'"
           >
             Nhanh chóng, tiện lợi giúp người nông dân đáp ứng yêu cầu thị
             trường, bảo vệ người tiêu dùng và tiếp cận thị trường mới
           </div>
-          <div class="mt-8">
-            <v-btn
-              class="text-none border-radius-12 text-lg py-6"
-              color="primary40"
-              depressed
-              >Đăng ký ngay
-              <v-icon color="black"> mdi-arrow-right-thin </v-icon></v-btn
-            >
-          </div>
+          <v-btn
+            class="text-none border-radius-12 mt-8 mx-auto"
+            color="primary60"
+            :class="
+              $vuetify.breakpoint.mdAndUp
+                ? 'text-lg py-7 px-5'
+                : 'text-md py-6 px-4'
+            "
+            depressed
+            dark
+            >Đăng ký ngay <v-icon> mdi-arrow-right-thin </v-icon></v-btn
+          >
         </div>
-      </v-img>
+      </div>
     </v-col>
-    <v-col cols="12" md="6">
+    <v-col
+      cols="12"
+      md="6"
+      :class="{ 'mobile-section': $vuetify.breakpoint.smAndDown }"
+    >
       <v-carousel
         height="100%"
         :interval="10000"
@@ -78,19 +96,24 @@ export default {
 .banner-section {
   height: calc(100vh - 64px) !important;
 }
+.left-section-image {
+  background: url("@/assets/components/landing/section1-left.png") !important;
+  background-size: auto !important;
+  background-position: center 80% !important;
+}
+.left-section-bg {
+  background: var(--v-primary10-base) !important;
+}
 .banner-img {
   max-height: calc(100vh - 64px) !important;
 }
 .content {
-  max-width: 530px;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  max-width: 520px !important;
 }
-.inherit-height{
-  height: inherit !important;
+.mobile-section {
+  height: 420px !important;
+}
+.inherit-height {
+  height: inherit;
 }
 </style>

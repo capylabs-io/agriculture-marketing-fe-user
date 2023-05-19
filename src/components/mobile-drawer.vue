@@ -11,6 +11,7 @@
           class="mx-auto"
           max-width="120px"
           :src="require(`@/assets/components/landing/web-logo-black.png`)"
+          @click="$router.push('/')"
           contain
         />
       </div>
@@ -41,6 +42,7 @@
       <v-btn
         class="text-none border-radius-8 mx-auto px-8 mt-8"
         elevation="0"
+        @click="goToLogin()"
         dark
         >Đăng nhập</v-btn
       >
@@ -54,6 +56,11 @@ import { homeStore } from "@/views/home/store/home-store";
 export default {
   computed: {
     ...mapStores(homeStore),
+  },
+  methods: {
+    goToLogin() {
+      window.open("https://admin-mocmien.capylabs.io");
+    },
   },
 };
 </script>

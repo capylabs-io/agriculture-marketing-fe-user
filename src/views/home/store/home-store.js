@@ -11,11 +11,12 @@ export const homeStore = defineStore("home", {
     products: [],
     posts: [],
     mobileNavigationDrawer: false,
+    productNum: 4,
   }),
   getters: {
     slicedProducts() {
       if (!this.products || this.products.length == 0) return [];
-      return this.filteredProducts.slice(0, 8);
+      return this.filteredProducts.slice(0, this.productNum);
     },
     filteredProducts() {
       if (!this.products || this.products.length == 0) return [];
