@@ -17,7 +17,7 @@
         elevation="0"
         :class="{ 'active-category': homeStore.productCategory == 'all' }"
         @click="homeStore.productCategory = 'all'"
-        >All</v-btn
+        >Tất cả</v-btn
       >
       <v-btn
         class="text-none text-capitalize px-4 border-radius-8 category"

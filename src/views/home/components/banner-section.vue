@@ -6,22 +6,20 @@
         :src="require(`@/assets/components/landing/section1-left.png`)"
         cover
       >
-        <div
-          class="content mx-auto"
-        >
+        <div class="content mx-auto">
           <div
             class="font-weight-bold text-dp-xxl"
             data-aos="fade-right"
             data-aos-duration="600"
             data-aos-delay="0"
           >
-            Nâng tầm nông sản Việt
+            Nâng tầm cây cảnh Việt
           </div>
           <div
             class="text-xl mt-6"
             data-aos="fade-right"
             data-aos-duration="600"
-            data-aos-delay="300"
+            data-aos-delay="100"
           >
             Nhanh chóng, tiện lợi giúp người nông dân đáp ứng yêu cầu thị
             trường, bảo vệ người tiêu dùng và tiếp cận thị trường mới
@@ -90,7 +88,7 @@ export default {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-.inherit-height{
+.inherit-height {
   height: inherit !important;
 }
 </style>
