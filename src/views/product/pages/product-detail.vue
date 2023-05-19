@@ -31,7 +31,7 @@
             'flex-column align-center mt-6': $vuetify.breakpoint.smAndDown,
           }"
         >
-          <div class="flex-grow-1">
+          <div class="flex-grow-1 full-width">
             <div
               class="font-weight-semibold text-capitalize"
               :class="{
