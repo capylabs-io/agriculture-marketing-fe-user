@@ -1,10 +1,13 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="d-flex full-height">
-    <FilterDrawer />
+    <FilterDrawer v-if="$vuetify.breakpoint.mdAndUp" />
     <div class="full-width">
       <div class="page-container mx-auto pa-6 full-height">
-        <div class="d-flex align-center justify-space-between">
+        <div v-if="$vuetify.breakpoint.smAndDown">
+          <MobileFilterDrawer />
+        </div>
+        <div class="d-flex align-center justify-space-between mt-4">
           <div class="neutral70--text">
             Hiển thị
             <span class="text-lg font-weight-bold">{{
@@ -19,6 +22,7 @@
           <v-select
             class="sort-select border-radius-6"
             v-model="productStore.sortBy"
+            v-if="$vuetify.breakpoint.mdAndUp"
             :items="sortBy"
             item-text="text"
             item-value="value"
@@ -67,6 +71,7 @@ import { productStore } from "../store/product-store";
 export default {
   components: {
     FilterDrawer: () => import("../components/filter-drawer.vue"),
+    MobileFilterDrawer: () => import("../components/mobile-filter-drawer.vue"),
     ProductCard: () => import("../components/product-card.vue"),
   },
   computed: {

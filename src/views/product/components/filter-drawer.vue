@@ -1,11 +1,5 @@
 <template>
-  <div
-    class="align-self-stretch full-height filter-drawer"
-    width="280"
-    permanent
-    app
-    clipped
-  >
+  <div class="align-self-stretch full-height filter-drawer">
     <div class="px-6 py-3">
       <div class="d-flex justify-space-between align-center py-3">
         <div class="text-md font-weight-medium">

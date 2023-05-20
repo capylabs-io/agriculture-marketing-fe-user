@@ -22,17 +22,17 @@
             >Bảng tin</v-list-item-title
           >
         </v-list-item>
-        <v-list-item active-class="primary--text" class="py-1" to="/product">
+        <v-list-item active-class="primary--text" class="py-1" to="/products">
           <v-list-item-title class="text-capitalize text-md"
             >Cây cảnh</v-list-item-title
           >
         </v-list-item>
-        <v-list-item active-class="primary--text" class="py-1" to="/seedling">
+        <v-list-item active-class="primary--text" class="py-1" to="/seedlings">
           <v-list-item-title class="text-capitalize text-md"
             >Trại giống</v-list-item-title
           >
         </v-list-item>
-        <v-list-item active-class="primary--text" class="py-1" to="/supply">
+        <v-list-item active-class="primary--text" class="py-1" to="/supplies">
           <v-list-item-title class="text-capitalize text-md"
             >Vật tư</v-list-item-title
           >
