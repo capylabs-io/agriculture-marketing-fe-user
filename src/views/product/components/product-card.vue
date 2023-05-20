@@ -37,7 +37,7 @@ export default {
   methods: {
     goToProductDetail() {
       if (!this.product) return;
-      this.$router.push(`/product/${this.product.code}`);
+      this.$router.push(`/products/${this.product.code}`);
     },
   },
 };

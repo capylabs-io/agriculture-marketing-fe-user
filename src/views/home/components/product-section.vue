@@ -48,7 +48,7 @@
       <v-btn
         class="text-none text-capitalize px-3 py-5 border-radius-8 btn-show-more"
         elevation="0"
-        @click="$router.push('/product')"
+        @click="$router.push('/products')"
         >Xem thêm</v-btn
       >
     </div>

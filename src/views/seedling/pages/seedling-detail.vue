@@ -3,7 +3,7 @@
     <div class="neutral60--text font-weight-semibold d-flex flex-wrap">
       <div class="cursor-pointer" @click="$router.push('/')">Trang chủ</div>
       <span class="mx-2">/</span>
-      <div class="cursor-pointer" @click="$router.push('/seedling')">
+      <div class="cursor-pointer" @click="$router.push('/seedlings')">
         Trại giống
       </div>
       <span class="mx-2">/</span>

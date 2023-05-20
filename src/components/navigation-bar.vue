@@ -29,21 +29,21 @@
           <div class="text-none nav-link">Bảng tin</div>
         </router-link>
         <router-link
-          to="/product"
+          to="/products"
           class="text-decoration-none align-self-center"
           active-class="active"
         >
           <div class="text-none nav-link">Cây cảnh</div>
         </router-link>
         <router-link
-          to="/seedling"
+          to="/seedlings"
           class="text-decoration-none align-self-center"
           active-class="active"
         >
           <div class="text-none nav-link">Trại giống</div>
         </router-link>
         <router-link
-          to="/supply"
+          to="/supplies"
           class="text-decoration-none align-self-center"
           active-class="active"
         >

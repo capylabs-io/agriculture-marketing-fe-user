@@ -37,7 +37,7 @@ export default {
   methods: {
     goToSupplyDetail() {
       if (!this.supply) return;
-      this.$router.push(`/supply/${this.supply.code}`);
+      this.$router.push(`/supplies/${this.supply.code}`);
     },
   },
 };

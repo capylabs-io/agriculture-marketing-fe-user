@@ -11,12 +11,12 @@ const routes = [
     component: () => import("../views/home/pages/home.vue"),
   },
   {
-    path: "/product",
+    path: "/products",
     name: "Product",
     component: () => import("../views/product/pages/list-product.vue"),
   },
   {
-    path: "/product/:code",
+    path: "/products/:code",
     name: "Product Detail",
     component: () => import("../views/product/pages/product-detail.vue"),
   },
@@ -31,22 +31,22 @@ const routes = [
     component: () => import("../views/news/pages/news-detail.vue"),
   },
   {
-    path: "/seedling",
+    path: "/seedlings",
     name: "Seedling",
     component: () => import("../views/seedling/pages/list-seedling.vue"),
   },
   {
-    path: "/seedling/:code",
+    path: "/seedlings/:code",
     name: "Seedling Detail",
     component: () => import("../views/seedling/pages/seedling-detail.vue"),
   },
   {
-    path: "/supply",
+    path: "/supplies",
     name: "Supply",
     component: () => import("../views/supply/pages/list-supply.vue"),
   },
   {
-    path: "/supply/:code",
+    path: "/supplies/:code",
     name: "Supply Detail",
     component: () => import("../views/supply/pages/supply-detail.vue"),
   },

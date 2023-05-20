@@ -3,7 +3,7 @@
     <div class="neutral60--text font-weight-semibold d-flex flex-wrap">
       <div class="cursor-pointer" @click="$router.push('/')">Trang chủ</div>
       <span class="mx-2">/</span>
-      <div class="cursor-pointer" @click="$router.push('/product')">
+      <div class="cursor-pointer" @click="$router.push('/products')">
         Danh sách cây cảnh
       </div>
       <span class="mx-2">/</span>

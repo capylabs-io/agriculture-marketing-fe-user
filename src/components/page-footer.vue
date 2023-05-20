@@ -19,23 +19,23 @@
         <!-- <router-link to="/world" class="text-decoration-none align-self-center">
           <div class="text-none nav-link">Giới thiệu</div>
         </router-link> -->
-        <router-link to="/login" class="text-decoration-none align-self-center">
+        <router-link to="/news" class="text-decoration-none align-self-center">
           <div class="text-none nav-link">Bảng tin</div>
         </router-link>
         <router-link
-          to="/product"
+          to="/products"
           class="text-decoration-none align-self-center"
         >
           <div class="text-none nav-link">Sản phẩm</div>
         </router-link>
         <router-link
-          to="/seedling"
+          to="/seedlings"
           class="text-decoration-none align-self-center"
         >
           <div class="text-none nav-link">Trại giống</div>
         </router-link>
         <router-link
-          to="/supply"
+          to="/supplies"
           class="text-decoration-none align-self-center"
         >
           <div class="text-none nav-link">Vật tư</div>
@@ -47,7 +47,7 @@
       >
         <div class="white--text">© 2023 CapyLabs. All rights reserved.</div>
         <div
-          class="d-flex col-gap-36"
+          class="d-flex col-gap-36 mx-auto text-center"
           :class="{ 'mt-4': $vuetify.breakpoint.smAndDown }"
         >
           <router-link

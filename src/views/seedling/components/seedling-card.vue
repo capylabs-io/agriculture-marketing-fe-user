@@ -37,7 +37,7 @@ export default {
   methods: {
     goToSeedlingDetail() {
       if (!this.seed) return;
-      this.$router.push(`/seedling/${this.seed.code}`);
+      this.$router.push(`/seedlings/${this.seed.code}`);
     },
   },
 };
