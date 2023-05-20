@@ -51,6 +51,9 @@ nav {
 .sort-select {
   max-width: 260px !important;
 }
+.search-field {
+  max-width: 320px !important;
+}
 .no-item-div {
   min-height: 360px !important;
 }

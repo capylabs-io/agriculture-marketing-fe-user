@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { Post } from "@/plugins/api.js";
+import { Post, PostCategory } from "@/plugins/api.js";
 import loading from "@/plugins/loading";
 import alert from "@/plugins/alert";
 import { get } from "lodash";
@@ -14,15 +14,16 @@ export const newStore = defineStore("new", {
     newPosts: [],
     searchKey: "",
     sortBy: "",
+    category: "all",
     currentTab: 0,
     sortSelection: [
       {
         value: "asc",
-        name: "Từ a -> z",
+        name: "Tên từ a -> z",
       },
       {
         value: "desc",
-        name: "Từ z -> a",
+        name: "Tên từ z -> a",
       },
       {
         value: "newsest",
@@ -45,18 +46,16 @@ export const newStore = defineStore("new", {
     filteredlistNew() {
       if (!this.listNew || this.listNew.length == 0) return [];
       let filtered = this.sortedNews;
-      if (this.searchKey || this.currentTab > 0)
+      if (this.searchKey)
         filtered = filtered
-          .filter((news) => news.newsCategory.id == this.currentTab)
+          // .filter((news) => news.newsCategory.id == this.currentTab)
           .filter(
             (news) =>
-              news.title
-                .toLowerCase()
-                .includes(this.searchKey.trim().toLowerCase()) ||
-              news.content
-                .toLowerCase()
-                .includes(this.searchKey.trim().toLowerCase())
+              news.title.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+              news.content.toLowerCase().includes(this.searchKey.trim().toLowerCase())
           );
+      if (this.category && this.category != "all")
+        filtered = filtered.filter((news) => news.newsCategory.id == this.category);
       return filtered;
     },
     sortedNews() {
@@ -72,16 +71,10 @@ export const newStore = defineStore("new", {
           sortedNews.sort((a, b) => b.title.localeCompare(a.title));
           break;
         case "newsest":
-          sortedNews.sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
+          sortedNews.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
           break;
         case "oldest":
-          sortedNews.sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          );
+          sortedNews.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
           break;
       }
       return sortedNews;
@@ -90,8 +83,7 @@ export const newStore = defineStore("new", {
       if (!this.listNew || this.filteredlistNew.length == 0) return 1;
       if (this.filteredlistNew.length % this.newsPerPage == 0)
         return this.filteredlistNew.length / this.newsPerPage;
-      else
-        return Math.floor(this.filteredlistNew.length / this.newsPerPage) + 1;
+      else return Math.floor(this.filteredlistNew.length / this.newsPerPage) + 1;
     },
     totalnews() {
       if (!this.listNew || this.filteredlistNew.length == 0) return 1;
@@ -99,6 +91,30 @@ export const newStore = defineStore("new", {
     },
   },
   actions: {
+    async fetchCategories() {
+      try {
+        loading.show();
+        const res = await PostCategory.fetch();
+        if (!res) {
+          alert.error(`Error occurred fetch! Please try again later!`);
+          return;
+        }
+        const categories = get(res, "data.data", []);
+
+        const mappedCategories = categories.map((category) => {
+          return {
+            id: category.id,
+            name: get(category, "attributes.name", "Category Name"),
+          };
+        });
+        this.categories = mappedCategories;
+      } catch (error) {
+        console.error(`Error: ${error}`);
+        alert.error(error);
+      } finally {
+        loading.hide();
+      }
+    },
     async fetchlistNew(params) {
       try {
         loading.show();
@@ -107,10 +123,7 @@ export const newStore = defineStore("new", {
           populate: "*",
         });
         if (!res) {
-          alert.error(
-            "Error occurred when fetching news!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching news!", "Please try again later!");
           return;
         }
         const posts = get(res, "data.data", []);
@@ -123,11 +136,7 @@ export const newStore = defineStore("new", {
               id: get(post, "attributes.postCategory.data.id", -1),
               ...get(post, "attributes.postCategory.data.attributes", {}),
             },
-            author: get(
-              post,
-              "attributes.user.data.attributes.username",
-              "Admin"
-            ),
+            author: get(post, "attributes.user.data.attributes.username", "Admin"),
           };
         });
         this.listNew = mappedPosts;
@@ -154,16 +163,8 @@ export const newStore = defineStore("new", {
         this.news = {
           id: post.id,
           ...post.attributes,
-          newsCategory: get(
-            post,
-            "attributes.postCategory.data.attributes.name",
-            "Danh mục bài viết"
-          ),
-          author: get(
-            post,
-            "attributes.user.data.attributes.username",
-            "Admin"
-          ),
+          newsCategory: get(post, "attributes.postCategory.data.attributes.name", "Danh mục bài viết"),
+          author: get(post, "attributes.user.data.attributes.username", "Admin"),
         };
       } catch (error) {
         console.error(`Error: ${error}`);
@@ -177,10 +178,7 @@ export const newStore = defineStore("new", {
         loading.show();
         const res = Post.topNewPost();
         if (!res) {
-          alert.error(
-            "Error occurred when fetching listNew!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching listNew!", "Please try again later!");
           return;
         }
         const listNew = get(res, "data.data", []);
@@ -189,11 +187,7 @@ export const newStore = defineStore("new", {
           return {
             id: news.id,
             ...news.attributes,
-            newsCategory: get(
-              news,
-              "attributes.postCategory.data.attributes",
-              {}
-            ),
+            newsCategory: get(news, "attributes.postCategory.data.attributes", {}),
             author: get(news, "attributes.user.data.attributes", {}),
           };
         });

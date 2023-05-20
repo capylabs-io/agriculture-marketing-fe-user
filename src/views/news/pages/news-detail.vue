@@ -7,7 +7,7 @@
       :src="postImage"
       :aspect-ratio="16 / 9"
     ></v-img>
-    <div class="mt-8 content-container mx-auto">
+    <div class="mt-8 content-container mx-auto px-6">
       <div class="d-flex align-center justify-space-between mt-6">
         <div class="d-flex align-center">
           <v-img
@@ -30,7 +30,10 @@
         </div>
       </div>
       <div class="tex-left mt-7">
-        <div class="text-dp-lg font-weight-semibold">
+        <div
+          class="font-weight-semibold"
+          :class="$vuetify.breakpoint.mdAndUp ? 'text-dp-lg ' : 'text-dp-sm'"
+        >
           {{ newStore.news.title }}
         </div>
         <div class="mt-8">
@@ -129,7 +132,7 @@ export default {
   border-radius: 100px !important;
 }
 .content-container {
-  max-width: 900px;
+  max-width: 1080px;
 }
 .title {
   color: var(--v-green70-base);
