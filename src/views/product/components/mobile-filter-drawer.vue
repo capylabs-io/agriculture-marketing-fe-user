@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="full-height">
     <div>
       <div class="d-flex align-center justify-space-between">
         <div
@@ -34,11 +34,9 @@
       </div>
     </div>
     <v-navigation-drawer
-      class="mobile-filter"
+      class="full-height full-width"
       v-model="productStore.mobileFilterDrawer"
-      bottom
       absolute
-      disable-resize-watcher
     >
       <div class="px-6 py-3">
         <div class="d-flex justify-space-between align-center py-3">

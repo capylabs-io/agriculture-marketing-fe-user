@@ -51,6 +51,9 @@ nav {
 .sort-select {
   max-width: 260px !important;
 }
+.no-item-div {
+  min-height: 360px !important;
+}
 .page-container {
   max-width: 1200px;
 }

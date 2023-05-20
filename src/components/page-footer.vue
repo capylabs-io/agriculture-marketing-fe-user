@@ -1,5 +1,5 @@
 <template>
-  <v-footer class="footer-bg py-12">
+  <div class="footer-bg py-12">
     <div class="page-container mx-auto text-center full-width">
       <div
         class="mx-auto"
@@ -71,7 +71,7 @@
         </div>
       </div>
     </div>
-  </v-footer>
+  </div>
 </template>
 
 <style scoped>
