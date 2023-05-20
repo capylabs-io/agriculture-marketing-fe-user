@@ -54,7 +54,7 @@
           </div>
         </div>
         <div
-          class="font-weight-bold text-center text-dp-md full-height d-flex flex-column justify-center"
+          class="font-weight-bold text-center text-dp-md full-height no-item d-flex flex-column justify-center"
           v-else
         >
           Không có sản phẩm nào!
@@ -63,6 +63,12 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.no-item {
+  min-height: 100vh !important;
+}
+</style>
 
 <script>
 import { mapStores } from "pinia";

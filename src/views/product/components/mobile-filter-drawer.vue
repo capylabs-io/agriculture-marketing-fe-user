@@ -37,7 +37,8 @@
       class="mobile-filter"
       v-model="productStore.mobileFilterDrawer"
       bottom
-      fixed
+      absolute
+      disable-resize-watcher
     >
       <div class="px-6 py-3">
         <div class="d-flex justify-space-between align-center py-3">
@@ -189,6 +190,5 @@ export default {
 <style scoped>
 .mobile-filter {
   top: 64px !important;
-  height: calc(100vh - 64px) !important;
 }
 </style>
