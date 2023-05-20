@@ -34,8 +34,9 @@
       </div>
     </div>
     <v-navigation-drawer
-      class="full-height full-width"
+      class="full-height full-width pa-0"
       v-model="productStore.mobileFilterDrawer"
+      app
       absolute
     >
       <div class="px-6 py-3">

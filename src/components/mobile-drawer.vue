@@ -1,8 +1,9 @@
 <template>
   <v-navigation-drawer
+    class="pa-0"
     v-model="homeStore.mobileNavigationDrawer"
     width="280px"
-    absolute
+    app
     temporary
   >
     <div class="d-flex flex-column">
