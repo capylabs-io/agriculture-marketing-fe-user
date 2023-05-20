@@ -1,10 +1,13 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="d-flex full-height">
-    <FilterDrawer />
+    <FilterDrawer v-if="$vuetify.breakpoint.mdAndUp" />
     <div class="full-width">
-      <div class="page-container mx-auto pa-6 full-height">
-        <div class="d-flex align-center justify-space-between">
+      <div class="page-container mx-auto pa-6 full-height d-flex flex-column">
+        <div v-if="$vuetify.breakpoint.smAndDown">
+          <MobileFilterDrawer />
+        </div>
+        <div class="d-flex align-center justify-space-between mt-4">
           <div class="neutral70--text">
             Hiển thị
             <span class="text-lg font-weight-bold">{{
@@ -19,6 +22,7 @@
           <v-select
             class="sort-select border-radius-6"
             v-model="supplyStore.sortBy"
+            v-if="$vuetify.breakpoint.mdAndUp"
             :items="sortBy"
             item-text="text"
             item-value="value"
@@ -50,7 +54,7 @@
           </div>
         </div>
         <div
-          class="font-weight-bold text-center text-dp-md full-height d-flex flex-column justify-center"
+          class="font-weight-bold text-center text-dp-md flex-grow-1 no-item-div d-flex flex-column justify-center"
           v-else
         >
           Không có sản phẩm nào!
@@ -66,6 +70,7 @@ import { supplyStore } from "../store/supply-store";
 
 export default {
   components: {
+    MobileFilterDrawer: () => import("../components/mobile-filter-drawer.vue"),
     FilterDrawer: () => import("../components/filter-drawer.vue"),
     SupplyCard: () => import("../components/supply-card.vue"),
   },

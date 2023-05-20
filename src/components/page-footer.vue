@@ -47,8 +47,8 @@
       >
         <div class="white--text">© 2023 CapyLabs. All rights reserved.</div>
         <div
-          class="d-flex col-gap-36 mx-auto text-center"
-          :class="{ 'mt-4': $vuetify.breakpoint.smAndDown }"
+          class="d-flex col-gap-36"
+          :class="{ 'mt-4 mx-auto text-center': $vuetify.breakpoint.smAndDown }"
         >
           <router-link
             to="/login"

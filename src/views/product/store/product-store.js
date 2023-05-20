@@ -10,13 +10,13 @@ export const productStore = defineStore("product", {
     productPage: 1,
     productsPerPage: 12,
     categories: [],
-    categoryDictionary: {},
     product: {},
     products: [],
     searchKey: "",
     filterCategory: [],
     filterPrice: [],
     sortBy: "",
+    categoryDictionary: {},
     mobileFilterDrawer: false,
   }),
   getters: {
@@ -148,7 +148,6 @@ export const productStore = defineStore("product", {
           };
         });
         this.products = mappedProducts;
-        console.log("products", this.products);
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -173,7 +172,6 @@ export const productStore = defineStore("product", {
         });
         this.categories = mappedCategories;
         this.categoryDictionary = Object.fromEntries(this.categories.map((x) => [x.id, x.name]));
-        console.log("categoryDictionary", this.categoryDictionary);
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {

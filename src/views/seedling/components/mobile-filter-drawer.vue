@@ -4,10 +4,10 @@
       <div class="d-flex align-center justify-space-between">
         <div
           class="text-md font-weight-medium cursor-pointer"
-          @click="productStore.mobileFilterDrawer = true"
+          @click="seedStore.mobileFilterDrawer = true"
         >
           <v-icon class="mr-2 mb-1">mdi-filter-variant</v-icon> Chọn Bộ lọc ({{
-            productStore.allFilters.length
+            seedStore.allFilters.length
           }})
         </div>
         <v-btn
@@ -15,17 +15,17 @@
           color="primary"
           elevation="0"
           text
-          @click="productStore.resetFilter()"
+          @click="seedStore.resetFilter()"
           >Xóa Bộ lọc</v-btn
         >
       </div>
       <div
         class="mt-2 d-flex flex-wrap gap-8"
-        v-if="productStore.allFilters.length > 0"
+        v-if="seedStore.allFilters.length > 0"
       >
         <v-chip
           color="primary"
-          v-for="(filter, index) in productStore.allFilters"
+          v-for="(filter, index) in seedStore.allFilters"
           :key="index"
           small
         >
@@ -35,7 +35,7 @@
     </div>
     <v-navigation-drawer
       class="full-height full-width pa-0 overflow-y-auto"
-      v-model="productStore.mobileFilterDrawer"
+      v-model="seedStore.mobileFilterDrawer"
       app
       fixed
     >
@@ -47,7 +47,7 @@
           <div>
             <v-btn
               class="px-0 text-none neutral80--text font-weight-semibold"
-              @click="productStore.resetFilter()"
+              @click="seedStore.resetFilter()"
               text
               >Xóa bộ lọc</v-btn
             >
@@ -56,7 +56,7 @@
               elevation="0"
               color="primary"
               small
-              @click="productStore.mobileFilterDrawer = false"
+              @click="seedStore.mobileFilterDrawer = false"
               >Đóng</v-btn
             >
           </div>
@@ -64,7 +64,7 @@
         <v-divider class="mt-2"></v-divider>
         <div class="d-flex justify-space-between align-center py-4 full-width">
           <v-text-field
-            v-model="productStore.searchKey"
+            v-model="seedStore.searchKey"
             class="border-radius-6 border-neutral20"
             placeholder="Tìm kiếm từ khóa"
             prepend-inner-icon="mdi-magnify"
@@ -88,8 +88,8 @@
               </v-expansion-panel-header>
               <v-expansion-panel-content>
                 <v-checkbox
-                  v-for="category in productStore.categories"
-                  v-model="productStore.filterCategory"
+                  v-for="category in seedStore.categories"
+                  v-model="seedStore.filterCategory"
                   :key="category.id"
                   :value="category.id"
                   hide-details
@@ -113,7 +113,7 @@
               </v-expansion-panel-header>
               <v-expansion-panel-content>
                 <v-checkbox
-                  v-model="productStore.filterPrice"
+                  v-model="seedStore.filterPrice"
                   value="lowerThan500k"
                   hide-details
                 >
@@ -122,7 +122,7 @@
                   </template>
                 </v-checkbox>
                 <v-checkbox
-                  v-model="productStore.filterPrice"
+                  v-model="seedStore.filterPrice"
                   value="between500kAnd1mil"
                   hide-details
                 >
@@ -133,7 +133,7 @@
                   </template>
                 </v-checkbox>
                 <v-checkbox
-                  v-model="productStore.filterPrice"
+                  v-model="seedStore.filterPrice"
                   value="between1mAnd5mil"
                   hide-details
                 >
@@ -144,7 +144,7 @@
                   </template>
                 </v-checkbox>
                 <v-checkbox
-                  v-model="productStore.filterPrice"
+                  v-model="seedStore.filterPrice"
                   value="over5mil"
                   hide-details
                 >
@@ -178,10 +178,10 @@
 
 <script>
 import { mapStores } from "pinia";
-import { productStore } from "../store/product-store";
+import { seedStore } from "../store/seed-store";
 export default {
   computed: {
-    ...mapStores(productStore),
+    ...mapStores(seedStore),
   },
 };
 </script>

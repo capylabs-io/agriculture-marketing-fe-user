@@ -3,7 +3,7 @@
   <div class="d-flex full-height">
     <FilterDrawer v-if="$vuetify.breakpoint.mdAndUp" />
     <div class="full-width">
-      <div class="page-container mx-auto pa-6 full-height">
+      <div class="page-container mx-auto pa-6 full-height d-flex flex-column">
         <div v-if="$vuetify.breakpoint.smAndDown">
           <MobileFilterDrawer />
         </div>
@@ -54,7 +54,7 @@
           </div>
         </div>
         <div
-          class="font-weight-bold text-center text-dp-md full-height no-item-div d-flex flex-column justify-center"
+          class="font-weight-bold text-center text-dp-md flex-grow-1 no-item-div d-flex flex-column justify-center"
           v-else
         >
           Không có sản phẩm nào!

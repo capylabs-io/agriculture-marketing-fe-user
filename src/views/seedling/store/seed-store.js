@@ -3,6 +3,7 @@ import { Seed, SeedCategory } from "@/plugins/api.js";
 import loading from "@/plugins/loading";
 import alert from "@/plugins/alert";
 import { get } from "lodash";
+import { helpers } from "@/helpers/helper";
 
 export const seedStore = defineStore("seed", {
   state: () => ({
@@ -15,8 +16,19 @@ export const seedStore = defineStore("seed", {
     filterCategory: [],
     filterPrice: [],
     sortBy: "",
+    categoryDictionary: {},
+    mobileFilterDrawer: false,
   }),
   getters: {
+    allFilters() {
+      const filterCategories = this.filterCategory.map((categoryId) =>
+        get(this.categoryDictionary, categoryId, "Danh mục khác")
+      );
+      const filterPrices = this.filterPrice.map((filterPrice) => helpers.getFilterPriceText(filterPrice));
+      let filters = filterCategories.concat(filterPrices);
+      if (this.searchKey) filters.push("Từ khoá: " + this.searchKey);
+      return filters;
+    },
     slicedSeeds() {
       if (!this.seeds || this.seeds.length == 0) return [];
       return this.filteredSeeds.slice(
@@ -30,29 +42,17 @@ export const seedStore = defineStore("seed", {
       if (this.searchKey)
         filtered = filtered.filter(
           (seed) =>
-            seed.name
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase()) ||
-            seed.code
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase()) ||
-            seed.origin
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase())
+            seed.name.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+            seed.code.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+            seed.origin.toLowerCase().includes(this.searchKey.trim().toLowerCase())
         );
       if (this.filterCategory && this.filterCategory.length > 0) {
-        filtered = filtered.filter((seed) =>
-          this.filterCategory.includes(seed.seedCategory.id)
-        );
+        filtered = filtered.filter((seed) => this.filterCategory.includes(seed.seedCategory.id));
       }
       if (this.filterPrice && this.filterPrice.length > 0) {
         filtered = filtered.filter((seed) => {
           if (!seed.price || +seed.price < 0) return false;
-          if (
-            this.filterPrice.includes("lowerThan500k") &&
-            +seed.price < 500000
-          )
-            return true;
+          if (this.filterPrice.includes("lowerThan500k") && +seed.price < 500000) return true;
           if (
             this.filterPrice.includes("between500kAnd1mil") &&
             +seed.price >= 500000 &&
@@ -65,8 +65,7 @@ export const seedStore = defineStore("seed", {
             +seed.price < 5000000
           )
             return true;
-          if (this.filterPrice.includes("over5mil") && +seed.price >= 5000000)
-            return true;
+          if (this.filterPrice.includes("over5mil") && +seed.price >= 5000000) return true;
           return false;
         });
       }
@@ -86,16 +85,10 @@ export const seedStore = defineStore("seed", {
           break;
         default:
         case "newest":
-          sortedSeeds.sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
+          sortedSeeds.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
           break;
         case "oldest":
-          sortedSeeds.sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          );
+          sortedSeeds.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
           break;
         case "price:asc":
           sortedSeeds.sort((a, b) => a.price - b.price);
@@ -134,10 +127,7 @@ export const seedStore = defineStore("seed", {
           populate: "*",
         });
         if (!res) {
-          alert.error(
-            "Error occurred when fetching seeds!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching seeds!", "Please try again later!");
           return;
         }
         const seeds = get(res, "data.data", []);
@@ -165,10 +155,7 @@ export const seedStore = defineStore("seed", {
         loading.show();
         const res = await SeedCategory.fetch();
         if (!res) {
-          alert.error(
-            "Error occurred when fetching seed categories!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching seed categories!", "Please try again later!");
           return;
         }
         const categories = get(res, "data.data", []);
@@ -180,6 +167,7 @@ export const seedStore = defineStore("seed", {
           };
         });
         this.categories = mappedCategories;
+        this.categoryDictionary = Object.fromEntries(this.categories.map((x) => [x.id, x.name]));
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -205,11 +193,7 @@ export const seedStore = defineStore("seed", {
           id: seeds[0],
           ...seeds[0].attributes,
         };
-        this.seed.seedCategory = get(
-          this.seed,
-          "seedCategory.data.attributes.name",
-          "---"
-        );
+        this.seed.seedCategory = get(this.seed, "seedCategory.data.attributes.name", "---");
         this.seed.user = get(this.seed, "user.data.attributes");
       } catch (error) {
         console.error(`Error: ${error}`);
