@@ -14,40 +14,40 @@
           >
             <div
               class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-              :class="{ active: currentTab == 0 }"
-              @click="currentTab = 0"
+              :class="{ active: newStore.currentTab == 0 }"
+              @click="setCurrentTab(0)"
             >
               Tất cả
             </div>
             <v-divider vertical></v-divider>
             <div
               class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-              :class="{ active: currentTab == 1 }"
-              @click="currentTab = 1"
-            >
-              Tin mới
-            </div>
-            <v-divider vertical></v-divider>
-            <div
-              class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-              :class="{ active: currentTab == 2 }"
-              @click="currentTab = 2"
+              :class="{ active: newStore.currentTab == 1 }"
+              @click="setCurrentTab(1)"
             >
               Kiến thức
             </div>
             <v-divider vertical></v-divider>
             <div
               class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+              :class="{ active: newStore.currentTab == 2 }"
+              @click="setCurrentTab(2)"
+            >
+              Tin mới
+            </div>
+            <!-- <v-divider vertical></v-divider>
+            <div
+              class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
               :class="{ active: currentTab == 3 }"
               @click="currentTab = 3"
             >
               Kĩ thuật
-            </div>
+            </div> -->
             <v-divider vertical></v-divider>
             <div
               class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-              :class="{ active: currentTab == 4 }"
-              @click="currentTab = 4"
+              :class="{ active: newStore.currentTab == 3 }"
+              @click="setCurrentTab(3)"
             >
               Chia sẻ
             </div>
@@ -71,9 +71,11 @@
         <v-col cols="2"
           ><v-select
             class="select border-radius-8"
-            label="Lọc: "
+            label="Sắp xếp "
+            v-model="newStore.sortBy"
+            :items="newStore.sortSelection"
             item-text="name"
-            :items="sort"
+            item-value="value"
             :menu-props="{ maxHeight: '400' }"
             flat
             solo
@@ -121,20 +123,18 @@ export default {
   data() {
     return {
       currentTab: 0,
-      sort: [
-        {
-          value: "asc",
-          name: "Gần nhất",
-        },
-        {
-          value: "desc",
-          name: "Cũ nhất",
-        },
-      ],
     };
   },
   created() {
     this.newStore.fetchlistNew();
+  },
+  methods: {
+    setCurrentTab(index) {
+      // this.currentTab = index;
+      this.newStore.currentTab = index;
+      console.log("index", this.newStore.currentTab);
+      console.log("filter", this.newStore.filteredlistNew);
+    },
   },
 };
 </script>

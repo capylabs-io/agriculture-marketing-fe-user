@@ -13,6 +13,26 @@ export const newStore = defineStore("new", {
     listNew: [],
     newPosts: [],
     searchKey: "",
+    sortBy: "",
+    currentTab: 0,
+    sortSelection: [
+      {
+        value: "asc",
+        name: "Từ a -> z",
+      },
+      {
+        value: "desc",
+        name: "Từ z -> a",
+      },
+      {
+        value: "newsest",
+        name: "Mới nhất",
+      },
+      {
+        value: "oldest",
+        name: "Cũ nhất",
+      },
+    ],
   }),
   getters: {
     slicedlistNew() {
@@ -24,54 +44,48 @@ export const newStore = defineStore("new", {
     },
     filteredlistNew() {
       if (!this.listNew || this.listNew.length == 0) return [];
-      let filtered = this.listNew;
-      if (this.searchKey)
-        filtered = filtered.filter(
-          (news) =>
-            news.title
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase()) ||
-            news.content
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase())
-          //   ||
-          // news.origin
-          //   .toLowerCase()
-          //   .includes(this.searchKey.trim().toLowerCase())
-        );
+      let filtered = this.sortedNews;
+      if (this.searchKey || this.currentTab > 0)
+        filtered = filtered
+          .filter((news) => news.newsCategory.id == this.currentTab)
+          .filter(
+            (news) =>
+              news.title
+                .toLowerCase()
+                .includes(this.searchKey.trim().toLowerCase()) ||
+              news.content
+                .toLowerCase()
+                .includes(this.searchKey.trim().toLowerCase())
+          );
       return filtered;
     },
-    // sortedCampaigns() {
-    //   if (!this.voucherData || this.voucherData.length == 0) return [];
-    //   let sortedCampaigns = this.voucherData;
-    //   if (!this.sortBy) return sortedCampaigns;
-    //   switch (this.sortBy) {
-    //     default:
-    //     case "asc":
-    //       sortedCampaigns.sort((a, b) => a.title.localeCompare(b.title));
-    //       break;
-    //     case "desc":
-    //       sortedCampaigns.sort((a, b) => b.title.localeCompare(a.title));
-    //       break;
-    //     case "newsest":
-    //       sortedCampaigns.sort((a, b) => news Date(b.createdAt).getTime() - news Date(a.createdAt).getTime());
-    //       break;
-    //     case "oldest":
-    //       sortedCampaigns.sort((a, b) => news Date(a.createdAt).getTime() - news Date(b.createdAt).getTime());
-    //       break;
-    //     case "priceUp":
-    //       sortedCampaigns
-    //         // .filter((voucher) => voucher.price)
-    //         .sort((a, b) => a.price - b.price);
-    //       break;
-    //     case "priceDown":
-    //       sortedCampaigns
-    //         // .filter((voucher) => voucher.price)
-    //         .sort((a, b) => b.price - a.price);
-    //       break;
-    //   }
-    //   return sortedCampaigns;
-    // },
+    sortedNews() {
+      if (!this.listNew || this.listNew.length == 0) return [];
+      let sortedNews = this.listNew;
+      if (!this.sortBy) return sortedNews;
+      switch (this.sortBy) {
+        default:
+        case "asc":
+          sortedNews.sort((a, b) => a.title.localeCompare(b.title));
+          break;
+        case "desc":
+          sortedNews.sort((a, b) => b.title.localeCompare(a.title));
+          break;
+        case "newsest":
+          sortedNews.sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+          break;
+        case "oldest":
+          sortedNews.sort(
+            (a, b) =>
+              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          );
+          break;
+      }
+      return sortedNews;
+    },
     totalnewsPage() {
       if (!this.listNew || this.filteredlistNew.length == 0) return 1;
       if (this.filteredlistNew.length % this.newsPerPage == 0)
