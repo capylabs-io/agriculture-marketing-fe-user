@@ -128,17 +128,23 @@ export const newStore = defineStore("new", {
         }
         const posts = get(res, "data.data", []);
         if (!posts && posts.length == 0) return;
-        const mappedPosts = posts.map((post) => {
-          return {
-            id: post.id,
-            ...post.attributes,
-            newsCategory: {
-              id: get(post, "attributes.postCategory.data.id", -1),
-              ...get(post, "attributes.postCategory.data.attributes", {}),
-            },
-            author: get(post, "attributes.user.data.attributes.username", "Admin"),
-          };
-        });
+        const mappedPosts = posts
+          .filter((post) => (post.attributes.status == "publish"))
+          .map((post) => {
+            return {
+              id: post.id,
+              ...post.attributes,
+              newsCategory: {
+                id: get(post, "attributes.postCategory.data.id", -1),
+                ...get(post, "attributes.postCategory.data.attributes", {}),
+              },
+              author: get(
+                post,
+                "attributes.user.data.attributes.username",
+                "Admin"
+              ),
+            };
+          });
         this.listNew = mappedPosts;
       } catch (error) {
         alert.error("Error occurred!", error.message);
