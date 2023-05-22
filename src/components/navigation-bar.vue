@@ -70,7 +70,7 @@ export default {
       this.$router.push("/");
     },
     goToLogin() {
-      window.open("https://admin-mocmien.capylabs.io");
+      window.open("https://quanly-trungtamcaycanh.capylabs.io");
     },
   },
 };

@@ -1,12 +1,12 @@
 <template>
   <div
-    class="card-shadow border-radius-16 overflow-hidden white-bg cursor-pointer"
+    class="card-shadow border-radius-16 overflow-hidden white-bg cursor-pointer full-height d-flex flex-column"
     @click="goToProductDetail()"
   >
     <v-img :src="productImage" :aspect-ratio="1 / 1" cover></v-img>
     <div class="product-id text-center text-sm py-1">{{ product.code }}</div>
-    <div class="pa-4">
-      <div class="text-sm font-weight-semibold">
+    <div class="pa-4 d-flex flex-column full-height">
+      <div class="text-sm font-weight-semibold flex-grow-1">
         {{ product.name }}
       </div>
       <div class="text-sm font-weight-medium d-flex align-center mt-1">

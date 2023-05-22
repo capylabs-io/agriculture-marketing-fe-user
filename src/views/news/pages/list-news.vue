@@ -162,6 +162,7 @@ export default {
     };
   },
   async created() {
+    this.newStore.currentTab = 0;
     await Promise.all([
       this.newStore.fetchCategories(),
       this.newStore.fetchlistNew(),
@@ -169,10 +170,7 @@ export default {
   },
   methods: {
     setCurrentTab(index) {
-      // this.currentTab = index;
       this.newStore.currentTab = index;
-      console.log("index", this.newStore.currentTab);
-      console.log("filter", this.newStore.filteredlistNew);
     },
   },
 };

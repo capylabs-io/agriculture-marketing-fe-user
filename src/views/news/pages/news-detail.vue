@@ -49,7 +49,7 @@
 
           <v-btn
             class="neutral20-border border-radius-8 text-none text-capitalize px-3 py-5"
-            @click="$router.push('/news')"
+            @click="gotoListNews()"
             depressed
             >Xem tất cả</v-btn
           >
@@ -90,7 +90,6 @@ export default {
   },
   data() {
     return {
-      currentTab: 0,
       sort: [
         {
           value: "asc",
@@ -103,18 +102,29 @@ export default {
       ],
     };
   },
-  async created() {
-    const code = this.$route.params.code;
-    await this.newStore.fetchnews(code);
-    await this.newStore.fetchlistNew({
+  watch:{
+    "$route.params.code": {
+      async handler() {
+      await this.loadDetail();
+    }, deep: true, immediate: true
+   }
+  },
+  methods: {
+    gotoListNews() {
+      this.$router.push(`/news`);
+    },
+    async loadDetail(){
+      const code = this.$route.params.code;
+      await this.newStore.fetchnews(code);
+      await this.newStore.fetchlistNew({
       pagination: {
         page: 1,
         pageSize: 3,
       },
-    });
-    // await this.newStore.top3NewPost();
+      });
   },
-};
+}
+}
 </script>
 
 <style scoped>

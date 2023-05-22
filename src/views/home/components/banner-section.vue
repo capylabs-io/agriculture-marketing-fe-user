@@ -15,7 +15,7 @@
         "
       >
         <div
-          class="content mx-auto px-6"
+          class="content mx-auto pa-6"
           :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
         >
           <div
@@ -23,7 +23,7 @@
             data-aos="fade-right"
             data-aos-duration="600"
             data-aos-delay="0"
-            :class="$vuetify.breakpoint.mdAndUp ? 'text-dp-xl' : 'text-dp-lg'"
+            :class="$vuetify.breakpoint.mdAndUp ? 'text-dp-lg' : 'text-dp-md'"
           >
             Nâng tầm cây cảnh Việt
           </div>
@@ -33,7 +33,7 @@
             data-aos-duration="600"
             data-aos-delay="300"
             :class="
-              $vuetify.breakpoint.mdAndUp ? 'text-dp-sm mt-12' : 'text-xl mt-6'
+              $vuetify.breakpoint.mdAndUp ? 'text-dp-xs mt-12' : 'text-lg mt-6'
             "
           >
             Nhanh chóng, tiện lợi giúp người nông dân đáp ứng yêu cầu thị
@@ -50,6 +50,7 @@
               "
               depressed
               dark
+              @click="goToLogin()"
               >Đăng ký ngay <v-icon> mdi-arrow-right-thin </v-icon></v-btn
             >
           </div>
@@ -92,6 +93,11 @@ export default {
         require("@/assets/components/landing/section1-right4.jpeg"),
       ],
     };
+  },
+  methods: {
+    goToLogin() {
+      window.open("https://quanly-trungtamcaycanh.capylabs.io/register");
+    },
   },
 };
 </script>

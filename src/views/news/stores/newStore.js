@@ -165,7 +165,6 @@ export const newStore = defineStore("new", {
         const listNew = get(res, "data.data", {});
         if (!listNew || listNew.length == 0) return;
         const post = listNew;
-        console.log("post", post);
         this.news = {
           id: post.id,
           ...post.attributes,

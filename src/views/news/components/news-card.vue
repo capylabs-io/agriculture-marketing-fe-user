@@ -20,6 +20,9 @@
 </template>
 
 <script>
+import { mapStores } from "pinia";
+import { newStore } from "../stores/newStore";
+
 export default {
   props: {
     post: {
@@ -28,6 +31,7 @@ export default {
     },
   },
   computed: {
+    ...mapStores(newStore),
     postImage() {
       if (!this.post || !this.post.images)
         return require("@/assets/no-image.png");
@@ -36,6 +40,7 @@ export default {
   },
   methods: {
     goToNewsDetail() {
+      if(this.newStore.news && this.post && this.newStore.news.id == this.post.id) return;
       this.$router.push(`/news/${this.post.id}`);
     },
   },

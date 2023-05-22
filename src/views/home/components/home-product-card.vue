@@ -1,5 +1,8 @@
 <template>
-  <div class="card-shadow border-radius-16 overflow-hidden white-bg">
+  <div
+    class="card-shadow border-radius-16 overflow-hidden white-bg cursor-pointer"
+    @click="goTo()"
+  >
     <v-img :src="productImage" :aspect-ratio="1 / 1" cover></v-img>
     <div class="product-id text-center text-sm py-1">
       {{ productCode }}
@@ -28,6 +31,11 @@ export default {
   },
   props: {
     product: Object,
+  },
+  methods: {
+    goTo() {
+      this.$router.push(`/products`);
+    },
   },
 };
 </script>

@@ -50,24 +50,32 @@
           class="d-flex col-gap-36"
           :class="{ 'mt-4 mx-auto text-center': $vuetify.breakpoint.smAndDown }"
         >
-          <router-link
-            to="/login"
+          <div class="text-none nav-link">Term</div>
+
+          <div class="text-none nav-link">Privacy</div>
+
+          <div class="text-none nav-link">Cookie</div>
+          <!-- <router-link
+            target="_blank"
+            to="/"
             class="text-decoration-none align-self-center"
           >
             <div class="text-none nav-link">Term</div>
           </router-link>
           <router-link
-            to="/login"
+            target="_blank"
+            to="/"
             class="text-decoration-none align-self-center"
           >
             <div class="text-none nav-link">Privacy</div>
           </router-link>
           <router-link
-            to="/login"
+            target="_blank"
+            to="/"
             class="text-decoration-none align-self-center"
           >
             <div class="text-none nav-link">Cookie</div>
-          </router-link>
+          </router-link> -->
         </div>
       </div>
     </div>
