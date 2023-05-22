@@ -11,7 +11,7 @@
       </div>
       <div class="text-sm font-weight-medium d-flex align-center mt-1">
         <div class="text-dp-xs font-weight-semibold">
-          {{ seed.price || "---" }}
+          {{ numberWithCommas(seed.price) || "---" }}
         </div>
         <div class="ml-1 text-sm neutral80--text">vnd</div>
       </div>
@@ -38,6 +38,12 @@ export default {
     goToSeedlingDetail() {
       if (!this.seed) return;
       this.$router.push(`/seedlings/${this.seed.code}`);
+    },
+    numberWithCommas(x) {
+      x = x.toString();
+      var pattern = /(-?\d+)(\d{3})/;
+      while (pattern.test(x)) x = x.replace(pattern, "$1.$2");
+      return x;
     },
   },
 };
