@@ -18,7 +18,7 @@
         :class="{ 'right-border pr-6': $vuetify.breakpoint.mdAndUp }"
       >
         <v-img
-          class="border-radius-16 neutral30-border cursor-pointer full-height"
+          class="border-radius-16 neutral30-border cursor-pointer big-post"
           :src="productImage(homeStore.newestPost.images)"
           @click="goToPost(homeStore.newestPost.id)"
         >
@@ -157,6 +157,9 @@ export default {
 .image-gradient {
   position: absolute;
   bottom: 0;
+}
+.big-post {
+  max-height: 377px;
 }
 .big-new-title {
   position: absolute;

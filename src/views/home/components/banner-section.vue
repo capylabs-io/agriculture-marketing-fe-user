@@ -98,7 +98,8 @@ export default {
 }
 .left-section-image {
   background: url("@/assets/components/landing/section1-left.png") !important;
-  background-size: auto !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
   background-position: center 80% !important;
 }
 .left-section-bg {
