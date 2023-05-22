@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     goTo() {
-      this.$router.push(`/products`);
+      this.$router.push(`/products/${this.productCode}`);
     },
   },
 };

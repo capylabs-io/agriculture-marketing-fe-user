@@ -7,7 +7,7 @@
         Danh sách cây cảnh
       </div>
       <span class="mx-2">/</span>
-      <div class="primary--text text-capitalize">
+      <div class="primary--text text-none">
         {{ productStore.product.name || "Product Name" }}
       </div>
     </div>
@@ -33,7 +33,7 @@
         >
           <div class="flex-grow-1 full-width">
             <div
-              class="font-weight-semibold text-capitalize"
+              class="font-weight-semibold text-none"
               :class="{
                 'text-center text-dp-sm': $vuetify.breakpoint.smAndDown,
                 'text-dp-md': !$vuetify.breakpoint.smAndDown,
@@ -58,14 +58,14 @@
               </span>
               <span class="neutral80--text text-xs ml-1">vnđ</span>
             </div>
-            <div class="neutral80--text text-sm text-capitalize">
+            <div class="neutral80--text text-sm text-none">
               Danh mục sản phẩm:
               {{ productStore.product.productCategory }}
             </div>
             <div class="neutral80--text text-sm mt-1">
               Mã sản phẩm: {{ productStore.product.code }}
             </div>
-            <div class="neutral80--text text-sm mt-1 text-capitalize">
+            <div class="neutral80--text text-sm mt-1 text-none">
               Xuất xứ: {{ productStore.product.origin }}
             </div>
           </div>

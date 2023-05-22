@@ -67,7 +67,7 @@
 export default {
   methods: {
     goToHome() {
-      this.$router.push("/");
+      this.$router.push('/').catch(()=>{});
     },
     goToLogin() {
       window.open("https://quanly-trungtamcaycanh.capylabs.io");

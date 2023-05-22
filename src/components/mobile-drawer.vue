@@ -12,7 +12,7 @@
           class="mx-auto"
           max-width="120px"
           :src="require(`@/assets/components/landing/web-logo-black.webp`)"
-          @click="$router.push('/')"
+          @click="$router.push('/').catch(()=>{})"
           contain
         />
       </div>
@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     goToLogin() {
-      window.open("https://admin-mocmien.capylabs.io");
+      window.open("https://quanly-trungtamcaycanh.capylabs.io");
     },
   },
 };

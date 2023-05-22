@@ -193,7 +193,7 @@ export const seedStore = defineStore("seed", {
           id: seeds[0],
           ...seeds[0].attributes,
         };
-        this.seed.seedCategory = get(this.seed, "seedCategory.data.attributes.name", "---");
+        this.seed.seedCategory = get(this.seed, "seedlingCategory.data.attributes.name", "---");
         this.seed.user = get(this.seed, "user.data.attributes");
       } catch (error) {
         console.error(`Error: ${error}`);

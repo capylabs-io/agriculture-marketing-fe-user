@@ -12,12 +12,14 @@
         <div class="d-flex align-center">
           <v-img
             class="avatar-img"
-            :src="require(`@/assets/components/landing/profile.webp`)"
+            :src="
+              newStore.news.avatar
+                ? newStore.news.avatar
+                : require(`@/assets/components/landing/profile.webp`)
+            "
           />
           <div class="ml-4">
-            <div
-              class="font-weight-bold text-sm neutral100--text text-capitalize"
-            >
+            <div class="font-weight-bold text-sm neutral100--text text-none">
               {{ newStore.news.author }}
             </div>
             <div class="text-caption neutral70--text mt-1">
@@ -102,29 +104,31 @@ export default {
       ],
     };
   },
-  watch:{
+  watch: {
     "$route.params.code": {
       async handler() {
-      await this.loadDetail();
-    }, deep: true, immediate: true
-   }
+        await this.loadDetail();
+      },
+      deep: true,
+      immediate: true,
+    },
   },
   methods: {
     gotoListNews() {
       this.$router.push(`/news`);
     },
-    async loadDetail(){
+    async loadDetail() {
       const code = this.$route.params.code;
       await this.newStore.fetchnews(code);
       await this.newStore.fetchlistNew({
-      pagination: {
-        page: 1,
-        pageSize: 3,
-      },
+        pagination: {
+          page: 1,
+          pageSize: 3,
+        },
       });
+    },
   },
-}
-}
+};
 </script>
 
 <style scoped>

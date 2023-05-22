@@ -9,7 +9,7 @@
         <v-img
           max-width="120px"
           :src="require(`@/assets/components/landing/web-logo-black.webp`)"
-          @click="$router.push('/')"
+          @click="$router.push('/').catch(()=>{})"
           contain
         />
       </div>
