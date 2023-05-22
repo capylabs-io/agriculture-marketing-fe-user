@@ -6,7 +6,7 @@
         :class="$vuetify.breakpoint.xsOnly ? 'mobile-logo' : 'footer-logo'"
       >
         <v-img
-          :src="require('@/assets/components/landing/web-logo-white.png')"
+          :src="require('@/assets/components/landing/web-logo-white.webp')"
         ></v-img>
       </div>
       <div
@@ -87,7 +87,7 @@
   background: #333232 !important;
 }
 .footer-logo {
-  max-width: 375px;
+  max-width: 235px;
   max-height: 64px;
 }
 .mobile-logo {

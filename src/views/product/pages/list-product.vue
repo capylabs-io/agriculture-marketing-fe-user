@@ -26,6 +26,7 @@
             :items="sortBy"
             item-text="text"
             item-value="value"
+            placeholder="Sắp xếp"
             hide-details
             outlined
             dense
@@ -64,8 +65,7 @@
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
 
 <script>
 import { mapStores } from "pinia";

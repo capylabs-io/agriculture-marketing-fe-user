@@ -15,9 +15,9 @@
       >
         <!-- <span class="text-xl">Logo Website</span> -->
         <v-img
-          width="164"
-          max-height="28"
-          :src="require('@/assets/components/landing/web-logo-black.png')"
+          width="118"
+          max-height="32"
+          :src="require('@/assets/components/landing/web-logo-black.webp')"
         ></v-img>
       </div>
       <div class="d-flex col-gap-36">

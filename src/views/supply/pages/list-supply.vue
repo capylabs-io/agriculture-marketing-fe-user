@@ -24,6 +24,7 @@
             v-model="supplyStore.sortBy"
             v-if="$vuetify.breakpoint.mdAndUp"
             :items="sortBy"
+            placeholder="Sắp xếp"
             item-text="text"
             item-value="value"
             hide-details
