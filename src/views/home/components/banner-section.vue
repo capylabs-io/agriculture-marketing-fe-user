@@ -28,27 +28,31 @@
             Nâng tầm cây cảnh Việt
           </div>
           <div
-            class="mt-6"
+            class="neutral80--text"
             data-aos="fade-right"
             data-aos-duration="600"
             data-aos-delay="300"
-            :class="$vuetify.breakpoint.mdAndUp ? 'text-xl' : 'text-md'"
+            :class="
+              $vuetify.breakpoint.mdAndUp ? 'text-dp-sm mt-12' : 'text-xl mt-6'
+            "
           >
             Nhanh chóng, tiện lợi giúp người nông dân đáp ứng yêu cầu thị
             trường, bảo vệ người tiêu dùng và tiếp cận thị trường mới
           </div>
-          <v-btn
-            class="text-none border-radius-12 mt-8 mx-auto"
-            color="primary60"
-            :class="
-              $vuetify.breakpoint.mdAndUp
-                ? 'text-lg py-7 px-5'
-                : 'text-md py-6 px-4'
-            "
-            depressed
-            dark
-            >Đăng ký ngay <v-icon> mdi-arrow-right-thin </v-icon></v-btn
-          >
+          <div class="text-center">
+            <v-btn
+              class="text-none border-radius-12 mx-auto"
+              color="primary60"
+              :class="
+                $vuetify.breakpoint.mdAndUp
+                  ? 'text-lg py-7 px-5 text-center mt-12'
+                  : 'text-md py-6 px-4 mt-8'
+              "
+              depressed
+              dark
+              >Đăng ký ngay <v-icon> mdi-arrow-right-thin </v-icon></v-btn
+            >
+          </div>
         </div>
       </div>
     </v-col>
@@ -109,7 +113,7 @@ export default {
   max-height: calc(100vh - 64px) !important;
 }
 .content {
-  max-width: 520px !important;
+  max-width: 720px !important;
 }
 .mobile-section {
   height: 420px !important;
