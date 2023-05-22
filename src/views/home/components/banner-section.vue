@@ -15,7 +15,7 @@
         "
       >
         <div
-          class="content mx-auto"
+          class="content mx-auto px-6"
           :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
         >
           <div
