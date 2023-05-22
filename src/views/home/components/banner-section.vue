@@ -25,7 +25,7 @@
             data-aos-delay="0"
             :class="$vuetify.breakpoint.mdAndUp ? 'text-dp-lg' : 'text-dp-md'"
           >
-            Nâng tầm cây cảnh Việt
+            NÂNG TẦM CÂY CẢNH VIỆT
           </div>
           <div
             class="neutral80--text"
@@ -36,8 +36,8 @@
               $vuetify.breakpoint.mdAndUp ? 'text-dp-xs mt-12' : 'text-lg mt-6'
             "
           >
-            Nhanh chóng, tiện lợi giúp người nông dân đáp ứng yêu cầu thị
-            trường, bảo vệ người tiêu dùng và tiếp cận thị trường mới
+            Nhanh chóng, tiện lợi, giúp nghệ nhân đáp ứng yêu cầu thị trường,
+            bảo vệ người tiêu dùng và quảng bá sản phẩm mới
           </div>
           <div class="text-center">
             <v-btn
