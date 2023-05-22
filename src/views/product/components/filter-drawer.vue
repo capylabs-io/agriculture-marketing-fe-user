@@ -90,7 +90,7 @@
               >
                 <template v-slot:label>
                   <div class="text-sm font-weight-bold">
-                    Từ 1 triệu đến 5 Triệu
+                    Từ 1 triệu đến 5 triệu
                   </div>
                 </template>
               </v-checkbox>
