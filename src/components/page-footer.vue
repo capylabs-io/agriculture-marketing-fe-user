@@ -11,9 +11,11 @@
       </div>
       <div
         class="d-flex col-gap-36 mt-6 justify-center flex-wrap"
-        :class="{ 'flex-column gap-16': $vuetify.breakpoint.smAndDown }"
+        :class="{
+          'gap-16 mobile-menu mx-auto': $vuetify.breakpoint.xsOnly,
+        }"
       >
-        <router-link to="/" class="text-decoration-none align-self-center">
+        <router-link to="/" class="text-decoration-none">
           <div class="text-none nav-link">Trang chủ</div>
         </router-link>
         <!-- <router-link to="/world" class="text-decoration-none align-self-center">
@@ -91,7 +93,10 @@
   max-height: 64px;
 }
 .mobile-logo {
-  max-width: 280px;
+  max-width: 200px;
+}
+.mobile-menu {
+  max-width: 240px;
 }
 .watermark {
   border-top: 1px solid #666564;

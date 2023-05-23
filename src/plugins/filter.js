@@ -3,18 +3,10 @@ import Vue from "vue";
 import { get, isNumber, isEmpty } from "lodash";
 
 export const vueFilterRegister = () => {
-  Vue.filter("date", (isoStr, format) =>
-    isoStr ? moment(isoStr).format(format) : ""
-  );
-  Vue.filter("datetime", (isoStr, format = "lll") =>
-    isoStr ? moment(isoStr).format(format) : ""
-  );
-  Vue.filter("ddmmyyyy", (isoStr) =>
-    isoStr ? moment(isoStr).format("DD/MM/YYYY") : ""
-  );
-  Vue.filter("ddmmyyyyhhmmss", (isoStr) =>
-    isoStr ? moment(isoStr).format("DD/MM/YYYY HH:mm:ss") : ""
-  );
+  Vue.filter("date", (isoStr, format) => (isoStr ? moment(isoStr).format(format) : ""));
+  Vue.filter("datetime", (isoStr, format = "lll") => (isoStr ? moment(isoStr).format(format) : ""));
+  Vue.filter("ddmmyyyy", (isoStr) => (isoStr ? moment(isoStr).format("DD/MM/YYYY") : ""));
+  Vue.filter("ddmmyyyyhhmmss", (isoStr) => (isoStr ? moment(isoStr).format("DD/MM/YYYY HH:mm:ss") : ""));
   Vue.filter("normalizeTimeDuration", (timestamp) => {
     if (!timestamp) return "TBA";
     const duration = timestamp - Date.now();
@@ -22,9 +14,7 @@ export const vueFilterRegister = () => {
     for (const i of arr) {
       // const unitTime = i as moment.unitOfTime.Base;
       const unitTime = i;
-      const normalizeDuration = Math.trunc(
-        moment.duration(duration).as(unitTime)
-      );
+      const normalizeDuration = Math.trunc(moment.duration(duration).as(unitTime));
       if (normalizeDuration != 0) {
         const res = moment.duration(normalizeDuration, unitTime).humanize();
         return duration >= 0 ? res : `${res} ago`;

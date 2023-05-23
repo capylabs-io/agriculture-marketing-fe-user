@@ -37,6 +37,8 @@
           <v-col
             cols="12"
             md="3"
+            sm="6"
+            xs="12"
             v-for="(expert, i) in experts"
             :key="expert.name"
             data-aos="fade-up"

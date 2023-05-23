@@ -15,17 +15,18 @@
         "
       >
         <div
-          class="content mx-auto pa-6"
-          :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
+          class="content mx-auto py-6 text-center"
+          :class="$vuetify.breakpoint.mdAndUp ? 'px-6' : 'px-1'"
         >
           <div
-            class="font-weight-bold"
+            class="font-weight-bold text-uppercase text-center"
             data-aos="fade-right"
             data-aos-duration="600"
             data-aos-delay="0"
-            :class="$vuetify.breakpoint.mdAndUp ? 'text-dp-lg' : 'text-dp-md'"
+            :class="$vuetify.breakpoint.mdAndUp ? 'text-dp-lg' : 'text-dp-xs'"
           >
-            NÂNG TẦM CÂY CẢNH VIỆT
+            Truy xuất nguồn gốc, <br />
+            nâng tầm cây cảnh Việt
           </div>
           <div
             class="neutral80--text"
@@ -33,11 +34,30 @@
             data-aos-duration="600"
             data-aos-delay="300"
             :class="
-              $vuetify.breakpoint.mdAndUp ? 'text-dp-xs mt-12' : 'text-lg mt-6'
+              $vuetify.breakpoint.mdAndUp
+                ? 'text-dp-sm mt-12'
+                : 'text-md mt-6 tablet-subtitle'
             "
+            v-if="$vuetify.breakpoint.xsOnly"
           >
             Nhanh chóng, tiện lợi, giúp nghệ nhân đáp ứng yêu cầu thị trường,
             bảo vệ người tiêu dùng và quảng bá sản phẩm mới
+          </div>
+          <div
+            class="neutral80--text"
+            data-aos="fade-right"
+            data-aos-duration="600"
+            data-aos-delay="300"
+            :class="
+              $vuetify.breakpoint.mdAndUp
+                ? 'text-dp-sm mt-12'
+                : 'text-md mt-6 tablet-subtitle'
+            "
+            v-else
+          >
+            Tận hưởng sự tin cậy và minh bạch về nguồn gốc cây cảnh của bạn,
+            giúp nghệ nhân đáp ứng yêu cầu thị trường, bảo vệ người tiêu dùng và
+            quảng bá sản phẩm mới
           </div>
           <div class="text-center">
             <v-btn
@@ -46,7 +66,7 @@
               :class="
                 $vuetify.breakpoint.mdAndUp
                   ? 'text-lg py-7 px-5 text-center mt-12'
-                  : 'text-md py-6 px-4 mt-8'
+                  : 'text-sm py-6 px-4 mt-8'
               "
               depressed
               dark
@@ -119,10 +139,13 @@ export default {
   max-height: calc(100vh - 64px) !important;
 }
 .content {
-  max-width: 720px !important;
+  max-width: 860px !important;
 }
 .mobile-section {
   height: 420px !important;
+}
+.tablet-subtitle {
+  max-width: 560px;
 }
 .inherit-height {
   height: inherit;

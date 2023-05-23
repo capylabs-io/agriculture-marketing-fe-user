@@ -24,13 +24,17 @@
         >
           <v-img
             class="image-gradient"
+            :class="{ 'full-height': $vuetify.breakpoint.smAndDown }"
             :src="require('@/assets/components/landing/image-gradient.png')"
           ></v-img>
           <div class="big-new-title white--text pa-6 full-width">
             <div class="font-weight-semibold text-dp-xs">
               {{ homeStore.newestPost.title }}
             </div>
-            <div class="text-md mt-1 font-weight-light text-truncate">
+            <div
+              class="text-md mt-1 font-weight-light text-truncate"
+              v-if="$vuetify.breakpoint.mdAndUp"
+            >
               {{ stripHtml(homeStore.newestPost.content) }}
             </div>
           </div>
@@ -89,15 +93,18 @@
           <v-img
             class="border-radius-16 neutral30-border full-width"
             :src="productImage(post.images)"
-            height="132px"
-            width="176px"
+            height="172px"
+            cover
           ></v-img>
           <div class="full-width d-flex flex-column mt-3">
             <div class="font-weight-semibold text-lg">
               {{ post.title }}
             </div>
-            <div class="neutral70--text text-sm mt-1 flex-grow-1 text-truncate">
+            <!-- <div class="neutral70--text text-sm mt-1 flex-grow-1 text-truncate">
               {{ stripHtml(post.content) }}
+            </div> -->
+            <div class="primary--text font-weight-semibold mt-1">
+              {{ post.postCategory.name }}
             </div>
           </div>
         </div>

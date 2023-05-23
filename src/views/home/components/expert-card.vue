@@ -56,4 +56,8 @@ export default {
   max-height: 128px;
   border-radius: 64px !important;
 }
+
+.expert-card {
+  max-width: 520px;
+}
 </style>
