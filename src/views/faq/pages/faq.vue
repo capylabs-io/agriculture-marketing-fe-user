@@ -14,7 +14,6 @@
           solo
           outlined
           hide-details
-          clearable
         >
           <template v-slot:append>
             <div class="append-btn border-radius-6 pa-3 mr-n2">

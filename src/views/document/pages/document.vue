@@ -14,7 +14,6 @@
           solo
           outlined
           hide-details
-          clearable
         >
           <template v-slot:append>
             <div class="append-btn border-radius-6 pa-3 mr-n2">
@@ -23,13 +22,40 @@
           </template></v-text-field
         >
       </div>
-      <div class="border-radius-12 neutral20-border overflow-hidden mt-3">
-        <v-data-table
-          :headers="headers"
-          :items="items"
-          :items-per-page="5"
-          hide-default-footer
-        >
+      <div class="d-flex flex-column align-center justify-center">
+        <v-expansion-panels flat accordion class="mt-3 expansion-content">
+          <v-expansion-panel
+            class="expansion-content d-flex flex-column justify-center align-center"
+          >
+            <v-expansion-panel-header
+              class="text-md expansion-header align-self-end"
+            >
+              <div>Tìm kiếm nâng cao</div>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content class="expansion-content-form mt-5 pa-4">
+              <searchForm />
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </div>
+
+      <div class="border-radius-12 neutral20-border overflow-hidden mt-8">
+        <v-data-table :headers="headers" :items="items" hide-default-footer>
+          <template v-slot:[`item.code`]="{ item }">
+            <div class="d-flex align-center justify-center">
+              {{ item.code }}
+            </div>
+          </template>
+          <template v-slot:[`item.publishedAt`]="{ item }">
+            <div class="d-flex align-center justify-center">
+              {{ item.publishedAt }}
+            </div>
+          </template>
+          <template v-slot:[`item.title`]="{ item }">
+            <div class="d-flex align-center justify-center text-left">
+              {{ item.title }}
+            </div>
+          </template>
           <template v-slot:[`item.action`]="{ item }">
             <div class="d-flex align-center justify-center">
               <v-btn
@@ -37,13 +63,17 @@
                 dense
                 depressed
                 @click="onDisableClicked(item.id)"
-                class="text-none"
-                color="primary"
-                >Chi tiết <v-icon small>mdi-arrow-right</v-icon></v-btn
+                class="text-none d-flex flex-column justify-center align-center"
+                color="blue70"
+                >Chi tiết
+                <v-icon small class="ml-1">mdi-chevron-right</v-icon></v-btn
               >
             </div>
           </template>
         </v-data-table>
+      </div>
+      <div class="mt-4 mb-16">
+        <v-pagination color="primary" :length="5"></v-pagination>
       </div>
     </div>
   </div>
@@ -103,28 +133,34 @@ export default {
           text: "Số/Ký hiệu",
           value: "code",
           align: "center",
-          sortable: false,
+          width: "150px",
         },
         {
           text: "Ngày ban hành",
           value: "publishedAt",
           align: "center",
-          sortable: false,
+          width: "150px",
         },
         {
           text: "Tiêu đề",
           value: "title",
           align: "center",
+          width: "500px",
         },
         {
           text: "",
           value: "action",
           align: "center",
           sortable: false,
+          width: "90px",
         },
       ],
     };
   },
+  components: {
+    searchForm: () => import("../components/document-search-form.vue"),
+  },
+
   created() {},
   methods: {
     toggleSearch() {},
@@ -154,11 +190,22 @@ export default {
   height: 300px;
   background: var(--v-primary5-base);
 }
+
+.header-table {
+  background: var(--v-primary20-base) !important;
+}
 .image-banner {
   border-radius: 100px;
 }
-  
-.v-data-table-header {
-  background: var(--v-primary20-base) !important;
+.expansion-header {
+  width: 200px;
+}
+.expansion-content {
+  width: 700px !important;
+}
+.expansion-content-form {
+  width: 700px !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--v-neutral20-base) !important;
 }
 </style>

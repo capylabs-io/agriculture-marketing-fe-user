@@ -262,9 +262,12 @@ body {
   font-weight: 600 !important;
   font-size: 14px !important;
   line-height: 20px !important;
-  color: var(--v-neutral70-base) !important;
+  background: var(--v-primary20-base) !important;
 }
 
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+  padding: 36px 24px !important;
+}
 //.v-data-table > .v-data-table__wrapper > table > tbody > tr:nth-of-type(even) {
 // background: var(--v-neutral10-base);
 //}
