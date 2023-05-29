@@ -101,6 +101,17 @@
           </div>
         </router-link>
         <router-link
+          to="/vung-san-xuat"
+          class="text-decoration-none align-self-center footer-nav-link"
+          active-class="active"
+        >
+          <div
+            class="text-none white--text text-uppercase font-weight-medium px-3 py-2 text-sm"
+          >
+            Vùng sản xuất
+          </div>
+        </router-link>
+        <router-link
           to="/dai-ly"
           class="text-decoration-none align-self-center footer-nav-link"
           active-class="active"
@@ -195,10 +206,10 @@
   border-bottom: 1px solid var(--v-primary70-base) !important;
 }
 .footer-menu {
-  max-width: 416px;
+  max-width: 464px;
 }
 .footer-nav-link {
-  flex-basis: 128px !important;
+  flex-basis: 144px !important;
 }
 .footer-bottom {
   background-color: var(--v-neutral90-base) !important;

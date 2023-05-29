@@ -1,5 +1,5 @@
 <template>
-  <v-row :class="{ 'banner-section': $vuetify.breakpoint.mdAndUp }" no-gutters>
+  <!-- <v-row :class="{ 'banner-section': $vuetify.breakpoint.mdAndUp }" no-gutters>
     <v-col
       cols="12"
       md="6"
@@ -99,25 +99,44 @@
         </v-carousel-item>
       </v-carousel>
     </v-col>
-  </v-row>
+  </v-row> -->
+  <div>
+    <vueper-slides
+      slide-image-inside
+      autoplay
+      fixed-height="480px"
+      :dragging-distance="100"
+    >
+      <vueper-slide
+        v-for="(banner, i) in banners"
+        :key="i"
+        :image="banner.image"
+      />
+    </vueper-slides>
+  </div>
 </template>
 
 <script>
+import { VueperSlides, VueperSlide } from "vueperslides";
+import "vueperslides/dist/vueperslides.css";
 export default {
+  components: {
+    VueperSlides,
+    VueperSlide,
+  },
   data() {
     return {
-      imageUrls: [
-        require("@/assets/components/landing/section1-right3.jpeg"),
-        require("@/assets/components/landing/section1-right1.png"),
-        require("@/assets/components/landing/section1-right2.jpeg"),
-        require("@/assets/components/landing/section1-right4.jpeg"),
+      banners: [
+        {
+          image: require("@/assets/components/home/banner.png"),
+          link: "",
+        },
+        {
+          image: require("@/assets/components/home/banner1.webp"),
+          link: "",
+        },
       ],
     };
-  },
-  methods: {
-    goToLogin() {
-      window.open("https://quanly-trungtamcaycanh.capylabs.io/register");
-    },
   },
 };
 </script>

@@ -7,7 +7,7 @@ import { get } from "lodash";
 export const newStore = defineStore("new", {
   state: () => ({
     newsPage: 1,
-    newsPerPage: 12,
+    newsPerPage: 6,
     categories: [],
     news: {},
     listNew: [],
@@ -15,7 +15,6 @@ export const newStore = defineStore("new", {
     searchKey: "",
     sortBy: "",
     category: "all",
-    currentTab: 0,
     sortSelection: [
       {
         value: "asc",
@@ -36,6 +35,17 @@ export const newStore = defineStore("new", {
     ],
   }),
   getters: {
+    newestPost() {
+      if (!this.listNew || this.listNew.length == 0)
+        return {
+          newsCategory: {},
+        };
+      return this.listNew[0];
+    },
+    otherPosts() {
+      if (!this.listNew || this.listNew.length == 0) return [];
+      return this.listNew.slice(1, 4);
+    },
     slicedlistNew() {
       if (!this.listNew || this.listNew.length == 0) return [];
       return this.filteredlistNew.slice(
@@ -189,11 +199,7 @@ export const newStore = defineStore("new", {
             "attributes.postCategory.data.attributes.name",
             "Danh mục bài viết"
           ),
-          avatar: get(
-            post,
-            "attributes.user.data.attributes.avatar",
-            ""
-          ),
+          avatar: get(post, "attributes.user.data.attributes.avatar", ""),
           author: get(
             post,
             "attributes.user.data.attributes.username",

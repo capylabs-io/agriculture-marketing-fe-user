@@ -24,7 +24,7 @@
               {{ homeStore.newestPost.postCategory.name }}
             </div>
             <v-clamp
-              class="font-weight-semibold text-dp-xs mt-1"
+              class="font-weight-semibold text-dp-xs mt-2"
               :max-lines="4"
               >{{ stripHtml(homeStore.newestPost.title) }}</v-clamp
             >
@@ -54,10 +54,13 @@
             />
           </div>
           <div class="ml-4">
-            <v-clamp class="font-weight-semibold text-lg" :max-lines="2">{{
+            <div class="primary--text text-sm font-weight-semibold">
+              {{ post.postCategory.name }}
+            </div>
+            <v-clamp class="font-weight-semibold text-md" :max-lines="2">{{
               stripHtml(post.title)
             }}</v-clamp>
-            <v-clamp class="mt-1" :max-lines="2">{{
+            <v-clamp class="text-sm mt-1" :max-lines="2">{{
               stripHtml(post.content)
             }}</v-clamp>
           </div>
@@ -112,11 +115,6 @@ export default {
     ...mapStores(homeStore),
     newestPostTitle() {
       return get(homeStore.newestPost, "title", "Tiêu đề");
-    },
-    newestPostContent() {
-      let content = get(homeStore.newestPost, "content", "Nội dung bài viết");
-      content = content.length >= 100 ? content.slice(0, 100) + "..." : content;
-      return content;
     },
   },
   methods: {

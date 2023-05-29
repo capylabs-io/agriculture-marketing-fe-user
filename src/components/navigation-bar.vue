@@ -114,6 +114,17 @@
             </div>
           </router-link>
           <router-link
+            to="/vung-san-xuat"
+            class="text-decoration-none align-self-center"
+            active-class="active"
+          >
+            <div
+              class="text-none white--text text-uppercase font-weight-medium px-3 py-2 text-sm"
+            >
+              Vùng sản xuất
+            </div>
+          </router-link>
+          <router-link
             to="/hop-tac-xa"
             class="text-decoration-none align-self-center"
             active-class="active"

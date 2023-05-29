@@ -1,13 +1,13 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="home">
-    <!-- <bannerSection /> -->
     <searchSection />
     <!-- <functionSection /> -->
     <newsSection />
-    <div>
+    <bannerSection />
+    <!-- <div>
       <img class="banner-img" src="@/assets/components/home/banner.png" />
-    </div>
+    </div> -->
     <productSection />
     <introSection />
     <expertSection />
@@ -24,7 +24,7 @@ export default {
   },
   components: {
     searchSection: () => import("../components/search-section.vue"),
-    // bannerSection: () => import("../components/banner-section.vue"),
+    bannerSection: () => import("../components/banner-section.vue"),
     // seedlingSection: () => import("../components/seedling-section.vue"),
     // functionSection: () => import("../components/function-section.vue"),
     newsSection: () => import("../components/news-section.vue"),
