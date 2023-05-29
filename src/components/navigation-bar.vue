@@ -10,7 +10,7 @@
   >
     <div class="full-height full-width d-flex flex-column white--text">
       <div
-        class="top-nav d-flex align-center justify-space-between full-width full-height px-8 text-sm py-5"
+        class="top-nav d-flex align-center justify-space-between full-width full-height px-8 text-xs py-5"
       >
         <div>
           Trang web trực thuộc quản lý của Bộ Nông Nghiệp và Phát Triển Nông

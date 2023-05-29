@@ -1,19 +1,22 @@
 <template>
   <div
-    class="card-shadow border-radius-16 pa-6 text-center overflow-hidden white-bg"
+    class="card-shadow border-radius-16 pa-6 text-center overflow-hidden white-bg full-height d-flex flex-column"
   >
     <div class="avatar mx-auto">
       <v-img :src="expertImage" :aspect-ratio="1 / 1"></v-img>
     </div>
-    <div class="mt-6">
-      <div class="text-lg font-weight-semibold">{{ expertName }}</div>
-      <div class="text-sm neutral70--text">{{ expertTitle }}</div>
+    <div class="text-lg font-weight-semibold mt-6">{{ expertName }}</div>
+    <div class="text-sm neutral70--text flex-grow-1 mt-1">
+      {{ expertTitle }}
     </div>
-    <v-divider class="my-4"></v-divider>
-    <div class="d-flex align-center justify-center">
-      <v-icon small>mdi-phone</v-icon>
-      <div class="text-sm font-weight-semibold ml-1">{{ expertPhone }}</div>
-    </div>
+    <v-btn
+      class="neutral30-border text-none text-sm py-4 border-radius-8 mt-6 mx-auto"
+      max-width="128px"
+      outlined
+      small
+    >
+      Chi Tiết <v-icon small>mdi-arrow-right</v-icon>
+    </v-btn>
   </div>
 </template>
 
@@ -30,7 +33,7 @@ export default {
       return get(this.expert, "name", "Họ và tên");
     },
     expertTitle() {
-      return get(this.expert, "name", "Chuyên gia");
+      return get(this.expert, "title", "Chuyên gia");
     },
     expertPhone() {
       return get(this.expert, "phone", "Số điện thoại");
@@ -44,8 +47,8 @@ export default {
 
 <style scoped>
 .avatar {
-  max-width: 148px;
-  max-height: 148px;
+  width: 148px;
+  height: 148px;
   padding: 10px;
   border: 1px dashed #996535;
   border-radius: 74px !important;

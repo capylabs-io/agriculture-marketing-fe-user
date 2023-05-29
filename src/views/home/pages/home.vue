@@ -11,6 +11,7 @@
     <productSection />
     <introSection />
     <expertSection />
+    <affiliateSection />
   </div>
 </template>
 
@@ -30,6 +31,7 @@ export default {
     productSection: () => import("../components/product-section.vue"),
     expertSection: () => import("../components/expert-section.vue"),
     introSection: () => import("../components/intro-section.vue"),
+    affiliateSection: () => import("../components/affiliate-section.vue"),
   },
   async created() {
     await Promise.all([

@@ -18,6 +18,7 @@
     "vue-clamp": "^0.4.1",
     "vue-router": "^3.6.5",
     "vue-snip": "^2.0.1",
+    "vueperslides": "^2.16.0",
     "vuetify": "^2.6.0"
   },
   "devDependencies": {
