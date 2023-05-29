@@ -4,7 +4,7 @@ import vuetify from "./plugins/vuetify";
 import router from "./router";
 import { createPinia, PiniaVuePlugin } from "pinia";
 import { markRaw } from "vue";
-import VueSnip from 'vue-snip'
+import VueSnip from "vue-snip";
 // Vue.config.productionTip = false;
 import alert from "@/plugins/alert";
 import loading from "@/plugins/loading";
@@ -15,7 +15,7 @@ import { rules } from "@/plugins/rules";
 import { vueFilterRegister } from "@/plugins/filter";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+import * as VueGoogleMaps from "vue2-google-maps";
 const pinia = createPinia();
 Vue.use(PiniaVuePlugin);
 Vue.config.productionTip = false;
@@ -35,7 +35,12 @@ Vue.use(
 Vue.use(pinia);
 Vue.use(VueSnip);
 vueFilterRegister();
-
+Vue.use(VueGoogleMaps, {
+  load: {
+    region: "VI",
+    language: "vi",
+  },
+});
 new Vue({
   vuetify,
   router,

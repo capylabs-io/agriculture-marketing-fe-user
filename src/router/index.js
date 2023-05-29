@@ -50,6 +50,21 @@ const routes = [
     name: "Supply Detail",
     component: () => import("../views/supply/pages/supply-detail.vue"),
   },
+  {
+    path: "/contract",
+    name: "Contract us",
+    component: () => import("../views/contract/pages/contract.vue"),
+  },
+  {
+    path: "/faq",
+    name: "FAQ",
+    component: () => import("../views/faq/pages/faq.vue"),
+  },
+  {
+    path: "/document",
+    name: "Document",
+    component: () => import("../views/document/pages/document.vue"),
+  },
 ];
 
 const router = new VueRouter({
