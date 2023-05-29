@@ -1,55 +1,28 @@
 <template>
-  <div class="expert-section">
-    <div class="page-container mx-auto py-16 px-6">
-      <div
-        class="font-weight-semibold text-dp-md text-center"
-        data-aos="fade-up"
-        data-aos-duration="600"
+  <div class="page-container mx-auto px-6 mb-16">
+    <div class="d-flex align-center justify-space-between">
+      <div class="font-weight-semibold text-dp-sm text-center">
+        Nghệ nhân, chuyên gia
+      </div>
+      <v-btn
+        class="text-none text-md primary--text px-0"
+        text
+        @click="$router.push('/hop-tac-xa')"
+        >Xem thêm <v-icon>mdi-chevron-right</v-icon></v-btn
       >
-        Chuyên Gia
-      </div>
-      <div class="mt-12">
-        <!-- <v-slide-group
-          :max="4"
-          show-arrows="always"
-          prev-icon="mdi-arrow-left"
-          next-icon="mdi-arrow-right"
-          center-active
-        >
-          <v-slide-group-item>
-            <ExpertCard />
-          </v-slide-group-item>
-          <v-slide-group-item>
-            <ExpertCard />
-          </v-slide-group-item>
-          <v-slide-group-item>
-            <ExpertCard />
-          </v-slide-group-item>
-          <v-slide-group-item>
-            <ExpertCard />
-          </v-slide-group-item>
-          <v-slide-group-item>
-            <ExpertCard />
-          </v-slide-group-item>
-        </v-slide-group> -->
-
-        <v-row>
-          <v-col
-            cols="12"
-            md="3"
-            sm="6"
-            xs="12"
-            v-for="(expert, i) in experts"
-            :key="expert.name"
-            data-aos="fade-up"
-            data-aos-duration="600"
-            :data-aos-delay="300 * i"
-          >
-            <ExpertCard :expert="expert" />
-          </v-col>
-        </v-row>
-      </div>
     </div>
+    <v-row class="mt-8">
+      <v-col
+        cols="12"
+        md="3"
+        sm="6"
+        xs="12"
+        v-for="expert in experts"
+        :key="expert.name"
+      >
+        <ExpertCard :expert="expert" />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -90,12 +63,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.expert-section {
-  background: url("@/assets/components/landing/section5-bg.png");
-  background-position: right center;
-  background-size: cover;
-  min-height: 640px;
-}
-</style>

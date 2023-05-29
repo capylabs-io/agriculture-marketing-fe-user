@@ -1,10 +1,15 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="home">
-    <bannerSection />
-    <functionSection />
-    <productSection />
+    <!-- <bannerSection /> -->
+    <searchSection />
+    <!-- <functionSection /> -->
     <newsSection />
+    <div>
+      <img class="banner-img" src="@/assets/components/home/banner.png" />
+    </div>
+    <productSection />
+    <introSection />
     <expertSection />
   </div>
 </template>
@@ -17,12 +22,14 @@ export default {
     ...mapStores(homeStore),
   },
   components: {
-    bannerSection: () => import("../components/banner-section.vue"),
-    productSection: () => import("../components/product-section.vue"),
+    searchSection: () => import("../components/search-section.vue"),
+    // bannerSection: () => import("../components/banner-section.vue"),
     // seedlingSection: () => import("../components/seedling-section.vue"),
-    functionSection: () => import("../components/function-section.vue"),
+    // functionSection: () => import("../components/function-section.vue"),
     newsSection: () => import("../components/news-section.vue"),
+    productSection: () => import("../components/product-section.vue"),
     expertSection: () => import("../components/expert-section.vue"),
+    introSection: () => import("../components/intro-section.vue"),
   },
   async created() {
     await Promise.all([
@@ -38,6 +45,10 @@ export default {
 .home {
   overflow-x: hidden !important;
   background-color: white;
+}
+.banner-img {
+  max-height: 480px;
+  width: 100%;
 }
 .btn-show-more {
   background-color: transparent !important;

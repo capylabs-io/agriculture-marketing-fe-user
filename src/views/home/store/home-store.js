@@ -12,6 +12,7 @@ export const homeStore = defineStore("home", {
     posts: [],
     mobileNavigationDrawer: false,
     productNum: 4,
+    searchKey: "",
   }),
   getters: {
     slicedProducts() {
