@@ -65,6 +65,11 @@ const routes = [
     name: "Document",
     component: () => import("../views/document/pages/document.vue"),
   },
+  {
+    path: "/document-detail",
+    name: "Document Detail",
+    component: () => import("../views/document/pages/document-detail.vue"),
+  },
 ];
 
 const router = new VueRouter({
