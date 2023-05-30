@@ -158,7 +158,7 @@ export default {
 }
 
 .filter-drawer {
-  min-width: 280px;
-  border-right: 1px solid var(--v-neutral30-base) !important;
+  min-width: 300px;
+  border-right: 1px solid var(--v-neutral20-base) !important;
 }
 </style>

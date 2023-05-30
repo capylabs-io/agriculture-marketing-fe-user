@@ -52,7 +52,7 @@ nav {
   max-width: 180px !important;
 }
 .search-field {
-  max-width: 320px !important;
+  max-width: 240px !important;
 }
 .no-item-div {
   min-height: 360px !important;

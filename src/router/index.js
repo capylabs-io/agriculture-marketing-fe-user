@@ -46,28 +46,53 @@ const routes = [
   },
   {
     path: "/tin-tuc",
-    name: "List New",
+    name: "Tin tức",
     component: () => import("../views/news/pages/list-news.vue"),
   },
   {
     path: "/bai-viet/:code",
-    name: "News Detail",
+    name: "Bài viết",
     component: () => import("../views/news/pages/news-detail.vue"),
   },
   {
+    path: "/hop-tac-xa",
+    name: "Danh sách Hợp tác xã",
+    component: () => import("../views/htx/pages/list-htx.vue"),
+  },
+  {
     path: "/hop-tac-xa/:code",
-    name: "Supply Detail",
-    component: () => import("../views/supply/pages/supply-detail.vue"),
+    name: "Hợp tác xã",
+    component: () => import("../views/htx/pages/htx-detail.vue"),
+  },
+  {
+    path: "/nghe-nhan",
+    name: "Danh sách Nghệ nhân, Chuyên gia",
+    component: () => import("../views/artisan/pages/list-artisan.vue"),
   },
   {
     path: "/nghe-nhan/:code",
-    name: "Supply Detail",
-    component: () => import("../views/supply/pages/supply-detail.vue"),
+    name: "Nghệ nhân, Chuyên gia",
+    component: () => import("../views/artisan/pages/artisan-detail.vue"),
+  },
+  {
+    path: "/dai-ly",
+    name: "Danh sách Đại lý",
+    component: () => import("../views/agency/pages/list-agency.vue"),
   },
   {
     path: "/dai-ly/:code",
-    name: "Supply Detail",
-    component: () => import("../views/supply/pages/supply-detail.vue"),
+    name: "Đại lý",
+    component: () => import("../views/agency/pages/agency-detail.vue"),
+  },
+  {
+    path: "/vung-san-xuat",
+    name: "Danh sách Vùng sản xuất",
+    component: () => import("../views/region/pages/list-region.vue"),
+  },
+  {
+    path: "/vung-san-xuat/:code",
+    name: "Vùng sản xuất",
+    component: () => import("../views/region/pages/region-detail.vue"),
   },
   {
     path: "/thu-vien",

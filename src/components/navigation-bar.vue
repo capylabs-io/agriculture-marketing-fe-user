@@ -98,7 +98,7 @@
                 class="text-decoration-none align-self-center"
               >
                 <div
-                  class="text-none white--text text-uppercase font-weight-medium px-3 py-2 text-sm d-flex align-center"
+                  class="text-none white--text text-uppercase font-weight-medium px-3 py-2 pr-0 text-sm d-flex align-center"
                   v-bind="attrs"
                   v-on="on"
                 >
@@ -181,7 +181,7 @@
                 class="text-decoration-none align-self-center"
               >
                 <div
-                  class="text-none white--text text-uppercase font-weight-medium px-3 py-2 text-sm d-flex align-center"
+                  class="text-none white--text text-uppercase font-weight-medium px-3 py-2 pr-0 text-sm d-flex align-center"
                   v-bind="attrs"
                   v-on="on"
                 >

@@ -1,40 +1,36 @@
 <template>
-  <div
-    class="align-self-stretch full-height filter-drawer"
-    width="280"
-    permanent
-    app
-    clipped
-  >
-    <div class="px-6 py-3">
-      <div class="d-flex justify-space-between align-center py-3">
-        <div class="text-md font-weight-medium">
-          <v-icon class="mr-2 mb-1">mdi-filter-variant</v-icon>Bộ lọc
-        </div>
-        <v-btn
-          class="px-0 text-none neutral80--text font-weight-semibold"
-          @click="supplyStore.resetFilter()"
-          text
-          >Xóa bộ lọc</v-btn
-        >
+  <div class="align-self-stretch full-height filter-drawer">
+    <div class="pa-6">
+      <div class="text-md font-weight-semibold">
+        <v-icon class="mr-2">mdi-shape-plus-outline</v-icon>
+        Danh mục
       </div>
-      <v-divider class="mt-2"></v-divider>
-      <div class="d-flex justify-space-between align-center py-4 full-width">
-        <v-text-field
-          v-model="supplyStore.searchKey"
-          class="border-radius-6 border-neutral20"
-          placeholder="Tìm kiếm từ khóa"
-          prepend-inner-icon="mdi-magnify"
-          flat
-          solo
-          outlined
+      <v-divider class="mt-4"></v-divider>
+      <v-list>
+        <v-list-item
+          class="border-radius-8"
+          :class="{ 'active-item': !htxStore.filterCategory }"
+          @click="htxStore.filterCategory = null"
           dense
-          hide-details
-          clearable
-        ></v-text-field>
-      </div>
-      <v-divider class="mt-2"></v-divider>
-      <div class="py-2">
+        >
+          <v-list-item-title class="text-capitalize text-sm"
+            >Tất cả</v-list-item-title
+          >
+        </v-list-item>
+        <v-list-item
+          class="border-radius-8 mt-1"
+          v-for="category in htxStore.categories"
+          :class="{ 'active-item': htxStore.filterCategory == category }"
+          :key="category.id"
+          @click="htxStore.filterCategory = category"
+          dense
+        >
+          <v-list-item-title class="text-capitalize text-sm">{{
+            category.name
+          }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+      <!-- <div class="py-2">
         <v-expansion-panels flat accordion>
           <v-expansion-panel>
             <v-expansion-panel-header class="text-md font-weight-bold">
@@ -45,8 +41,8 @@
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-checkbox
-                v-for="category in supplyStore.categories"
-                v-model="supplyStore.filterCategory"
+                v-for="category in htxStore.categories"
+                v-model="htxStore.filterCategory"
                 :key="category.id"
                 :value="category.id"
                 hide-details
@@ -70,7 +66,7 @@
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-checkbox
-                v-model="supplyStore.filterPrice"
+                v-model="htxStore.filterPrice"
                 value="lowerThan500k"
                 hide-details
               >
@@ -79,7 +75,7 @@
                 </template>
               </v-checkbox>
               <v-checkbox
-                v-model="supplyStore.filterPrice"
+                v-model="htxStore.filterPrice"
                 value="between500kAnd1mil"
                 hide-details
               >
@@ -90,7 +86,7 @@
                 </template>
               </v-checkbox>
               <v-checkbox
-                v-model="supplyStore.filterPrice"
+                v-model="htxStore.filterPrice"
                 value="between1mAnd5mil"
                 hide-details
               >
@@ -101,7 +97,7 @@
                 </template>
               </v-checkbox>
               <v-checkbox
-                v-model="supplyStore.filterPrice"
+                v-model="htxStore.filterPrice"
                 value="over5mil"
                 hide-details
               >
@@ -109,15 +105,10 @@
                   <div class="text-sm font-weight-bold">Từ 5 triệu trở lên</div>
                 </template>
               </v-checkbox>
-              <!-- <v-checkbox hide-details>
-                <template v-slot:label>
-                  <div class="text-sm font-weight-bold">Tuỳ chọn</div>
-                </template>
-              </v-checkbox> -->
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
-      </div>
+      </div> -->
       <!-- <div class="mt-4 text-center">
         <v-btn
           class="elevation-0 border-radius-8 text-none btn-text py-5 mx-auto full-width"
@@ -132,11 +123,11 @@
 
 <script>
 import { mapStores } from "pinia";
-import { supplyStore } from "../store/supply-store";
+import { htxStore } from "../store/htx-store";
 
 export default {
   computed: {
-    ...mapStores(supplyStore),
+    ...mapStores(htxStore),
   },
   methods: {
     onLogoutClicked() {
@@ -154,7 +145,8 @@ export default {
 }
 
 .active-item {
-  background: var(--v-primary40-base) !important;
+  background: var(--v-primary-base) !important;
+  color: white !important;
 }
 
 .filter-drawer {
