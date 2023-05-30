@@ -95,24 +95,34 @@ const routes = [
     component: () => import("../views/region/pages/region-detail.vue"),
   },
   {
-    path: "/thu-vien",
-    name: "Supply Detail",
-    component: () => import("../views/supply/pages/supply-detail.vue"),
+    path: "/thu-vien-anh",
+    name: "List Image",
+    component: () => import("../views/gallery/pages/list-image.vue"),
+  },
+  {
+    path: "/thu-vien-video",
+    name: "List Image",
+    component: () => import("../views/gallery/pages/list-video.vue"),
   },
   {
     path: "/lien-he",
-    name: "Supply Detail",
-    component: () => import("../views/supply/pages/supply-detail.vue"),
-  },
-  {
-    path: "/tai-lieu",
-    name: "Supply Detail",
-    component: () => import("../views/supply/pages/supply-detail.vue"),
+    name: "Contract us",
+    component: () => import("../views/contract/pages/contract.vue"),
   },
   {
     path: "/hoi-dap",
-    name: "Supply Detail",
-    component: () => import("../views/supply/pages/supply-detail.vue"),
+    name: "FAQ",
+    component: () => import("../views/faq/pages/faq.vue"),
+  },
+  {
+    path: "/tai-lieu",
+    name: "Document",
+    component: () => import("../views/document/pages/document.vue"),
+  },
+  {
+    path: "/tai-lieu-chi-tiet",
+    name: "Document Detail",
+    component: () => import("../views/document/pages/document-detail.vue"),
   },
 ];
 
