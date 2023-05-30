@@ -325,7 +325,7 @@ export default {
   height: 320px;
 }
 .page-container {
-  max-width: 1500px;
+  max-width: 1400px;
 }
 .image-gradient {
   position: absolute;

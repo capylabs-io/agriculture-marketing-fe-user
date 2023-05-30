@@ -3,20 +3,20 @@
   <div>
     <div class="page-container mx-auto py-12 px-8">
       <div class="text-center">
-        <div class="text-dp-md font-weight-semibold">Thư viện ảnh, video</div>
+        <div class="text-dp-md font-weight-semibold">Thư viện Video</div>
         <div class="text-lg mt-2">
           Giải đáp các thắc mắc thường gặp của người dân
         </div>
       </div>
       <div class="mt-13 text-center">
         <div class="text-xl font-weight-semibold">Video nổi bật</div>
-      </div>
-      <div class="mt-3 d-flex flex-column align-center justify-center">
-        <video width="1056" height="470" controls>
-          <source src="movie.mp4" type="video/mp4" />
-          <source src="movie.ogg" type="video/ogg" />
-          Your browser does not support the video tag.
-        </video>
+        <div class="mt-3 d-flex flex-column align-center justify-center">
+          <video width="1056" height="470" controls>
+            <source src="movie.mp4" type="video/mp4" />
+            <source src="movie.ogg" type="video/ogg" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
       </div>
 
       <v-divider class="mt-8"></v-divider>
@@ -27,49 +27,7 @@
           'flex-column align-center gap-16': $vuetify.breakpoint.smAndDown,
         }"
       >
-        <!-- <div
-            class="d-inline-flex align-center neutral20-border border-radius-8 overflow-hidden"
-            v-if="$vuetify.breakpoint.mdAndUp"
-          >
-            <div
-              class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-              :class="{ active: newStore.category == 'all' }"
-              @click="newStore.category = 'all'"
-            >
-              Tất cả
-            </div>
-            <div
-              class="d-flex"
-              v-for="category in newStore.categories"
-              :key="category.id"
-            >
-              <v-divider vertical></v-divider>
-              <div
-                class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-                :class="{ active: newStore.category == category.id }"
-                @click="newStore.category = category.id"
-              >
-                {{ category.name }}
-              </div>
-            </div>
-          </div>
-          <v-select
-            class="border-radius-8 full-width"
-            placeholder="Chọn danh mục"
-            v-model="newStore.category"
-            item-text="name"
-            item-value="id"
-            :class="{ 'sort-select': $vuetify.breakpoint.mdAndUp }"
-            :items="newStore.categories"
-            v-else
-            flat
-            solo
-            outlined
-            dense
-            hide-details
-            clearable
-          ></v-select> -->
-        <div class="text-xl font-weight-semibold">Video mới nhất</div>
+        <div class="text-xl font-weight-semibold">Video mới</div>
 
         <div class="d-flex align-center gap-8">
           <div
@@ -97,6 +55,8 @@
             placeholder="Sắp xếp"
             item-text="name"
             item-value="value"
+            v-model="galleryStore.sortBy"
+            :items="galleryStore.sortSelection"
             :class="{ 'sort-select': $vuetify.breakpoint.mdAndUp }"
             :menu-props="{ maxHeight: '400' }"
             flat
@@ -108,39 +68,50 @@
         </div>
       </div>
 
-      <div v-if="isGrid" class="mt-3">
+      <div v-if="galleryStore.slicedPosts.length > 0 && isGrid" class="mt-3">
         <v-row>
           <v-col
             class="align-self-scretch"
-            v-for="obj in 8"
-            :key="obj.id"
+            v-for="post in galleryStore.slicedPosts"
+            :key="post.id"
             cols="12"
             md="3"
             xl="3"
           >
-            <imageCard />
+            <imageCard :post="post" />
           </v-col>
         </v-row>
 
-        <div class="mt-4 mb-16">
-          <v-pagination color="primary" :length="2"></v-pagination>
+        <div class="mt-4">
+          <v-pagination
+            color="primary"
+            :length="galleryStore.totalPostPage"
+            v-model="galleryStore.postPage"
+          ></v-pagination>
         </div>
       </div>
 
-      <div v-else-if="!isGrid" class="mt-3">
+      <div
+        v-else-if="galleryStore.slicedPosts.length > 0 && !isGrid"
+        class="mt-3"
+      >
         <div
-          v-for="(post, index) in 8"
+          v-for="(post, index) in galleryStore.slicedPosts"
           :key="post.id"
           :class="{ 'mt-6': index != 0 }"
         >
-          <imageRow />
+          <imageRow :post="post" />
           <v-divider
-            v-if="index != otherPosts.length - 1"
-            class="mt-6"
+            v-if="index != galleryStore.slicedPosts.length - 1"
+            class="mt-4"
           ></v-divider>
         </div>
-        <div class="mt-4 mb-16">
-          <v-pagination color="primary" :length="2"></v-pagination>
+        <div class="mt-4">
+          <v-pagination
+            color="primary"
+            :length="galleryStore.totalPostPage"
+            v-model="galleryStore.postPage"
+          ></v-pagination>
         </div>
       </div>
 
@@ -155,12 +126,11 @@
 </template>
 
 <script>
-// import { mapStores } from "pinia";
-// import { newStore } from "../stores/newStore";
-// import { get } from "lodash";
+import { mapStores } from "pinia";
+import { galleryStore } from "../stores/galleryStore";
 export default {
   computed: {
-    // ...mapStores(newStore),
+    ...mapStores(galleryStore),
     // newestPostTitle() {
     //   return get(newStore.newestPost, "title", "Tiêu đề");
     // },
@@ -174,49 +144,10 @@ export default {
     return {
       currentTab: 0,
       isGrid: true,
-      otherPosts: [
-        {
-          id: 1,
-          images:
-            "https://agriculture-marketing.s3.amazonaws.com/Vuon_cay_di_san_cua_ong_vua_cay_canh_Viet_Nam_dai_gia_Trung_Quoc_tra_hon_500_ty_khong_ban_9_1610763158_959_width660height440_a90a5b27a6.jpg",
-          name: "Mạc Linh Chi",
-          title: "Hội thảo phát triển hoa cây cảnh - ngành kinh tế sinh thái",
-          date: "11/10/2023",
-        },
-        {
-          id: 2,
-          images:
-            "https://agriculture-marketing.s3.amazonaws.com/Vuon_cay_di_san_cua_ong_vua_cay_canh_Viet_Nam_dai_gia_Trung_Quoc_tra_hon_500_ty_khong_ban_9_1610763158_959_width660height440_a90a5b27a6.jpg",
-          name: "Mạc Linh Chi",
-          title: "Hội thảo phát triển hoa cây cảnh - ngành kinh tế sinh thái",
-
-          date: "11/10/2023",
-        },
-        {
-          id: 3,
-          images:
-            "https://agriculture-marketing.s3.amazonaws.com/Vuon_cay_di_san_cua_ong_vua_cay_canh_Viet_Nam_dai_gia_Trung_Quoc_tra_hon_500_ty_khong_ban_9_1610763158_959_width660height440_a90a5b27a6.jpg",
-          name: "Mạc Linh Chi",
-          title: "Hội thảo phát triển hoa cây cảnh - ngành kinh tế sinh thái",
-          date: "11/10/2023",
-        },
-        {
-          id: 4,
-          images:
-            "https://agriculture-marketing.s3.amazonaws.com/Vuon_cay_di_san_cua_ong_vua_cay_canh_Viet_Nam_dai_gia_Trung_Quoc_tra_hon_500_ty_khong_ban_9_1610763158_959_width660height440_a90a5b27a6.jpg",
-          name: "Mạc Linh Chi",
-          title: "Hội thảo phát triển hoa cây cảnh - ngành kinh tế sinh thái",
-          date: "11/10/2023",
-        },
-      ],
     };
   },
   async created() {
-    // this.newStore.currentTab = 0;
-    // await Promise.all([
-    //   this.newStore.fetchCategories(),
-    //   this.newStore.fetchlistNew(),
-    // ]);
+    await this.galleryStore.fetchPosts();
   },
   methods: {
     setCurrentTab(index) {

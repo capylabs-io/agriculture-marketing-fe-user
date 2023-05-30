@@ -1,33 +1,25 @@
 <template>
   <v-row>
-    <v-col class="d-flex full-width" cols="12" md="12">
-      <img
-        class="post-img border-radius-8 cursor-pointer"
-        :src="require('@/assets/gallery-image.png')"
-      />
+    <v-col cols="3"
+      ><img
+        class="post-img border-radius-8 cursor-pointer flex-grow-1"
+        :src="postImage"
+    /></v-col>
+    <v-col cols="9">
       <div class="ml-6 cursor-pointer">
-        <v-clamp class="font-weight-semibold text-lg" :max-lines="1"
-          >Khai mạc Hội nghị Pháp quy hạt nhân toàn quốc lần thứ V</v-clamp
-        >
-        <v-clamp class="text-sm mt-3" :max-lines="3"
-          >Tham dự Hội nghị, về phía Bộ KHCN có: ông Huỳnh Thành Đạt, Uỷ viên
-          Ban Chấp hành Trung ương Đảng, Bộ trưởng Bộ KHCN; ông Lê Xuân Định, Bí
-          thư Đảng uỷ, Thứ trưởng Bộ KHCN; ông Phạm Gia Chương, Phó Bí thư Đảng
-          uỷ Bộ KHCN; đại diện lãnh đạo một số đơn vị trực thuộc Bộ KHCN. Về
-          phía tỉnh Lạng Sơn có: ông Hồ Tiến Thiệu, Phó Bí thư Tỉnh ủy, Chủ tịch
-          UBND tỉnh Lạng Sơn; bà Nguyễn Thị Hà, Giám đốc Sở KHCN Lạng Sơn. Khách
-          mời tham dự Hội nghị có: Thiếu tướng Phạm Văn Tỵ, Phó Chánh Văn phòng
-          Uỷ ban Quốc gia Ứng phó sự cố, thiên tai và Tìm kiếm cứu nạn, Phó Cục
-          trưởng Cục Cứu hộ - Cứu nạn, Bộ Quốc phòng; đại tá Phạm Xuân Hưng, Phó
-          Tư lệnh Binh chủng Hoá học, Bộ Quốc phòng; PGS.TS. Vương Hữu Tấn, Chủ
-          tịch Hội năng lượng nguyên tử Việt Nam.</v-clamp
-        >
+        <v-clamp class="font-weight-semibold text-lg" :max-lines="2">{{
+          post.title
+        }}</v-clamp>
+        <v-clamp class="text-sm mt-3" :max-lines="4">{{
+          stripHtml(post.content)
+        }}</v-clamp>
         <div class="d-flex justify-space-between align-center mt-3 text-sm">
           <div class="text-sm mt-1 neutral70--text">
-            <v-icon small class="mr-1">mdi-camera </v-icon>Mạc Linh Chi
+            <v-icon small class="mr-1">mdi-camera </v-icon>{{ post.author }}
           </div>
           <div class="text-sm mt-1 neutral70--text">
-            <v-icon small class="mr-1">mdi-clock-outline </v-icon>11/10/2023
+            <v-icon small class="mr-1">mdi-clock-outline </v-icon
+            >{{ post.createdAt | ddmmyyyy }}
           </div>
         </div>
       </div>
@@ -83,9 +75,10 @@ export default {
 
 <style scoped>
 .post-img {
-  width: 232px !important;
+  width: 100%;
+  height: auto;
   aspect-ratio: 16 / 9 !important;
-  object-fit: cover;
+  object-fit: cover !important;
 }
 .title {
   color: var(--v-green70-base);

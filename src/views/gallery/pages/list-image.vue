@@ -3,7 +3,7 @@
   <div>
     <div class="page-container mx-auto py-12 px-8">
       <div class="text-center">
-        <div class="text-dp-md font-weight-semibold">Thư viện ảnh, video</div>
+        <div class="text-dp-md font-weight-semibold">Thư viện Ảnh</div>
         <div class="text-lg mt-2">
           Giải đáp các thắc mắc thường gặp của người dân
         </div>
@@ -22,58 +22,53 @@
         <v-row>
           <v-col class="align-self-scretch" cols="12" md="7">
             <div
-              class="card-shadow border-radius-16 overflow-hidden white-bg cursor-pointer neutral20-border full-height d-flex flex-column"
+              class="card-shadow border-radius-16 overflow-hidden white-bg cursor-pointer full-height d-flex flex-column"
             >
-              <v-img
-                :src="require('@/assets/gallery-image.png')"
-                :aspect-ratio="22 / 9"
+              <img
+                class="big-post-img full-width"
+                :aspect-ratio="1 / 1"
+                :src="productImage(galleryStore.newestPost.images)"
                 cover
-              ></v-img>
+              />
               <div class="pa-5 d-flex flex-column full-height">
-                <div class="d-flex align-center justify-space-between">
-                  <div class="text-md font-weight-medium neutral40--text">
-                    Eventname
-                  </div>
+                <div class="text-sm font-weight-medium neutral40--text">
+                  {{ galleryStore.newestPost.createdAt | ddmmyyyy }}
                 </div>
-                <v-clamp class="font-weight-bold mt-2 text-md" :max-lines="2">
-                  Hội thảo chuyên sâu về phát triển công nghệ cho miệt vườn vùng
-                  Tây Nam Bộ</v-clamp
+                <v-clamp
+                  class="font-weight-semibold mt-2 text-xl"
+                  :max-lines="3"
                 >
-                <div class="text-sm font-weight-medium neutral40--text mt-2">
-                  12/08/2023
+                  {{ galleryStore.newestPost.title }}</v-clamp
+                >
+                <div class="text-sm mt-2">
+                  {{ galleryStore.newestPost.author }}
                 </div>
               </div>
             </div>
           </v-col>
           <v-col
-            class="d-flex flex-column justify-space-between gap-16 align-self-scretch"
+            class="d-flex flex-column gap-16"
             cols="12"
             md="5"
             v-if="$vuetify.breakpoint.mdAndUp"
           >
             <div
-              v-for="post in otherPosts"
-              class="d-flex cursor-pointer align-self-scretch"
+              v-for="post in galleryStore.otherPosts"
+              class="d-flex cursor-pointer flex-grow-1"
               :key="post.id"
             >
-              <div>
-                <img
-                  class="border-radius-16 post-img"
-                  :src="post.images"
-                  cover
-                />
-              </div>
+              <img class="border-radius-16 post-img" :src="post.images" />
               <div class="ml-4">
-                <v-clamp class="font-weight-semibold text-md" :max-lines="3">{{
+                <v-clamp class="font-weight-semibold text-md" :max-lines="2">{{
                   stripHtml(post.title)
                 }}</v-clamp>
                 <div class="text-sm mt-1 neutral70--text">
                   <v-icon small class="mr-1">mdi-camera </v-icon
-                  >{{ stripHtml(post.name) }}
+                  >{{ post.author }}
                 </div>
                 <div class="text-sm mt-1 neutral70--text">
                   <v-icon small class="mr-1">mdi-clock-outline </v-icon
-                  >{{ stripHtml(post.date) }}
+                  >{{ post.createdAt | ddmmyyyy }}
                 </div>
               </div>
             </div>
@@ -89,48 +84,6 @@
           'flex-column align-center gap-16': $vuetify.breakpoint.smAndDown,
         }"
       >
-        <!-- <div
-          class="d-inline-flex align-center neutral20-border border-radius-8 overflow-hidden"
-          v-if="$vuetify.breakpoint.mdAndUp"
-        >
-          <div
-            class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-            :class="{ active: newStore.category == 'all' }"
-            @click="newStore.category = 'all'"
-          >
-            Tất cả
-          </div>
-          <div
-            class="d-flex"
-            v-for="category in newStore.categories"
-            :key="category.id"
-          >
-            <v-divider vertical></v-divider>
-            <div
-              class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-              :class="{ active: newStore.category == category.id }"
-              @click="newStore.category = category.id"
-            >
-              {{ category.name }}
-            </div>
-          </div>
-        </div>
-        <v-select
-          class="border-radius-8 full-width"
-          placeholder="Chọn danh mục"
-          v-model="newStore.category"
-          item-text="name"
-          item-value="id"
-          :class="{ 'sort-select': $vuetify.breakpoint.mdAndUp }"
-          :items="newStore.categories"
-          v-else
-          flat
-          solo
-          outlined
-          dense
-          hide-details
-          clearable
-        ></v-select> -->
         <div class="text-xl font-weight-semibold">Ảnh mới</div>
 
         <div class="d-flex align-center gap-8">
@@ -159,6 +112,8 @@
             placeholder="Sắp xếp"
             item-text="name"
             item-value="value"
+            v-model="galleryStore.sortBy"
+            :items="galleryStore.sortSelection"
             :class="{ 'sort-select': $vuetify.breakpoint.mdAndUp }"
             :menu-props="{ maxHeight: '400' }"
             flat
@@ -170,39 +125,50 @@
         </div>
       </div>
 
-      <div v-if="isGrid" class="mt-3">
+      <div v-if="galleryStore.slicedPosts.length > 0 && isGrid" class="mt-3">
         <v-row>
           <v-col
             class="align-self-scretch"
-            v-for="obj in 8"
-            :key="obj.id"
+            v-for="post in galleryStore.slicedPosts"
+            :key="post.id"
             cols="12"
             md="3"
             xl="3"
           >
-            <imageCard />
+            <imageCard :post="post" />
           </v-col>
         </v-row>
 
-        <div class="mt-4 mb-16">
-          <v-pagination color="primary" :length="2"></v-pagination>
+        <div class="mt-4">
+          <v-pagination
+            color="primary"
+            :length="galleryStore.totalPostPage"
+            v-model="galleryStore.postPage"
+          ></v-pagination>
         </div>
       </div>
 
-      <div v-else-if="!isGrid" class="mt-3">
+      <div
+        v-else-if="galleryStore.slicedPosts.length > 0 && !isGrid"
+        class="mt-3"
+      >
         <div
-          v-for="(post, index) in 8"
+          v-for="(post, index) in galleryStore.slicedPosts"
           :key="post.id"
           :class="{ 'mt-6': index != 0 }"
         >
-          <imageRow />
+          <imageRow :post="post" />
           <v-divider
-            v-if="index != otherPosts.length - 1"
-            class="mt-6"
+            v-if="index != galleryStore.slicedPosts.length - 1"
+            class="mt-4"
           ></v-divider>
         </div>
-        <div class="mt-4 mb-16">
-          <v-pagination color="primary" :length="2"></v-pagination>
+        <div class="mt-4">
+          <v-pagination
+            color="primary"
+            :length="galleryStore.totalPostPage"
+            v-model="galleryStore.postPage"
+          ></v-pagination>
         </div>
       </div>
 
@@ -217,15 +183,14 @@
 </template>
 
 <script>
-// import { mapStores } from "pinia";
-// import { newStore } from "../stores/newStore";
-// import { get } from "lodash";
+import { mapStores } from "pinia";
+import { galleryStore } from "../stores/galleryStore";
 import VClamp from "vue-clamp";
 export default {
   computed: {
-    // ...mapStores(newStore),
+    ...mapStores(galleryStore),
     // newestPostTitle() {
-    //   return get(newStore.newestPost, "title", "Tiêu đề");
+    //   return get(galleryStore.newestPost, "title", "Tiêu đề");
     // },
   },
   components: {
@@ -238,53 +203,14 @@ export default {
     return {
       currentTab: 0,
       isGrid: true,
-      otherPosts: [
-        {
-          id: 1,
-          images:
-            "https://agriculture-marketing.s3.amazonaws.com/Vuon_cay_di_san_cua_ong_vua_cay_canh_Viet_Nam_dai_gia_Trung_Quoc_tra_hon_500_ty_khong_ban_9_1610763158_959_width660height440_a90a5b27a6.jpg",
-          name: "Mạc Linh Chi",
-          title: "Hội thảo phát triển hoa cây cảnh - ngành kinh tế sinh thái",
-          date: "11/10/2023",
-        },
-        {
-          id: 2,
-          images:
-            "https://agriculture-marketing.s3.amazonaws.com/Vuon_cay_di_san_cua_ong_vua_cay_canh_Viet_Nam_dai_gia_Trung_Quoc_tra_hon_500_ty_khong_ban_9_1610763158_959_width660height440_a90a5b27a6.jpg",
-          name: "Mạc Linh Chi",
-          title: "Hội thảo phát triển hoa cây cảnh - ngành kinh tế sinh thái",
-
-          date: "11/10/2023",
-        },
-        {
-          id: 3,
-          images:
-            "https://agriculture-marketing.s3.amazonaws.com/Vuon_cay_di_san_cua_ong_vua_cay_canh_Viet_Nam_dai_gia_Trung_Quoc_tra_hon_500_ty_khong_ban_9_1610763158_959_width660height440_a90a5b27a6.jpg",
-          name: "Mạc Linh Chi",
-          title: "Hội thảo phát triển hoa cây cảnh - ngành kinh tế sinh thái",
-          date: "11/10/2023",
-        },
-        {
-          id: 4,
-          images:
-            "https://agriculture-marketing.s3.amazonaws.com/Vuon_cay_di_san_cua_ong_vua_cay_canh_Viet_Nam_dai_gia_Trung_Quoc_tra_hon_500_ty_khong_ban_9_1610763158_959_width660height440_a90a5b27a6.jpg",
-          name: "Mạc Linh Chi",
-          title: "Hội thảo phát triển hoa cây cảnh - ngành kinh tế sinh thái",
-          date: "11/10/2023",
-        },
-      ],
     };
   },
   async created() {
-    // this.newStore.currentTab = 0;
-    // await Promise.all([
-    //   this.newStore.fetchCategories(),
-    //   this.newStore.fetchlistNew(),
-    // ]);
+    await this.galleryStore.fetchPosts();
   },
   methods: {
     setCurrentTab(index) {
-      this.newStore.currentTab = index;
+      this.galleryStore.currentTab = index;
     },
     productImage(image) {
       if (!image) return require("@/assets/no-image.png");
@@ -318,20 +244,20 @@ export default {
   height: 320px;
 }
 .page-container {
-  max-width: 1500px;
+  max-width: 1400px;
 }
 .image-gradient {
   position: absolute;
   bottom: 0;
 }
 .big-post-img {
-  max-width: 274px;
-  height: 100%;
+  height: 320px;
   object-fit: cover;
 }
 .post-img {
   width: 180px;
   aspect-ratio: 16/9 !important;
+  object-fit: cover !important;
 }
 .big-new-title {
   position: absolute;
@@ -343,8 +269,5 @@ export default {
 .sm-post-title {
   display: block;
   max-height: 48px;
-}
-.big-image {
-  height: 310px;
 }
 </style>
