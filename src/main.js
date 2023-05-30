@@ -16,6 +16,8 @@ import { vueFilterRegister } from "@/plugins/filter";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import * as VueGoogleMaps from "vue2-google-maps";
+
+
 const pinia = createPinia();
 Vue.use(PiniaVuePlugin);
 Vue.config.productionTip = false;
@@ -41,6 +43,7 @@ Vue.use(VueGoogleMaps, {
     language: "vi",
   },
 });
+
 new Vue({
   vuetify,
   router,

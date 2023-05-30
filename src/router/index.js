@@ -60,9 +60,14 @@ const routes = [
     component: () => import("../views/supply/pages/supply-detail.vue"),
   },
   {
-    path: "/thu-vien",
+    path: "/thu-vien-anh",
     name: "List Image",
     component: () => import("../views/gallery/pages/list-image.vue"),
+  },
+  {
+    path: "/thu-vien-video",
+    name: "List Image",
+    component: () => import("../views/gallery/pages/list-video.vue"),
   },
   {
     path: "/lien-he",

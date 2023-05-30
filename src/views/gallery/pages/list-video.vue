@@ -8,77 +8,15 @@
           Giải đáp các thắc mắc thường gặp của người dân
         </div>
       </div>
-      <div class="mt-13">
-        <v-row>
-          <v-col cols="12" md="7">
-            <div class="text-xl font-weight-semibold">Ảnh nổi bật</div>
-          </v-col>
-          <v-col cols="12" md="5">
-            <div class="text-xl font-weight-semibold">Ảnh được xem nhiều</div>
-          </v-col>
-        </v-row>
+      <div class="mt-13 text-center">
+        <div class="text-xl font-weight-semibold">Video nổi bật</div>
       </div>
-      <div class="mt-3">
-        <v-row>
-          <v-col class="align-self-scretch" cols="12" md="7">
-            <div
-              class="card-shadow border-radius-16 overflow-hidden white-bg cursor-pointer neutral20-border full-height d-flex flex-column"
-            >
-              <v-img
-                :src="require('@/assets/gallery-image.png')"
-                :aspect-ratio="22 / 9"
-                cover
-              ></v-img>
-              <div class="pa-5 d-flex flex-column full-height">
-                <div class="d-flex align-center justify-space-between">
-                  <div class="text-md font-weight-medium neutral40--text">
-                    Eventname
-                  </div>
-                </div>
-                <v-clamp class="font-weight-bold mt-2 text-md" :max-lines="2">
-                  Hội thảo chuyên sâu về phát triển công nghệ cho miệt vườn vùng
-                  Tây Nam Bộ</v-clamp
-                >
-                <div class="text-sm font-weight-medium neutral40--text mt-2">
-                  12/08/2023
-                </div>
-              </div>
-            </div>
-          </v-col>
-          <v-col
-            class="d-flex flex-column justify-space-between gap-16 align-self-scretch"
-            cols="12"
-            md="5"
-            v-if="$vuetify.breakpoint.mdAndUp"
-          >
-            <div
-              v-for="post in otherPosts"
-              class="d-flex cursor-pointer align-self-scretch"
-              :key="post.id"
-            >
-              <div>
-                <img
-                  class="border-radius-16 post-img"
-                  :src="post.images"
-                  cover
-                />
-              </div>
-              <div class="ml-4">
-                <v-clamp class="font-weight-semibold text-md" :max-lines="3">{{
-                  stripHtml(post.title)
-                }}</v-clamp>
-                <div class="text-sm mt-1 neutral70--text">
-                  <v-icon small class="mr-1">mdi-camera </v-icon
-                  >{{ stripHtml(post.name) }}
-                </div>
-                <div class="text-sm mt-1 neutral70--text">
-                  <v-icon small class="mr-1">mdi-clock-outline </v-icon
-                  >{{ stripHtml(post.date) }}
-                </div>
-              </div>
-            </div>
-          </v-col>
-        </v-row>
+      <div class="mt-3 d-flex flex-column align-center justify-center">
+        <video width="1056" height="470" controls>
+          <source src="movie.mp4" type="video/mp4" />
+          <source src="movie.ogg" type="video/ogg" />
+          Your browser does not support the video tag.
+        </video>
       </div>
 
       <v-divider class="mt-8"></v-divider>
@@ -90,48 +28,48 @@
         }"
       >
         <!-- <div
-          class="d-inline-flex align-center neutral20-border border-radius-8 overflow-hidden"
-          v-if="$vuetify.breakpoint.mdAndUp"
-        >
-          <div
-            class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-            :class="{ active: newStore.category == 'all' }"
-            @click="newStore.category = 'all'"
+            class="d-inline-flex align-center neutral20-border border-radius-8 overflow-hidden"
+            v-if="$vuetify.breakpoint.mdAndUp"
           >
-            Tất cả
-          </div>
-          <div
-            class="d-flex"
-            v-for="category in newStore.categories"
-            :key="category.id"
-          >
-            <v-divider vertical></v-divider>
             <div
               class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-              :class="{ active: newStore.category == category.id }"
-              @click="newStore.category = category.id"
+              :class="{ active: newStore.category == 'all' }"
+              @click="newStore.category = 'all'"
             >
-              {{ category.name }}
+              Tất cả
+            </div>
+            <div
+              class="d-flex"
+              v-for="category in newStore.categories"
+              :key="category.id"
+            >
+              <v-divider vertical></v-divider>
+              <div
+                class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+                :class="{ active: newStore.category == category.id }"
+                @click="newStore.category = category.id"
+              >
+                {{ category.name }}
+              </div>
             </div>
           </div>
-        </div>
-        <v-select
-          class="border-radius-8 full-width"
-          placeholder="Chọn danh mục"
-          v-model="newStore.category"
-          item-text="name"
-          item-value="id"
-          :class="{ 'sort-select': $vuetify.breakpoint.mdAndUp }"
-          :items="newStore.categories"
-          v-else
-          flat
-          solo
-          outlined
-          dense
-          hide-details
-          clearable
-        ></v-select> -->
-        <div class="text-xl font-weight-semibold">Ảnh mới</div>
+          <v-select
+            class="border-radius-8 full-width"
+            placeholder="Chọn danh mục"
+            v-model="newStore.category"
+            item-text="name"
+            item-value="id"
+            :class="{ 'sort-select': $vuetify.breakpoint.mdAndUp }"
+            :items="newStore.categories"
+            v-else
+            flat
+            solo
+            outlined
+            dense
+            hide-details
+            clearable
+          ></v-select> -->
+        <div class="text-xl font-weight-semibold">Video mới nhất</div>
 
         <div class="d-flex align-center gap-8">
           <div
@@ -220,7 +158,6 @@
 // import { mapStores } from "pinia";
 // import { newStore } from "../stores/newStore";
 // import { get } from "lodash";
-import VClamp from "vue-clamp";
 export default {
   computed: {
     // ...mapStores(newStore),
@@ -232,7 +169,6 @@ export default {
     // NewCard: () => import("../components/news-card.vue"),
     imageRow: () => import("../components/image-row.vue"),
     imageCard: () => import("../components/image-card.vue"),
-    VClamp,
   },
   data() {
     return {

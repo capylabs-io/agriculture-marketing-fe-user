@@ -158,7 +158,7 @@
             </div>
           </router-link>
           <router-link
-            to="/thu-vien"
+            to="/thu-vien-anh"
             class="text-decoration-none align-self-center"
             active-class="active"
           >
