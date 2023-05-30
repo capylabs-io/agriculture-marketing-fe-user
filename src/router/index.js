@@ -61,8 +61,8 @@ const routes = [
   },
   {
     path: "/thu-vien",
-    name: "Supply Detail",
-    component: () => import("../views/supply/pages/supply-detail.vue"),
+    name: "List Image",
+    component: () => import("../views/gallery/pages/list-image.vue"),
   },
   {
     path: "/lien-he",
