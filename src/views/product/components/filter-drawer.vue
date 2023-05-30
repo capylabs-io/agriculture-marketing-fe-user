@@ -2,8 +2,8 @@
   <div class="align-self-stretch full-height filter-drawer">
     <div class="px-6 py-3">
       <div class="d-flex justify-space-between align-center py-3">
-        <div class="text-md font-weight-medium">
-          <v-icon class="mr-2 mb-1">mdi-filter-variant</v-icon>Bộ lọc
+        <div class="text-md font-weight-medium d-flex alin-center">
+          <v-icon class="mr-2">mdi-filter-variant</v-icon>Bộ lọc
         </div>
         <v-btn
           class="px-0 text-none neutral80--text font-weight-semibold"
@@ -33,7 +33,7 @@
           <v-expansion-panel>
             <v-expansion-panel-header class="text-md font-weight-bold">
               <div>
-                <v-icon class="mr-1">mdi-shape-plus-outline</v-icon>
+                <v-icon class="mr-1" small>mdi-shape-plus-outline</v-icon>
                 Danh mục
               </div>
             </v-expansion-panel-header>
@@ -58,8 +58,8 @@
           <v-expansion-panel>
             <v-expansion-panel-header class="text-md font-weight-bold">
               <div>
-                <v-icon class="mr-1">mdi-shape-plus-outline</v-icon>
-                Giá
+                <v-icon class="mr-1" small>mdi-tag</v-icon>
+                Lọc giá
               </div>
             </v-expansion-panel-header>
             <v-expansion-panel-content>

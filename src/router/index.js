@@ -15,14 +15,34 @@ const routes = [
     component: () => import("../views/home/pages/home.vue"),
   },
   {
-    path: "/gioi-thieu",
-    name: "Product",
+    path: "/cay-canh",
+    name: "Danh sách Cây cảnh",
     component: () => import("../views/product/pages/list-product.vue"),
   },
   {
     path: "/cay-canh/:code",
-    name: "Product Detail",
+    name: "Chi tiết cây cảnh",
     component: () => import("../views/product/pages/product-detail.vue"),
+  },
+  {
+    path: "/giong",
+    name: "Danh sách Giống",
+    component: () => import("../views/seedling/pages/list-seedling.vue"),
+  },
+  {
+    path: "/giong/:code",
+    name: "Chi tiết Giống",
+    component: () => import("../views/seedling/pages/seedling-detail.vue"),
+  },
+  {
+    path: "/vat-tu",
+    name: "Danh sách Vật tư",
+    component: () => import("../views/supply/pages/list-supply.vue"),
+  },
+  {
+    path: "/vat-tu/:code",
+    name: "Supply Detail",
+    component: () => import("../views/supply/pages/supply-detail.vue"),
   },
   {
     path: "/tin-tuc",
@@ -33,16 +53,6 @@ const routes = [
     path: "/bai-viet/:code",
     name: "News Detail",
     component: () => import("../views/news/pages/news-detail.vue"),
-  },
-  {
-    path: "/giong/:code",
-    name: "Seedling Detail",
-    component: () => import("../views/seedling/pages/seedling-detail.vue"),
-  },
-  {
-    path: "/vat-tu/:code",
-    name: "Supply Detail",
-    component: () => import("../views/supply/pages/supply-detail.vue"),
   },
   {
     path: "/hop-tac-xa/:code",

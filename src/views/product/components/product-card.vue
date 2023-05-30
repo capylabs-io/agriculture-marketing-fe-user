@@ -4,16 +4,18 @@
     @click="goToProductDetail()"
   >
     <v-img :src="productImage" :aspect-ratio="1 / 1" cover></v-img>
-    <div class="product-id text-center text-sm py-1">{{ product.code }}</div>
     <div class="pa-4 d-flex flex-column full-height">
-      <div class="text-sm font-weight-semibold flex-grow-1">
+      <div class="text-xs neutral60--text font-weight-medium">
+        {{ product.code }}
+      </div>
+      <div class="text-sm font-weight-medium flex-grow-1 mt-1">
         {{ product.name }}
       </div>
-      <div class="text-sm font-weight-medium d-flex align-center mt-1">
-        <div class="text-dp-xs font-weight-semibold">
+      <div class="font-weight-medium d-flex align-center mt-3">
+        <div class="text-lg font-weight-bold">
           {{ numberWithCommas(product.price) || "---" }}
         </div>
-        <div class="ml-1 text-sm neutral80--text">vnd</div>
+        <div class="ml-1 text-xs neutral80--text">vnd</div>
       </div>
     </div>
   </div>
@@ -37,7 +39,7 @@ export default {
   methods: {
     goToProductDetail() {
       if (!this.product) return;
-      this.$router.push(`/products/${this.product.code}`);
+      this.$router.push(`/cay-canh/${this.product.code}`);
     },
     numberWithCommas(x) {
       x = x.toString();

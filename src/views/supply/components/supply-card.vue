@@ -3,17 +3,19 @@
     class="card-shadow border-radius-16 overflow-hidden white-bg cursor-pointer full-height d-flex flex-column"
     @click="goToSupplyDetail()"
   >
-    <v-img :src="supplyImage" :aspect-ratio="1 / 1" cover></v-img>
-    <div class="supply-id text-center text-sm py-1">{{ supply.code }}</div>
-    <div class="pa-4">
-      <div class="text-sm font-weight-semibold flex-grow-1">
+    <v-img :src="productImage" :aspect-ratio="1 / 1" cover></v-img>
+    <div class="pa-4 d-flex flex-column full-height">
+      <div class="text-xs neutral60--text font-weight-medium">
+        {{ supply.code }}
+      </div>
+      <div class="text-sm font-weight-medium flex-grow-1 mt-1">
         {{ supply.name }}
       </div>
-      <div class="text-sm font-weight-medium d-flex align-center mt-1">
-        <div class="text-dp-xs font-weight-semibold">
+      <div class="font-weight-medium d-flex align-center mt-3">
+        <div class="text-lg font-weight-bold">
           {{ numberWithCommas(supply.price) || "---" }}
         </div>
-        <div class="ml-1 text-sm neutral80--text">vnd</div>
+        <div class="ml-1 text-xs neutral80--text">vnd</div>
       </div>
     </div>
   </div>

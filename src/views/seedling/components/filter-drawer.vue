@@ -64,8 +64,8 @@
           <v-expansion-panel>
             <v-expansion-panel-header class="text-md font-weight-bold">
               <div>
-                <v-icon class="mr-1">mdi-shape-plus-outline</v-icon>
-                Giá
+                <v-icon class="mr-1" small>mdi-tag</v-icon>
+                Lọc giá
               </div>
             </v-expansion-panel-header>
             <v-expansion-panel-content>

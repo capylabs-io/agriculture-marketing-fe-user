@@ -91,17 +91,34 @@
               Trang chủ
             </div>
           </router-link>
-          <router-link
-            to="/gioi-thieu"
-            class="text-decoration-none align-self-center"
-            active-class="active"
-          >
-            <div
-              class="text-none white--text text-uppercase font-weight-medium px-3 py-2 text-sm"
-            >
-              Giới thiệu
-            </div>
-          </router-link>
+          <v-menu transition="slide-y-transition" bottom open-on-hover offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <router-link
+                to="/trang-chu"
+                class="text-decoration-none align-self-center"
+              >
+                <div
+                  class="text-none white--text text-uppercase font-weight-medium px-3 py-2 text-sm d-flex align-center"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  Giới thiệu
+                  <v-icon class="ml-1" small dark>mdi-chevron-down</v-icon>
+                </div>
+              </router-link>
+            </template>
+            <v-list>
+              <v-list-item to="/cay-canh" active-class="active-nav">
+                <v-list-item-title>Danh sách Cây cảnh</v-list-item-title>
+              </v-list-item>
+              <v-list-item to="/giong" active-class="active-nav">
+                <v-list-item-title>Danh sách Giống</v-list-item-title>
+              </v-list-item>
+              <v-list-item to="/vat-tu" active-class="active-nav">
+                <v-list-item-title>Danh sách Vật tư</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
           <router-link
             to="/nghe-nhan"
             class="text-decoration-none align-self-center"
@@ -157,17 +174,31 @@
               Tin tức
             </div>
           </router-link>
-          <router-link
-            to="/thu-vien"
-            class="text-decoration-none align-self-center"
-            active-class="active"
-          >
-            <div
-              class="text-none white--text text-uppercase font-weight-medium px-3 py-2 text-sm"
-            >
-              Thư viện ảnh
-            </div>
-          </router-link>
+          <v-menu transition="slide-y-transition" bottom open-on-hover offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <router-link
+                to="/thu-vien"
+                class="text-decoration-none align-self-center"
+              >
+                <div
+                  class="text-none white--text text-uppercase font-weight-medium px-3 py-2 text-sm d-flex align-center"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  Thư viện ảnh
+                  <v-icon class="ml-1" small dark>mdi-chevron-down</v-icon>
+                </div>
+              </router-link>
+            </template>
+            <v-list>
+              <v-list-item to="/thu-vien-anh" active-class="active-nav">
+                <v-list-item-title>Thư viện Ảnh</v-list-item-title>
+              </v-list-item>
+              <v-list-item to="/thu-vien-video" active-class="active-nav">
+                <v-list-item-title>Thư viện Video</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </div>
         <div class="d-flex mr-n2">
           <router-link
@@ -232,6 +263,10 @@ export default {
   border-radius: 6px !important;
   background-color: rgba(255, 255, 255, 0.15);
   font-weight: 600 !important;
+}
+.active-nav {
+  background-color: var(--v-primary70-base) !important;
+  color: white !important;
 }
 .top-nav {
   background-color: var(--v-neutral90-base) !important;

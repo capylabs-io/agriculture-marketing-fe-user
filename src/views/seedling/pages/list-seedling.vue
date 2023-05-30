@@ -3,7 +3,9 @@
   <div class="d-flex full-height">
     <FilterDrawer v-if="$vuetify.breakpoint.mdAndUp" />
     <div class="full-width">
-      <div class="page-container mx-auto pa-6 full-height d-flex flex-column">
+      <div
+        class="page-container mx-auto px-6 py-2 full-height d-flex flex-column"
+      >
         <div v-if="$vuetify.breakpoint.smAndDown">
           <MobileFilterDrawer />
         </div>

@@ -49,7 +49,7 @@ nav {
   }
 }
 .sort-select {
-  max-width: 260px !important;
+  max-width: 180px !important;
 }
 .search-field {
   max-width: 320px !important;
@@ -222,6 +222,12 @@ body {
   -webkit-box-shadow: 0 0 8px #1e1e20;
   background-color: var(--v-primary-base);
 }
+.vueperslides__bullet--active .default {
+  background-color: var(--v-primary-base) !important;
+}
+.breadcrumb {
+  background-color: var(--v-primary10-base) !important;
+}
 
 //Vuetify component setting
 .v-toolbar__content {
@@ -272,6 +278,11 @@ body {
 // .theme--light.v-list-item--active::before {
 //   opacity: 0 !important;
 // }
+
+.v-list-item:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  cursor: pointer;
+}
 .v-text-field--outlined fieldset {
   border-color: var(--v-neutral20-base) !important;
 }

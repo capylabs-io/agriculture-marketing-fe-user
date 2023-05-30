@@ -151,7 +151,7 @@
           hide-details
           clearable
         ></v-select>
-        <!-- <v-text-field
+        <v-text-field
           v-model="newStore.searchKey"
           class="border-radius-6 border-neutral20 full-width"
           placeholder="Tìm kiếm từ khóa"
@@ -163,8 +163,23 @@
           dense
           hide-details
           clearable
-        ></v-text-field> -->
+        ></v-text-field>
         <div class="d-flex align-center gap-8">
+          <v-select
+            class="border-radius-8 sort-field"
+            height="42px"
+            placeholder="Sắp xếp"
+            v-model="newStore.sortBy"
+            item-text="name"
+            item-value="value"
+            :class="{ 'sort-select': $vuetify.breakpoint.mdAndUp }"
+            :items="newStore.sortSelection"
+            flat
+            solo
+            outlined
+            dense
+            hide-details
+          ></v-select>
           <div
             class="d-inline-flex align-center neutral20-border border-radius-8 overflow-hidden"
           >
@@ -184,22 +199,6 @@
               <v-icon small :dark="!isGrid">mdi-view-list</v-icon>
             </div>
           </div>
-          <v-select
-            class="border-radius-8 full-width"
-            height="42px"
-            placeholder="Sắp xếp"
-            v-model="newStore.sortBy"
-            item-text="name"
-            item-value="value"
-            :class="{ 'sort-select': $vuetify.breakpoint.mdAndUp }"
-            :items="newStore.sortSelection"
-            :menu-props="{ maxHeight: '400' }"
-            flat
-            solo
-            outlined
-            dense
-            hide-details
-          ></v-select>
         </div>
       </div>
 
@@ -314,6 +313,9 @@ export default {
 </script>
 
 <style scoped>
+.sort-field {
+  max-width: 180px !important;
+}
 .active {
   color: white !important;
   background-color: var(--v-primary50-base);

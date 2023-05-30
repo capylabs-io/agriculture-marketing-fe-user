@@ -79,6 +79,39 @@
           </div>
         </router-link>
         <router-link
+          to="/cay-canh"
+          class="text-decoration-none align-self-center footer-nav-link"
+          active-class="active"
+        >
+          <div
+            class="text-none white--text text-uppercase font-weight-medium px-3 py-2 text-sm"
+          >
+            Cây cảnh
+          </div>
+        </router-link>
+        <router-link
+          to="/giong"
+          class="text-decoration-none align-self-center footer-nav-link"
+          active-class="active"
+        >
+          <div
+            class="text-none white--text text-uppercase font-weight-medium px-3 py-2 text-sm"
+          >
+            Trại giống
+          </div>
+        </router-link>
+        <router-link
+          to="/vat-tu"
+          class="text-decoration-none align-self-center footer-nav-link"
+          active-class="active"
+        >
+          <div
+            class="text-none white--text text-uppercase font-weight-medium px-3 py-2 text-sm"
+          >
+            Vật tư
+          </div>
+        </router-link>
+        <router-link
           to="/nghe-nhan"
           class="text-decoration-none align-self-center footer-nav-link"
           active-class="active"
@@ -145,7 +178,18 @@
           </div>
         </router-link>
         <router-link
-          to="/thu-vien"
+          to="/tai-lieu"
+          class="text-decoration-none align-self-center footer-nav-link"
+          active-class="active"
+        >
+          <div
+            class="text-none white--text text-uppercase font-weight-medium px-3 py-2 text-sm"
+          >
+            Tài liệu
+          </div>
+        </router-link>
+        <router-link
+          to="/thu-vien-anh"
           class="text-decoration-none align-self-center footer-nav-link"
           active-class="active"
         >
@@ -156,14 +200,14 @@
           </div>
         </router-link>
         <router-link
-          to="/tai-lieu"
+          to="/thu-vien-anh"
           class="text-decoration-none align-self-center footer-nav-link"
           active-class="active"
         >
           <div
             class="text-none white--text text-uppercase font-weight-medium px-3 py-2 text-sm"
           >
-            Tài liệu
+            Thư viện Video
           </div>
         </router-link>
         <router-link
