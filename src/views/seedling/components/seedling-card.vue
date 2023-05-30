@@ -3,7 +3,7 @@
     class="card-shadow border-radius-16 overflow-hidden white-bg cursor-pointer full-height d-flex flex-column"
     @click="goToSeedlingDetail()"
   >
-    <v-img :src="productImage" :aspect-ratio="1 / 1" cover></v-img>
+    <v-img :src="seedImage" :aspect-ratio="1 / 1" cover></v-img>
     <div class="pa-4 d-flex flex-column full-height">
       <div class="text-xs neutral60--text font-weight-medium">
         {{ seed.code }}
@@ -39,7 +39,7 @@ export default {
   methods: {
     goToSeedlingDetail() {
       if (!this.seed) return;
-      this.$router.push(`/seedlings/${this.seed.code}`);
+      this.$router.push(`/giong/${this.seed.code}`);
     },
     numberWithCommas(x) {
       x = x.toString();

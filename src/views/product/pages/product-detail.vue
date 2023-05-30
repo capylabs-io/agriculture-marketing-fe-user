@@ -13,8 +13,8 @@
         {{ productStore.product.name || "Product Name" }}
       </div>
     </div>
-    <div class="page-container mx-auto pt-6 pb-8 px-6">
-      <v-row class="mt-5" no-gutters>
+    <div class="page-container mx-auto py-8 px-6">
+      <v-row no-gutters>
         <v-col
           cols="12"
           md="6"

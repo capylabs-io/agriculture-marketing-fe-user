@@ -3,7 +3,7 @@
     class="card-shadow border-radius-16 overflow-hidden white-bg cursor-pointer full-height d-flex flex-column"
     @click="goToSupplyDetail()"
   >
-    <v-img :src="productImage" :aspect-ratio="1 / 1" cover></v-img>
+    <v-img :src="supplyImage" :aspect-ratio="1 / 1" cover></v-img>
     <div class="pa-4 d-flex flex-column full-height">
       <div class="text-xs neutral60--text font-weight-medium">
         {{ supply.code }}
@@ -39,7 +39,7 @@ export default {
   methods: {
     goToSupplyDetail() {
       if (!this.supply) return;
-      this.$router.push(`/supplies/${this.supply.code}`);
+      this.$router.push(`/vat-tu/${this.supply.code}`);
     },
     numberWithCommas(x) {
       x = x.toString();

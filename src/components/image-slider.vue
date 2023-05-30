@@ -31,7 +31,7 @@
 
     <vueper-slides
       ref="vueperslides2"
-      class="no-shadow mt-2"
+      class="no-shadow slides mt-2"
       @slide="
         $refs.vueperslides1 &&
           $refs.vueperslides1.goToSlide($event.currentSlide.index, {
@@ -39,7 +39,7 @@
           })
       "
       :slide-ratio="1 / 1"
-      :dragging-distance="200"
+      :dragging-distance="50"
       :arrows="false"
       :visible-slides="imagesPerPage"
       :breakpoints="breakpoints"
@@ -81,9 +81,15 @@ export default {
   data() {
     return {
       breakpoints: {
-        600: { visibleSlides: 3, slideMultiple: 3 },
+        600: { visibleSlides: 3, slideMultiple: 2 },
       },
     };
   },
 };
 </script>
+
+<style scoped>
+.slides .vueperslide--active {
+  border: 2px solid var(--v-primary-base) !important;
+}
+</style>

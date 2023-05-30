@@ -134,6 +134,13 @@ export const seedStore = defineStore("seed", {
       if (!this.seeds || this.filteredSeeds.length == 0) return 0;
       return this.seeds.length;
     },
+    seedImages() {
+      if (!this.seed) return [];
+      let images = [this.seed.images];
+      if (this.seed.imageCollection && this.seed.imageCollection.length > 0)
+        images = images.concat(this.seed.imageCollection);
+      return images;
+    },
   },
   actions: {
     resetFilter() {

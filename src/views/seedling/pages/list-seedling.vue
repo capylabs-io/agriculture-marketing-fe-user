@@ -41,8 +41,7 @@
               :key="seed.id"
               cols="12"
               sm="6"
-              md="4"
-              xl="3"
+              md="3"
             >
               <SeedCard :seed="seed"></SeedCard>
             </v-col>

@@ -137,6 +137,13 @@ export const supplyStore = defineStore("supply", {
       if (!this.supplies || this.filteredSupplies.length == 0) return 0;
       return this.supplies.length;
     },
+    supplyImages() {
+      if (!this.supply) return [];
+      let images = [this.supply.images];
+      if (this.supply.imageCollection && this.supply.imageCollection.length > 0)
+        images = images.concat(this.supply.imageCollection);
+      return images;
+    },
   },
   actions: {
     resetFilter() {

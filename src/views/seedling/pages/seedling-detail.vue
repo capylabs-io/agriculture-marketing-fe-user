@@ -1,9 +1,11 @@
 <template>
-  <div class="page-container mx-auto pt-6 pb-8 px-6">
-    <div class="neutral60--text font-weight-semibold d-flex flex-wrap">
+  <div>
+    <div
+      class="neutral60--text font-weight-semibold text-sm d-flex flex-wrap px-11 py-3 breadcrumb full-width"
+    >
       <div class="cursor-pointer" @click="$router.push('/')">Trang chủ</div>
       <span class="mx-2">/</span>
-      <div class="cursor-pointer" @click="$router.push('/seedlings')">
+      <div class="cursor-pointer" @click="$router.push('/giong')">
         Trại giống
       </div>
       <span class="mx-2">/</span>
@@ -11,156 +13,163 @@
         {{ seedStore.seed.name || "Seed Name" }}
       </div>
     </div>
-    <v-row class="mt-6" no-gutters>
-      <v-col
-        cols="12"
-        md="6"
-        :class="{ 'right-border pr-6': $vuetify.breakpoint.mdAndUp }"
-      >
-        <v-img
-          class="border-radius-16"
-          :src="seedImage"
-          :aspect-ratio="1 / 1"
-          cover
-        ></v-img>
-      </v-col>
-      <v-col cols="12" md="6" :class="{ 'pl-6': $vuetify.breakpoint.mdAndUp }">
-        <div
-          class="d-flex justify-space-between"
-          :class="{
-            'flex-column align-center mt-6': $vuetify.breakpoint.smAndDown,
-          }"
+    <div class="page-container mx-auto py-8 px-6">
+      <v-row no-gutters>
+        <v-col
+          cols="12"
+          md="6"
+          :class="{ 'right-border pr-6': $vuetify.breakpoint.mdAndUp }"
         >
-          <div class="flex-grow-1 full-width">
-            <div
-              class="font-weight-semibold text-none"
-              :class="{
-                'text-center text-dp-sm': $vuetify.breakpoint.smAndDown,
-                'text-dp-md': !$vuetify.breakpoint.smAndDown,
-              }"
-            >
-              {{ seedStore.seed.name || "Seed Name" }}
-            </div>
-            <div
-              class="font-weight-semibold text-dp-xs d-flex align-center my-2"
-              v-if="$vuetify.breakpoint.mdAndUp"
-            >
-              {{ seedStore.seed.price || "---"
-              }}<span class="neutral80--text text-xs ml-1">vnđ</span>
-            </div>
-            <div
-              class="d-flex align-center mt-4 mb-1 neutral80--text text-sm"
-              v-else
-            >
-              Giá:
-              <span class="font-weight-bold ml-1 text-lg"
-                >{{ seedStore.seed.price || "---" }}
-              </span>
-              <span class="neutral80--text text-xs ml-1">vnđ</span>
-            </div>
-            <div class="neutral80--text text-sm text-none">
-              Danh mục sản phẩm:
-              {{ seedStore.seed.seedCategory }}
-            </div>
-            <div class="neutral80--text text-sm mt-1">
-              Mã sản phẩm: {{ seedStore.seed.code }}
-            </div>
-            <div class="neutral80--text text-sm mt-1 text-none">
-              Xuất xứ: {{ seedStore.seed.origin }}
-            </div>
-          </div>
+          <!-- <v-img
+            class="border-radius-16"
+            :src="seedImage"
+            :aspect-ratio="1 / 1"
+            cover
+          ></v-img> -->
+          <ImageSlider :images="seedStore.seedImages" />
+        </v-col>
+        <v-col
+          cols="12"
+          md="6"
+          :class="{ 'pl-6': $vuetify.breakpoint.mdAndUp }"
+        >
           <div
+            class="d-flex justify-space-between"
             :class="{
-              'mt-6': $vuetify.breakpoint.smAndDown,
+              'flex-column align-center mt-6': $vuetify.breakpoint.smAndDown,
             }"
           >
-            <v-img
-              class="neutral20-border border-radius-16 qrcode-img"
-              :src="seedQRImage"
-            ></v-img>
-          </div>
-        </div>
-        <div class="neutral20-border border-radius-16 pa-4 mt-6 text-center">
-          <div
-            class="d-inline-flex align-center neutral20-border border-radius-8 mx-auto overflow-hidden"
-          >
+            <div class="flex-grow-1 full-width">
+              <div
+                class="font-weight-semibold text-none"
+                :class="{
+                  'text-center text-dp-sm': $vuetify.breakpoint.smAndDown,
+                  'text-dp-md': !$vuetify.breakpoint.smAndDown,
+                }"
+              >
+                {{ seedStore.seed.name || "Seed Name" }}
+              </div>
+              <div
+                class="font-weight-semibold text-dp-xs d-flex align-center my-2"
+                v-if="$vuetify.breakpoint.mdAndUp"
+              >
+                {{ seedStore.seed.price || "---"
+                }}<span class="neutral80--text text-xs ml-1">vnđ</span>
+              </div>
+              <div
+                class="d-flex align-center mt-4 mb-1 neutral80--text text-sm"
+                v-else
+              >
+                Giá:
+                <span class="font-weight-bold ml-1 text-lg"
+                  >{{ seedStore.seed.price || "---" }}
+                </span>
+                <span class="neutral80--text text-xs ml-1">vnđ</span>
+              </div>
+              <div class="neutral80--text text-sm text-none">
+                Danh mục sản phẩm:
+                {{ seedStore.seed.seedCategory }}
+              </div>
+              <div class="neutral80--text text-sm mt-1">
+                Mã sản phẩm: {{ seedStore.seed.code }}
+              </div>
+              <div class="neutral80--text text-sm mt-1 text-none">
+                Xuất xứ: {{ seedStore.seed.origin }}
+              </div>
+            </div>
             <div
-              class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-              :class="{ active: currentTab == 0 }"
-              @click="currentTab = 0"
+              :class="{
+                'mt-6': $vuetify.breakpoint.smAndDown,
+              }"
             >
-              Thông tin
-            </div>
-            <v-divider vertical></v-divider>
-            <div
-              class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-              :class="{ active: currentTab == 1 }"
-              @click="currentTab = 1"
-            >
-              Nguồn gốc
-            </div>
-            <v-divider vertical></v-divider>
-            <div
-              class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-              :class="{ active: currentTab == 2 }"
-              @click="currentTab = 2"
-            >
-              Xác thực
-            </div>
-          </div>
-          <div class="text-start mt-4" v-if="currentTab == 0">
-            <div>
-              <div class="font-weight-semibold">Mô tả sản phẩm</div>
-              <div class="mt-2" v-html="seedStore.seed.description"></div>
-              <v-divider class="mt-4"></v-divider>
-            </div>
-            <div class="mt-4">
-              <div class="font-weight-semibold">Hướng dẫn chăm sóc</div>
-              <div class="mt-2" v-html="seedStore.seed.careInstruction"></div>
-            </div>
-          </div>
-          <div class="text-start mt-4" v-if="currentTab == 1">
-            <div>
-              <div class="font-weight-semibold">Nơi trồng</div>
-              <div class="mt-2">Không có thông tin</div>
-              <v-divider class="mt-4"></v-divider>
-            </div>
-            <div class="mt-4">
-              <div class="font-weight-semibold">Địa chỉ</div>
-              <div class="mt-2">Không có thông tin</div>
-              <v-divider class="mt-4"></v-divider>
-            </div>
-            <div class="mt-4">
-              <div class="font-weight-semibold">Số điện thoại</div>
-              <div class="mt-2">Không có thông tin</div>
-            </div>
-          </div>
-          <div class="text-start mt-4" v-if="currentTab == 2">
-            <div>
-              <div class="font-weight-semibold">Giấy chứng nhận</div>
               <v-img
-                class="mt-2"
-                :src="seedCertificationImage"
-                :aspect-ratio="16 / 9"
-                max-height="200"
-                contain
-              ></v-img>
-              <v-divider class="mt-6"></v-divider>
-            </div>
-            <div class="mt-4">
-              <div class="font-weight-semibold">Giấy kiểm định</div>
-              <v-img
-                class="mt-2"
-                :src="seedAccreditationImage"
-                :aspect-ratio="16 / 9"
-                max-height="200"
-                contain
+                class="neutral20-border border-radius-16 qrcode-img"
+                :src="seedQRImage"
               ></v-img>
             </div>
           </div>
-        </div>
-      </v-col>
-    </v-row>
+          <div class="neutral20-border border-radius-16 pa-4 mt-6 text-center">
+            <div
+              class="d-inline-flex align-center neutral20-border border-radius-8 mx-auto overflow-hidden"
+            >
+              <div
+                class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+                :class="{ active: currentTab == 0 }"
+                @click="currentTab = 0"
+              >
+                Thông tin
+              </div>
+              <v-divider vertical></v-divider>
+              <div
+                class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+                :class="{ active: currentTab == 1 }"
+                @click="currentTab = 1"
+              >
+                Nguồn gốc
+              </div>
+              <v-divider vertical></v-divider>
+              <div
+                class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+                :class="{ active: currentTab == 2 }"
+                @click="currentTab = 2"
+              >
+                Xác thực
+              </div>
+            </div>
+            <div class="text-start mt-4" v-if="currentTab == 0">
+              <div>
+                <div class="font-weight-semibold">Mô tả sản phẩm</div>
+                <div class="mt-2" v-html="seedStore.seed.description"></div>
+                <v-divider class="mt-4"></v-divider>
+              </div>
+              <div class="mt-4">
+                <div class="font-weight-semibold">Hướng dẫn chăm sóc</div>
+                <div class="mt-2" v-html="seedStore.seed.careInstruction"></div>
+              </div>
+            </div>
+            <div class="text-start mt-4" v-if="currentTab == 1">
+              <div>
+                <div class="font-weight-semibold">Nơi trồng</div>
+                <div class="mt-2">Không có thông tin</div>
+                <v-divider class="mt-4"></v-divider>
+              </div>
+              <div class="mt-4">
+                <div class="font-weight-semibold">Địa chỉ</div>
+                <div class="mt-2">Không có thông tin</div>
+                <v-divider class="mt-4"></v-divider>
+              </div>
+              <div class="mt-4">
+                <div class="font-weight-semibold">Số điện thoại</div>
+                <div class="mt-2">Không có thông tin</div>
+              </div>
+            </div>
+            <div class="text-start mt-4" v-if="currentTab == 2">
+              <div>
+                <div class="font-weight-semibold">Giấy chứng nhận</div>
+                <v-img
+                  class="mt-2"
+                  :src="seedCertificationImage"
+                  :aspect-ratio="16 / 9"
+                  max-height="200"
+                  contain
+                ></v-img>
+                <v-divider class="mt-6"></v-divider>
+              </div>
+              <div class="mt-4">
+                <div class="font-weight-semibold">Giấy kiểm định</div>
+                <v-img
+                  class="mt-2"
+                  :src="seedAccreditationImage"
+                  :aspect-ratio="16 / 9"
+                  max-height="200"
+                  contain
+                ></v-img>
+              </div>
+            </div>
+          </div>
+        </v-col>
+      </v-row>
+    </div>
   </div>
 </template>
 
@@ -169,6 +178,9 @@ import { mapStores } from "pinia";
 import { seedStore } from "../store/seed-store";
 
 export default {
+  components: {
+    ImageSlider: () => import("@/components/image-slider.vue"),
+  },
   computed: {
     ...mapStores(seedStore),
     seedImage() {

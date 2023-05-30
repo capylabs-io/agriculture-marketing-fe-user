@@ -41,8 +41,7 @@
               :key="supply.id"
               cols="12"
               sm="6"
-              md="4"
-              xl="3"
+              md="3"
             >
               <SupplyCard :supply="supply"></SupplyCard>
             </v-col>

@@ -39,7 +39,7 @@
           <v-expansion-panel>
             <v-expansion-panel-header class="text-md font-weight-bold">
               <div>
-                <v-icon class="mr-1">mdi-shape-plus-outline</v-icon>
+                <v-icon class="mr-1" small>mdi-shape-plus-outline</v-icon>
                 Danh mục
               </div>
             </v-expansion-panel-header>

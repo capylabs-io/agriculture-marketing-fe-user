@@ -222,6 +222,17 @@ body {
   -webkit-box-shadow: 0 0 8px #1e1e20;
   background-color: var(--v-primary-base);
 }
+.vueperslides__bullet {
+  margin: 16px 4px !important;
+}
+.vueperslides__bullet .default {
+  background-color: var(--v-primary20-base) !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: 0.3s;
+  width: 8px !important;
+  height: 8px !important;
+}
 .vueperslides__bullet--active .default {
   background-color: var(--v-primary-base) !important;
 }
