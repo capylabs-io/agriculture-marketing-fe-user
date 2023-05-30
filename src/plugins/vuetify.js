@@ -11,7 +11,7 @@ const vuetify = new Vuetify({
     light: true,
     themes: {
       light: {
-        primary: "#3CCB7F",
+        primary: "#16B364",
         secondary: "#f5f8ff",
 
         //Neutral

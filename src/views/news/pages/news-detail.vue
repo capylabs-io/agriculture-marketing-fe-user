@@ -45,28 +45,17 @@
       <v-divider class="mt-16"></v-divider>
     </div>
     <div class="page-container mx-auto pb-16 mt-12 page-container px-6">
-      <v-row>
-        <v-col cols="12" class="d-flex justify-space-between">
-          <div class="text-dp-md font-weight-semibold">Tin mới</div>
-
-          <v-btn
-            class="neutral20-border border-radius-8 text-none text-capitalize px-3 py-5"
-            @click="gotoListNews()"
-            depressed
-            >Xem tất cả</v-btn
-          >
-        </v-col>
-      </v-row>
-      <div class="text-lg neutral80--text my-6">
+      <div class="text-dp-md font-weight-semibold">Tin liên quan</div>
+      <div class="text-lg neutral80--text mt-3">
         Cập nhật tất cả những thông tin mới nhất về cây cảnh
       </div>
-      <v-row>
+      <v-row class="mt-6">
         <v-col
           v-for="obj in newStore.listNew"
           :key="obj.id"
           cols="12"
+          sm="6"
           md="4"
-          xl="4"
         >
           <NewCard :post="obj"> </NewCard>
         </v-col>
@@ -115,7 +104,7 @@ export default {
   },
   methods: {
     gotoListNews() {
-      this.$router.push(`/news`);
+      this.$router.push(`/tin-tuc`);
     },
     async loadDetail() {
       const code = this.$route.params.code;

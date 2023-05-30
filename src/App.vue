@@ -105,11 +105,20 @@ body {
 .gap-8 {
   gap: 8px;
 }
+.gap-12 {
+  gap: 12px;
+}
 .gap-16 {
   gap: 16px;
 }
+.gap-24 {
+  gap: 24px;
+}
 .row-gap-32 {
   row-gap: 32px;
+}
+.col-gap-16 {
+  column-gap: 16px;
 }
 .col-gap-36 {
   column-gap: 36px;
@@ -215,6 +224,9 @@ body {
 }
 
 //Vuetify component setting
+.v-toolbar__content {
+  padding: 0px !important;
+}
 .v-carousel__controls__item .v-icon {
   opacity: 0 !important;
 }
@@ -275,8 +287,22 @@ body {
 // .theme--light.v-list-item--active::before {
 //   opacity: 0 !important;
 // }
+
 // .v-text-field--outlined fieldset {
 //   border-color: var(--v-neutral30-base) !important;
+// }
+
+.v-text-field--outlined fieldset {
+  border-color: var(--v-neutral20-base) !important;
+}
+// .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+//   font-weight: 600 !important;
+//   font-size: 14px !important;
+//   line-height: 20px !important;
+//   color: var(--v-neutral70-base) !important;
+// }
+// .v-data-table > .v-data-table__wrapper > table > tbody > tr:nth-of-type(even) {
+//   background: var(--v-neutral10-base);
 // }
 
 // .theme--light.v-data-table

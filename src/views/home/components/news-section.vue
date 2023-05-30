@@ -1,79 +1,68 @@
 <template>
   <div class="page-container mx-auto py-16 px-6">
-    <div
-      class="font-weight-semibold text-dp-md text-center"
-      data-aos="fade-up"
-      data-aos-duration="600"
-      data-aos-delay="600"
-    >
-      Tin tức
-    </div>
-    <v-row class="mt-12" no-gutters>
-      <v-col
-        cols="12"
-        md="6"
-        data-aos="fade-right"
-        data-aos-duration="1000"
-        data-aos-delay="500"
-        :class="{ 'right-border pr-6': $vuetify.breakpoint.mdAndUp }"
+    <div class="d-flex align-center justify-space-between">
+      <div class="font-weight-semibold text-dp-sm text-center">Tin tức</div>
+      <v-btn
+        class="text-none text-md primary--text px-0"
+        text
+        @click="$router.push('/tin-tuc')"
+        >Xem thêm <v-icon>mdi-chevron-right</v-icon></v-btn
       >
-        <v-img
-          class="border-radius-16 neutral30-border cursor-pointer big-post"
-          :src="productImage(homeStore.newestPost.images)"
+    </div>
+    <v-row class="mt-4">
+      <v-col class="align-self-scretch" cols="12" md="7">
+        <div
+          class="d-flex border-radius-16 cursor-pointer big-post overflow-hidden full-height"
           @click="goToPost(homeStore.newestPost.id)"
         >
-          <v-img
-            class="image-gradient"
-            :class="{ 'full-height': $vuetify.breakpoint.smAndDown }"
-            :src="require('@/assets/components/landing/image-gradient.png')"
-          ></v-img>
-          <div class="big-new-title white--text pa-6 full-width">
-            <div class="font-weight-semibold text-dp-xs">
-              {{ homeStore.newestPost.title }}
+          <img
+            class="big-post-img full-height"
+            :src="productImage(homeStore.newestPost.images)"
+          />
+          <div class="pa-4">
+            <div class="primary--text font-weight-semibold">
+              {{ homeStore.newestPost.postCategory.name }}
             </div>
-            <div
-              class="text-md mt-1 font-weight-light text-truncate"
-              v-if="$vuetify.breakpoint.mdAndUp"
+            <v-clamp
+              class="font-weight-semibold text-dp-xs mt-2"
+              :max-lines="4"
+              >{{ stripHtml(homeStore.newestPost.title) }}</v-clamp
             >
-              {{ stripHtml(homeStore.newestPost.content) }}
-            </div>
+            <v-clamp class="mt-3" :max-lines="6">{{
+              stripHtml(homeStore.newestPost.content)
+            }}</v-clamp>
           </div>
-        </v-img>
+        </div>
       </v-col>
       <v-col
-        class="d-flex flex-column justify-space-between pl-6 gap-16"
+        class="d-flex flex-column justify-space-between gap-16"
         cols="12"
-        md="6"
+        md="5"
         v-if="$vuetify.breakpoint.mdAndUp"
       >
         <div
-          v-for="(post, i) in homeStore.otherPosts"
+          v-for="post in homeStore.otherPosts"
           class="d-flex cursor-pointer"
-          data-aos="fade-left"
-          data-aos-duration="500"
           :key="post.id"
-          :data-aos-delay="300 * i"
           @click="goToPost(post.id)"
         >
           <div>
-            <v-img
-              class="border-radius-16 neutral30-border"
-              width="200px"
-              :aspect-ratio="16 / 9"
+            <img
+              class="border-radius-16 post-img"
               :src="productImage(post.images)"
               cover
             />
           </div>
-          <div class="ml-4 flex-grow-1">
-            <div class="font-weight-semibold text-lg">
-              {{ post.title }}
-            </div>
-            <!-- <div class="neutral70--text text-sm mt-1 text-truncate">
-              {{ stripHtml(post.content) }}
-            </div> -->
-            <div class="primary--text font-weight-bold mt-2">
+          <div class="ml-4">
+            <div class="primary--text text-sm font-weight-semibold">
               {{ post.postCategory.name }}
             </div>
+            <v-clamp class="font-weight-semibold text-md" :max-lines="2">{{
+              stripHtml(post.title)
+            }}</v-clamp>
+            <v-clamp class="text-sm mt-1" :max-lines="2">{{
+              stripHtml(post.content)
+            }}</v-clamp>
           </div>
         </div>
       </v-col>
@@ -110,14 +99,6 @@
         </div>
       </div>
     </div>
-    <div class="mt-12 text-center">
-      <v-btn
-        class="text-none text-capitalize px-3 py-5 border-radius-8 btn-show-more"
-        elevation="0"
-        @click="$router.push('/news')"
-        >Xem thêm</v-btn
-      >
-    </div>
   </div>
 </template>
 
@@ -125,16 +106,15 @@
 import { mapStores } from "pinia";
 import { homeStore } from "../store/home-store";
 import { get } from "lodash";
+import VClamp from "vue-clamp";
 export default {
+  components: {
+    VClamp,
+  },
   computed: {
     ...mapStores(homeStore),
     newestPostTitle() {
       return get(homeStore.newestPost, "title", "Tiêu đề");
-    },
-    newestPostContent() {
-      let content = get(homeStore.newestPost, "content", "Nội dung bài viết");
-      content = content.length >= 100 ? content.slice(0, 100) + "..." : content;
-      return content;
     },
   },
   methods: {
@@ -166,7 +146,16 @@ export default {
   bottom: 0;
 }
 .big-post {
-  max-height: 377px;
+  background-color: var(--v-primary5-base) !important;
+}
+.big-post-img {
+  max-width: 274px;
+  height: 100%;
+  object-fit: cover;
+}
+.post-img {
+  width: 100px;
+  aspect-ratio: 1/1 !important;
 }
 .big-new-title {
   position: absolute;

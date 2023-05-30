@@ -4,24 +4,24 @@
     @click="goTo()"
   >
     <v-img
-      :src="productImage"
+      :src="originImage"
       :aspect-ratio="16 / 9"
       height="164px"
       cover
     ></v-img>
     <div class="full-height d-flex flex-column pt-3 pb-2">
       <div
-        class="d-flex align-center justify-center product-id text-center text-sm text-uppercase"
+        class="d-flex align-center justify-center origin-id text-center text-sm text-uppercase"
       >
         <v-icon small class="mr-1" color="primary">mdi-qrcode</v-icon>
-        {{ productCode }}
+        {{ originCode }}
       </div>
       <div class="text-center text-xl font-weight-medium px-4 pt-1 flex-grow-1">
-        {{ productName }}
+        {{ originName }}
       </div>
       <v-divider class="mt-3"></v-divider>
       <div class="text-sm text-center mt-2 primary--text">
-        {{ productCategory }}
+        {{ originCategory }}
       </div>
     </div>
   </div>
@@ -31,27 +31,27 @@
 import { get } from "lodash";
 export default {
   computed: {
-    productImage() {
-      if (!this.product || !this.product.images)
+    originImage() {
+      if (!this.origin || !this.origin.images)
         return require("@/assets/no-image.png");
-      return this.product.images;
+      return this.origin.images;
     },
-    productCode() {
-      return get(this.product, "code", "Mã sản phẩm");
+    originCode() {
+      return get(this.origin, "code", "Mã sản phẩm");
     },
-    productName() {
-      return get(this.product, "name", "Tên sản phẩm");
+    originName() {
+      return get(this.origin, "name", "Tên sản phẩm");
     },
-    productCategory() {
-      return get(this.product, "productCategory.name", "Danh mục sản phẩm");
+    originCategory() {
+      return get(this.origin, "originCategory.name", "Danh mục sản phẩm");
     },
   },
   props: {
-    product: Object,
+    origin: Object,
   },
   methods: {
     goTo() {
-      this.$router.push(`/products/${this.productCode}`);
+      this.$router.push(`/origins/${this.originCode}`);
     },
   },
 };

@@ -4,24 +4,24 @@
     @click="goTo()"
   >
     <v-img
-      :src="productImage"
+      :src="agentImage"
       :aspect-ratio="16 / 9"
       height="164px"
       cover
     ></v-img>
     <div class="full-height d-flex flex-column pt-3 pb-2">
       <div
-        class="d-flex align-center justify-center product-id text-center text-sm text-uppercase"
+        class="d-flex align-center justify-center agent-id text-center text-sm text-uppercase"
       >
         <v-icon small class="mr-1" color="primary">mdi-qrcode</v-icon>
-        {{ productCode }}
+        {{ agentCode }}
       </div>
       <div class="text-center text-xl font-weight-medium px-4 pt-1 flex-grow-1">
-        {{ productName }}
+        {{ agentName }}
       </div>
       <v-divider class="mt-3"></v-divider>
       <div class="text-sm text-center mt-2 primary--text">
-        {{ productCategory }}
+        {{ agentCategory }}
       </div>
     </div>
   </div>
@@ -31,27 +31,27 @@
 import { get } from "lodash";
 export default {
   computed: {
-    productImage() {
-      if (!this.product || !this.product.images)
+    agentImage() {
+      if (!this.agent || !this.agent.images)
         return require("@/assets/no-image.png");
-      return this.product.images;
+      return this.agent.images;
     },
-    productCode() {
-      return get(this.product, "code", "Mã sản phẩm");
+    agentCode() {
+      return get(this.agent, "code", "Mã sản phẩm");
     },
-    productName() {
-      return get(this.product, "name", "Tên sản phẩm");
+    agentName() {
+      return get(this.agent, "name", "Tên sản phẩm");
     },
-    productCategory() {
-      return get(this.product, "productCategory.name", "Danh mục sản phẩm");
+    agentCategory() {
+      return get(this.agent, "agentCategory.name", "Danh mục sản phẩm");
     },
   },
   props: {
-    product: Object,
+    agent: Object,
   },
   methods: {
     goTo() {
-      this.$router.push(`/products/${this.productCode}`);
+      this.$router.push(`/agents/${this.agentCode}`);
     },
   },
 };
