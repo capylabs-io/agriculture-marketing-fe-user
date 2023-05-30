@@ -4,7 +4,7 @@
     <div class="neutral60--text font-weight-semibold d-flex flex-wrap">
       <div class="cursor-pointer" @click="$router.push('/')">Trang chủ</div>
       <span class="mx-2">/</span>
-      <div class="cursor-pointer" @click="$router.push('/document')">
+      <div class="cursor-pointer" @click="$router.push('/tai-lieu')">
         Tài liệu
       </div>
       <span class="mx-2">/</span>

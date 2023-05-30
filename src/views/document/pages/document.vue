@@ -65,7 +65,7 @@
                 @click="onDisableClicked(item.id)"
                 class="text-none d-flex flex-column justify-center align-center"
                 color="blue70"
-                href="/document-detail"
+                href="/tai-lieu-chi-tiet"
                 >Chi tiết
                 <v-icon small class="ml-1">mdi-chevron-right</v-icon></v-btn
               >
