@@ -14,6 +14,7 @@
           solo
           outlined
           hide-details
+          v-model="documentStore.searchKey"
         >
           <template v-slot:append>
             <div class="append-btn border-radius-6 pa-3 mr-n2">
@@ -40,15 +41,19 @@
       </div>
 
       <div class="border-radius-12 neutral20-border overflow-hidden mt-8">
-        <v-data-table :headers="headers" :items="items" hide-default-footer>
+        <v-data-table
+          :headers="headers"
+          :items="documentStore.slicedlistdocument"
+          hide-default-footer
+        >
           <template v-slot:[`item.code`]="{ item }">
             <div class="d-flex align-center justify-center">
-              {{ item.code }}
+              {{ item.numberOf }}
             </div>
           </template>
           <template v-slot:[`item.publishedAt`]="{ item }">
             <div class="d-flex align-center justify-center">
-              {{ item.publishedAt }}
+              {{ item.issueDate || ddmmyyyy }}
             </div>
           </template>
           <template v-slot:[`item.title`]="{ item }">
@@ -62,10 +67,9 @@
                 text
                 dense
                 depressed
-                @click="onDisableClicked(item.id)"
+                @click="$router.push(`/tai-lieu/${item.id}`)"
                 class="text-none d-flex flex-column justify-center align-center"
                 color="blue70"
-                href="/tai-lieu-chi-tiet"
                 >Chi tiết
                 <v-icon small class="ml-1">mdi-chevron-right</v-icon></v-btn
               >
@@ -74,21 +78,25 @@
         </v-data-table>
       </div>
       <div class="mt-4 mb-16">
-        <v-pagination color="primary" :length="5"></v-pagination>
+        <v-pagination
+          color="primary"
+          :length="documentStore.totaldocumentsPage"
+          v-model="documentStore.documentsPage"
+        ></v-pagination>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import { mapStores } from "pinia";
-// import { supplyStore } from "../store/supply-store";
+import { mapStores } from "pinia";
+import { documentStore } from "../stores/documentStore";
 import { rules } from "@/plugins/rules";
 import { gmapApi } from "vue2-google-maps";
 
 export default {
   computed: {
-    // ...mapStores(supplyStore),
+    ...mapStores(documentStore),
     google: gmapApi,
   },
   data() {
@@ -162,9 +170,15 @@ export default {
     searchForm: () => import("../components/document-search-form.vue"),
   },
 
-  created() {},
+  async created() {
+    await Promise.all([
+      this.documentStore.fetchCategories(),
+      this.documentStore.fetchlistdocument(),
+    ]);
+  },
   methods: {
     toggleSearch() {},
+
     setCurrentTab(index) {
       this.currentTab = index;
     },

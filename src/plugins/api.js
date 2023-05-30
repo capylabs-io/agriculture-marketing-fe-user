@@ -13,6 +13,10 @@ const SUPPLY_API = "/supplies/";
 const PRODUCT_CATEGORY_API = "/product-categories/";
 const POST_CATEGORY_API = "/post-categories/";
 const SEED_CATEGORY_API = "/seedling-categories/";
+const FAQ_CATEGORY_API = "/faq-categories/";
+const FAQ_API = "/faqs/";
+const DOCUMENT_CATEGORY_API = "/document-categories/";
+const DOCUMENT_API = "/documents/";
 
 const APIHelper = (api) => ({
   search: (params, option) =>
@@ -40,6 +44,18 @@ export const User = {
 export const Category = {};
 export const Post = {
   ...APIHelper(POST_API),
+};
+export const FAQ = {
+  ...APIHelper(FAQ_API),
+};
+export const FAQCategory = {
+  ...APIHelper(FAQ_CATEGORY_API),
+};
+export const Document = {
+  ...APIHelper(DOCUMENT_API),
+};
+export const DocumentCategory = {
+  ...APIHelper(DOCUMENT_CATEGORY_API),
 };
 export const Product = {
   ...APIHelper(PRODUCT_API),
