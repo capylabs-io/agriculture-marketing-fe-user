@@ -134,6 +134,11 @@ const routes = [
     name: "Document Detail",
     component: () => import("../views/document/pages/document-detail.vue"),
   },
+  {
+    path: "/tim-kiem",
+    name: "Search All",
+    component: () => import("../views/search/pages/search.vue"),
+  },
 ];
 
 const router = new VueRouter({
