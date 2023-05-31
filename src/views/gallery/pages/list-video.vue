@@ -14,7 +14,8 @@
       >
         <div class="text-dp-xs font-weight-semibold">Video nổi bật</div>
         <div
-          class="mt-4 d-flex flex-column align-center justify-center border-radius-8 overflow-hidden mx-8"
+          class="mt-4 d-flex flex-column align-center justify-center border-radius-8 overflow-hidden"
+          :class="{ 'mx-8': $vuetify.breakpoint.mdAndUp }"
         >
           <video
             width="100%"
@@ -25,7 +26,8 @@
           </video>
         </div>
         <div
-          class="text-xl font-weight-semibold neutral60--text mt-6 px-8 cursor-pointer"
+          class="font-weight-semibold neutral60--text mt-6 cursor-pointer"
+          :class="$vuetify.breakpoint.smAndDown ? 'text-md' : 'text-xl px-8'"
           @click="$router.push('/thu-vien-video/' + galleryStore.newestPost.id)"
         >
           {{ galleryStore.newestPost.title }}
@@ -42,9 +44,13 @@
       >
         <div class="text-xl font-weight-semibold">Video mới</div>
 
-        <div class="d-flex align-center gap-8">
+        <div
+          class="d-flex align-center gap-8"
+          :class="{ 'full-width': $vuetify.breakpoint.smAndDown }"
+        >
           <div
             class="d-inline-flex align-center neutral20-border border-radius-8 overflow-hidden"
+            v-if="!$vuetify.breakpoint.smAndDown"
           >
             <div
               class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"

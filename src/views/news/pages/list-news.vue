@@ -16,10 +16,17 @@
           <v-col class="align-self-scretch" cols="12" md="7">
             <div
               class="d-flex border-radius-16 cursor-pointer big-post overflow-hidden full-height"
+              :class="{ 'flex-column': $vuetify.breakpoint.smAndDown }"
               @click="goToPost(newStore.newestPost.id)"
+              data-aos="fade-right"
+              data-aos-duration="500"
             >
               <img
-                class="big-post-img full-height"
+                :class="
+                  $vuetify.breakpoint.smAndDown
+                    ? 'mobile-big-post-img'
+                    : 'big-post-img full-height'
+                "
                 :src="productImage(newStore.newestPost.images)"
               />
               <div class="pa-4">
@@ -164,16 +171,20 @@
           hide-details
           clearable
         ></v-text-field>
-        <div class="d-flex align-center gap-8">
+        <div
+          class="d-flex align-center gap-8"
+          :class="{ 'full-width': $vuetify.breakpoint.smAndDown }"
+        >
           <v-select
-            class="border-radius-8 sort-field"
+            class="border-radius-8"
             height="42px"
             placeholder="Sắp xếp"
             v-model="newStore.sortBy"
             item-text="name"
             item-value="value"
-            :class="{ 'sort-select': $vuetify.breakpoint.mdAndUp }"
+            :class="{ 'sort-field': $vuetify.breakpoint.mdAndUp }"
             :items="newStore.sortSelection"
+            clearable
             flat
             solo
             outlined
@@ -182,6 +193,7 @@
           ></v-select>
           <div
             class="d-inline-flex align-center neutral20-border border-radius-8 overflow-hidden"
+            v-if="$vuetify.breakpoint.mdAndUp"
           >
             <div
               class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
@@ -276,7 +288,7 @@ export default {
   data() {
     return {
       currentTab: 0,
-      isGrid: false,
+      isGrid: true,
     };
   },
   async created() {
@@ -342,6 +354,11 @@ export default {
 .post-img {
   width: 100px;
   aspect-ratio: 1/1 !important;
+}
+.mobile-big-post-img {
+  max-width: 100%;
+  object-fit: cover;
+  aspect-ratio: 16/9 !important;
 }
 .big-new-title {
   position: absolute;

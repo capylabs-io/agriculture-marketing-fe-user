@@ -15,7 +15,10 @@
       </div>
     </div>
     <div class="page-container mx-auto pa-8">
-      <div class="text-center text-dp-sm font-weight-bold">
+      <div
+        class="text-center font-weight-bold"
+        :class="$vuetify.breakpoint.smAndDown ? 'text-xl' : 'text-dp-sm'"
+      >
         {{ galleryStore.post.title || "Tiêu đề" }}
       </div>
       <div
@@ -28,10 +31,16 @@
       <v-divider class="mt-8"></v-divider>
       <v-row class="mt-6">
         <v-col cols="12" md="8">
-          <div class="font-weight-semibold text-xl">
+          <div
+            class="font-weight-semibold text-xl"
+            v-if="!$vuetify.breakpoint.smAndDown"
+          >
             {{ galleryStore.post.title || "Tiêu đề" }}
           </div>
-          <div class="d-flex justify-space-between mt-2">
+          <div
+            class="d-flex justify-space-between"
+            :class="{ 'mt-2': !$vuetify.breakpoint.smAndDown }"
+          >
             <div>
               <div class="neutral60--text font-weight-medium">
                 <v-icon class="mr-2" color="primary" small>mdi-account</v-icon
@@ -51,6 +60,10 @@
           <div class="mt-6" v-html="galleryStore.post.content"></div>
         </v-col>
         <v-col cols="12" md="4">
+          <v-divider
+            class="mb-4"
+            v-if="$vuetify.breakpoint.smAndDown"
+          ></v-divider>
           <div class="font-weight-semibold text-xl">Album ảnh khác</div>
           <div
             class="d-flex mt-4"

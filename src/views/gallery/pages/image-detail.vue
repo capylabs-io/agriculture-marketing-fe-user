@@ -15,15 +15,18 @@
       </div>
     </div>
     <div class="page-container mx-auto pa-8">
-      <div class="text-center text-dp-sm font-weight-bold">
+      <div
+        class="text-center font-weight-bold"
+        :class="$vuetify.breakpoint.smAndDown ? 'text-xl' : 'text-dp-sm'"
+      >
         {{ galleryStore.post.title || "Tiêu đề" }}
       </div>
       <ImageSlider
         class="mt-8"
         :images="galleryStore.postImages"
         :imagesPerPage="3"
-        imagesFixedHeight="200px"
-        imageMainHeight="675px"
+        :imageMainHeight="$vuetify.breakpoint.mdAndUp ? '675px' : '250px'"
+        :imagesFixedHeight="$vuetify.breakpoint.mdAndUp ? '200px' : '100px'"
       />
       <v-divider></v-divider>
       <v-row class="mt-6">
@@ -51,6 +54,10 @@
           <div class="mt-6" v-html="galleryStore.post.content"></div>
         </v-col>
         <v-col cols="12" md="4">
+          <v-divider
+            class="mb-4"
+            v-if="$vuetify.breakpoint.smAndDown"
+          ></v-divider>
           <div class="font-weight-semibold text-xl">Album ảnh khác</div>
           <div
             class="d-flex mt-4"

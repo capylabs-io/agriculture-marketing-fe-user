@@ -96,17 +96,17 @@
           </v-list-item>
         </v-list-group>
         <v-divider></v-divider>
-        <v-list-item class="mt-2" active-class="active-nav" to="/tin-tuc">
+        <v-list-item class="mt-2" active-class="active-nav" to="/lien-he">
           <v-list-item-title class="text-capitalize text-md"
             >Liên Hệ</v-list-item-title
           >
         </v-list-item>
-        <v-list-item active-class="active-nav" to="/tin-tuc">
+        <v-list-item active-class="active-nav" to="/tai-lieu">
           <v-list-item-title class="text-capitalize text-md"
             >Văn bản</v-list-item-title
           >
         </v-list-item>
-        <v-list-item active-class="active-nav" to="/tin-tuc">
+        <v-list-item active-class="active-nav" to="/hoi-dap">
           <v-list-item-title class="text-capitalize text-md"
             >Hỏi đáp</v-list-item-title
           >
