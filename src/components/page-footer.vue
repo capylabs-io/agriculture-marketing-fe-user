@@ -47,7 +47,7 @@
             max-height="64px"
             max-width="64px"
           ></v-img>
-          <div class="text-uppercase font-weight-bold text-dp-xs ml-4">
+          <div class="text-uppercase font-weight-bold text-lg ml-4">
             Truy xuất nguồn gốc cây cảnh Bến Tre
           </div>
         </div>

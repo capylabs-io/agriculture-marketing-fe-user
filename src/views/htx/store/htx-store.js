@@ -23,18 +23,9 @@ export const htxStore = defineStore("htx", {
     productsPerPage: 6,
   }),
   getters: {
-    allFilters() {
-      let filters = [];
-      if (this.filterCategory) filters.push(this.filterCategory.name);
-      if (this.searchKey) filters.push("Từ khoá: " + this.searchKey);
-      return filters;
-    },
     slicedHtxs() {
       if (!this.htxs || this.htxs.length == 0) return [];
-      return this.filteredHtxs.slice(
-        (this.htxPage - 1) * this.htxsPerPage,
-        this.htxPage * this.htxsPerPage
-      );
+      return this.filteredHtxs.slice((this.htxPage - 1) * this.htxsPerPage, this.htxPage * this.htxsPerPage);
     },
     filteredHtxs() {
       if (!this.htxs || this.htxs.length == 0) return [];
@@ -42,20 +33,12 @@ export const htxStore = defineStore("htx", {
       if (this.searchKey)
         filtered = filtered.filter(
           (htx) =>
-            htx.name
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase()) ||
-            htx.code
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase()) ||
-            htx.origin
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase())
+            htx.name.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+            htx.code.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+            htx.origin.toLowerCase().includes(this.searchKey.trim().toLowerCase())
         );
       if (this.filterCategory) {
-        filtered = filtered.filter(
-          (htx) => this.filterCategory.id == htx.htxCategory.id
-        );
+        filtered = filtered.filter((htx) => this.filterCategory.id == htx.htxCategory.id);
       }
       return filtered;
     },
@@ -72,16 +55,10 @@ export const htxStore = defineStore("htx", {
           break;
         default:
         case "newest":
-          sortedHtxs.sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
+          sortedHtxs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
           break;
         case "oldest":
-          sortedHtxs.sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          );
+          sortedHtxs.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
           break;
       }
       return sortedHtxs;
@@ -137,10 +114,7 @@ export const htxStore = defineStore("htx", {
           populate: "*",
         });
         if (!res) {
-          alert.error(
-            "Error occurred when fetching htxs!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching htxs!", "Please try again later!");
           return;
         }
         const htxs = get(res, "data.data", []);
@@ -184,10 +158,7 @@ export const htxStore = defineStore("htx", {
         // const res = await HtxCategory.fetch();
         const res = await ProductCategory.fetch();
         if (!res) {
-          alert.error(
-            "Error occurred when fetching htx categories!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching htx categories!", "Please try again later!");
           return;
         }
         const categories = get(res, "data.data", []);
@@ -199,9 +170,7 @@ export const htxStore = defineStore("htx", {
           };
         });
         this.categories = mappedCategories;
-        this.categoryDictionary = Object.fromEntries(
-          this.categories.map((x) => [x.id, x.name])
-        );
+        this.categoryDictionary = Object.fromEntries(this.categories.map((x) => [x.id, x.name]));
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -238,11 +207,7 @@ export const htxStore = defineStore("htx", {
         //   "htxCategory.data.attributes.name",
         //   "---"
         // );
-        this.htx.htxCategory = get(
-          this.htx,
-          "productCategory.data.attributes.name",
-          "---"
-        );
+        this.htx.htxCategory = get(this.htx, "productCategory.data.attributes.name", "---");
         this.htx.user = get(this.htx, "user.data.attributes");
       } catch (error) {
         console.error(`Error: ${error}`);

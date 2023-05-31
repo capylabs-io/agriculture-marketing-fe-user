@@ -1,7 +1,8 @@
 <template>
   <div>
     <div
-      class="neutral60--text font-weight-semibold text-sm d-flex flex-wrap px-11 py-3 breadcrumb full-width"
+      class="neutral60--text font-weight-semibold text-sm d-flex flex-wrap py-3 breadcrumb full-width"
+      :class="$vuetify.breakpoint.smAndDown ? 'px-6' : 'px-11'"
     >
       <div class="cursor-pointer" @click="$router.push('/')">Trang chủ</div>
       <span class="mx-2">/</span>
@@ -14,14 +15,23 @@
       </div>
     </div>
     <div class="page-container mx-auto py-8 px-6">
-      <div class="d-flex">
+      <div
+        class="d-flex"
+        :class="{ 'flex-column align-center': $vuetify.breakpoint.smAndDown }"
+      >
         <v-img
           class="thumbnail-img border-radius-16"
           :src="artisanImage"
           :aspect-ratio="1 / 1"
           cover
         ></v-img>
-        <div class="flex-grow-1 full-width ml-6">
+        <div
+          class="flex-grow-1 full-width"
+          :class="{
+            'ml-6': !$vuetify.breakpoint.smAndDown,
+            'py-6': $vuetify.breakpoint.smAndDown,
+          }"
+        >
           <div
             class="font-weight-semibold text-none"
             :class="{
@@ -149,16 +159,25 @@
             Không có sản phẩm nào!
           </div> -->
         </div>
-        <div class="text-start mt-6" v-if="currentTab == 2">
+        <!-- <div class="text-start mt-6" v-if="currentTab == 2">
           <v-row>
             <v-col cols="12" md="4">
               <div class="font-weight-semibold">Hình ảnh Giấy chứng nhận</div>
               <div>Giấy chứng nhận cần đầy đủ 2 mặt</div>
             </v-col>
             <v-col cols="12" md="8">
-              <div class="d-flex align-center flex-wrap full-width gap-12">
+              <div
+                class="d-flex align-center flex-wrap full-width gap-12"
+                :class="{
+                  'flex-column gap-16': $vuetify.breakpoint.smAndDown,
+                }"
+              >
                 <img
-                  class="certification-img"
+                  :class="
+                    $vuetify.breakpoint.smAndDown
+                      ? 'mobile-cert-img'
+                      : 'certification-img'
+                  "
                   :src="artisanCertificationImage"
                   v-for="i in 3"
                   :key="i"
@@ -173,9 +192,16 @@
               <div>Giấy kiểm định cần đầy đủ 2 mặt</div>
             </v-col>
             <v-col cols="12" md="8">
-              <div class="d-flex align-center flex-wrap full-width gap-12">
+              <div
+                class="d-flex align-center flex-wrap full-width gap-12"
+                :class="{ 'flex-column gap-16': $vuetify.breakpoint.smAndDown }"
+              >
                 <img
-                  class="certification-img"
+                  :class="
+                    $vuetify.breakpoint.smAndDown
+                      ? 'mobile-cert-img'
+                      : 'certification-img'
+                  "
                   :src="artisanAccreditationImage"
                   v-for="i in 3"
                   :key="i"
@@ -183,7 +209,7 @@
               </div>
             </v-col>
           </v-row>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -274,5 +300,8 @@ export default {
 .certification-img {
   max-height: 320px;
   max-width: 30%;
+}
+.mobile-cert-img {
+  width: 100%;
 }
 </style>
