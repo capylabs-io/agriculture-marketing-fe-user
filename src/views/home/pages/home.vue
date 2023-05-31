@@ -1,15 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="home">
-    <v-btn
-      v-if="windowTop > 1000"
-      color="primary"
-      fab
-      depressed
-      @click="scrollToTop"
-      class="d-flex flex-column align-center justify-center scroll-btn"
-      ><v-icon dark large> mdi-arrow-up</v-icon></v-btn
-    >
     <searchSection />
     <!-- <functionSection /> -->
     <newsSection />
@@ -32,9 +23,7 @@ export default {
     ...mapStores(homeStore),
   },
   data() {
-    return {
-      windowTop: window.top.scrollY,
-    };
+    return {};
   },
   components: {
     searchSection: () => import("../components/search-section.vue"),
@@ -83,12 +72,5 @@ export default {
 .btn-show-more {
   background-color: transparent !important;
   border: 1px solid var(--v-neutral30-base) !important;
-}
-.scroll-btn {
-  position: fixed;
-  bottom: 50px;
-  right: 50px;
-  z-index: 99 !important;
-  border-radius: 100%;
 }
 </style>

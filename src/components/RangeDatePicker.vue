@@ -24,7 +24,14 @@
         v-on="on"
       ></v-text-field>
     </template>
-    <v-date-picker v-model="date" formatting no-title scrollable range>
+    <v-date-picker
+      v-model="documentStore.datePicker"
+      formatting
+      no-title
+      scrollable
+      range
+      color="primary"
+    >
       <v-spacer></v-spacer>
       <v-btn text color="primary" @click="menu = false"> Hủy </v-btn>
       <v-btn text color="primary" @click="dateChange"> Xong </v-btn>
@@ -33,6 +40,8 @@
 </template>
 
 <script>
+import { mapStores } from "pinia";
+import { documentStore } from "@/views/document/stores/documentStore";
 import moment from "moment";
 export default {
   props: {
@@ -42,17 +51,17 @@ export default {
     },
   },
   computed: {
+    ...mapStores(documentStore),
     formattedDate() {
-      if (!this.date || this.date.length == 0) return;
+      if (!this.documentStore.datePicker || this.documentStore.datePicker.length == 0) return;
       return (
-        moment.utc(this.date[0]).format("DD/MM/YYYY") +
+        moment.utc(this.documentStore.datePicker[0]).format("DD/MM/YYYY") +
         "-" +
-        moment.utc(this.date[1]).format("DD/MM/YYYY")
+        moment.utc(this.documentStore.datePicker[1]).format("DD/MM/YYYY")
       );
     },
   },
   data: () => ({
-    date: [],
     menu: false,
   }),
   watch: {
@@ -60,12 +69,12 @@ export default {
       handler(currentDate) {
         if (!currentDate || currentDate.length == 0) return;
         if (currentDate.length == 1)
-          this.date = [
+          this.documentStore.datePicker = [
             moment.now().toISOString().substring(0, 10),
             moment(currentDate[0]).toISOString().substring(0, 10),
           ];
         else
-          this.date = [
+          this.documentStore.datePicker = [
             moment(currentDate[0]).toISOString().substring(0, 10),
             moment(currentDate[1]).toISOString().substring(0, 10),
           ];
@@ -77,24 +86,18 @@ export default {
     dateChange() {
       if (
         moment
-          .utc(this.date[0], "YYYY-MM-DD")
-          .isAfter(moment.utc(this.date[1], "YYYY-MM-DD"))
+          .utc(this.documentStore.datePicker[0], "YYYY-MM-DD")
+          .isAfter(moment.utc(this.documentStore.datePicker[1], "YYYY-MM-DD"))
       ) {
-        let temp = this.date[0];
-        this.date[0] = this.date[1];
-        this.date[1] = temp;
+        let temp = this.documentStore.datePicker[0];
+        this.documentStore.datePicker[0] = this.documentStore.datePicker[1];
+        this.documentStore.datePicker[1] = temp;
       }
-      this.$refs.menu.save(this.date);
+      this.$refs.menu.save(this.documentStore.datePicker);
       this.$emit("change", [
-        moment.utc(this.date[0], "YYYY-MM-DD").startOf("day").toISOString(),
-        moment.utc(this.date[1], "YYYY-MM-DD").endOf("day").toISOString(),
+        moment.utc(this.documentStore.datePicker[0], "YYYY-MM-DD").startOf("day").toISOString(),
+        moment.utc(this.documentStore.datePicker[1], "YYYY-MM-DD").endOf("day").toISOString(),
       ]);
-      // this.date[0] = moment
-      //   .utc(this.date[0], "YYYY-MM-DD")
-      //   .format("DD/MM/YYYY");
-      // this.date[1] = moment
-      //   .utc(this.date[1], "YYYY-MM-DD")
-      //   .format("DD/MM/YYYY");
       this.menu = false;
     },
   },

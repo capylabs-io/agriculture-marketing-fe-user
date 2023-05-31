@@ -74,7 +74,7 @@
       <v-col cols="12" md="2"></v-col>
       <v-col cols="12" md="8">
         <div
-          v-for="(faq, index) in faqStore.slicedlistfaq"
+          v-for="(faq, index) in faqStore.slicedfaqs"
           :key="faq.id"
           :class="{ 'mt-6': index != 0 }"
         >
@@ -85,7 +85,7 @@
             {{ faq.anwser }}
           </div>
           <v-divider
-            v-if="index != faqStore.slicedlistfaq.length - 1"
+            v-if="index != faqStore.slicedfaqs.length - 1"
             class="mt-6"
           ></v-divider>
         </div>
@@ -148,7 +148,7 @@ export default {
   async created() {
     await Promise.all([
       this.faqStore.fetchCategories(),
-      this.faqStore.fetchlistfaq(),
+      this.faqStore.fetchfaqs(),
     ]);
   },
   methods: {

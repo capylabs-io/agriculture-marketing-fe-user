@@ -43,7 +43,7 @@
       <div class="border-radius-12 neutral20-border overflow-hidden mt-8">
         <v-data-table
           :headers="headers"
-          :items="documentStore.slicedlistdocument"
+          :items="documentStore.slicedDocuments"
           hide-default-footer
         >
           <template v-slot:[`item.code`]="{ item }">
@@ -172,13 +172,13 @@ export default {
 
   async created() {
     await Promise.all([
+      this.documentStore.fetchDocuments(),
       this.documentStore.fetchCategories(),
-      this.documentStore.fetchlistdocument(),
     ]);
+    this.documentStore.documentFieldsCategories();
   },
   methods: {
     toggleSearch() {},
-
     setCurrentTab(index) {
       this.currentTab = index;
     },
@@ -213,7 +213,7 @@ export default {
   border-radius: 100px;
 }
 .expansion-header {
-  width: 200px;
+  width: 180px;
 }
 .expansion-content {
   width: 700px !important;

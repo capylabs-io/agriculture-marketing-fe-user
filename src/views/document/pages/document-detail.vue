@@ -4,9 +4,7 @@
     <div class="neutral60--text font-weight-semibold d-flex flex-wrap">
       <div class="cursor-pointer" @click="$router.push('/')">Trang chủ</div>
       <span class="mx-2">/</span>
-      <div class="cursor-pointer" @click="$router.push('/tai-lieu')">
-        Tài liệu
-      </div>
+      <div class="cursor-pointer" @click="$router.push('/tai-lieu', -1)">Tài liệu</div>
       <span class="mx-2">/</span>
       <div class="primary--text text-none">Chi tiết tài liệu</div>
     </div>
@@ -105,10 +103,13 @@
               depressed
               class="text-none d-flex flex-column justify-center align-center"
               color="blue70"
+              :href="documentStore.documents.attachment"
             >
               <v-icon small class="mr-1">mdi-download</v-icon>
+              <span class="text-truncate">
+                {{ getAttachment(documentStore.documents.attachment) }}</span
+              >
             </v-btn>
-            {{ documentStore.documents.attachment }}
           </div></v-col
         >
       </v-row>
@@ -144,7 +145,14 @@ export default {
   methods: {
     async loadDetail() {
       const code = this.$route.params.code;
-      await this.documentStore.fetchdocuments(code);
+      await this.documentStore.fetchDocument(code);
+    },
+    getAttachment(string) {
+      return string.substring(string.lastIndexOf("/") + 1);
+    },
+    onBackClicked() {
+      this.documentStore.reset();
+      this.$router.push("/tai-lieu");
     },
   },
 };

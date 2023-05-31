@@ -21,27 +21,30 @@
             <v-text-field
               height="36px"
               type="text"
-              :rules="rules.checkIdentifier"
+              v-model="contactStore.contacts.name"
+              :rules="[$rules.required]"
               class="pa-0 mt-2"
               placeholder="Nguyễn Văn A"
               outlined
               dense
             />
-            <div class="text-sm font-weight-bold mt-2">Email</div>
+            <div class="text-sm font-weight-bold">Email</div>
             <v-text-field
               height="36px"
               type="text"
+              v-model="contactStore.contacts.email"
               :rules="rules.checkIdentifier"
               class="pa-0 mt-2"
               placeholder="abc@gmail.com"
               outlined
               dense
             />
-            <div class="text-sm font-weight-bold mt-2">
+            <div class="text-sm font-weight-bold">
               Số điện thoại
               <span class="neutral60--text">(không bắt buộc)</span>
             </div>
             <v-text-field
+              v-model="contactStore.contacts.phone"
               height="36px"
               type="text"
               class="pa-0 mt-2"
@@ -49,18 +52,20 @@
               outlined
               dense
             />
-            <div class="text-sm font-weight-bold mt-2">Tiêu đề thư</div>
+            <div class="text-sm font-weight-bold">Tiêu đề thư</div>
             <v-text-field
+              v-model="contactStore.contacts.title"
               height="36px"
               type="text"
-              :rules="rules.checkIdentifier"
+              :rules="[$rules.required]"
               class="pa-0 mt-2"
               placeholder="Nhập thông tin"
               outlined
               dense
             />
-            <div class="text-sm font-weight-bold mt-2">Nội dung</div>
+            <div class="text-sm font-weight-bold">Nội dung</div>
             <v-textarea
+              v-model="contactStore.contacts.content"
               type="text"
               class="border-radius-8 pa-0 mt-2"
               placeholder="Nhập thông tin"
@@ -115,33 +120,29 @@
             <div class="text-md ml-1">TTCC.BenTre@gov.vn</div>
           </div>
         </div>
-
-        <GmapMap
-          :center="{ lat: 10, lng: 10 }"
-          :zoom="7"
-          map-type-id="terrain"
+        <iframe
+          src="https://maps.google.com/maps?height=400&amp;hl=en&amp;q=21.028511,105.804817&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+          height="500"
+          width="100%"
+          style="border: 0"
+          loading="lazy"
           class="mt-4 border-radius-16 overflow-hidden"
-          style="width: 100%; height: 500px"
-        >
-          <GmapMarker
-            ref="myMarker"
-            :position="google && new google.maps.LatLng(1.38, 103.8)"
-          />
-        </GmapMap>
+        ></iframe>
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
-// import { mapStores } from "pinia";
-// import { supplyStore } from "../store/supply-store";
+import { mapStores } from "pinia";
 import { rules } from "@/plugins/rules";
+import { contactStore } from "../stores/contactStore";
+
 import { gmapApi } from "vue2-google-maps";
 
 export default {
   computed: {
-    // ...mapStores(supplyStore),
+    ...mapStores(contactStore),
     google: gmapApi,
   },
   data() {
@@ -153,6 +154,11 @@ export default {
     };
   },
   created() {},
+  methods: {
+    submitForm() {
+      this.contactStore.createContact();
+    },
+  },
 };
 </script>
 

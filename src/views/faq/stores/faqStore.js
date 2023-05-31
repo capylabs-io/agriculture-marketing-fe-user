@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { FAQ, FAQCategory, faqs } from "@/plugins/api.js";
+import { FAQ, FAQCategory } from "@/plugins/api.js";
 import loading from "@/plugins/loading";
 import alert from "@/plugins/alert";
 import { get } from "lodash";
@@ -36,25 +36,14 @@ export const faqStore = defineStore("faq", {
     ],
   }),
   getters: {
-    faqestfaqs() {
-      if (!this.listfaq || this.listfaq.length == 0)
-        return {
-          faqCategory: {},
-        };
-      return this.listfaq[0];
-    },
-    otherfaqs() {
+    slicedfaqs() {
       if (!this.listfaq || this.listfaq.length == 0) return [];
-      return this.listfaq.slice(1, 4);
-    },
-    slicedlistfaq() {
-      if (!this.listfaq || this.listfaq.length == 0) return [];
-      return this.filteredlistfaq.slice(
+      return this.filteredfaqs.slice(
         (this.faqsPage - 1) * this.faqsPerPage,
         this.faqsPage * this.faqsPerPage
       );
     },
-    filteredlistfaq() {
+    filteredfaqs() {
       if (!this.listfaq || this.listfaq.length == 0) return [];
       let filtered = this.sortedfaqs;
       if (this.searchKey)
@@ -97,15 +86,15 @@ export const faqStore = defineStore("faq", {
       return sortedfaqs;
     },
     totalfaqsPage() {
-      if (!this.listfaq || this.filteredlistfaq.length == 0) return 1;
-      if (this.filteredlistfaq.length % this.faqsPerPage == 0)
-        return this.filteredlistfaq.length / this.faqsPerPage;
+      if (!this.listfaq || this.filteredfaqs.length == 0) return 1;
+      if (this.filteredfaqs.length % this.faqsPerPage == 0)
+        return this.filteredfaqs.length / this.faqsPerPage;
       else
-        return Math.floor(this.filteredlistfaq.length / this.faqsPerPage) + 1;
+        return Math.floor(this.filteredfaqs.length / this.faqsPerPage) + 1;
     },
     totalfaqs() {
-      if (!this.listfaq || this.filteredlistfaq.length == 0) return 1;
-      return this.filteredlistfaq.length;
+      if (!this.listfaq || this.filteredfaqs.length == 0) return 1;
+      return this.filteredfaqs.length;
     },
   },
   actions: {
@@ -133,10 +122,11 @@ export const faqStore = defineStore("faq", {
         loading.hide();
       }
     },
-    async fetchlistfaq(params) {
+    async fetchfaqs(params) {
       try {
         loading.show();
         const res = await FAQ.fetch({
+          sort: "updatedAt:desc",
           ...params,
           populate: "*",
         });
@@ -166,7 +156,7 @@ export const faqStore = defineStore("faq", {
         loading.hide();
       }
     },
-    async fetchfaqs(faqsCode) {
+    async fetchfaq(faqsCode) {
       try {
         loading.show();
         const res = await faqs.fetchOne(faqsCode, {
@@ -197,38 +187,6 @@ export const faqStore = defineStore("faq", {
       } catch (error) {
         console.error(`Error: ${error}`);
         alert.error(error);
-      } finally {
-        loading.hide();
-      }
-    },
-    async top3faqfaqs() {
-      try {
-        loading.show();
-        const res = faqs.topfaqfaqs();
-        if (!res) {
-          alert.error(
-            "Error occurred when fetching listfaq!",
-            "Please try again later!"
-          );
-          return;
-        }
-        const listfaq = get(res, "data.data", []);
-        if (!listfaq && listfaq.length == 0) return;
-        const mappedlistfaq = listfaq.map((faqs) => {
-          return {
-            id: faqs.id,
-            ...faqs.attributes,
-            faqCategory: get(
-              faqs,
-              "attributes.faqCategory.data.attributes",
-              {}
-            ),
-            author: get(faqs, "attributes.user.data.attributes", {}),
-          };
-        });
-        this.faqfaqs = mappedlistfaq;
-      } catch (error) {
-        alert.error("Error occurred!", error.message);
       } finally {
         loading.hide();
       }

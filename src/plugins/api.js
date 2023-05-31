@@ -17,6 +17,7 @@ const FAQ_CATEGORY_API = "/faq-categories/";
 const FAQ_API = "/faqs/";
 const DOCUMENT_CATEGORY_API = "/document-categories/";
 const DOCUMENT_API = "/documents/";
+const CONTACT_API = "/contacts/";
 
 const APIHelper = (api) => ({
   search: (params, option) =>
@@ -50,6 +51,9 @@ export const FAQ = {
 };
 export const FAQCategory = {
   ...APIHelper(FAQ_CATEGORY_API),
+};
+export const Contact = {
+  ...APIHelper(CONTACT_API),
 };
 export const Document = {
   ...APIHelper(DOCUMENT_API),

@@ -7,6 +7,15 @@
       <PluginLoading />
       <PluginSnackbar />
       <PluginConfirmDialog />
+      <v-btn
+        v-if="windowTop > 1000"
+        color="primary"
+        fab
+        elevation="2"
+        @click="scrollToTop"
+        class="d-flex flex-column align-center justify-center scroll-btn"
+        ><v-icon dark>mdi-arrow-up</v-icon></v-btn
+      >
       <router-view></router-view>
     </v-main>
     <PageFooter />
@@ -28,9 +37,25 @@ export default {
       import("@/components/plugin/PluginConfirmDialog.vue"),
   },
 
-  created() {},
+  async created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  // eslint-disable-next-line vue/no-deprecated-destroyed-lifecycle
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
+  methods: {
+    handleScroll() {
+      this.windowTop = window.top.scrollY;
+    },
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
+  },
   data() {
-    return {};
+    return {
+      windowTop: window.top.scrollY,
+    };
   },
 };
 </script>
@@ -47,6 +72,12 @@ nav {
       color: #42b983;
     }
   }
+}
+.scroll-btn {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 99 !important;
 }
 .sort-select {
   max-width: 260px !important;
@@ -246,9 +277,9 @@ body {
   ) !important; /* Colour for active one */
 }
 
-.v-btn__content .v-icon {
-  display: none; /* Removes the default icon */
-}
+//.v-btn__content .v-icon {
+// display: none;
+//}
 
 .v-slide-group__content {
   padding: 24px;
@@ -289,12 +320,9 @@ body {
 // }
 
 // .v-text-field--outlined fieldset {
-//   border-color: var(--v-neutral30-base) !important;
+//   border-color: var(--v-neutral20-base) !important;
 // }
 
-.v-text-field--outlined fieldset {
-  border-color: var(--v-neutral20-base) !important;
-}
 // .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
 //   font-weight: 600 !important;
 //   font-size: 14px !important;
