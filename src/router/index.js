@@ -96,13 +96,23 @@ const routes = [
   },
   {
     path: "/thu-vien-anh",
-    name: "List Image",
+    name: "Danh sách Ảnh",
     component: () => import("../views/gallery/pages/list-image.vue"),
   },
   {
+    path: "/thu-vien-anh/:code",
+    name: "Thư viện Ảnh",
+    component: () => import("../views/gallery/pages/image-detail.vue"),
+  },
+  {
     path: "/thu-vien-video",
-    name: "List Image",
+    name: "Danh sách Video",
     component: () => import("../views/gallery/pages/list-video.vue"),
+  },
+  {
+    path: "/thu-vien-video/:code",
+    name: "Thư viện Video",
+    component: () => import("../views/gallery/pages/video-detail.vue"),
   },
   {
     path: "/lien-he",

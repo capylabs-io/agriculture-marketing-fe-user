@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="cursor-pointer" @click="goToNewsDetail()">
     <v-col cols="3"
       ><img
         class="post-img border-radius-8 cursor-pointer flex-grow-1"
@@ -40,6 +40,7 @@ export default {
       type: Object,
       default: () => {},
     },
+    url: String,
   },
   computed: {
     // ...mapStores(newStore),
@@ -51,13 +52,8 @@ export default {
   },
   methods: {
     goToNewsDetail() {
-      if (
-        this.newStore.news &&
-        this.post &&
-        this.newStore.news.id == this.post.id
-      )
-        return;
-      this.$router.push(`/bai-viet/${this.post.id}`);
+      if (!this.url) return;
+      this.$router.push(this.url);
     },
     stripHtml(html) {
       // Create a new div element

@@ -23,6 +23,7 @@
           <v-col class="align-self-scretch" cols="12" md="7">
             <div
               class="card-shadow border-radius-16 overflow-hidden white-bg cursor-pointer full-height d-flex flex-column"
+              @click="goToPost(galleryStore.newestPost.id)"
             >
               <img
                 class="big-post-img full-width"
@@ -55,6 +56,7 @@
             <div
               v-for="post in galleryStore.otherPosts"
               class="d-flex cursor-pointer flex-grow-1"
+              @click="goToPost(post.id)"
               :key="post.id"
             >
               <img class="border-radius-16 post-img" :src="post.images" />
@@ -135,7 +137,7 @@
             md="3"
             xl="3"
           >
-            <imageCard :post="post" />
+            <imageCard :post="post" :url="postUrl(post.id)" />
           </v-col>
         </v-row>
 
@@ -157,7 +159,7 @@
           :key="post.id"
           :class="{ 'mt-6': index != 0 }"
         >
-          <imageRow :post="post" />
+          <imageRow :post="post" :url="postUrl(post.id)" />
           <v-divider
             v-if="index != galleryStore.slicedPosts.length - 1"
             class="mt-4"
@@ -218,7 +220,11 @@ export default {
     },
     goToPost(id) {
       if (!id) return;
-      this.$router.push("/bai-viet/" + id);
+      this.$router.push("/thu-vien-anh/" + id);
+    },
+    postUrl(id) {
+      if (!id) return;
+      return "/thu-vien-anh/" + id;
     },
     stripHtml(html) {
       // Create a new div element

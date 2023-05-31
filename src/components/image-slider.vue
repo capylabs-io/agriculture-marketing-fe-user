@@ -8,8 +8,8 @@
             emit: false,
           })
       "
-      :slide-ratio="1 / 1"
       :bullets="false"
+      :fixed-height="imageMainHeight"
       class="border-radius-16 overflow-hidden no-shadow"
     >
       <template #arrow-left>
@@ -38,7 +38,6 @@
             emit: false,
           })
       "
-      :slide-ratio="1 / 1"
       :dragging-distance="50"
       :arrows="false"
       :visible-slides="imagesPerPage"
@@ -72,6 +71,10 @@ export default {
     imagesPerPage: {
       type: Number,
       default: 5,
+    },
+    imageMainHeight: {
+      type: String,
+      default: "500px",
     },
     imagesFixedHeight: {
       type: String,

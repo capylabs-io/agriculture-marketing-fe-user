@@ -1,6 +1,7 @@
 <template>
   <div
     class="card-shadow border-radius-16 overflow-hidden white-bg cursor-pointer neutral20-border full-height d-flex flex-column"
+    @click="goToNewsDetail()"
   >
     <v-img :src="postImage" :aspect-ratio="16 / 9" cover></v-img>
     <div class="pa-5 d-flex flex-column full-height">
@@ -26,6 +27,7 @@ export default {
       type: Object,
       default: () => {},
     },
+    url: String,
   },
   computed: {
     postImage() {
@@ -36,13 +38,8 @@ export default {
   },
   methods: {
     goToNewsDetail() {
-      if (
-        this.newStore.news &&
-        this.post &&
-        this.newStore.news.id == this.post.id
-      )
-        return;
-      this.$router.push(`/bai-viet/${this.post.id}`);
+      if (!this.url) return;
+      this.$router.push(this.url);
     },
   },
 };

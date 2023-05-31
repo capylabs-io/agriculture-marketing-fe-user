@@ -8,14 +8,27 @@
           Giải đáp các thắc mắc thường gặp của người dân
         </div>
       </div>
-      <div class="mt-13 text-center">
-        <div class="text-xl font-weight-semibold">Video nổi bật</div>
-        <div class="mt-3 d-flex flex-column align-center justify-center">
-          <video width="1056" height="470" controls>
-            <source src="movie.mp4" type="video/mp4" />
-            <source src="movie.ogg" type="video/ogg" />
+
+      <div
+        class="card-shadow border-radius-16 overflow-hidden white-bg mt-12 pa-6 text-center"
+      >
+        <div class="text-dp-xs font-weight-semibold">Video nổi bật</div>
+        <div
+          class="mt-4 d-flex flex-column align-center justify-center border-radius-8 overflow-hidden mx-8"
+        >
+          <video
+            width="100%"
+            :src="galleryStore.newestPost.videoContent"
+            controls
+          >
             Your browser does not support the video tag.
           </video>
+        </div>
+        <div
+          class="text-xl font-weight-semibold neutral60--text mt-6 px-8 cursor-pointer"
+          @click="$router.push('/thu-vien-video/' + galleryStore.newestPost.id)"
+        >
+          {{ galleryStore.newestPost.title }}
         </div>
       </div>
 
@@ -78,7 +91,7 @@
             md="3"
             xl="3"
           >
-            <imageCard :post="post" />
+            <imageCard :post="post" :url="postUrl(post.id)" />
           </v-col>
         </v-row>
 
@@ -100,7 +113,7 @@
           :key="post.id"
           :class="{ 'mt-6': index != 0 }"
         >
-          <imageRow :post="post" />
+          <imageRow :post="post" :url="postUrl(post.id)" />
           <v-divider
             v-if="index != galleryStore.slicedPosts.length - 1"
             class="mt-4"
@@ -147,7 +160,11 @@ export default {
     };
   },
   async created() {
-    await this.galleryStore.fetchPosts();
+    await this.galleryStore.fetchPosts({
+      filters: {
+        postCategory: 5,
+      },
+    });
   },
   methods: {
     setCurrentTab(index) {
@@ -170,6 +187,10 @@ export default {
       return (
         temporalDivElement.textContent || temporalDivElement.innerText || ""
       );
+    },
+    postUrl(id) {
+      if (!id) return;
+      return "/thu-vien-video/" + id;
     },
   },
 };

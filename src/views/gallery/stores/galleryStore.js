@@ -61,17 +61,11 @@ export const galleryStore = defineStore("gallery", {
           // .filter((news) => news.newsCategory.id == this.currentTab)
           .filter(
             (news) =>
-              news.title
-                .toLowerCase()
-                .includes(this.searchKey.trim().toLowerCase()) ||
-              news.content
-                .toLowerCase()
-                .includes(this.searchKey.trim().toLowerCase())
+              news.title.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+              news.content.toLowerCase().includes(this.searchKey.trim().toLowerCase())
           );
       if (this.category && this.category != "all")
-        filtered = filtered.filter(
-          (news) => news.newsCategory.id == this.category
-        );
+        filtered = filtered.filter((news) => news.newsCategory.id == this.category);
       return filtered;
     },
     sortedPosts() {
@@ -87,16 +81,10 @@ export const galleryStore = defineStore("gallery", {
           sortedPosts.sort((a, b) => b.title.localeCompare(a.title));
           break;
         case "newsest":
-          sortedPosts.sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
+          sortedPosts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
           break;
         case "oldest":
-          sortedPosts.sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          );
+          sortedPosts.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
           break;
       }
       return sortedPosts;
@@ -111,6 +99,10 @@ export const galleryStore = defineStore("gallery", {
       if (!this.posts || this.filteredPosts.length == 0) return 0;
       return this.filteredPosts.length;
     },
+    postImages() {
+      if (!this.post) return [];
+      return [this.post.images].concat(this.post.imageContent);
+    },
   },
   actions: {
     async fetchPosts(params) {
@@ -121,10 +113,7 @@ export const galleryStore = defineStore("gallery", {
           populate: "*",
         });
         if (!res) {
-          alert.error(
-            "Error occurred when fetching news!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching news!", "Please try again later!");
           return;
         }
         const posts = get(res, "data.data", []);
@@ -139,11 +128,7 @@ export const galleryStore = defineStore("gallery", {
                 id: get(post, "attributes.postCategory.data.id", -1),
                 ...get(post, "attributes.postCategory.data.attributes", {}),
               },
-              author: get(
-                post,
-                "attributes.user.data.attributes.username",
-                "Admin"
-              ),
+              author: get(post, "attributes.user.data.attributes.username", "Admin"),
             };
           });
         this.posts = mappedPosts;
@@ -166,62 +151,16 @@ export const galleryStore = defineStore("gallery", {
         const listNew = get(res, "data.data", {});
         if (!listNew || listNew.length == 0) return;
         const post = listNew;
-        this.news = {
+        this.post = {
           id: post.id,
           ...post.attributes,
-          newsCategory: get(
-            post,
-            "attributes.postCategory.data.attributes.name",
-            "Danh mục bài viết"
-          ),
+          postCategory: get(post, "attributes.postCategory.data.attributes.name", "Danh mục bài viết"),
           avatar: get(post, "attributes.user.data.attributes.avatar", ""),
-          author: get(
-            post,
-            "attributes.user.data.attributes.username",
-            "Admin"
-          ),
+          author: get(post, "attributes.user.data.attributes.username", "Admin"),
         };
       } catch (error) {
         console.error(`Error: ${error}`);
         alert.error(error);
-      } finally {
-        loading.hide();
-      }
-    },
-    async fetchTop3Posts(params) {
-      try {
-        loading.show();
-        const res = Post.fetch({
-          ...params,
-          pagination: {
-            page: 1,
-            pageSize: 3,
-          },
-        });
-        if (!res) {
-          alert.error(
-            "Error occurred when fetching listNew!",
-            "Please try again later!"
-          );
-          return;
-        }
-        const listNew = get(res, "data.data", []);
-        if (!listNew && listNew.length == 0) return;
-        const mappedlistNew = listNew.map((posts) => {
-          return {
-            id: posts.id,
-            ...posts.attributes,
-            newsCategory: get(
-              posts,
-              "attributes.postCategory.data.attributes",
-              {}
-            ),
-            author: get(posts, "attributes.user.data.attributes", {}),
-          };
-        });
-        this.newestPosts = mappedlistNew;
-      } catch (error) {
-        alert.error("Error occurred!", error.message);
       } finally {
         loading.hide();
       }
