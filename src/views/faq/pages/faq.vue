@@ -12,6 +12,7 @@
           placeholder="Tìm kiếm theo từ khóa"
           flat
           solo
+          v-model="faqStore.searchKey"
           outlined
           hide-details
         >
@@ -24,102 +25,76 @@
       </div>
     </div>
     <v-row class="mt-10">
-      <v-col cols="12" md="4">
-        <div class="d-inline-flex flex-column justify-center">
-          <div
-            class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6"
-            :class="{ active: currentTab == 1 }"
-            @click="setCurrentTab(1)"
-          >
-            Câu hỏi chung
-          </div>
-          <div
-            class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6 mt-2"
-            :class="{ active: currentTab == 2 }"
-            @click="setCurrentTab(2)"
-          >
-            Câu hỏi về sản phẩm
-          </div>
-          <div
-            class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6 mt-2"
-            :class="{ active: currentTab == 3 }"
-            @click="setCurrentTab(3)"
-          >
-            Câu hỏi về lợi ích
-          </div>
-          <div
-            class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6 mt-2"
-            :class="{ active: currentTab == 4 }"
-            @click="setCurrentTab(4)"
-          >
-            Câu hỏi về sản xuất
-          </div>
-          <div
-            class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6 mt-2"
-            :class="{ active: currentTab == 5 }"
-            @click="setCurrentTab(5)"
-          >
-            Câu hỏi về hệ thống
-          </div>
-        </div>
+      <v-col cols="12" md="2">
+        <v-row
+          class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6 mt-2"
+          :class="{ active: currentTab == 1 }"
+          @click="setCurrentTab(1)"
+        >
+          Câu hỏi chung
+        </v-row>
+        <v-row
+          v-for="(cate, index) in faqStore.categories"
+          :key="index"
+          class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6"
+          :class="{ active: currentTab == cate.id + 1 }"
+          @click="setCurrentTab(cate.id + 1)"
+        >
+          {{ cate.name }}
+        </v-row>
+        <!-- <v-row
+          class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6 mt-2"
+          :class="{ active: currentTab == 2 }"
+          @click="setCurrentTab(2)"
+        >
+          Câu hỏi về sản phẩm
+        </v-row>
+        <v-row
+          class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6 mt-2"
+          :class="{ active: currentTab == 3 }"
+          @click="setCurrentTab(3)"
+        >
+          Câu hỏi về lợi ích
+        </v-row>
+        <v-row
+          class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6 mt-2"
+          :class="{ active: currentTab == 4 }"
+          @click="setCurrentTab(4)"
+        >
+          Câu hỏi về sản xuất
+        </v-row>
+        <v-row
+          class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6 mt-2"
+          :class="{ active: currentTab == 5 }"
+          @click="setCurrentTab(5)"
+        >
+          Câu hỏi về hệ thống
+        </v-row> -->
       </v-col>
+      <v-col cols="12" md="2"></v-col>
       <v-col cols="12" md="8">
-        <div class="font-weight-semibold text-lg">
-          Làm thế nào để tôi có thể đăng ký tài khoản?
-        </div>
-        <div class="mt-2 neutral80--text">
-          Việc đăng ký tài khoản diễn ra rất đơn giản, người dùng chỉ cần nhấn
-          vào phần đăng nhập, lựa chọn loại tài khoản tuỳ thuộc vào hình thức mà
-          bạn mong muốn rồi điền đầy đủ thông tin theo form yêu cầu đã định sẵn
-        </div>
-        <v-divider class="mt-6"></v-divider>
-        <div class="font-weight-semibold text-lg mt-6">
-          Có bao nhiêu loại tài khoản để đăng ký?
-        </div>
-        <div class="mt-2 neutral80--text">
-          Các dạng tài khoản có thể tham gia hệ thống bao gồm: Hợp tác xã, Nghệ
-          nhân, và Đại lý. Mỗi loại tài khoản sẽ có khả năng truy cập vào các
-          tính năng khác nhau trên hệ thống
-        </div>
-        <v-divider class="mt-6"></v-divider>
-        <div class="font-weight-semibold text-lg mt-6">
-          Tôi phải làm gì nếu tôi bị mất tài khoản?
-        </div>
-        <div class="mt-2 neutral80--text">
-          Nếu vì 1 lí do nào đó mà bạn bị mất tài khoản, bạn có thể liên hệ trực
-          tiếp với chúng tôi để được yêu cầu cấp lại tài khoản thông qua phần
-          Liên hệ ở trang chủ hoặc truy cập trực tiếp vào phần Quên mật khấu ở
-          trang Đăng nhập
-        </div>
-        <v-divider class="mt-6"></v-divider>
-        <div class="font-weight-semibold text-lg mt-6">
-          Làm thế nào để tôi có thể đăng ký tài khoản?
-        </div>
-        <div class="mt-2 neutral80--text">
-          Việc đăng ký tài khoản diễn ra rất đơn giản, người dùng chỉ cần nhấn
-          vào phần đăng nhập, lựa chọn loại tài khoản tuỳ thuộc vào hình thức mà
-          bạn mong muốn rồi điền đầy đủ thông tin theo form yêu cầu đã định sẵn
-        </div>
-        <v-divider class="mt-6"></v-divider>
-        <div class="font-weight-semibold text-lg mt-6">
-          Làm thế nào để tôi có thể đăng ký tài khoản?
-        </div>
-        <div class="mt-2 neutral80--text">
-          Việc đăng ký tài khoản diễn ra rất đơn giản, người dùng chỉ cần nhấn
-          vào phần đăng nhập, lựa chọn loại tài khoản tuỳ thuộc vào hình thức mà
-          bạn mong muốn rồi điền đầy đủ thông tin theo form yêu cầu đã định sẵn
-        </div>
-        <v-divider class="mt-6"></v-divider>
-        <div class="font-weight-semibold text-lg mt-6">
-          Làm thế nào để tôi có thể đăng ký tài khoản?
-        </div>
-        <div class="mt-2 neutral80--text">
-          Việc đăng ký tài khoản diễn ra rất đơn giản, người dùng chỉ cần nhấn
-          vào phần đăng nhập, lựa chọn loại tài khoản tuỳ thuộc vào hình thức mà
-          bạn mong muốn rồi điền đầy đủ thông tin theo form yêu cầu đã định sẵn
+        <div
+          v-for="(faq, index) in faqStore.slicedfaqs"
+          :key="faq.id"
+          :class="{ 'mt-6': index != 0 }"
+        >
+          <div class="font-weight-semibold text-lg">
+            {{ faq.question }}
+          </div>
+          <div class="mt-2 neutral80--text">
+            {{ faq.anwser }}
+          </div>
+          <v-divider
+            v-if="index != faqStore.slicedfaqs.length - 1"
+            class="mt-6"
+          ></v-divider>
         </div>
         <div class="mt-4 mb-16">
-          <v-pagination color="primary" :length="5"></v-pagination>
+          <v-pagination
+            color="primary"
+            :length="faqStore.totalfaqsPage"
+            v-model="faqStore.faqsPage"
+          ></v-pagination>
         </div>
       </v-col>
     </v-row>
@@ -139,7 +114,12 @@
       <div class="text-md mt-2">
         Nếu như vẫn còn thắc mắc cần được giải đáp, hãy liên hệ với chúng tôi
       </div>
-      <v-btn class="border-radius-6 mt-8 text-none" color="primary" depressed>
+      <v-btn
+        class="border-radius-6 mt-8 text-none"
+        href="/lien-he"
+        color="primary"
+        depressed
+      >
         Liên hệ ngay
       </v-btn>
     </div>
@@ -147,14 +127,14 @@
 </template>
 
 <script>
-// import { mapStores } from "pinia";
-// import { supplyStore } from "../store/supply-store";
+import { mapStores } from "pinia";
+import { faqStore } from "../stores/faqStore";
 import { rules } from "@/plugins/rules";
 import { gmapApi } from "vue2-google-maps";
 
 export default {
   computed: {
-    // ...mapStores(supplyStore),
+    ...mapStores(faqStore),
     google: gmapApi,
   },
   data() {
@@ -165,11 +145,17 @@ export default {
       isShowPass: false,
     };
   },
-  created() {},
+  async created() {
+    await Promise.all([
+      this.faqStore.fetchCategories(),
+      this.faqStore.fetchfaqs(),
+    ]);
+  },
   methods: {
     toggleSearch() {},
     setCurrentTab(index) {
       this.currentTab = index;
+      this.faqStore.currentTab = index - 1;
     },
   },
 };

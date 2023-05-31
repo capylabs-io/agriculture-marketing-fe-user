@@ -5,9 +5,10 @@
         <div class="font-weight-semibold mb-2 text-left">Lĩnh vực văn bản</div>
         <v-select
           class="border-radius-8"
-          :rules="[$rules.required]"
-          item-text="name"
-          item-value="id"
+          v-model="documentStore.filterForm.field"
+          :items="documentStore.fieldSelections"
+          item-text="id"
+          item-value="name"
           placeholder="chọn lĩnh vực"
           flat
           solo
@@ -19,10 +20,11 @@
         <div class="font-weight-semibold mb-2 text-left">Loại văn bản</div>
         <v-select
           class="border-radius-8"
-          :rules="[$rules.required]"
+          v-model="documentStore.filterForm.documentCategory"
+          :items="documentStore.categories"
+          item-value="id"
           item-text="name"
           placeholder="chọn loại"
-          item-value="id"
           flat
           solo
           outlined
@@ -37,7 +39,7 @@
           type="text"
           class="border-radius-8"
           placeholder="Nhập mã số "
-          :rules="[$rules.required]"
+          v-model="documentStore.filterForm.numberOf"
           solo
           outlined
           dense
@@ -48,12 +50,25 @@
         <div class="font-weight-semibold mb-2 text-left">
           Thời gian ban hành
         </div>
-        <RangeDatePicker :chosenDate="[]" />
+        <RangeDatePicker @change="documentStore.changeDocumentDuration" />
       </v-col>
     </v-row>
     <div class="d-flex align-center justify-start">
-      <v-btn class="border-radius-6 mt-1 text-none" color="primary" depressed>
+      <v-btn
+        class="border-radius-6 mt-1 text-none"
+        color="primary"
+        depressed
+        @click="onSearchClick()"
+      >
         Áp dụng
+      </v-btn>
+      <v-btn
+        class="border-radius-6 mt-1 ml-2 text-none"
+        color="neutral20"
+        depressed
+        @click="onClearClick()"
+      >
+        Xóa tìm kiếm
       </v-btn>
     </div>
     <!-- <v-row class="mt-n4">
@@ -66,8 +81,9 @@
 </template>
 
 <script>
-//   import { postStore } from "../stores/news-store";
-//   import { mapStores } from "pinia";
+import { mapStores } from "pinia";
+import { documentStore } from "../stores/documentStore";
+import { rules } from "@/plugins/rules";
 export default {
   props: {
     isEditing: {
@@ -79,8 +95,27 @@ export default {
     RangeDatePicker: () => import("@/components/RangeDatePicker.vue"),
   },
   computed: {
-    //   ...mapStores(postStore),
+    ...mapStores(documentStore),
   },
-  methods: {},
+  data() {
+    return {
+      rules: rules,
+    };
+  },
+  methods: {
+    onSearchClick() {
+      this.documentStore.fetchDocuments();
+    },
+    onClearClick() {
+      this.documentStore.filterForm = {
+        field: "",
+        numberOf: "",
+        documentCategory: "",
+        startDate: "",
+        endDate: "",
+      };
+      this.documentStore.datePicker = [];
+    },
+  },
 };
 </script>

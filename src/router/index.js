@@ -116,8 +116,8 @@ const routes = [
   },
   {
     path: "/lien-he",
-    name: "Contract us",
-    component: () => import("../views/contract/pages/contract.vue"),
+    name: "Contact us",
+    component: () => import("../views/contact/pages/contact.vue"),
   },
   {
     path: "/hoi-dap",
@@ -130,7 +130,7 @@ const routes = [
     component: () => import("../views/document/pages/document.vue"),
   },
   {
-    path: "/tai-lieu-chi-tiet",
+    path: "/tai-lieu/:code",
     name: "Document Detail",
     component: () => import("../views/document/pages/document-detail.vue"),
   },
