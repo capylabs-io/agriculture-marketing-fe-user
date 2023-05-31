@@ -9,7 +9,9 @@
           :items="documentStore.fieldSelections"
           item-text="id"
           item-value="name"
-          placeholder="chọn lĩnh vực"
+          placeholder="Chọn lĩnh vực"
+          clearable
+          hide-details
           flat
           solo
           outlined
@@ -24,7 +26,9 @@
           :items="documentStore.categories"
           item-value="id"
           item-text="name"
-          placeholder="chọn loại"
+          placeholder="Chọn loại tài liệu"
+          clearable
+          hide-details
           flat
           solo
           outlined
@@ -32,7 +36,7 @@
         ></v-select>
       </v-col>
     </v-row>
-    <v-row class="mt-n5">
+    <v-row>
       <v-col cols="12" md="6">
         <div class="font-weight-semibold mb-2 text-left">Số ký hiệu</div>
         <v-text-field
@@ -40,6 +44,8 @@
           class="border-radius-8"
           placeholder="Nhập mã số "
           v-model="documentStore.filterForm.numberOf"
+          clearable
+          hide-details
           solo
           outlined
           dense
@@ -53,9 +59,9 @@
         <RangeDatePicker @change="documentStore.changeDocumentDuration" />
       </v-col>
     </v-row>
-    <div class="d-flex align-center justify-start">
+    <div class="d-flex align-center justify-start mt-6">
       <v-btn
-        class="border-radius-6 mt-1 text-none"
+        class="border-radius-6 text-none"
         color="primary"
         depressed
         @click="onSearchClick()"
@@ -63,7 +69,7 @@
         Áp dụng
       </v-btn>
       <v-btn
-        class="border-radius-6 mt-1 ml-2 text-none"
+        class="border-radius-6 ml-4 text-none"
         color="neutral20"
         depressed
         @click="onClearClick()"

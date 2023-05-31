@@ -24,24 +24,41 @@
         >
       </div>
     </div>
-    <v-row class="mt-10">
+    <v-row :class="$vuetify.breakpoint.mdAndUp ? 'mt-10' : 'mt-4'">
       <v-col cols="12" md="2">
-        <v-row
-          class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6 mt-2"
-          :class="{ active: currentTab == 1 }"
-          @click="setCurrentTab(1)"
-        >
-          Câu hỏi chung
-        </v-row>
-        <v-row
-          v-for="(cate, index) in faqStore.categories"
-          :key="index"
-          class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6"
-          :class="{ active: currentTab == cate.id + 1 }"
-          @click="setCurrentTab(cate.id + 1)"
-        >
-          {{ cate.name }}
-        </v-row>
+        <v-select
+          class="border-radius-6"
+          v-model="currentTab"
+          :class="{ 'sort-select': $vuetify.breakpoint.mdAndUp }"
+          :items="categories"
+          item-text="name"
+          item-value="value"
+          @change="(value) => setCurrentTab(value)"
+          v-if="$vuetify.breakpoint.smAndDown"
+          placeholder="Danh mục"
+          hide-details
+          outlined
+          dense
+        ></v-select>
+        <div v-else>
+          <v-row
+            class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6 mt-2"
+            :class="{ active: currentTab == 0 }"
+            @click="setCurrentTab(0)"
+          >
+            Câu hỏi chung
+          </v-row>
+          <v-row
+            v-for="(cate, index) in faqStore.categories"
+            :key="index"
+            class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6"
+            :class="{ active: currentTab == cate.id + 1 }"
+            @click="setCurrentTab(cate.id + 1)"
+          >
+            {{ cate.name }}
+          </v-row>
+        </div>
+
         <!-- <v-row
           class="cursor-pointer pa-2 font-weight-medium text-md border-radius-6 mt-2"
           :class="{ active: currentTab == 2 }"
@@ -71,8 +88,8 @@
           Câu hỏi về hệ thống
         </v-row> -->
       </v-col>
-      <v-col cols="12" md="2"></v-col>
-      <v-col cols="12" md="8">
+      <v-col cols="12" md="1" v-if="!$vuetify.breakpoint.smAndDown"></v-col>
+      <v-col cols="12" md="9">
         <div
           v-for="(faq, index) in faqStore.slicedfaqs"
           :key="faq.id"
@@ -101,14 +118,17 @@
     <div
       class="question-banner d-flex flex-column justify-center align-center text-center mb-16"
     >
-      <v-img
+      <!-- <v-img
         width="56px"
         max-height="56px"
         :src="require('@/assets/components/landing/image-4.webp')"
         class="mt-6 image-banner"
       >
-      </v-img>
-      <div class="text-xl font-weight-medium mt-8">
+      </v-img> -->
+      <div>
+        <v-icon size="64" color="primary">mdi-comment-question-outline</v-icon>
+      </div>
+      <div class="text-xl font-weight-medium mt-6">
         Không tìm được câu hỏi phù hợp?
       </div>
       <div class="text-md mt-2">
@@ -136,10 +156,29 @@ export default {
   computed: {
     ...mapStores(faqStore),
     google: gmapApi,
+    categories() {
+      let categories = [
+        {
+          name: "Câu hỏi chung",
+          value: 0,
+        },
+      ];
+      if (this.faqStore.categories && this.faqStore.categories.length > 0) {
+        categories = categories.concat(
+          this.faqStore.categories.map((category) => {
+            return {
+              name: category.name,
+              value: category.id + 1,
+            };
+          })
+        );
+      }
+      return categories;
+    },
   },
   data() {
     return {
-      currentTab: 1,
+      currentTab: 0,
       rules: rules,
       isShow: true,
       isShowPass: false,
