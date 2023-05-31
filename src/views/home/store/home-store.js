@@ -21,16 +21,16 @@ export const homeStore = defineStore("home", {
     },
     filteredProducts() {
       if (!this.products || this.products.length == 0) return [];
-      if (!this.productCategory || this.productCategory == "all")
-        return this.products;
+      if (!this.productCategory || this.productCategory == "all") return this.products;
       return this.products.filter(
-        (product) =>
-          product.productCategory &&
-          product.productCategory.id == this.productCategory
+        (product) => product.productCategory && product.productCategory.id == this.productCategory
       );
     },
     newestPost() {
-      if (!this.posts || this.posts.length == 0) return {};
+      if (!this.posts || this.posts.length == 0)
+        return {
+          postCategory: {},
+        };
       return this.posts[0];
     },
     otherPosts() {
@@ -46,10 +46,7 @@ export const homeStore = defineStore("home", {
           populate: "*",
         });
         if (!res) {
-          alert.error(
-            "Error occurred when fetching products!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching products!", "Please try again later!");
           return;
         }
         const products = get(res, "data.data", []);
@@ -83,10 +80,7 @@ export const homeStore = defineStore("home", {
           populate: "*",
         });
         if (!res) {
-          alert.error(
-            "Error occurred when fetching news!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching news!", "Please try again later!");
           return;
         }
         const posts = get(res, "data.data", []);
@@ -99,11 +93,7 @@ export const homeStore = defineStore("home", {
               id: get(post, "attributes.postCategory.data.id", -1),
               ...get(post, "attributes.postCategory.data.attributes", {}),
             },
-            author: get(
-              post,
-              "attributes.user.data.attributes.username",
-              "Admin"
-            ),
+            author: get(post, "attributes.user.data.attributes.username", "Admin"),
           };
         });
         this.posts = mappedPosts;
@@ -118,10 +108,7 @@ export const homeStore = defineStore("home", {
         loading.show();
         const res = await ProductCategory.fetch();
         if (!res) {
-          alert.error(
-            "Error occurred when fetching product categories!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching product categories!", "Please try again later!");
           return;
         }
         const categories = get(res, "data.data", []);
