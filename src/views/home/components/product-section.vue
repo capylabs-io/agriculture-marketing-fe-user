@@ -1,5 +1,8 @@
 <template>
-  <div class="product-section mt-n2 d-flex flex-column justify-center">
+  <div
+    class="product-section mt-n2 d-flex flex-column justify-center"
+    :class="{ 'py-12': $vuetify.breakpoint.smAndDown }"
+  >
     <div
       class="page-container mx-auto px-6 full-width"
       :class="{ 'py-16': $vuetify.breakpoint.mdAndUp }"
@@ -19,7 +22,7 @@
         Các sản phẩm chất lượng nhất của tỉnh Bến Tre
       </div>
       <div class="mt-12">
-        <v-row data-aos="zoom-in-up" data-aos-duration="1000">
+        <v-row data-aos="fade-up" data-aos-duration="800">
           <v-col
             cols="12"
             md="3"

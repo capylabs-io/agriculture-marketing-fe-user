@@ -1,6 +1,9 @@
 <template>
   <div class="footer-bg white--text">
-    <div class="pt-14 pb-8 border-bottom">
+    <div
+      class="pt-14 pb-8 border-bottom"
+      :class="{ 'px-6': $vuetify.breakpoint.smAndDown }"
+    >
       <div class="text-dp-sm font-weight-semibold text-center">
         Trở thành hội viên ngay
       </div>
@@ -27,17 +30,25 @@
         >
       </div>
     </div>
-    <div class="d-flex align-start justify-space-between py-8 px-12">
+    <div
+      class="d-flex align-start justify-space-between py-8"
+      :class="{
+        'flex-column px-6': $vuetify.breakpoint.smAndDown,
+        'px-12': !$vuetify.breakpoint.smAndDown,
+      }"
+    >
       <div>
-        <div class="d-flex">
+        <div
+          class="d-flex"
+          :class="{ 'align-center': $vuetify.breakpoint.smAndDown }"
+        >
           <v-img
             :src="require('@/assets/components/home/gov-logo.png')"
             max-height="64px"
             max-width="64px"
           ></v-img>
           <div class="text-uppercase font-weight-bold text-dp-xs ml-4">
-            Trung Tâm truy xuất nguồn gốc <br />
-            cây và hoa cảnh TỈNH Bến Tre
+            Truy xuất nguồn gốc cây cảnh Bến Tre
           </div>
         </div>
         <div class="mt-6">
@@ -57,7 +68,10 @@
           </div>
         </div>
       </div>
-      <div class="footer-menu d-flex flex-wrap col-gap-16">
+      <div
+        class="footer-menu d-flex flex-wrap col-gap-16"
+        :class="{ 'mt-6 ml-n2': $vuetify.breakpoint.smAndDown }"
+      >
         <router-link
           to="/gioi-thieu"
           class="text-decoration-none align-self-center footer-nav-link"
@@ -223,11 +237,20 @@
         </router-link>
       </div>
     </div>
-    <div class="footer-bottom d-flex justify-space-between px-12 align-center">
-      <div class="text-xs">
+    <div
+      class="footer-bottom d-flex justify-space-between px-12 align-center"
+      :class="{ 'flex-column pa-4': $vuetify.breakpoint.smAndDown }"
+    >
+      <div
+        class="text-xs"
+        :class="{ 'text-center text-sm': $vuetify.breakpoint.smAndDown }"
+      >
         © Phát triển bởi CapyLabs - Công ty giải pháp phần mềm Dinosys
       </div>
-      <div class="d-flex align-center justify-end mr-n2">
+      <div
+        class="d-flex align-center justify-end mr-n2"
+        :class="{ 'mt-2': $vuetify.breakpoint.smAndDown }"
+      >
         <v-btn class="px-0" large dark icon>
           <v-icon>mdi-facebook</v-icon>
         </v-btn>

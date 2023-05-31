@@ -1,17 +1,26 @@
 <template>
-  <div class="search-section d-flex flex-column align-center">
+  <div
+    class="search-section d-flex flex-column align-center"
+    :class="{ 'py-8': $vuetify.breakpoint.smAndDown }"
+  >
     <v-row class="align-scretch full-width page-container mx-auto px-2">
       <v-col
         class="d-flex flex-column justify-center align-center"
         cols="12"
         md="7"
       >
-        <div class="full-width">
-          <div class="text-dp-lg font-weight-bold text-uppercase">
-            Truy xuất nguồn gốc <br />
+        <div class="full-width" data-aos="fade-right" data-aos-duration="500">
+          <div
+            class="font-weight-bold text-uppercase"
+            :class="$vuetify.breakpoint.smAndDown ? 'text-dp-md' : 'text-dp-lg'"
+          >
+            Truy xuất nguồn gốc <br v-if="!$vuetify.breakpoint.smAndDown" />
             Cây và hoa cảnh
           </div>
-          <div class="text-dp-sm neutral80--text mt-2">
+          <div
+            class="neutral80--text mt-2"
+            :class="$vuetify.breakpoint.smAndDown ? 'text-dp-xs' : 'text-dp-sm'"
+          >
             Chính xác, nhanh chóng, thuận lợi
           </div>
           <v-text-field
@@ -32,7 +41,11 @@
               </div>
             </template>
           </v-text-field>
-          <v-radio-group row mandatory hide-details>
+          <v-radio-group
+            :row="$vuetify.breakpoint.mdAndUp"
+            mandatory
+            hide-details
+          >
             <v-radio>
               <template v-slot:label>
                 <div class="d-flex align-center">
@@ -56,6 +69,7 @@
         class="d-flex flex-column justify-center align-center"
         cols="12"
         md="5"
+        :class="{ 'mt-4': $vuetify.breakpoint.smAndDown }"
       >
         <img
           class="map-img"

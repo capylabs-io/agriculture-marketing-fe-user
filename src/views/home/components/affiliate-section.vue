@@ -2,28 +2,29 @@
   <div class="affiliate-section">
     <div class="page-container mx-auto px-6 py-16">
       <div class="font-weight-semibold text-dp-sm text-center">Liên kết</div>
-      <div class="mt-16">
+      <div class="mt-16" :class="{ 'px-8': $vuetify.breakpoint.smAndDown }">
         <vueper-slides
           class="no-shadow"
           slide-multiple
           arrows-outside
           bullets-outside
-          fixed-height="100px"
+          :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
+          :fixed-height="$vuetify.breakpoint.smAndDown ? '120px' : '100px'"
           :bullets="false"
           :visible-slides="8"
           :slide-ratio="1 / 1"
           :breakpoints="breakpoints"
         >
-          <vueper-slide
-            class="partner-slide"
-            v-for="(partner, i) in partners"
-            :key="i"
-          >
+          <vueper-slide v-for="(partner, i) in partners" :key="i">
             <template #content>
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <img
-                    class="partner-logo"
+                    :class="
+                      $vuetify.breakpoint.smAndDown
+                        ? 'mobile-partner-logo'
+                        : 'partner-logo'
+                    "
                     :src="partner.logo"
                     v-bind="attrs"
                     v-on="on"
@@ -107,8 +108,9 @@ export default {
         },
       ],
       breakpoints: {
-        1024: { visibleSlides: 6, slideMultiple: 6 },
+        1024: { visibleSlides: 4, slideMultiple: 4 },
         600: { visibleSlides: 2, slideMultiple: 2 },
+        400: { visibleSlides: 1, slideMultiple: 1 },
       },
     };
   },
@@ -122,6 +124,9 @@ export default {
 .partner-logo {
   max-width: 100px;
   max-height: 100px;
+}
+.mobile-partner-logo {
+  object-fit: contain;
 }
 .partner-slide {
   max-height: 100px !important;

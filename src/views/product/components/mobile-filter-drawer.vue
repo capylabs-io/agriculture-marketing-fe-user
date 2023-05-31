@@ -1,12 +1,12 @@
 <template>
   <div class="full-height">
     <div>
-      <div class="d-flex align-center justify-space-between">
+      <div class="d-flex align-center justify-space-between mt-2">
         <div
-          class="text-md font-weight-medium cursor-pointer"
+          class="text-md font-weight-medium cursor-pointer d-flex align-center"
           @click="productStore.mobileFilterDrawer = true"
         >
-          <v-icon class="mr-2 mb-1">mdi-filter-variant</v-icon> Chọn Bộ lọc ({{
+          <v-icon class="mr-2">mdi-filter-variant</v-icon> Chọn Bộ lọc ({{
             productStore.allFilters.length
           }})
         </div>

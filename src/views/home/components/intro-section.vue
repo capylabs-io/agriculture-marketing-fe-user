@@ -1,7 +1,7 @@
 <template>
   <div
     class="page-container mx-auto px-6 full-width"
-    :class="{ 'py-16': $vuetify.breakpoint.mdAndUp }"
+    :class="$vuetify.breakpoint.mdAndUp ? 'py-16' : 'py-8'"
   >
     <div class="d-flex align-center justify-space-between">
       <div class="font-weight-semibold text-dp-sm text-center">Hợp tác xã</div>
@@ -13,7 +13,7 @@
       >
     </div>
     <div class="mt-8">
-      <v-row data-aos="zoom-in-up" data-aos-duration="1000">
+      <v-row data-aos="fade-up" data-aos-duration="800">
         <v-col
           cols="12"
           md="3"
@@ -36,7 +36,7 @@
       >
     </div>
     <div class="mt-8">
-      <v-row data-aos="zoom-in-up" data-aos-duration="1000">
+      <v-row data-aos="fade-up" data-aos-duration="800">
         <v-col
           cols="12"
           md="3"

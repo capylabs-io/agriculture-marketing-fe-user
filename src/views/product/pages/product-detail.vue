@@ -20,7 +20,10 @@
           md="6"
           :class="{ 'right-border pr-6': $vuetify.breakpoint.mdAndUp }"
         >
-          <ImageSlider :images="productStore.productImages" />
+          <ImageSlider
+            :images="productStore.productImages"
+            :imageMainHeight="$vuetify.breakpoint.mdAndUp ? '560px' : '360px'"
+          />
         </v-col>
         <v-col
           cols="12"
@@ -30,7 +33,7 @@
           <div
             class="d-flex justify-space-between"
             :class="{
-              'flex-column align-center mt-6': $vuetify.breakpoint.smAndDown,
+              'flex-column align-center': $vuetify.breakpoint.smAndDown,
             }"
           >
             <div class="flex-grow-1 full-width">

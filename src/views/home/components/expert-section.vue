@@ -1,7 +1,10 @@
 <template>
-  <div class="page-container mx-auto px-6 mb-16">
+  <div class="page-container mx-auto px-6 mb-16 mt-8">
     <div class="d-flex align-center justify-space-between">
-      <div class="font-weight-semibold text-dp-sm text-center">
+      <div
+        class="font-weight-semibold text-dp-sm"
+        :class="{ 'text-center': $vuetify.breakpoint.mdAndUp }"
+      >
         Nghệ nhân, chuyên gia
       </div>
       <v-btn
@@ -11,7 +14,7 @@
         >Xem thêm <v-icon>mdi-chevron-right</v-icon></v-btn
       >
     </div>
-    <v-row class="mt-8">
+    <v-row class="mt-8" data-aos="fade-up" data-aos-duration="800">
       <v-col
         cols="12"
         md="3"

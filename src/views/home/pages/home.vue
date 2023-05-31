@@ -11,12 +11,8 @@
       ><v-icon dark large> mdi-arrow-up</v-icon></v-btn
     >
     <searchSection />
-    <!-- <functionSection /> -->
     <newsSection />
-    <bannerSection />
-    <!-- <div>
-      <img class="banner-img" src="@/assets/components/home/banner.png" />
-    </div> -->
+    <bannerSection v-if="!$vuetify.breakpoint.xsOnly" />
     <productSection />
     <introSection />
     <expertSection />
@@ -39,8 +35,6 @@ export default {
   components: {
     searchSection: () => import("../components/search-section.vue"),
     bannerSection: () => import("../components/banner-section.vue"),
-    // seedlingSection: () => import("../components/seedling-section.vue"),
-    // functionSection: () => import("../components/function-section.vue"),
     newsSection: () => import("../components/news-section.vue"),
     productSection: () => import("../components/product-section.vue"),
     expertSection: () => import("../components/expert-section.vue"),

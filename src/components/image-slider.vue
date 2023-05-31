@@ -84,7 +84,7 @@ export default {
   data() {
     return {
       breakpoints: {
-        600: { visibleSlides: 3, slideMultiple: 2 },
+        600: { visibleSlides: 3 },
       },
     };
   },

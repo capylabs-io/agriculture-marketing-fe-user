@@ -1,105 +1,4 @@
 <template>
-  <!-- <v-row :class="{ 'banner-section': $vuetify.breakpoint.mdAndUp }" no-gutters>
-    <v-col
-      cols="12"
-      md="6"
-      class="inherit-height"
-      :class="{ 'mobile-section': $vuetify.breakpoint.smAndDown }"
-    >
-      <div
-        class="full-height full-width d-flex flex-column justify-center"
-        :class="
-          $vuetify.breakpoint.smAndDown
-            ? 'left-section-bg px-6'
-            : 'left-section-image'
-        "
-      >
-        <div
-          class="content mx-auto py-6 text-center"
-          :class="$vuetify.breakpoint.mdAndUp ? 'px-6' : 'px-1'"
-        >
-          <div
-            class="font-weight-bold text-uppercase text-center"
-            data-aos="fade-right"
-            data-aos-duration="600"
-            data-aos-delay="0"
-            :class="$vuetify.breakpoint.mdAndUp ? 'text-dp-lg' : 'text-dp-xs'"
-          >
-            Truy xuất nguồn gốc, <br />
-            nâng tầm cây cảnh Việt
-          </div>
-          <div
-            class="neutral80--text"
-            data-aos="fade-right"
-            data-aos-duration="600"
-            data-aos-delay="300"
-            :class="
-              $vuetify.breakpoint.mdAndUp
-                ? 'text-dp-sm mt-12'
-                : 'text-md mt-6 tablet-subtitle'
-            "
-            v-if="$vuetify.breakpoint.xsOnly"
-          >
-            Nhanh chóng, tiện lợi, giúp nghệ nhân đáp ứng yêu cầu thị trường,
-            bảo vệ người tiêu dùng và quảng bá sản phẩm mới
-          </div>
-          <div
-            class="neutral80--text"
-            data-aos="fade-right"
-            data-aos-duration="600"
-            data-aos-delay="300"
-            :class="
-              $vuetify.breakpoint.mdAndUp
-                ? 'text-dp-sm mt-12'
-                : 'text-md mt-6 tablet-subtitle'
-            "
-            v-else
-          >
-            Tận hưởng sự tin cậy và minh bạch về nguồn gốc cây cảnh của bạn,
-            giúp nghệ nhân đáp ứng yêu cầu thị trường, bảo vệ người tiêu dùng và
-            quảng bá sản phẩm mới
-          </div>
-          <div class="text-center">
-            <v-btn
-              class="text-none border-radius-12 mx-auto"
-              color="primary60"
-              :class="
-                $vuetify.breakpoint.mdAndUp
-                  ? 'text-lg py-7 px-5 text-center mt-12'
-                  : 'text-sm py-6 px-4 mt-8'
-              "
-              depressed
-              dark
-              @click="goToLogin()"
-              >Đăng ký ngay <v-icon> mdi-arrow-right-thin </v-icon></v-btn
-            >
-          </div>
-        </div>
-      </div>
-    </v-col>
-    <v-col
-      cols="12"
-      md="6"
-      :class="{ 'mobile-section': $vuetify.breakpoint.smAndDown }"
-    >
-      <v-carousel
-        height="100%"
-        :interval="10000"
-        show-arrows-on-hover
-        hide-delimiter-background
-        cycle
-      >
-        <v-carousel-item
-          v-for="(url, i) in imageUrls"
-          class="banner-img"
-          :key="i"
-          :src="url"
-          cover
-        >
-        </v-carousel-item>
-      </v-carousel>
-    </v-col>
-  </v-row> -->
   <div>
     <vueper-slides
       slide-image-inside
@@ -128,11 +27,11 @@ export default {
     return {
       banners: [
         {
-          image: require("@/assets/components/home/banner.png"),
+          image: require("@/assets/components/home/banner1.webp"),
           link: "",
         },
         {
-          image: require("@/assets/components/home/banner1.webp"),
+          image: require("@/assets/components/home/banner.png"),
           link: "",
         },
       ],

@@ -13,10 +13,17 @@
       <v-col class="align-self-scretch" cols="12" md="7">
         <div
           class="d-flex border-radius-16 cursor-pointer big-post overflow-hidden full-height"
+          :class="{ 'flex-column': $vuetify.breakpoint.smAndDown }"
           @click="goToPost(homeStore.newestPost.id)"
+          data-aos="fade-right"
+          data-aos-duration="500"
         >
           <img
-            class="big-post-img full-height"
+            :class="
+              $vuetify.breakpoint.smAndDown
+                ? 'mobile-big-post-img'
+                : 'big-post-img full-height'
+            "
             :src="productImage(homeStore.newestPost.images)"
           />
           <div class="pa-4">
@@ -152,6 +159,11 @@ export default {
   max-width: 274px;
   height: 100%;
   object-fit: cover;
+}
+.mobile-big-post-img {
+  max-width: 100%;
+  object-fit: cover;
+  aspect-ratio: 16/9 !important;
 }
 .post-img {
   width: 100px;

@@ -23,7 +23,7 @@
       >
     </div>
     <div class="mt-12">
-      <v-row data-aos="zoom-in-up" data-aos-duration="1000">
+      <v-row data-aos="fade-up" data-aos-duration="1000">
         <v-col
           cols="12"
           md="3"
