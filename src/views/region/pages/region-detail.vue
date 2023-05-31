@@ -1,7 +1,8 @@
 <template>
   <div>
     <div
-      class="neutral60--text font-weight-semibold text-sm d-flex flex-wrap px-11 py-3 breadcrumb full-width"
+      class="neutral60--text font-weight-semibold text-sm d-flex flex-wrap py-3 breadcrumb full-width"
+      :class="$vuetify.breakpoint.smAndDown ? 'px-6' : 'px-11'"
     >
       <div class="cursor-pointer" @click="$router.push('/')">Trang chủ</div>
       <span class="mx-2">/</span>
@@ -26,6 +27,7 @@
       <div class="neutral20-border border-radius-16 pa-6 mt-6 text-center">
         <div
           class="d-inline-flex align-center neutral20-border border-radius-8 mx-auto overflow-hidden"
+          v-if="$vuetify.breakpoint.mdAndUp"
         >
           <div
             class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
@@ -59,6 +61,48 @@
             Chứng nhận
           </div>
         </div>
+        <v-row
+          class="neutral20-border border-radius-16 overflow-hidden"
+          no-gutters
+          v-else
+        >
+          <v-col cols="6">
+            <div
+              class="neutral20-border cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+              :class="{ active: currentTab == 0 }"
+              @click="currentTab = 0"
+            >
+              Thông tin
+            </div>
+          </v-col>
+          <v-col cols="6">
+            <div
+              class="neutral20-border cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+              :class="{ active: currentTab == 1 }"
+              @click="currentTab = 1"
+            >
+              Hợp tác xã
+            </div>
+          </v-col>
+          <v-col cols="6">
+            <div
+              class="neutral20-border cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+              :class="{ active: currentTab == 2 }"
+              @click="currentTab = 2"
+            >
+              Sản phẩm
+            </div>
+          </v-col>
+          <v-col cols="6">
+            <div
+              class="neutral20-border cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+              :class="{ active: currentTab == 3 }"
+              @click="currentTab = 3"
+            >
+              Chứng nhận
+            </div>
+          </v-col>
+        </v-row>
         <div class="text-start mt-6" v-if="currentTab == 0">
           <v-row>
             <v-col cols="12" md="3">
@@ -192,9 +236,18 @@
               <div>Giấy chứng nhận cần đầy đủ 2 mặt</div>
             </v-col>
             <v-col cols="12" md="8">
-              <div class="d-flex align-center flex-wrap full-width gap-12">
+              <div
+                class="d-flex align-center flex-wrap full-width gap-12"
+                :class="{
+                  'flex-column gap-16': $vuetify.breakpoint.smAndDown,
+                }"
+              >
                 <img
-                  class="certification-img"
+                  :class="
+                    $vuetify.breakpoint.smAndDown
+                      ? 'mobile-cert-img'
+                      : 'certification-img'
+                  "
                   :src="regionCertificationImage"
                   v-for="i in 3"
                   :key="i"
@@ -209,9 +262,16 @@
               <div>Giấy kiểm định cần đầy đủ 2 mặt</div>
             </v-col>
             <v-col cols="12" md="8">
-              <div class="d-flex align-center flex-wrap full-width gap-12">
+              <div
+                class="d-flex align-center flex-wrap full-width gap-12"
+                :class="{ 'flex-column gap-16': $vuetify.breakpoint.smAndDown }"
+              >
                 <img
-                  class="certification-img"
+                  :class="
+                    $vuetify.breakpoint.smAndDown
+                      ? 'mobile-cert-img'
+                      : 'certification-img'
+                  "
                   :src="regionAccreditationImage"
                   v-for="i in 3"
                   :key="i"
@@ -314,5 +374,8 @@ export default {
 .certification-img {
   max-height: 320px;
   max-width: 30%;
+}
+.mobile-cert-img {
+  width: 100%;
 }
 </style>

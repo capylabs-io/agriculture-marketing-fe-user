@@ -12,14 +12,22 @@
         <div class="full-width" data-aos="fade-right" data-aos-duration="500">
           <div
             class="font-weight-bold text-uppercase"
-            :class="$vuetify.breakpoint.smAndDown ? 'text-dp-md' : 'text-dp-lg'"
+            :class="
+              $vuetify.breakpoint.smAndDown
+                ? 'text-dp-md text-center'
+                : 'text-dp-lg'
+            "
           >
             Truy xuất nguồn gốc <br v-if="!$vuetify.breakpoint.smAndDown" />
             Cây và hoa cảnh
           </div>
           <div
             class="neutral80--text mt-2"
-            :class="$vuetify.breakpoint.smAndDown ? 'text-dp-xs' : 'text-dp-sm'"
+            :class="
+              $vuetify.breakpoint.smAndDown
+                ? 'text-dp-xs text-center'
+                : 'text-dp-sm'
+            "
           >
             Chính xác, nhanh chóng, thuận lợi
           </div>

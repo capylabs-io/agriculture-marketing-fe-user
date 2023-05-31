@@ -4,9 +4,7 @@
     <div class="neutral60--text font-weight-semibold d-flex flex-wrap">
       <div class="cursor-pointer" @click="$router.push('/')">Trang chủ</div>
       <span class="mx-2">/</span>
-      <div class="cursor-pointer" @click="$router.push('/tai-lieu')">
-        Tài liệu
-      </div>
+      <div class="cursor-pointer" @click="$router.push('/tai-lieu', -1)">Tài liệu</div>
       <span class="mx-2">/</span>
       <div class="primary--text text-none">Chi tiết tài liệu</div>
     </div>
@@ -17,11 +15,9 @@
           >Trích yếu</v-col
         >
         <v-col cols="12" md="1" class="vl"></v-col>
-        <v-col cols="12" md="8" class="d-flex align-center pa-4"
-          >Quyết định ban hành quy trình dịch vụ sự nghiệp công sử dụng ngân
-          sách nhà nước về thông tin, tuyên truyền trong lĩnh vực tiêu chuẩn đo
-          lường chất lượng</v-col
-        >
+        <v-col cols="12" md="8" class="d-flex align-center pa-4">{{
+          documentStore.documents.title
+        }}</v-col>
       </v-row>
       <v-divider></v-divider>
       <v-row no-gutters>
@@ -29,9 +25,9 @@
           >Số/Ký hiệu</v-col
         >
         <v-col cols="12" md="1" class="vl"></v-col>
-        <v-col cols="12" md="8" class="d-flex align-center pa-4"
-          >1505/QĐ-BKHCN</v-col
-        >
+        <v-col cols="12" md="8" class="d-flex align-center pa-4">{{
+          documentStore.documents.numberOf
+        }}</v-col>
       </v-row>
       <v-divider></v-divider>
       <v-row no-gutters>
@@ -39,9 +35,9 @@
           >Loại văn bản</v-col
         >
         <v-col cols="12" md="1" class="vl"></v-col>
-        <v-col cols="12" md="8" class="d-flex align-center pa-4"
-          >Chỉ định</v-col
-        >
+        <v-col cols="12" md="8" class="d-flex align-center pa-4">{{
+          documentStore.documents.documentCategory
+        }}</v-col>
       </v-row>
       <v-divider></v-divider>
       <v-row no-gutters>
@@ -49,7 +45,9 @@
           >Lĩnh vực</v-col
         >
         <v-col cols="12" md="1" class="vl"></v-col>
-        <v-col cols="12" md="8" class="d-flex align-center pa-4">N/A</v-col>
+        <v-col cols="12" md="8" class="d-flex align-center pa-4">{{
+          documentStore.documents.field
+        }}</v-col>
       </v-row>
       <v-divider></v-divider>
       <v-row no-gutters>
@@ -57,9 +55,9 @@
           >Cơ quan ban hành</v-col
         >
         <v-col cols="12" md="1" class="vl"></v-col>
-        <v-col cols="12" md="8" class="d-flex align-center pa-4"
-          >Bộ Khoa học và Công nghệ</v-col
-        >
+        <v-col cols="12" md="8" class="d-flex align-center pa-4">{{
+          documentStore.documents.issuer
+        }}</v-col>
       </v-row>
       <v-divider></v-divider>
       <v-row no-gutters>
@@ -67,9 +65,9 @@
           >Người ký</v-col
         >
         <v-col cols="12" md="1" class="vl"></v-col>
-        <v-col cols="12" md="8" class="d-flex align-center pa-4"
-          >Thứ trưởng Lê Xuân Định</v-col
-        >
+        <v-col cols="12" md="8" class="d-flex align-center pa-4">{{
+          documentStore.documents.signatory
+        }}</v-col>
       </v-row>
       <v-divider></v-divider>
       <v-row no-gutters>
@@ -77,9 +75,9 @@
           >Nơi nhận</v-col
         >
         <v-col cols="12" md="1" class="vl"></v-col>
-        <v-col cols="12" md="8" class="d-flex align-center pa-4"
-          >Trung tâm Mã số mã vạch Quốc gia</v-col
-        >
+        <v-col cols="12" md="8" class="d-flex align-center pa-4">{{
+          documentStore.documents.receiver
+        }}</v-col>
       </v-row>
       <v-divider></v-divider>
       <v-row no-gutters>
@@ -87,9 +85,9 @@
           >Ngày ban hành</v-col
         >
         <v-col cols="12" md="1" class="vl"></v-col>
-        <v-col cols="12" md="8" class="d-flex align-center pa-4"
-          >18/10/2022</v-col
-        >
+        <v-col cols="12" md="8" class="d-flex align-center pa-4">{{
+          documentStore.documents.issueDate
+        }}</v-col>
       </v-row>
       <v-divider></v-divider>
       <v-row no-gutters>
@@ -98,16 +96,19 @@
         >
         <v-col cols="12" md="1" class="vl"></v-col>
         <v-col cols="12" md="8" class="d-flex align-center pa-4">
-          <div class="d-flex align-center justify-center">
+          <div class="d-flex align-center justify-center blue70--text">
             <v-btn
               text
               dense
               depressed
               class="text-none d-flex flex-column justify-center align-center"
               color="blue70"
+              :href="documentStore.documents.attachment"
             >
               <v-icon small class="mr-1">mdi-download</v-icon>
-              BKHCN.docx
+              <span class="text-truncate">
+                {{ getAttachment(documentStore.documents.attachment) }}</span
+              >
             </v-btn>
           </div></v-col
         >
@@ -117,12 +118,12 @@
 </template>
 
 <script>
-// import { mapStores } from "pinia";
-// import { supplyStore } from "../store/supply-store";
+import { mapStores } from "pinia";
+import { documentStore } from "../stores/documentStore";
 
 export default {
   computed: {
-    // ...mapStores(supplyStore),
+    ...mapStores(documentStore),
   },
   data() {
     return {
@@ -131,7 +132,29 @@ export default {
       isShowPass: false,
     };
   },
+  watch: {
+    "$route.params.code": {
+      async handler() {
+        await this.loadDetail();
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
   created() {},
+  methods: {
+    async loadDetail() {
+      const code = this.$route.params.code;
+      await this.documentStore.fetchDocument(code);
+    },
+    getAttachment(string) {
+      return string.substring(string.lastIndexOf("/") + 1);
+    },
+    onBackClicked() {
+      this.documentStore.reset();
+      this.$router.push("/tai-lieu");
+    },
+  },
 };
 </script>
 

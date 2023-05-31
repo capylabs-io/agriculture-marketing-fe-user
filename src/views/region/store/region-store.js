@@ -26,12 +26,6 @@ export const regionStore = defineStore("region", {
     htxsPerPage: 6,
   }),
   getters: {
-    allFilters() {
-      let filters = [];
-      if (this.filterCategory) filters.push(this.filterCategory.name);
-      if (this.searchKey) filters.push("Từ khoá: " + this.searchKey);
-      return filters;
-    },
     slicedRegions() {
       if (!this.regions || this.regions.length == 0) return [];
       return this.filteredRegions.slice(
@@ -45,20 +39,12 @@ export const regionStore = defineStore("region", {
       if (this.searchKey)
         filtered = filtered.filter(
           (region) =>
-            region.name
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase()) ||
-            region.code
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase()) ||
-            region.origin
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase())
+            region.name.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+            region.code.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+            region.origin.toLowerCase().includes(this.searchKey.trim().toLowerCase())
         );
       if (this.filterCategory) {
-        filtered = filtered.filter(
-          (region) => this.filterCategory.id == region.regionCategory.id
-        );
+        filtered = filtered.filter((region) => this.filterCategory.id == region.regionCategory.id);
       }
       return filtered;
     },
@@ -75,16 +61,10 @@ export const regionStore = defineStore("region", {
           break;
         default:
         case "newest":
-          sortedRegions.sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
+          sortedRegions.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
           break;
         case "oldest":
-          sortedRegions.sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          );
+          sortedRegions.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
           break;
       }
       return sortedRegions;
@@ -93,10 +73,7 @@ export const regionStore = defineStore("region", {
       if (!this.regions || this.filteredRegions.length == 0) return 1;
       if (this.filteredRegions.length % this.regionsPerPage == 0)
         return this.filteredRegions.length / this.regionsPerPage;
-      else
-        return (
-          Math.floor(this.filteredRegions.length / this.regionsPerPage) + 1
-        );
+      else return Math.floor(this.filteredRegions.length / this.regionsPerPage) + 1;
     },
     totalFilteredRegion() {
       if (!this.regions || this.regions.length == 0) return 0;
@@ -128,8 +105,7 @@ export const regionStore = defineStore("region", {
     },
     totalHtxPage() {
       if (!this.htxs || this.htxs.length == 0) return 1;
-      if (this.htxs.length % this.htxsPerPage == 0)
-        return this.htxs.length / this.htxsPerPage;
+      if (this.htxs.length % this.htxsPerPage == 0) return this.htxs.length / this.htxsPerPage;
       else return Math.floor(this.htxs.length / this.htxsPerPage) + 1;
     },
     slicedHtxs() {
@@ -156,10 +132,7 @@ export const regionStore = defineStore("region", {
           populate: "*",
         });
         if (!res) {
-          alert.error(
-            "Error occurred when fetching regions!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching regions!", "Please try again later!");
           return;
         }
         const regions = get(res, "data.data", []);
@@ -185,11 +158,7 @@ export const regionStore = defineStore("region", {
               ...region.attributes,
               regionCategory: {
                 id: get(region, "attributes.productCategory.data.id", -1),
-                ...get(
-                  region,
-                  "attributes.productCategory.data.attributes",
-                  {}
-                ),
+                ...get(region, "attributes.productCategory.data.attributes", {}),
               },
               author: get(region, "attributes.user.data.attributes", {}),
             };
@@ -207,10 +176,7 @@ export const regionStore = defineStore("region", {
         // const res = await RegionCategory.fetch();
         const res = await ProductCategory.fetch();
         if (!res) {
-          alert.error(
-            "Error occurred when fetching region categories!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching region categories!", "Please try again later!");
           return;
         }
         const categories = get(res, "data.data", []);
@@ -222,9 +188,7 @@ export const regionStore = defineStore("region", {
           };
         });
         this.categories = mappedCategories;
-        this.categoryDictionary = Object.fromEntries(
-          this.categories.map((x) => [x.id, x.name])
-        );
+        this.categoryDictionary = Object.fromEntries(this.categories.map((x) => [x.id, x.name]));
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -261,17 +225,9 @@ export const regionStore = defineStore("region", {
         //   "regionCategory.data.attributes.name",
         //   "---"
         // );
-        this.region.regionCategory = get(
-          this.region,
-          "productCategory.data.attributes.name",
-          "---"
-        );
+        this.region.regionCategory = get(this.region, "productCategory.data.attributes.name", "---");
         //remove this
-        this.region.htxCategory = get(
-          this.region,
-          "productCategory.data.attributes",
-          {}
-        );
+        this.region.htxCategory = get(this.region, "productCategory.data.attributes", {});
         this.region.user = get(this.region, "user.data.attributes");
       } catch (error) {
         console.error(`Error: ${error}`);

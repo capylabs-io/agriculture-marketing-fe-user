@@ -6,11 +6,16 @@
       <div
         class="page-container mx-auto px-6 py-2 full-height d-flex flex-column"
       >
-        <div v-if="$vuetify.breakpoint.smAndDown">
-          <MobileFilterDrawer />
-        </div>
-        <div class="d-flex align-center justify-space-between mt-4">
-          <div class="neutral70--text">
+        <div
+          class="d-flex align-center justify-space-between mt-4"
+          :class="{
+            'flex-column-reverse full-width': $vuetify.breakpoint.smAndDown,
+          }"
+        >
+          <div
+            class="neutral70--text"
+            :class="{ 'mt-8': $vuetify.breakpoint.smAndDown }"
+          >
             Hiển thị
             <span class="text-lg font-weight-bold">{{
               regionStore.totalFilteredRegion
@@ -21,10 +26,17 @@
             }}</span>
             kết quả
           </div>
-          <div class="d-flex">
+          <div
+            class="d-flex"
+            :class="{
+              'flex-column-reverse gap-12 full-width':
+                $vuetify.breakpoint.smAndDown,
+            }"
+          >
             <v-text-field
               v-model="regionStore.searchKey"
-              class="border-radius-6 border-neutral20 mr-2 search-field"
+              class="border-radius-6 border-neutral20"
+              :class="{ 'search-field mr-2': $vuetify.breakpoint.mdAndUp }"
               placeholder="Tìm kiếm từ khóa"
               prepend-inner-icon="mdi-magnify"
               flat
@@ -35,13 +47,26 @@
               clearable
             ></v-text-field>
             <v-select
-              class="sort-select border-radius-6"
+              class="border-radius-6"
               v-model="regionStore.sortBy"
-              v-if="$vuetify.breakpoint.mdAndUp"
+              :class="{ 'sort-select': $vuetify.breakpoint.mdAndUp }"
               :items="sortBy"
               item-text="text"
               item-value="value"
               placeholder="Sắp xếp"
+              hide-details
+              outlined
+              dense
+            ></v-select>
+            <v-select
+              class="border-radius-6"
+              v-model="regionStore.filterCategory"
+              v-if="$vuetify.breakpoint.smAndDown"
+              :items="regionStore.categories"
+              item-text="name"
+              placeholder="Danh mục"
+              clearable
+              return-object
               hide-details
               outlined
               dense
@@ -89,7 +114,6 @@ import { regionStore } from "../store/region-store";
 export default {
   components: {
     FilterDrawer: () => import("../components/filter-drawer.vue"),
-    MobileFilterDrawer: () => import("../components/mobile-filter-drawer.vue"),
     RegionCard: () => import("../components/region-card.vue"),
   },
   computed: {

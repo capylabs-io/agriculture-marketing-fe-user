@@ -1,7 +1,8 @@
 <template>
   <div>
     <div
-      class="neutral60--text font-weight-semibold text-sm d-flex flex-wrap px-11 py-3 breadcrumb full-width"
+      class="neutral60--text font-weight-semibold text-sm d-flex flex-wrap py-3 breadcrumb full-width"
+      :class="$vuetify.breakpoint.smAndDown ? 'px-6' : 'px-11'"
     >
       <div class="cursor-pointer" @click="$router.push('/')">Trang chủ</div>
       <span class="mx-2">/</span>
