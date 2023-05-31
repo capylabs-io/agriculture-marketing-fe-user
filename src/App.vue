@@ -8,12 +8,12 @@
       <PluginSnackbar />
       <PluginConfirmDialog />
       <v-btn
-        v-if="windowTop > 1000"
+        v-if="windowTop > minScrollY"
         color="primary"
         fab
-        elevation="2"
+        elevation="4"
         @click="scrollToTop"
-        class="d-flex flex-column align-center justify-center scroll-btn"
+        class="scroll-btn"
         ><v-icon dark>mdi-arrow-up</v-icon></v-btn
       >
       <router-view></router-view>
@@ -49,12 +49,13 @@ export default {
       this.windowTop = window.top.scrollY;
     },
     scrollToTop() {
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     },
   },
   data() {
     return {
       windowTop: window.top.scrollY,
+      minScrollY: this.$vuetify.breakpoint.smAndDown ? 640 : 960,
     };
   },
 };
@@ -75,9 +76,15 @@ nav {
 }
 .scroll-btn {
   position: fixed;
-  bottom: 50px;
-  right: 50px;
-  z-index: 99 !important;
+  bottom: 48px;
+  right: 48px;
+  z-index: 2 !important;
+}
+@media (max-width: 600px) {
+  .scroll-btn {
+    bottom: 24px;
+    right: 24px;
+  }
 }
 .sort-select {
   max-width: 180px !important;

@@ -8,15 +8,26 @@
         md="6"
       >
         <v-form
+          v-model="contactForm"
           ref="form"
-          lazy-validation
           class="full-width d-flex flex-column justify-center"
         >
-          <div class="text-dp-md font-weight-medium">Liên hệ ngay</div>
-          <div class="text-md mt-2">
+          <div
+            class="text-dp-md font-weight-medium"
+            :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
+          >
+            Liên hệ ngay
+          </div>
+          <div
+            class="text-md mt-2"
+            :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
+          >
             Hãy gửi các thắc mắc hoặc các câu hỏi đến cho chúng tôi
           </div>
-          <div class="d-flex flex-column full-width form-input">
+          <div
+            class="d-flex flex-column full-width"
+            :class="{ 'form-input': $vuetify.breakpoint.mdAndUp }"
+          >
             <div class="text-sm font-weight-bold mt-6">Họ tên</div>
             <v-text-field
               height="36px"
@@ -33,7 +44,7 @@
               height="36px"
               type="text"
               v-model="contactStore.contacts.email"
-              :rules="rules.checkIdentifier"
+              :rules="$rules.email"
               class="pa-0 mt-2"
               placeholder="abc@gmail.com"
               outlined
@@ -76,9 +87,11 @@
               outlined
             />
             <v-btn
-              class="mt-7 full-width border-radius-12"
+              class="full-width border-radius-12"
               color="primary"
               height="56px"
+              :disabled="!contactForm"
+              :class="$vuetify.breakpoint.smAndDown ? 'mt-0' : 'mt-7'"
               @click="submitForm"
               depressed
               ><span class="text-none text-btn">Gửi thông tin</span></v-btn
@@ -86,7 +99,11 @@
           </div>
         </v-form>
       </v-col>
-      <v-col cols="12" md="6">
+      <v-col
+        cols="12"
+        md="6"
+        :class="{ 'mt-6': $vuetify.breakpoint.smAndDown }"
+      >
         <div
           class="neutral20-border border-radius-16 py-6 px-7 d-flex flex-column justify-center"
         >
@@ -97,27 +114,27 @@
               :src="require('@/assets/quochuy.png')"
               cover
             ></v-img>
-            <div class="text-capitalize font-weight-bold text-xl ml-3">
+            <div class="text-capitalize font-weight-bold text-lg ml-3">
               Trung Tâm truy xuất nguồn gốc cây và hoa cảnh TỈNH Bến Tre
             </div>
           </div>
           <div class="d-flex mt-4 align-center">
             <v-icon color="primary">mdi-account-multiple</v-icon>
-            <div class="text-md ml-1">Ông Phạm Văn A</div>
+            <div class="text-md ml-2">Ông Phạm Văn A</div>
           </div>
           <div class="d-flex mt-2 align-center">
             <v-icon color="primary">mdi-city</v-icon>
-            <div class="text-md ml-1">
+            <div class="text-md ml-2">
               số 12 đường B, quận C, thành phố Bến Tre
             </div>
           </div>
           <div class="d-flex mt-2 align-center">
             <v-icon color="primary">mdi-phone</v-icon>
-            <div class="text-md ml-1">09xxxxxxxxxxx</div>
+            <div class="text-md ml-2">09xxxxxxxxxxx</div>
           </div>
           <div class="d-flex mt-2 align-center">
             <v-icon color="primary">mdi-email</v-icon>
-            <div class="text-md ml-1">TTCC.BenTre@gov.vn</div>
+            <div class="text-md ml-2">TTCC.BenTre@gov.vn</div>
           </div>
         </div>
         <iframe
@@ -149,8 +166,7 @@ export default {
     return {
       currentTab: 0,
       rules: rules,
-      isShow: true,
-      isShowPass: false,
+      contactForm: false,
     };
   },
   created() {},

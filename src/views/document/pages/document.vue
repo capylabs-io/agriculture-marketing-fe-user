@@ -23,18 +23,19 @@
           </template></v-text-field
         >
       </div>
-      <div class="d-flex flex-column align-center justify-center">
-        <v-expansion-panels flat accordion class="mt-3 expansion-content">
-          <v-expansion-panel
-            class="expansion-content d-flex flex-column justify-center align-center"
-          >
+      <div>
+        <v-expansion-panels flat accordion class="mt-3">
+          <v-expansion-panel>
             <v-expansion-panel-header
-              class="text-md expansion-header align-self-end"
+              class="text-md expansion-header mx-auto"
+              :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
             >
-              <div>Tìm kiếm nâng cao</div>
+              Tìm kiếm nâng cao
             </v-expansion-panel-header>
-            <v-expansion-panel-content class="expansion-content-form mt-5 pa-4">
-              <searchForm />
+            <v-expansion-panel-content>
+              <div class="expansion-content-form mt-4 pa-6 mx-auto">
+                <searchForm />
+              </div>
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
@@ -216,10 +217,10 @@ export default {
   width: 180px;
 }
 .expansion-content {
-  width: 700px !important;
+  max-width: 700px !important;
 }
 .expansion-content-form {
-  width: 700px !important;
+  max-width: 700px !important;
   border-radius: 8px !important;
   border: 1px solid var(--v-neutral20-base) !important;
 }
