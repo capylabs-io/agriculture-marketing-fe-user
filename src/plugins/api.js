@@ -17,6 +17,14 @@ const FAQ_CATEGORY_API = "/faq-categories/";
 const FAQ_API = "/faqs/";
 const DOCUMENT_CATEGORY_API = "/document-categories/";
 const DOCUMENT_API = "/documents/";
+const ARTISAN_CATEGORY_API = "/artisan-categories/";
+const ARTISAN_API = "/artisans/";
+const AREA_CATEGORY_API = "/area-categories/";
+const AREA_API = "/areas/";
+const COOPERATIVE_CATEGORY_API = "/cooperative-categories/";
+const COOPERATIVE_API = "/cooperatives/";
+const AGENCY_CATEGORY_API = "/store-categories/";
+const AGENCY_API = "/stores/";
 const CONTACT_API = "/contacts/";
 
 const APIHelper = (api) => ({
@@ -51,6 +59,30 @@ export const FAQ = {
 };
 export const FAQCategory = {
   ...APIHelper(FAQ_CATEGORY_API),
+};
+export const Artisan = {
+  ...APIHelper(ARTISAN_API),
+};
+export const ArtisanCategory = {
+  ...APIHelper(ARTISAN_CATEGORY_API),
+};
+export const Agency = {
+  ...APIHelper(AGENCY_API),
+};
+export const AgencyCategory = {
+  ...APIHelper(AGENCY_CATEGORY_API),
+};
+export const Area = {
+  ...APIHelper(AREA_API),
+};
+export const AreaCategory = {
+  ...APIHelper(AREA_CATEGORY_API),
+};
+export const Cooperative = {
+  ...APIHelper(COOPERATIVE_API),
+};
+export const CooperativeCategory = {
+  ...APIHelper(COOPERATIVE_CATEGORY_API),
 };
 export const Contact = {
   ...APIHelper(CONTACT_API),

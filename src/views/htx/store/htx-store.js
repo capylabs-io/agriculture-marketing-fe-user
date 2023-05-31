@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 // import { Htx, HtxCategory } from "@/plugins/api.js";
-import { Product, ProductCategory } from "@/plugins/api.js";
+import { Cooperative, CooperativeCategory } from "@/plugins/api.js";
 import loading from "@/plugins/loading";
 import alert from "@/plugins/alert";
 import { get } from "lodash";
@@ -25,7 +25,10 @@ export const htxStore = defineStore("htx", {
   getters: {
     slicedHtxs() {
       if (!this.htxs || this.htxs.length == 0) return [];
-      return this.filteredHtxs.slice((this.htxPage - 1) * this.htxsPerPage, this.htxPage * this.htxsPerPage);
+      return this.filteredHtxs.slice(
+        (this.htxPage - 1) * this.htxsPerPage,
+        this.htxPage * this.htxsPerPage
+      );
     },
     filteredHtxs() {
       if (!this.htxs || this.htxs.length == 0) return [];
@@ -33,12 +36,15 @@ export const htxStore = defineStore("htx", {
       if (this.searchKey)
         filtered = filtered.filter(
           (htx) =>
-            htx.name.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
-            htx.code.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
-            htx.origin.toLowerCase().includes(this.searchKey.trim().toLowerCase())
+            htx.name
+              .toLowerCase()
+              .includes(this.searchKey.trim().toLowerCase()) ||
+            htx.code.toLowerCase().includes(this.searchKey.trim().toLowerCase())
         );
       if (this.filterCategory) {
-        filtered = filtered.filter((htx) => this.filterCategory.id == htx.htxCategory.id);
+        filtered = filtered.filter(
+          (htx) => this.filterCategory.id == htx.htxCategory.id
+        );
       }
       return filtered;
     },
@@ -48,17 +54,23 @@ export const htxStore = defineStore("htx", {
       if (!this.sortBy) return sortedHtxs;
       switch (this.sortBy) {
         case "name:asc":
-          sortedHtxs.sort((a, b) => a.name.localeCompare(b.title));
+          sortedHtxs.sort((a, b) => a.name.localeCompare(b.name));
           break;
         case "name:desc":
-          sortedHtxs.sort((a, b) => b.name.localeCompare(a.title));
+          sortedHtxs.sort((a, b) => b.name.localeCompare(a.name));
           break;
         default:
         case "newest":
-          sortedHtxs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+          sortedHtxs.sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
           break;
         case "oldest":
-          sortedHtxs.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+          sortedHtxs.sort(
+            (a, b) =>
+              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          );
           break;
       }
       return sortedHtxs;
@@ -92,7 +104,7 @@ export const htxStore = defineStore("htx", {
     },
     slicedProducts() {
       if (!this.products || this.products.length == 0) return [];
-      return this.filteredHtxs.slice(
+      return this.products.slice(
         (this.productPage - 1) * this.productsPerPage,
         this.productPage * this.productsPerPage
       );
@@ -110,42 +122,31 @@ export const htxStore = defineStore("htx", {
         // const res = await Htx.fetch({
         //   populate: "*",
         // });
-        const res = await Product.fetch({
+        const res = await Cooperative.fetch({
           populate: "*",
         });
         if (!res) {
-          alert.error("Error occurred when fetching htxs!", "Please try again later!");
+          alert.error(
+            "Error occurred when fetching htxs!",
+            "Please try again later!"
+          );
           return;
         }
         const htxs = get(res, "data.data", []);
         if (!htxs && htxs.length == 0) return;
-        // const mappedHtxs = htxs
-        //   .filter((htx) => htx.attributes.status == "publish")
-        //   .map((htx) => {
-        //     return {
-        //       id: htx.id,
-        //       ...htx.attributes,
-        //       htxCategory: {
-        //         id: get(htx, "attributes.htxCategory.data.id", -1),
-        //         ...get(htx, "attributes.htxCategory.data.attributes", {}),
-        //       },
-        //       author: get(htx, "attributes.user.data.attributes", {}),
-        //     };
-        //   });
-        const mappedHtxs = htxs
-          .filter((htx) => htx.attributes.status == "publish")
-          .map((htx) => {
-            return {
-              id: htx.id,
-              ...htx.attributes,
-              htxCategory: {
-                id: get(htx, "attributes.productCategory.data.id", -1),
-                ...get(htx, "attributes.productCategory.data.attributes", {}),
-              },
-              author: get(htx, "attributes.user.data.attributes", {}),
-            };
-          });
+        const mappedHtxs = htxs.map((htx) => {
+          return {
+            id: htx.id,
+            ...htx.attributes,
+            htxCategory: {
+              id: get(htx, "attributes.cooperativeCategory.data.id", -1),
+              ...get(htx, "attributes.cooperativeCategory.data.attributes", {}),
+            },
+          };
+        });
+
         this.htxs = mappedHtxs;
+        console.log("htxs", this.htxs);
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -155,10 +156,12 @@ export const htxStore = defineStore("htx", {
     async fetchCategories() {
       try {
         loading.show();
-        // const res = await HtxCategory.fetch();
-        const res = await ProductCategory.fetch();
+        const res = await CooperativeCategory.fetch();
         if (!res) {
-          alert.error("Error occurred when fetching htx categories!", "Please try again later!");
+          alert.error(
+            "Error occurred when fetching htx categories!",
+            "Please try again later!"
+          );
           return;
         }
         const categories = get(res, "data.data", []);
@@ -170,7 +173,9 @@ export const htxStore = defineStore("htx", {
           };
         });
         this.categories = mappedCategories;
-        this.categoryDictionary = Object.fromEntries(this.categories.map((x) => [x.id, x.name]));
+        this.categoryDictionary = Object.fromEntries(
+          this.categories.map((x) => [x.id, x.name])
+        );
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -186,7 +191,7 @@ export const htxStore = defineStore("htx", {
         //     code: htxCode,
         //   },
         // });
-        const res = await Product.fetch({
+        const res = await Cooperative.fetch({
           populate: "*",
           filters: {
             code: htxCode,
@@ -201,14 +206,23 @@ export const htxStore = defineStore("htx", {
         this.htx = {
           id: htxs[0],
           ...htxs[0].attributes,
+          htxCategory: get(
+            htxs[0],
+            "attributes.cooperativeCategory.data.attributes.name",
+            "---"
+          ),
+          products: get(htxs[0], "attributes.products.data", []),
+          certification: get(htxs[0], "attributes.certification", []),
+
         };
-        // this.htx.htxCategory = get(
-        //   this.htx,
-        //   "htxCategory.data.attributes.name",
-        //   "---"
-        // );
-        this.htx.htxCategory = get(this.htx, "productCategory.data.attributes.name", "---");
-        this.htx.user = get(this.htx, "user.data.attributes");
+        this.products = this.htx.products
+          .filter((product) => product.attributes.status == "publish")
+          .map((product) => {
+            return {
+              id: product.id,
+              ...product.attributes,
+            };
+          });
       } catch (error) {
         console.error(`Error: ${error}`);
         alert.error(error);

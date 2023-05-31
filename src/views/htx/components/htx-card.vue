@@ -26,9 +26,9 @@
 export default {
   computed: {
     htxImage() {
-      if (!this.htx || !this.htx.images)
+      if (!this.htx || !this.htx.thumbnail)
         return require("@/assets/no-image.png");
-      return this.htx.images;
+      return this.htx.thumbnail;
     },
   },
   props: {

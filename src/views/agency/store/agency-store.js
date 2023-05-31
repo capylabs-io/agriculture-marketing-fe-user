@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 // import { Agency, AgencyCategory } from "@/plugins/api.js";
-import { Product, ProductCategory } from "@/plugins/api.js";
+import { Agency, AgencyCategory } from "@/plugins/api.js";
 import loading from "@/plugins/loading";
 import alert from "@/plugins/alert";
 import { get } from "lodash";
@@ -47,9 +47,6 @@ export const agencyStore = defineStore("agency", {
               .includes(this.searchKey.trim().toLowerCase()) ||
             agency.code
               .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase()) ||
-            agency.origin
-              .toLowerCase()
               .includes(this.searchKey.trim().toLowerCase())
         );
       if (this.filterCategory) {
@@ -65,10 +62,10 @@ export const agencyStore = defineStore("agency", {
       if (!this.sortBy) return sortedAgencies;
       switch (this.sortBy) {
         case "name:asc":
-          sortedAgencies.sort((a, b) => a.name.localeCompare(b.title));
+          sortedAgencies.sort((a, b) => a.name.localeCompare(b.name));
           break;
         case "name:desc":
-          sortedAgencies.sort((a, b) => b.name.localeCompare(a.title));
+          sortedAgencies.sort((a, b) => b.name.localeCompare(a.name));
           break;
         default:
         case "newest":
@@ -133,12 +130,11 @@ export const agencyStore = defineStore("agency", {
     async fetchAgencies() {
       try {
         loading.show();
-        // const res = await Agency.fetch({
-        //   populate: "*",
-        // });
-        const res = await Product.fetch({
+        const res = await Agency.fetch({
+          sort: "updatedAt:desc",
           populate: "*",
         });
+
         if (!res) {
           alert.error(
             "Error occurred when fetching agencys!",
@@ -148,36 +144,17 @@ export const agencyStore = defineStore("agency", {
         }
         const agencys = get(res, "data.data", []);
         if (!agencys && agencys.length == 0) return;
-        // const mappedAgencies = agencys
-        //   .filter((agency) => agency.attributes.status == "publish")
-        //   .map((agency) => {
-        //     return {
-        //       id: agency.id,
-        //       ...agency.attributes,
-        //       agencyCategory: {
-        //         id: get(agency, "attributes.agencyCategory.data.id", -1),
-        //         ...get(agency, "attributes.agencyCategory.data.attributes", {}),
-        //       },
-        //       author: get(agency, "attributes.user.data.attributes", {}),
-        //     };
-        //   });
-        const mappedAgencies = agencys
-          .filter((agency) => agency.attributes.status == "publish")
-          .map((agency) => {
-            return {
-              id: agency.id,
-              ...agency.attributes,
-              agencyCategory: {
-                id: get(agency, "attributes.productCategory.data.id", -1),
-                ...get(
-                  agency,
-                  "attributes.productCategory.data.attributes",
-                  {}
-                ),
-              },
-              author: get(agency, "attributes.user.data.attributes", {}),
-            };
-          });
+        const mappedAgencies = agencys.map((agency) => {
+          return {
+            id: agency.id,
+            ...agency.attributes,
+            agencyCategory: {
+              id: get(agency, "attributes.storeCategory.data.id", -1),
+              ...get(agency, "attributes.storeCategory.data.attributes", {}),
+            },
+          };
+        });
+
         this.agencys = mappedAgencies;
       } catch (error) {
         alert.error("Error occurred!", error.message);
@@ -189,7 +166,7 @@ export const agencyStore = defineStore("agency", {
       try {
         loading.show();
         // const res = await AgencyCategory.fetch();
-        const res = await ProductCategory.fetch();
+        const res = await AgencyCategory.fetch();
         if (!res) {
           alert.error(
             "Error occurred when fetching agency categories!",
@@ -218,13 +195,7 @@ export const agencyStore = defineStore("agency", {
     async fetchAgency(agencyCode) {
       try {
         loading.show();
-        // const res = await Agency.fetch({
-        //   populate: "*",
-        //   filters: {
-        //     code: agencyCode,
-        //   },
-        // });
-        const res = await Product.fetch({
+        const res = await Agency.fetch({
           populate: "*",
           filters: {
             code: agencyCode,
@@ -239,18 +210,22 @@ export const agencyStore = defineStore("agency", {
         this.agency = {
           id: agencys[0],
           ...agencys[0].attributes,
+          agencyCategory: get(
+            agencys[0],
+            "attributes.storeCategory.data.attributes.name",
+            "---"
+          ),
+          products: get(agencys[0], "attributes.products.data", []),
+          certification: get(agencys[0], "attributes.certification", []),
         };
-        // this.agency.agencyCategory = get(
-        //   this.agency,
-        //   "agencyCategory.data.attributes.name",
-        //   "---"
-        // );
-        this.agency.agencyCategory = get(
-          this.agency,
-          "productCategory.data.attributes.name",
-          "---"
-        );
-        this.agency.user = get(this.agency, "user.data.attributes");
+        this.products = this.agency.products
+          .filter((product) => product.attributes.status == "publish")
+          .map((product) => {
+            return {
+              id: product.id,
+              ...product.attributes,
+            };
+          });
       } catch (error) {
         console.error(`Error: ${error}`);
         alert.error(error);

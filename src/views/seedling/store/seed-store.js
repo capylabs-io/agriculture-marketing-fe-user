@@ -152,6 +152,7 @@ export const seedStore = defineStore("seed", {
       try {
         loading.show();
         const res = await Seed.fetch({
+          sort: "updatedAt:desc",
           populate: "*",
         });
         if (!res) {

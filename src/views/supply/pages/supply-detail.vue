@@ -51,7 +51,7 @@
                 class="font-weight-semibold text-dp-xs d-flex align-center my-2"
                 v-if="$vuetify.breakpoint.mdAndUp"
               >
-                {{ supplyStore.supply.price || "---"
+                {{ numberWithCommas(supplyStore.supply.price) || "---"
                 }}<span class="neutral80--text text-xs ml-1">vnđ</span>
               </div>
               <div
@@ -60,7 +60,7 @@
               >
                 Giá:
                 <span class="font-weight-bold ml-1 text-lg"
-                  >{{ supplyStore.supply.price || "---" }}
+                  >{{ numberWithCommas(supplyStore.supply.price) || "---" }}
                 </span>
                 <span class="neutral80--text text-xs ml-1">vnđ</span>
               </div>
@@ -224,6 +224,14 @@ export default {
     const code = this.$route.params.code;
     await this.supplyStore.fetchSupply(code);
   },
+  methods:{
+    numberWithCommas(x) {
+      x = x.toString();
+      var pattern = /(-?\d+)(\d{3})/;
+      while (pattern.test(x)) x = x.replace(pattern, "$1.$2");
+      return x;
+    },
+  }
 };
 </script>
 

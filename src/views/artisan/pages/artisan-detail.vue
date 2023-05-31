@@ -39,20 +39,20 @@
               'text-dp-sm': !$vuetify.breakpoint.smAndDown,
             }"
           >
-            {{ artisanStore.artisan.name || "Hợp tác xã" }}
+            {{ artisanStore.artisan.name || "Unkown" }}
           </div>
           <div class="mt-2">
             <div class="neutral80--text text-md font-weight-medium">
               <v-icon class="mr-1" color="primary">mdi-leaf</v-icon>
-              Hợp tác xã trồng trọt
+              {{ artisanStore.artisan.artisanCategory || "Nghệ nhân" }}
             </div>
             <div class="neutral80--text text-md font-weight-medium mt-1">
               <v-icon class="mr-1" color="primary">mdi-phone</v-icon>
-              (+84) 99561111
+              (+84) {{ artisanStore.artisan.phone || "99561111" }}
             </div>
             <div class="neutral80--text text-md font-weight-medium mt-1">
               <v-icon class="mr-1" color="primary">mdi-map-marker</v-icon>
-              Bến Tre
+              {{ artisanStore.artisan.address || "Bến tre" }}
             </div>
           </div>
         </div>
@@ -115,7 +115,9 @@
               <div class="font-weight-semibold">Chức vụ</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>Nghệ nhân</div>
+              <div>
+                {{ artisanStore.artisan.artisanCategory || "Nghệ nhân" }}
+              </div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
@@ -124,7 +126,7 @@
               <div class="font-weight-semibold">Số điện thoại</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>09458141111</div>
+              <div>{{ artisanStore.artisan.phone || "99561111" }}</div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
@@ -133,7 +135,9 @@
               <div class="font-weight-semibold">Email</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>HTX.BenTre@gmail.com</div>
+              <div>
+                {{ artisanStore.artisan.email || "HTX.BenTre@gmail.com " }}
+              </div>
             </v-col>
           </v-row>
         </div>
@@ -141,8 +145,14 @@
           <!-- <div v-if="artisanStore.slicedProducts.length > 0"> -->
           <div>
             <v-row class="mt-4">
-              <v-col v-for="i in 6" :key="i" cols="12" sm="6" md="3">
-                <ProductCard :product="artisanStore.artisan"></ProductCard>
+              <v-col
+                v-for="product in artisanStore.slicedProducts"
+                :key="product.id"
+                cols="12"
+                sm="6"
+                md="3"
+              >
+                <ProductCard :product="product"></ProductCard>
               </v-col>
             </v-row>
 
@@ -226,9 +236,9 @@ export default {
   computed: {
     ...mapStores(artisanStore),
     artisanImage() {
-      if (!this.artisanStore.artisan || !this.artisanStore.artisan.images)
+      if (!this.artisanStore.artisan || !this.artisanStore.artisan.thumbnail)
         return require("@/assets/no-image.png");
-      return this.artisanStore.artisan.images;
+      return this.artisanStore.artisan.thumbnail;
     },
     artisanCertificationImage() {
       if (
@@ -247,9 +257,9 @@ export default {
       return this.artisanStore.artisan.accreditationImages;
     },
     artisanQRImage() {
-      if (!this.artisanStore.artisan || !this.artisanStore.artisan.qrCodeImage)
+      if (!this.artisanStore.artisan || !this.artisanStore.artisan.qrCode)
         return require("@/assets/qrcode-example.png");
-      return this.artisanStore.artisan.qrCodeImage;
+      return this.artisanStore.artisan.qrCode;
     },
   },
   data() {

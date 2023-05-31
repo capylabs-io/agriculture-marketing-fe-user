@@ -19,9 +19,9 @@
 export default {
   computed: {
     artisanImage() {
-      if (!this.artisan || !this.artisan.images)
+      if (!this.artisan || !this.artisan.thumbnail)
         return require("@/assets/no-image.png");
-      return this.artisan.images;
+      return this.artisan.thumbnail;
     },
   },
   props: {

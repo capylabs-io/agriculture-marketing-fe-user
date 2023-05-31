@@ -155,6 +155,7 @@ export const supplyStore = defineStore("supply", {
       try {
         loading.show();
         const res = await Supply.fetch({
+          sort: "updatedAt:desc",
           populate: "*",
         });
         if (!res) {
