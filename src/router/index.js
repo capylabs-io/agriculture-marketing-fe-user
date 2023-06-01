@@ -136,8 +136,8 @@ const routes = [
   },
   {
     path: "/tim-kiem",
-    name: "Search All",
-    component: () => import("../views/search/pages/search.vue"),
+    name: "Search Code",
+    component: () => import("../views/searchCode/pages/searchCode.vue"),
   },
 ];
 

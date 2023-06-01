@@ -35,6 +35,7 @@
             class="full-width border-radius-12 mt-8"
             height="56"
             placeholder="Nhập mã truy xuất"
+            v-model="searchCode"
             flat
             solo
             outlined
@@ -43,13 +44,14 @@
           >
             <template v-slot:append>
               <div
-                class="btn-search d-flex flex-column align-center justify-center mr-n2"
+                @click="goToSearch"
+                class="btn-search d-flex flex-column align-center justify-center mr-n2 cursor-pointer"
               >
                 <v-icon dark>mdi-magnify</v-icon>
               </div>
             </template>
           </v-text-field>
-          <v-radio-group
+          <!-- <v-radio-group
             :row="$vuetify.breakpoint.mdAndUp"
             mandatory
             hide-details
@@ -70,7 +72,7 @@
                 </div>
               </template>
             </v-radio>
-          </v-radio-group>
+          </v-radio-group> -->
         </div>
       </v-col>
       <v-col
@@ -87,11 +89,32 @@
     </v-row>
   </div>
 </template>
-  
-  <script>
-export default {};
+
+<script>
+import { mapStores } from "pinia";
+import { searchCodeStore } from "@/views/searchCode/stores/searchCode-Store";
+export default {
+  computed: {
+    ...mapStores(searchCodeStore),
+  },
+  data() {
+    return {
+      data: "",
+      searchCode: "",
+    };
+  },
+  methods: {
+   
+    goToSearch() {
+      this.$router.push({
+        path: "/tim-kiem",
+        query: { code: this.searchCode },
+      });
+    },
+  },
+};
 </script>
-  
+
 <style scoped>
 .search-section {
   background: url("@/assets/components/home/search-bg.png");
@@ -111,4 +134,3 @@ export default {};
   border-radius: 10px;
 }
 </style>
-  
