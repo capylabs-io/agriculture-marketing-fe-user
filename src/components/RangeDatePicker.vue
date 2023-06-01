@@ -4,7 +4,7 @@
     ref="menu"
     v-model="menu"
     :close-on-content-click="false"
-    :return-value.sync="date"
+    :return-value.sync="documentStore.datePicker"
     transition="scale-transition"
     offset-y
     min-width="auto"
@@ -53,7 +53,11 @@ export default {
   computed: {
     ...mapStores(documentStore),
     formattedDate() {
-      if (!this.documentStore.datePicker || this.documentStore.datePicker.length == 0) return;
+      if (
+        !this.documentStore.datePicker ||
+        this.documentStore.datePicker.length == 0
+      )
+        return;
       return (
         moment.utc(this.documentStore.datePicker[0]).format("DD/MM/YYYY") +
         "-" +
@@ -95,8 +99,14 @@ export default {
       }
       this.$refs.menu.save(this.documentStore.datePicker);
       this.$emit("change", [
-        moment.utc(this.documentStore.datePicker[0], "YYYY-MM-DD").startOf("day").toISOString(),
-        moment.utc(this.documentStore.datePicker[1], "YYYY-MM-DD").endOf("day").toISOString(),
+        moment
+          .utc(this.documentStore.datePicker[0], "YYYY-MM-DD")
+          .startOf("day")
+          .toISOString(),
+        moment
+          .utc(this.documentStore.datePicker[1], "YYYY-MM-DD")
+          .endOf("day")
+          .toISOString(),
       ]);
       this.menu = false;
     },

@@ -105,39 +105,6 @@ export default {
       currentTab: 1,
       rules: rules,
       isShow: true,
-      isShowPass: false,
-      items: [
-        {
-          code: "1505/QĐ-BKHCN",
-          publishedAt: "19/04/2023",
-          title:
-            "Quyết định ban hành quy trình dịch vụ sự nghiệp công sử dụng ngân sách nhà nước về thông tin, tuyên truyền trong lĩnh vực tiêu chuẩn đo lường chất lượng",
-        },
-        {
-          code: "1505/QĐ-BKHCN",
-          publishedAt: "19/04/2023",
-          title:
-            "Quyết định ban hành quy trình dịch vụ sự nghiệp công sử dụng ngân sách nhà nước về thông tin, tuyên truyền trong lĩnh vực tiêu chuẩn đo lường chất lượng",
-        },
-        {
-          code: "1505/QĐ-BKHCN",
-          publishedAt: "19/04/2023",
-          title:
-            "Quyết định ban hành quy trình dịch vụ sự nghiệp công sử dụng ngân sách nhà nước về thông tin, tuyên truyền trong lĩnh vực tiêu chuẩn đo lường chất lượng",
-        },
-        {
-          code: "1505/QĐ-BKHCN",
-          publishedAt: "19/04/2023",
-          title:
-            "Quyết định ban hành quy trình dịch vụ sự nghiệp công sử dụng ngân sách nhà nước về thông tin, tuyên truyền trong lĩnh vực tiêu chuẩn đo lường chất lượng",
-        },
-        {
-          code: "1505/QĐ-BKHCN",
-          publishedAt: "19/04/2023",
-          title:
-            "Quyết định ban hành quy trình dịch vụ sự nghiệp công sử dụng ngân sách nhà nước về thông tin, tuyên truyền trong lĩnh vực tiêu chuẩn đo lường chất lượng",
-        },
-      ],
       headers: [
         {
           text: "Số/Ký hiệu",
@@ -214,7 +181,7 @@ export default {
   border-radius: 100px;
 }
 .expansion-header {
-  width: 180px;
+  max-width: 240px;
 }
 .expansion-content {
   max-width: 700px !important;
