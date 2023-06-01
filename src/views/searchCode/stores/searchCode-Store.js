@@ -13,7 +13,7 @@ import {
   Product,
   Seed,
   Supply,
-  Document
+  Document,
 } from "@/plugins/api";
 
 export const searchCodeStore = defineStore("searchCode", {
@@ -119,14 +119,27 @@ export const searchCodeStore = defineStore("searchCode", {
         loading.show();
         const [productRes, supplyRes, seedlingRes] = await Promise.all([
           Product.fetch({
+            filters: {
+              status: "publish",
+            },
             sort: "updatedAt:desc",
+
             populate: "*",
           }),
           Supply.fetch({
+            filters: {
+              status: "publish",
+            },
             sort: "updatedAt:desc",
             populate: "*",
           }),
-          Seed.fetch({ sort: "updatedAt:desc", populate: "*" }),
+          Seed.fetch({
+            filters: {
+              status: "publish",
+            },
+            sort: "updatedAt:desc",
+            populate: "*",
+          }),
         ]);
 
         console.log(code);
@@ -136,7 +149,7 @@ export const searchCodeStore = defineStore("searchCode", {
 
         if (!products && products.length == 0) return;
         const mappedProducts = products
-          .filter((product) => product.attributes.status == "publish")
+
           .filter((product) =>
             product.attributes.code
               .toLowerCase()
@@ -155,7 +168,7 @@ export const searchCodeStore = defineStore("searchCode", {
 
         if (!supplies && supplies.length == 0) return;
         const mappedSupplies = supplies
-          .filter((supply) => supply.attributes.status == "publish")
+
           .filter((supply) =>
             supply.attributes.code
               .toLowerCase()
@@ -174,7 +187,6 @@ export const searchCodeStore = defineStore("searchCode", {
 
         if (!seeds && seeds.length == 0) return;
         const mappedSeeds = seeds
-          .filter((seed) => seed.attributes.status == "publish")
           .filter((seed) =>
             seed.attributes.code
               .toLowerCase()
@@ -210,6 +222,9 @@ export const searchCodeStore = defineStore("searchCode", {
         switch (this.searchSelection) {
           case "product": {
             res = await Product.fetch({
+              filters: {
+                status: "publish",
+              },
               sort: "updatedAt:desc",
               populate: "*",
             });
@@ -217,7 +232,6 @@ export const searchCodeStore = defineStore("searchCode", {
 
             if (!products && products.length == 0) return;
             const mappedProducts = products
-              .filter((product) => product.attributes.status == "publish")
               .filter((seed) =>
                 seed.attributes.code
                   .toLowerCase()
@@ -243,13 +257,16 @@ export const searchCodeStore = defineStore("searchCode", {
           }
           case "seed": {
             res = await Seed.fetch({
+              filters: {
+                status: "publish",
+              },
               sort: "updatedAt:desc",
               populate: "*",
             });
             const seeds = get(res, "data.data", []);
             if (!seeds && seeds.length == 0) return;
             const mappedSeeds = seeds
-              .filter((seed) => seed.attributes.status == "publish")
+
               .filter((seed) =>
                 seed.attributes.code
                   .toLowerCase()
@@ -275,13 +292,16 @@ export const searchCodeStore = defineStore("searchCode", {
           }
           case "supply": {
             res = await Supply.fetch({
+              filters: {
+                status: "publish",
+              },
               sort: "updatedAt:desc",
               populate: "*",
             });
             const supplies = get(res, "data.data", []);
             if (!supplies && supplies.length == 0) return;
             const mappedSupplies = supplies
-              .filter((supply) => supply.attributes.status == "publish")
+
               .filter((seed) =>
                 seed.attributes.code
                   .toLowerCase()
@@ -435,13 +455,15 @@ export const searchCodeStore = defineStore("searchCode", {
           }
           case "new": {
             res = await Post.fetch({
+              filters: {
+                status: "publish",
+              },
               sort: "updatedAt:desc",
               populate: "*",
             });
             const posts = get(res, "data.data", []);
             if (!posts && posts.length == 0) return;
             const mappedPosts = posts
-              .filter((post) => post.attributes.status == "publish")
               .filter((post) =>
                 post.attributes.title
                   .toLowerCase()
