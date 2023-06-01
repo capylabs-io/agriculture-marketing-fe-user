@@ -4,9 +4,7 @@
     <div class="page-container mx-auto py-12 px-8">
       <div class="text-center">
         <div class="text-dp-md font-weight-semibold">Thư viện Video</div>
-        <div class="text-lg mt-2">
-          Giải đáp các thắc mắc thường gặp của người dân
-        </div>
+        <div class="text-lg mt-2">Tổng hợp video của các sự kiện mới nhất</div>
       </div>
 
       <div

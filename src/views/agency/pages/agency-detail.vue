@@ -138,7 +138,11 @@
               <div class="font-weight-semibold">Loại hình</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div></div>
+              <div>
+                {{
+                  agencyStore.agency.agencyCategory || "Hợp tác xã trồng trọt"
+                }}
+              </div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>

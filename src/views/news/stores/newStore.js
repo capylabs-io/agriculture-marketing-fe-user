@@ -143,6 +143,7 @@ export const newStore = defineStore("new", {
               },
             },
           },
+          sort: "updatedAt:desc",
           populate: "*",
         });
         if (!res) {

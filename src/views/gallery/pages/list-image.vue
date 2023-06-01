@@ -5,7 +5,7 @@
       <div class="text-center">
         <div class="text-dp-md font-weight-semibold">Thư viện Ảnh</div>
         <div class="text-lg mt-2">
-          Giải đáp các thắc mắc thường gặp của người dân
+          Tổng hợp hình ảnh của các sự kiện mới nhất
         </div>
       </div>
       <div class="mt-13">
@@ -208,7 +208,11 @@ export default {
     };
   },
   async created() {
-    await this.galleryStore.fetchPosts();
+    await this.galleryStore.fetchPosts({
+      filters: {
+        postCategory: 4,
+      },
+    });
   },
   methods: {
     setCurrentTab(index) {

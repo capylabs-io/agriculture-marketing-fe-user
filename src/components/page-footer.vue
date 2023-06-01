@@ -38,17 +38,16 @@
       }"
     >
       <div>
-        <div
-          class="d-flex"
-          :class="{ 'align-center': $vuetify.breakpoint.smAndDown }"
-        >
+        <div class="d-flex align-center">
           <v-img
             :src="require('@/assets/components/home/gov-logo.png')"
             max-height="64px"
             max-width="64px"
           ></v-img>
           <div class="text-uppercase font-weight-bold text-lg ml-4">
-            Truy xuất nguồn gốc cây cảnh Bến Tre
+            Trung tâm truy xuất nguồn gốc
+            <br v-if="$vuetify.breakpoint.mdAndUp" />
+            cây và hoa cảnh tỉnh Bến Tre
           </div>
         </div>
         <div class="mt-6">

@@ -110,6 +110,7 @@ export const galleryStore = defineStore("gallery", {
         loading.show();
         const res = await Post.fetch({
           ...params,
+          sort: "updatedAt:desc",
           populate: "*",
         });
         if (!res) {
