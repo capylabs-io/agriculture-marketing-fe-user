@@ -10,8 +10,9 @@
         <v-text-field
           class="border-radius-8 border-neutral20 full-width mt-6 search-question mx-auto"
           placeholder="Tìm kiếm theo từ khóa"
-          flat
           v-model="searchCodeStore.searchCode"
+          clearable
+          flat
           solo
           outlined
           hide-details
@@ -27,27 +28,21 @@
         >
       </div>
     </div>
-    <div class="expansion-content-form mx-auto mt-5">
-      <v-form>
-        <v-row class="full">
-          <v-col cols="12" md="6">
-            <div class="font-weight-semibold mb-2 text-left">Loại</div>
-            <v-select
-              class="border-radius-8"
-              :rules="[$rules.required]"
-              v-model="searchCodeStore.searchSelection"
-              :items="searchSelection"
-              item-text="name"
-              item-value="value"
-              placeholder="chọn loại"
-              flat
-              solo
-              outlined
-              dense
-            ></v-select>
-          </v-col>
-        </v-row>
-      </v-form>
+    <div class="mx-auto mt-5 search-category">
+      <div class="font-weight-semibold mb-2 text-left">Danh mục</div>
+      <v-select
+        class="border-radius-8"
+        v-model="searchCodeStore.searchSelection"
+        :rules="[$rules.required]"
+        :items="searchSelection"
+        item-text="name"
+        item-value="value"
+        placeholder="chọn loại"
+        flat
+        solo
+        outlined
+        dense
+      ></v-select>
     </div>
     <v-divider class="mt-12"></v-divider>
 
@@ -64,7 +59,7 @@
           {{ searchCodeStore.products.length || "0" }}
         </span>
         kết quả cho từ khoá
-        <span class="primary--text"> "{{ showCode }}" </span>
+        <span class="primary--text"> "{{ searchCodeStore.searchCode }}" </span>
       </div>
       <div v-if="searchCodeStore.products.length > 0">
         <div class="mt-3">
@@ -121,7 +116,7 @@
           {{ searchCodeStore.seeds.length || "0" }}
         </span>
         kết quả cho từ khoá
-        <span class="primary--text"> "{{ showCode }}" </span>
+        <span class="primary--text"> "{{ searchCodeStore.searchCode }}" </span>
       </div>
       <div v-if="searchCodeStore.seeds.length > 0">
         <div class="mt-3">
@@ -178,7 +173,7 @@
           {{ searchCodeStore.supplies.length || "0" }}
         </span>
         kết quả cho từ khoá
-        <span class="primary--text"> "{{ showCode }}" </span>
+        <span class="primary--text"> "{{ searchCodeStore.searchCode }}" </span>
       </div>
       <div v-if="searchCodeStore.supplies.length > 0">
         <div class="mt-3">
@@ -234,7 +229,7 @@
           {{ searchCodeStore.artisans.length || "0" }}
         </span>
         kết quả cho từ khoá
-        <span class="primary--text"> "{{ showCode }}" </span>
+        <span class="primary--text"> "{{ searchCodeStore.searchCode }}" </span>
       </div>
       <div v-if="searchCodeStore.artisans.length > 0">
         <div class="mt-3">
@@ -291,7 +286,7 @@
           {{ searchCodeStore.regions.length || "0" }}
         </span>
         kết quả cho từ khoá
-        <span class="primary--text"> "{{ showCode }}" </span>
+        <span class="primary--text"> "{{ searchCodeStore.searchCode }}" </span>
       </div>
       <div v-if="searchCodeStore.regions.length > 0">
         <div class="mt-3">
@@ -348,7 +343,7 @@
           {{ searchCodeStore.htxs.length || "0" }}
         </span>
         kết quả cho từ khoá
-        <span class="primary--text"> "{{ showCode }}" </span>
+        <span class="primary--text"> "{{ searchCodeStore.searchCode }}" </span>
       </div>
       <div v-if="searchCodeStore.htxs.length > 0">
         <div class="mt-3">
@@ -404,7 +399,7 @@
           {{ searchCodeStore.agencys.length || "0" }}
         </span>
         kết quả cho từ khoá
-        <span class="primary--text"> "{{ showCode }}" </span>
+        <span class="primary--text"> "{{ searchCodeStore.searchCode }}" </span>
       </div>
       <div v-if="searchCodeStore.agencys.length > 0">
         <div class="mt-3">
@@ -460,7 +455,7 @@
           {{ searchCodeStore.posts.length || "0" }}
         </span>
         kết quả cho từ khoá
-        <span class="primary--text"> "{{ showCode }}" </span>
+        <span class="primary--text"> "{{ searchCodeStore.searchCode }}" </span>
       </div>
       <div v-if="searchCodeStore.posts.length > 0">
         <div class="mt-3">
@@ -477,7 +472,8 @@
               md="12"
               xl="12"
             >
-              <newCard :post="result" />
+              <newCard :post="result" v-if="$vuetify.breakpoint.smAndDown" />
+              <newRow :post="result" v-else />
               <v-divider
                 v-if="
                   index !=
@@ -525,7 +521,7 @@
           {{ searchCodeStore.documents.length || "0" }}
         </span>
         kết quả cho từ khoá
-        <span class="primary--text"> "{{ showCode }}" </span>
+        <span class="primary--text"> "{{ searchCodeStore.searchCode }}" </span>
       </div>
       <div v-if="searchCodeStore.documents.length > 0">
         <div class="mt-3">
@@ -594,7 +590,7 @@
           {{ searchCodeStore.faqs.length || "0" }}
         </span>
         kết quả cho từ khoá
-        <span class="primary--text"> "{{ showCode }}" </span>
+        <span class="primary--text"> "{{ searchCodeStore.searchCode }}" </span>
       </div>
       <div v-if="searchCodeStore.faqs.length > 0">
         <div class="mt-3">
@@ -692,7 +688,8 @@ export default {
     regionCard: () => import("@/views/region/components/region-card.vue"),
     htxCard: () => import("@/views/htx/components/htx-card.vue"),
     agencyCard: () => import("@/views/agency/components/agency-card.vue"),
-    newCard: () => import("@/views/news/components/news-row.vue"),
+    newRow: () => import("@/views/news/components/news-row.vue"),
+    newCard: () => import("@/views/news/components/news-card.vue"),
     documentCard: () => import("@/views/document/components/documents-row.vue"),
     faqCard: () => import("@/views/faq/components/faq-row.vue"),
   },
@@ -701,7 +698,6 @@ export default {
       rules: rules,
       isShow: true,
       isShowPass: false,
-      showCode: "",
       searchSelection: [
         {
           value: "product",
@@ -746,24 +742,9 @@ export default {
       ],
     };
   },
-  // watch: {
-  //   $route: {
-  //     async handler() {
-  //       this.showCode = this.searchCodeStore.searchCode;
-  //       await this.searchCodeStore.fetchsearchAll(this.showCode);
-  //     },
-  //     deep: true,
-  //     immediate: true,
-  //   },
-  // },
-  created() {
-    this.showCode = this.searchCodeStore.searchCode;
-    this.searchCodeStore.fetchsearchAll(this.showCode);
-  },
   methods: {
     onClickSearchCode() {
-      this.showCode = this.searchCodeStore.searchCode;
-      this.searchCodeStore.fetchsearchAll(this.searchCodeStore.searchCode);
+      this.searchCodeStore.fetchSearchAll();
     },
   },
 };
@@ -774,8 +755,11 @@ export default {
   background-color: var(--v-primary20-base);
 }
 .search-question {
-  width: 700px !important;
+  max-width: 700px !important;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05), 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+.search-category {
+  max-width: 700px !important;
 }
 .append-btn {
   height: 100%;
