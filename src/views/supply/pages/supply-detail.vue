@@ -256,6 +256,12 @@ export default {
       return this.supplyStore.supply.qrCodeImage;
     },
   },
+  methods: {
+    relationImage(image) {
+      if (!image) return require("@/assets/no-image.png");
+      return image;
+    },
+  },
   data() {
     return {
       currentTab: 0,

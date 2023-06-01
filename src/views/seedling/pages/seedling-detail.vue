@@ -399,6 +399,12 @@ export default {
       currentTab: 0,
     };
   },
+  methods: {
+    relationImage(image) {
+      if (!image) return require("@/assets/no-image.png");
+      return image;
+    },
+  },
   async created() {
     const code = this.$route.params.code;
     await this.seedStore.fetchSeed(code);
