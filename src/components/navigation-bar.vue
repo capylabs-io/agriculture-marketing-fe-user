@@ -260,8 +260,8 @@ export default {
     goToSearch() {
       this.$router.push({
         path: "/tim-kiem-tat-ca",
-        query: { code: this.searchCode },
       });
+      this.searchCodeStore.searchCode = this.searchCode;
       this.searchCode = "";
     },
     goToLogin() {

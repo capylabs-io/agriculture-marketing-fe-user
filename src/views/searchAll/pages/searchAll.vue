@@ -49,9 +49,9 @@
         </v-row>
       </v-form>
     </div>
-    <v-divider class="mt-8"></v-divider>
+    <v-divider class="mt-12"></v-divider>
 
-    <div class="mt-8" v-if="searchCodeStore.searchSelection == 'product'">
+    <div class="mt-12" v-if="searchCodeStore.searchSelection == 'product'">
       <div
         class="text-xl font-weight-semibold"
         :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
@@ -108,7 +108,7 @@
         ></v-img>
       </div>
     </div>
-    <div class="mt-8" v-if="searchCodeStore.searchSelection == 'seed'">
+    <div class="mt-12" v-if="searchCodeStore.searchSelection == 'seed'">
       <div
         class="text-xl font-weight-semibold"
         :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
@@ -165,7 +165,7 @@
         ></v-img>
       </div>
     </div>
-    <div class="mt-8" v-if="searchCodeStore.searchSelection == 'supply'">
+    <div class="mt-12" v-if="searchCodeStore.searchSelection == 'supply'">
       <div
         class="text-xl font-weight-semibold"
         :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
@@ -221,7 +221,7 @@
         ></v-img>
       </div>
     </div>
-    <div class="mt-8" v-if="searchCodeStore.searchSelection == 'artisan'">
+    <div class="mt-12" v-if="searchCodeStore.searchSelection == 'artisan'">
       <div
         class="text-xl font-weight-semibold"
         :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
@@ -278,7 +278,7 @@
         ></v-img>
       </div>
     </div>
-    <div class="mt-8" v-if="searchCodeStore.searchSelection == 'region'">
+    <div class="mt-12" v-if="searchCodeStore.searchSelection == 'region'">
       <div
         class="text-xl font-weight-semibold"
         :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
@@ -335,7 +335,7 @@
         ></v-img>
       </div>
     </div>
-    <div class="mt-8" v-if="searchCodeStore.searchSelection == 'htx'">
+    <div class="mt-12" v-if="searchCodeStore.searchSelection == 'htx'">
       <div
         class="text-xl font-weight-semibold"
         :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
@@ -391,7 +391,7 @@
         ></v-img>
       </div>
     </div>
-    <div class="mt-8" v-if="searchCodeStore.searchSelection == 'agency'">
+    <div class="mt-12" v-if="searchCodeStore.searchSelection == 'agency'">
       <div
         class="text-xl font-weight-semibold"
         :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
@@ -447,6 +447,205 @@
         ></v-img>
       </div>
     </div>
+    <div class="mt-12" v-if="searchCodeStore.searchSelection == 'new'">
+      <div
+        class="text-xl font-weight-semibold"
+        :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
+      >
+        KẾT QUẢ TÌM KIẾM
+      </div>
+      <div class="text-md mt-2">
+        Có
+        <span class="primary--text">
+          {{ searchCodeStore.posts.length || "0" }}
+        </span>
+        kết quả cho từ khoá
+        <span class="primary--text"> "{{ showCode }}" </span>
+      </div>
+      <div v-if="searchCodeStore.posts.length > 0">
+        <div class="mt-3">
+          <v-row>
+            <v-col
+              class="align-self-scretch"
+              v-for="(result, index) in searchCodeStore.slicedsearchAll(
+                searchCodeStore.posts,
+                1,
+                12
+              )"
+              :key="index"
+              cols="12"
+              md="12"
+              xl="12"
+            >
+              <newCard :post="result" />
+              <v-divider
+                v-if="
+                  index !=
+                  searchCodeStore.slicedsearchAll(searchCodeStore.posts, 1, 12)
+                    .length -
+                    1
+                "
+                class="mt-6"
+              ></v-divider>
+            </v-col>
+          </v-row>
+        </div>
+        <div class="mt-4">
+          <v-pagination
+            color="primary"
+            :length="
+              searchCodeStore.totalsearchAllPage(searchCodeStore.posts, 12)
+            "
+            :value="1"
+          ></v-pagination>
+        </div>
+      </div>
+      <div
+        class="d-flex flex-column align-center justify-center mt-12"
+        v-if="searchCodeStore.posts.length <= 0"
+      >
+        <v-img
+          max-width="240px"
+          height="250px"
+          :src="require('@/assets/search-not-found.png')"
+          cover
+        ></v-img>
+      </div>
+    </div>
+    <div class="mt-12" v-if="searchCodeStore.searchSelection == 'document'">
+      <div
+        class="text-xl font-weight-semibold"
+        :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
+      >
+        KẾT QUẢ TÌM KIẾM
+      </div>
+      <div class="text-md mt-2">
+        Có
+        <span class="primary--text">
+          {{ searchCodeStore.documents.length || "0" }}
+        </span>
+        kết quả cho từ khoá
+        <span class="primary--text"> "{{ showCode }}" </span>
+      </div>
+      <div v-if="searchCodeStore.documents.length > 0">
+        <div class="mt-3">
+          <v-row>
+            <v-col
+              class="align-self-scretch"
+              v-for="(result, index) in searchCodeStore.slicedsearchAll(
+                searchCodeStore.documents,
+                1,
+                12
+              )"
+              :key="index"
+              cols="12"
+              md="12"
+              xl="12"
+            >
+              <documentCard :document="result" />
+              <v-divider
+                v-if="
+                  index !=
+                  searchCodeStore.slicedsearchAll(
+                    searchCodeStore.documents,
+                    1,
+                    12
+                  ).length -
+                    1
+                "
+                class="mt-6"
+              ></v-divider>
+            </v-col>
+          </v-row>
+        </div>
+        <div class="mt-4">
+          <v-pagination
+            color="primary"
+            :length="
+              searchCodeStore.totalsearchAllPage(searchCodeStore.documents, 12)
+            "
+            :value="1"
+          ></v-pagination>
+        </div>
+      </div>
+      <div
+        class="d-flex flex-column align-center justify-center mt-12"
+        v-if="searchCodeStore.documents.length <= 0"
+      >
+        <v-img
+          max-width="240px"
+          height="250px"
+          :src="require('@/assets/search-not-found.png')"
+          cover
+        ></v-img>
+      </div>
+    </div>
+
+    <div class="mt-12" v-if="searchCodeStore.searchSelection == 'faq'">
+      <div
+        class="text-xl font-weight-semibold"
+        :class="{ 'text-center': $vuetify.breakpoint.smAndDown }"
+      >
+        KẾT QUẢ TÌM KIẾM
+      </div>
+      <div class="text-md mt-2">
+        Có
+        <span class="primary--text">
+          {{ searchCodeStore.faqs.length || "0" }}
+        </span>
+        kết quả cho từ khoá
+        <span class="primary--text"> "{{ showCode }}" </span>
+      </div>
+      <div v-if="searchCodeStore.faqs.length > 0">
+        <div class="mt-3">
+          <v-row>
+            <v-col
+              class="align-self-scretch"
+              v-for="(result, index) in searchCodeStore.slicedsearchAll(
+                searchCodeStore.faqs,
+                1,
+                12
+              )"
+              :key="index"
+              cols="12"
+              md="12"
+              xl="12"
+            >
+              <faqCard :faq="result" />
+              <v-divider
+                v-if="
+                  index !=
+                  searchCodeStore.slicedsearchAll(searchCodeStore.faqs, 1, 12)
+                    .length -
+                    1
+                "
+                class="mt-6"
+              ></v-divider>
+            </v-col>
+          </v-row>
+        </div>
+        <div class="mt-4">
+          <v-pagination
+            color="primary"
+            :length="
+              searchCodeStore.totalsearchAllPage(searchCodeStore.faqs, 12)
+            "
+            :value="1"
+          ></v-pagination>
+        </div>
+      </div>
+      <div
+        class="d-flex flex-column align-center justify-center mt-12"
+        v-if="searchCodeStore.documents.length <= 0"
+      >
+        <v-img
+          max-width="240px"
+          height="250px"
+          :src="require('@/assets/search-not-found.png')"
+          cover
+        ></v-img>
+      </div>
+    </div>
     <div
       class="question-banner d-flex flex-column justify-center align-center text-center mb-16 mt-16"
     >
@@ -457,13 +656,13 @@
         class="mt-6 image-banner"
       >
       </v-img>
-      <div class="text-xl font-weight-medium mt-8">
+      <div class="text-xl font-weight-medium mt-12">
         Không tìm được câu hỏi phù hợp?
       </div>
       <div class="text-md mt-2">
         Nếu như vẫn còn thắc mắc cần được giải đáp, hãy liên hệ với chúng tôi
       </div>
-      <v-btn class="border-radius-6 mt-8 text-none" color="primary" depressed>
+      <v-btn class="border-radius-6 mt-12 text-none" color="primary" depressed>
         Liên hệ ngay
       </v-btn>
     </div>
@@ -493,6 +692,9 @@ export default {
     regionCard: () => import("@/views/region/components/region-card.vue"),
     htxCard: () => import("@/views/htx/components/htx-card.vue"),
     agencyCard: () => import("@/views/agency/components/agency-card.vue"),
+    newCard: () => import("@/views/news/components/news-row.vue"),
+    documentCard: () => import("@/views/document/components/documents-row.vue"),
+    faqCard: () => import("@/views/faq/components/faq-row.vue"),
   },
   data() {
     return {
@@ -529,22 +731,38 @@ export default {
           value: "agency",
           name: "Đại lý",
         },
+        {
+          value: "new",
+          name: "Tin tức",
+        },
+        {
+          value: "document",
+          name: "Tài liệu",
+        },
+        {
+          value: "faq",
+          name: "FAQ",
+        },
       ],
     };
   },
-
+  // watch: {
+  //   $route: {
+  //     async handler() {
+  //       this.showCode = this.searchCodeStore.searchCode;
+  //       await this.searchCodeStore.fetchsearchAll(this.showCode);
+  //     },
+  //     deep: true,
+  //     immediate: true,
+  //   },
+  // },
   created() {
-    const code = this.$route.query.code;
-    this.searchCodeStore.searchCode = code;
-    this.showCode = code;
-    this.searchCodeStore.fetchsearchAll(code);
+    this.showCode = this.searchCodeStore.searchCode;
+    this.searchCodeStore.fetchsearchAll(this.showCode);
   },
   methods: {
     onClickSearchCode() {
       this.showCode = this.searchCodeStore.searchCode;
-      this.$router.replace({
-        query: { code: this.searchCodeStore.searchCode },
-      });
       this.searchCodeStore.fetchsearchAll(this.searchCodeStore.searchCode);
     },
   },

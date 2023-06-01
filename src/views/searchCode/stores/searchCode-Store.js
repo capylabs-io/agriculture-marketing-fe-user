@@ -8,9 +8,12 @@ import {
   Area,
   Artisan,
   Cooperative,
+  FAQ,
+  Post,
   Product,
   Seed,
   Supply,
+  Document
 } from "@/plugins/api";
 
 export const searchCodeStore = defineStore("searchCode", {
@@ -19,7 +22,7 @@ export const searchCodeStore = defineStore("searchCode", {
     searchResultsPage: 1,
     searchResultsPerPage: 12,
     categories: [],
-    searchSelection: "",
+    searchSelection: "product",
     searchKey: "",
     ////////////////////////// SEARCH-ALL
     products: [],
@@ -29,6 +32,9 @@ export const searchCodeStore = defineStore("searchCode", {
     regions: [],
     htxs: [],
     agencys: [],
+    posts: [],
+    documents: [],
+    faqs: [],
     //////////////////////
 
     filterCategory: [],
@@ -194,200 +200,355 @@ export const searchCodeStore = defineStore("searchCode", {
         loading.hide();
       }
     },
+
+    ///////////////////////////////
     async fetchsearchAll(code) {
       try {
         loading.show();
-        const [
-          productRes,
-          supplyRes,
-          seedlingRes,
-          artisanRes,
-          regionRes,
-          htxRes,
-          agencyRes,
-        ] = await Promise.all([
-          Product.fetch({
-            sort: "updatedAt:desc",
-            populate: "*",
-          }),
-          Supply.fetch({
-            sort: "updatedAt:desc",
-            populate: "*",
-          }),
-          Seed.fetch({ sort: "updatedAt:desc", populate: "*" }),
-          Artisan.fetch({ sort: "updatedAt:desc", populate: "*" }),
-          Area.fetch({ sort: "updatedAt:desc", populate: "*" }),
-          Cooperative.fetch({ sort: "updatedAt:desc", populate: "*" }),
-          Agency.fetch({ sort: "updatedAt:desc", populate: "*" }),
-        ]);
+        let res = [];
+        if (!this.searchSelection) return;
+        switch (this.searchSelection) {
+          case "product": {
+            res = await Product.fetch({
+              sort: "updatedAt:desc",
+              populate: "*",
+            });
+            const products = get(res, "data.data", []);
 
-        console.log(code);
-        const products = get(productRes, "data.data", []);
-        const supplies = get(supplyRes, "data.data", []);
-        const seeds = get(seedlingRes, "data.data", []);
-        const artisans = get(artisanRes, "data.data", []);
-        const regions = get(regionRes, "data.data", []);
-        const htxs = get(htxRes, "data.data", []);
-        const agencys = get(agencyRes, "data.data", []);
+            if (!products && products.length == 0) return;
+            const mappedProducts = products
+              .filter((product) => product.attributes.status == "publish")
+              .filter((seed) =>
+                seed.attributes.code
+                  .toLowerCase()
+                  .includes(code.trim().toLowerCase())
+              )
+              .map((product) => {
+                return {
+                  id: product.id,
+                  ...product.attributes,
+                  productCategory: {
+                    id: get(product, "attributes.productCategory.data.id", -1),
+                    ...get(
+                      product,
+                      "attributes.productCategory.data.attributes",
+                      {}
+                    ),
+                  },
+                  author: get(product, "attributes.user.data.attributes", {}),
+                };
+              });
+            this.products = mappedProducts;
+            break;
+          }
+          case "seed": {
+            res = await Seed.fetch({
+              sort: "updatedAt:desc",
+              populate: "*",
+            });
+            const seeds = get(res, "data.data", []);
+            if (!seeds && seeds.length == 0) return;
+            const mappedSeeds = seeds
+              .filter((seed) => seed.attributes.status == "publish")
+              .filter((seed) =>
+                seed.attributes.code
+                  .toLowerCase()
+                  .includes(code.trim().toLowerCase())
+              )
+              .map((seed) => {
+                return {
+                  id: seed.id,
+                  ...seed.attributes,
+                  seedCategory: {
+                    id: get(seed, "attributes.seedlingCategory.data.id", -1),
+                    ...get(
+                      seed,
+                      "attributes.seedlingCategory.data.attributes",
+                      {}
+                    ),
+                  },
+                  author: get(seed, "attributes.user.data.attributes", {}),
+                };
+              });
+            this.seeds = mappedSeeds;
+            break;
+          }
+          case "supply": {
+            res = await Supply.fetch({
+              sort: "updatedAt:desc",
+              populate: "*",
+            });
+            const supplies = get(res, "data.data", []);
+            if (!supplies && supplies.length == 0) return;
+            const mappedSupplies = supplies
+              .filter((supply) => supply.attributes.status == "publish")
+              .filter((seed) =>
+                seed.attributes.code
+                  .toLowerCase()
+                  .includes(code.trim().toLowerCase())
+              )
+              .map((supply) => {
+                return {
+                  id: supply.id,
+                  ...supply.attributes,
+                  supplyCategory: {
+                    id: get(supply, "attributes.supplyCategory.data.id", -1),
+                    ...get(
+                      supply,
+                      "attributes.supplyCategory.data.attributes",
+                      {}
+                    ),
+                  },
+                  author: get(supply, "attributes.user.data.attributes", {}),
+                };
+              });
+            this.supplies = mappedSupplies;
+            break;
+          }
+          case "artisan": {
+            res = await Artisan.fetch({
+              sort: "updatedAt:desc",
+              populate: "*",
+            });
+            const artisans = get(res, "data.data", []);
 
-        /////
-        if (!agencys && agencys.length == 0) return;
-        const mappedAgencies = agencys
-          .filter((seed) =>
-            seed.attributes.code
-              .toLowerCase()
-              .includes(code.trim().toLowerCase())
-          )
-          .map((agency) => {
-            return {
-              id: agency.id,
-              ...agency.attributes,
-              agencyCategory: {
-                id: get(agency, "attributes.storeCategory.data.id", -1),
-                ...get(agency, "attributes.storeCategory.data.attributes", {}),
-              },
-            };
-          });
+            if (!artisans && artisans.length == 0) return;
+            const mappedArtisans = artisans
+              .filter((seed) =>
+                seed.attributes.code
+                  .toLowerCase()
+                  .includes(code.trim().toLowerCase())
+              )
+              .map((artisan) => {
+                return {
+                  id: artisan.id,
+                  ...artisan.attributes,
+                  artisanCategory: {
+                    id: get(artisan, "attributes.artisanCategory.data.id", -1),
+                    ...get(
+                      artisan,
+                      "attributes.artisanCategory.data.attributes",
+                      {}
+                    ),
+                  },
+                };
+              });
 
-        this.agencys = mappedAgencies;
-        ////
-        if (!htxs && htxs.length == 0) return;
-        const mappedHtxs = htxs
-          .filter((seed) =>
-            seed.attributes.code
-              .toLowerCase()
-              .includes(code.trim().toLowerCase())
-          )
-          .map((htx) => {
-            return {
-              id: htx.id,
-              ...htx.attributes,
-              htxCategory: {
-                id: get(htx, "attributes.cooperativeCategory.data.id", -1),
-                ...get(
-                  htx,
-                  "attributes.cooperativeCategory.data.attributes",
-                  {}
-                ),
-              },
-            };
-          });
+            this.artisans = mappedArtisans;
+            break;
+          }
+          case "region": {
+            res = await Area.fetch({
+              sort: "updatedAt:desc",
+              populate: "*",
+            });
+            const regions = get(res, "data.data", []);
+            if (!regions && regions.length == 0) return;
+            const mappedRegions = regions
+              .filter((seed) =>
+                seed.attributes.code
+                  .toLowerCase()
+                  .includes(code.trim().toLowerCase())
+              )
+              .map((region) => {
+                return {
+                  id: region.id,
+                  ...region.attributes,
+                  regionCategory: {
+                    id: get(region, "attributes.areaCategory.data.id", -1),
+                    ...get(
+                      region,
+                      "attributes.areaCategory.data.attributes",
+                      {}
+                    ),
+                  },
+                  author: get(region, "attributes.user.data.attributes", {}),
+                };
+              });
 
-        this.htxs = mappedHtxs;
-        /////
-        if (!regions && regions.length == 0) return;
-        const mappedRegions = regions
-          .filter((seed) =>
-            seed.attributes.code
-              .toLowerCase()
-              .includes(code.trim().toLowerCase())
-          )
-          .map((region) => {
-            return {
-              id: region.id,
-              ...region.attributes,
-              regionCategory: {
-                id: get(region, "attributes.areaCategory.data.id", -1),
-                ...get(region, "attributes.areaCategory.data.attributes", {}),
-              },
-              author: get(region, "attributes.user.data.attributes", {}),
-            };
-          });
+            this.regions = mappedRegions;
+            break;
+          }
 
-        this.regions = mappedRegions;
-        /////
-        if (!artisans && artisans.length == 0) return;
-        const mappedArtisans = artisans
-          .filter((seed) =>
-            seed.attributes.code
-              .toLowerCase()
-              .includes(code.trim().toLowerCase())
-          )
-          .map((artisan) => {
-            return {
-              id: artisan.id,
-              ...artisan.attributes,
-              artisanCategory: {
-                id: get(artisan, "attributes.artisanCategory.data.id", -1),
-                ...get(
-                  artisan,
-                  "attributes.artisanCategory.data.attributes",
-                  {}
-                ),
-              },
-            };
-          });
+          case "htx": {
+            res = await Cooperative.fetch({
+              sort: "updatedAt:desc",
+              populate: "*",
+            });
+            const htxs = get(res, "data.data", []);
 
-        this.artisans = mappedArtisans;
-        //////
-        if (!seeds && seeds.length == 0) return;
-        const mappedSeeds = seeds
-          .filter((seed) => seed.attributes.status == "publish")
-          .filter((seed) =>
-            seed.attributes.code
-              .toLowerCase()
-              .includes(code.trim().toLowerCase())
-          )
-          .map((seed) => {
-            return {
-              id: seed.id,
-              ...seed.attributes,
-              seedCategory: {
-                id: get(seed, "attributes.seedlingCategory.data.id", -1),
-                ...get(seed, "attributes.seedlingCategory.data.attributes", {}),
-              },
-              author: get(seed, "attributes.user.data.attributes", {}),
-            };
-          });
-        this.seeds = mappedSeeds;
-        ////
-        if (!products && products.length == 0) return;
-        const mappedProducts = products
-          .filter((product) => product.attributes.status == "publish")
-          .filter((seed) =>
-            seed.attributes.code
-              .toLowerCase()
-              .includes(code.trim().toLowerCase())
-          )
-          .map((product) => {
-            return {
-              id: product.id,
-              ...product.attributes,
-              productCategory: {
-                id: get(product, "attributes.productCategory.data.id", -1),
-                ...get(
-                  product,
-                  "attributes.productCategory.data.attributes",
-                  {}
-                ),
-              },
-              author: get(product, "attributes.user.data.attributes", {}),
-            };
-          });
-        this.products = mappedProducts;
-        ////////
-        if (!supplies && supplies.length == 0) return;
-        const mappedSupplies = supplies
-          .filter((supply) => supply.attributes.status == "publish")
-          .filter((seed) =>
-            seed.attributes.code
-              .toLowerCase()
-              .includes(code.trim().toLowerCase())
-          )
-          .map((supply) => {
-            return {
-              id: supply.id,
-              ...supply.attributes,
-              supplyCategory: {
-                id: get(supply, "attributes.supplyCategory.data.id", -1),
-                ...get(supply, "attributes.supplyCategory.data.attributes", {}),
-              },
-              author: get(supply, "attributes.user.data.attributes", {}),
-            };
-          });
-        this.supplies = mappedSupplies;
-        //////
-        console.log("Search Result", this.searchResults);
+            if (!htxs && htxs.length == 0) return;
+            const mappedHtxs = htxs
+              .filter((seed) =>
+                seed.attributes.code
+                  .toLowerCase()
+                  .includes(code.trim().toLowerCase())
+              )
+              .map((htx) => {
+                return {
+                  id: htx.id,
+                  ...htx.attributes,
+                  htxCategory: {
+                    id: get(htx, "attributes.cooperativeCategory.data.id", -1),
+                    ...get(
+                      htx,
+                      "attributes.cooperativeCategory.data.attributes",
+                      {}
+                    ),
+                  },
+                };
+              });
+
+            this.htxs = mappedHtxs;
+            break;
+          }
+          case "agency": {
+            res = await Agency.fetch({
+              sort: "updatedAt:desc",
+              populate: "*",
+            });
+            const agencys = get(res, "data.data", []);
+            if (!agencys && agencys.length == 0) return;
+            const mappedAgencies = agencys
+              .filter((seed) =>
+                seed.attributes.code
+                  .toLowerCase()
+                  .includes(code.trim().toLowerCase())
+              )
+              .map((agency) => {
+                return {
+                  id: agency.id,
+                  ...agency.attributes,
+                  agencyCategory: {
+                    id: get(agency, "attributes.storeCategory.data.id", -1),
+                    ...get(
+                      agency,
+                      "attributes.storeCategory.data.attributes",
+                      {}
+                    ),
+                  },
+                };
+              });
+
+            this.agencys = mappedAgencies;
+            break;
+          }
+          case "new": {
+            res = await Post.fetch({
+              sort: "updatedAt:desc",
+              populate: "*",
+            });
+            const posts = get(res, "data.data", []);
+            if (!posts && posts.length == 0) return;
+            const mappedPosts = posts
+              .filter((post) => post.attributes.status == "publish")
+              .filter((post) =>
+                post.attributes.title
+                  .toLowerCase()
+                  .includes(code.trim().toLowerCase())
+              )
+              .map((post) => {
+                return {
+                  id: post.id,
+                  ...post.attributes,
+                  newsCategory: {
+                    id: get(post, "attributes.postCategory.data.id", -1),
+                    ...get(post, "attributes.postCategory.data.attributes", {}),
+                  },
+                  author: get(
+                    post,
+                    "attributes.user.data.attributes.username",
+                    "Admin"
+                  ),
+                };
+              });
+            this.posts = mappedPosts;
+            break;
+          }
+          case "document": {
+            res = await Document.fetch({
+              sort: "updatedAt:desc",
+              populate: "*",
+            });
+            const documents = get(res, "data.data", []);
+            if (!documents && documents.length == 0) return;
+            const mappeddocuments = documents
+              .filter((documents) =>
+                documents.attributes.title
+                  .toLowerCase()
+                  .includes(code.trim().toLowerCase())
+              )
+              .map((documents) => {
+                return {
+                  id: documents.id,
+                  ...documents.attributes,
+                  documentCategory: {
+                    id: get(
+                      documents,
+                      "attributes.documentCategory.data.id",
+                      -1
+                    ),
+                    ...get(
+                      documents,
+                      "attributes.documentCategory.data.attributes",
+                      {}
+                    ),
+                  },
+                };
+              });
+            this.documents = mappeddocuments;
+            break;
+          }
+          case "faq": {
+            res = await FAQ.fetch({
+              sort: "updatedAt:desc",
+              populate: "*",
+            });
+            const faqs = get(res, "data.data", []);
+            if (!faqs && faqs.length == 0) return;
+            const mappedfaqs = faqs
+              .filter((faqs) =>
+                faqs.attributes.question
+                  .toLowerCase()
+                  .includes(code.trim().toLowerCase())
+              )
+              .map((faqs) => {
+                return {
+                  id: faqs.id,
+                  ...faqs.attributes,
+                  faqCategory: {
+                    id: get(faqs, "attributes.faqCategory.data.id", -1),
+                    ...get(faqs, "attributes.faqCategory.data.attributes", {}),
+                  },
+                };
+              });
+            this.faqs = mappedfaqs;
+            break;
+          }
+        }
+        // const [
+        //   productRes,
+        //   supplyRes,
+        //   seedlingRes,
+        //   artisanRes,
+        //   regionRes,
+        //   htxRes,
+        //   agencyRes,
+        // ] = await Promise.all([
+        //   Product.fetch({
+        //     sort: "updatedAt:desc",
+        //     populate: "*",
+        //   }),
+        //   Supply.fetch({
+        //     sort: "updatedAt:desc",
+        //     populate: "*",
+        //   }),
+        //   Seed.fetch({ sort: "updatedAt:desc", populate: "*" }),
+        //   Artisan.fetch({ sort: "updatedAt:desc", populate: "*" }),
+        //   Area.fetch({ sort: "updatedAt:desc", populate: "*" }),
+        //   Cooperative.fetch({ sort: "updatedAt:desc", populate: "*" }),
+        //   Agency.fetch({ sort: "updatedAt:desc", populate: "*" }),
+        // ]);
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
