@@ -25,10 +25,7 @@ export const htxStore = defineStore("htx", {
   getters: {
     slicedHtxs() {
       if (!this.htxs || this.htxs.length == 0) return [];
-      return this.filteredHtxs.slice(
-        (this.htxPage - 1) * this.htxsPerPage,
-        this.htxPage * this.htxsPerPage
-      );
+      return this.filteredHtxs.slice((this.htxPage - 1) * this.htxsPerPage, this.htxPage * this.htxsPerPage);
     },
     filteredHtxs() {
       if (!this.htxs || this.htxs.length == 0) return [];
@@ -36,15 +33,11 @@ export const htxStore = defineStore("htx", {
       if (this.searchKey)
         filtered = filtered.filter(
           (htx) =>
-            htx.name
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase()) ||
+            htx.name.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
             htx.code.toLowerCase().includes(this.searchKey.trim().toLowerCase())
         );
       if (this.filterCategory) {
-        filtered = filtered.filter(
-          (htx) => this.filterCategory.id == htx.htxCategory.id
-        );
+        filtered = filtered.filter((htx) => this.filterCategory.id == htx.htxCategory.id);
       }
       return filtered;
     },
@@ -61,16 +54,10 @@ export const htxStore = defineStore("htx", {
           break;
         default:
         case "newest":
-          sortedHtxs.sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
+          sortedHtxs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
           break;
         case "oldest":
-          sortedHtxs.sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          );
+          sortedHtxs.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
           break;
       }
       return sortedHtxs;
@@ -126,10 +113,7 @@ export const htxStore = defineStore("htx", {
           populate: "*",
         });
         if (!res) {
-          alert.error(
-            "Error occurred when fetching htxs!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching htxs!", "Please try again later!");
           return;
         }
         const htxs = get(res, "data.data", []);
@@ -158,10 +142,7 @@ export const htxStore = defineStore("htx", {
         loading.show();
         const res = await CooperativeCategory.fetch();
         if (!res) {
-          alert.error(
-            "Error occurred when fetching htx categories!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching htx categories!", "Please try again later!");
           return;
         }
         const categories = get(res, "data.data", []);
@@ -173,9 +154,7 @@ export const htxStore = defineStore("htx", {
           };
         });
         this.categories = mappedCategories;
-        this.categoryDictionary = Object.fromEntries(
-          this.categories.map((x) => [x.id, x.name])
-        );
+        this.categoryDictionary = Object.fromEntries(this.categories.map((x) => [x.id, x.name]));
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -206,14 +185,9 @@ export const htxStore = defineStore("htx", {
         this.htx = {
           id: htxs[0],
           ...htxs[0].attributes,
-          htxCategory: get(
-            htxs[0],
-            "attributes.cooperativeCategory.data.attributes.name",
-            "---"
-          ),
+          htxCategory: get(htxs[0], "attributes.cooperativeCategory.data.attributes.name", "---"),
           products: get(htxs[0], "attributes.products.data", []),
           certification: get(htxs[0], "attributes.certification", []),
-
         };
         this.products = this.htx.products
           .filter((product) => product.attributes.status == "publish")

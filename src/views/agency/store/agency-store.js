@@ -42,17 +42,11 @@ export const agencyStore = defineStore("agency", {
       if (this.searchKey)
         filtered = filtered.filter(
           (agency) =>
-            agency.name
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase()) ||
-            agency.code
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase())
+            agency.name.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+            agency.code.toLowerCase().includes(this.searchKey.trim().toLowerCase())
         );
       if (this.filterCategory) {
-        filtered = filtered.filter(
-          (agency) => this.filterCategory.id == agency.agencyCategory.id
-        );
+        filtered = filtered.filter((agency) => this.filterCategory.id == agency.agencyCategory.id);
       }
       return filtered;
     },
@@ -69,16 +63,10 @@ export const agencyStore = defineStore("agency", {
           break;
         default:
         case "newest":
-          sortedAgencies.sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
+          sortedAgencies.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
           break;
         case "oldest":
-          sortedAgencies.sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          );
+          sortedAgencies.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
           break;
       }
       return sortedAgencies;
@@ -87,10 +75,7 @@ export const agencyStore = defineStore("agency", {
       if (!this.agencys || this.filteredAgencies.length == 0) return 1;
       if (this.filteredAgencies.length % this.agencysPerPage == 0)
         return this.filteredAgencies.length / this.agencysPerPage;
-      else
-        return (
-          Math.floor(this.filteredAgencies.length / this.agencysPerPage) + 1
-        );
+      else return Math.floor(this.filteredAgencies.length / this.agencysPerPage) + 1;
     },
     totalFilteredAgency() {
       if (!this.agencys || this.agencys.length == 0) return 0;
@@ -136,10 +121,7 @@ export const agencyStore = defineStore("agency", {
         });
 
         if (!res) {
-          alert.error(
-            "Error occurred when fetching agencys!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching agencys!", "Please try again later!");
           return;
         }
         const agencys = get(res, "data.data", []);
@@ -168,10 +150,7 @@ export const agencyStore = defineStore("agency", {
         // const res = await AgencyCategory.fetch();
         const res = await AgencyCategory.fetch();
         if (!res) {
-          alert.error(
-            "Error occurred when fetching agency categories!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching agency categories!", "Please try again later!");
           return;
         }
         const categories = get(res, "data.data", []);
@@ -183,9 +162,7 @@ export const agencyStore = defineStore("agency", {
           };
         });
         this.categories = mappedCategories;
-        this.categoryDictionary = Object.fromEntries(
-          this.categories.map((x) => [x.id, x.name])
-        );
+        this.categoryDictionary = Object.fromEntries(this.categories.map((x) => [x.id, x.name]));
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -210,11 +187,7 @@ export const agencyStore = defineStore("agency", {
         this.agency = {
           id: agencys[0],
           ...agencys[0].attributes,
-          agencyCategory: get(
-            agencys[0],
-            "attributes.storeCategory.data.attributes.name",
-            "---"
-          ),
+          agencyCategory: get(agencys[0], "attributes.storeCategory.data.attributes.name", "---"),
           products: get(agencys[0], "attributes.products.data", []),
           certification: get(agencys[0], "attributes.certification", []),
         };

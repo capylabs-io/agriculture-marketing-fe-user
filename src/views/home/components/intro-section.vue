@@ -4,6 +4,31 @@
     :class="$vuetify.breakpoint.mdAndUp ? 'py-16' : 'py-8'"
   >
     <div class="d-flex align-center justify-space-between">
+      <div class="font-weight-semibold text-dp-sm text-center">
+        Vùng sản xuất
+      </div>
+      <v-btn
+        class="text-none text-md primary--text px-0"
+        text
+        @click="$router.push('/vung-san-xuat')"
+        >Xem thêm <v-icon>mdi-chevron-right</v-icon></v-btn
+      >
+    </div>
+    <div class="mt-8">
+      <v-row data-aos="fade-up" data-aos-duration="800">
+        <v-col
+          cols="12"
+          md="3"
+          sm="6"
+          xs="12"
+          v-for="region in homeStore.regions"
+          :key="region.id"
+        >
+          <regionCard :region="region" />
+        </v-col>
+      </v-row>
+    </div>
+    <div class="d-flex align-center justify-space-between mt-16">
       <div class="font-weight-semibold text-dp-sm text-center">Hợp tác xã</div>
       <v-btn
         class="text-none text-md primary--text px-0"
@@ -19,33 +44,10 @@
           md="3"
           sm="6"
           xs="12"
-          v-for="product in homeStore.slicedProducts"
-          :key="product.id"
+          v-for="htx in homeStore.htxs"
+          :key="htx.id"
         >
-          <productCard :product="product" />
-        </v-col>
-      </v-row>
-    </div>
-    <div class="d-flex align-center justify-space-between mt-16">
-      <div class="font-weight-semibold text-dp-sm text-center">Đại lý</div>
-      <v-btn
-        class="text-none text-md primary--text px-0"
-        text
-        @click="$router.push('/hop-tac-xa')"
-        >Xem thêm <v-icon>mdi-chevron-right</v-icon></v-btn
-      >
-    </div>
-    <div class="mt-8">
-      <v-row data-aos="fade-up" data-aos-duration="800">
-        <v-col
-          cols="12"
-          md="3"
-          sm="6"
-          xs="12"
-          v-for="product in homeStore.slicedProducts"
-          :key="product.id"
-        >
-          <productCard :product="product" />
+          <htxCard :htx="htx" />
         </v-col>
       </v-row>
     </div>
@@ -60,7 +62,9 @@ export default {
     ...mapStores(homeStore),
   },
   components: {
-    productCard: () => import("./home-product-card.vue"),
+    // productCard: () => import("./home-product-card.vue"),
+    regionCard: () => import("@/views/region/components/region-card.vue"),
+    htxCard: () => import("@/views/htx/components/htx-card.vue"),
   },
 };
 </script>

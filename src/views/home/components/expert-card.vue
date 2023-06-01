@@ -12,6 +12,7 @@
     <v-btn
       class="neutral30-border text-none text-sm py-4 border-radius-8 mt-6 mx-auto"
       max-width="128px"
+      @click="$router.push('/nghe-nhan/' + expert.code)"
       outlined
       small
     >
@@ -25,18 +26,15 @@ import { get } from "lodash";
 export default {
   computed: {
     expertImage() {
-      if (!this.expert || !this.expert.avatar)
+      if (!this.expert || !this.expert.thumbnail)
         return require("@/assets/components/landing/image-3.webp");
-      return this.expert.avatar;
+      return this.expert.thumbnail;
     },
     expertName() {
       return get(this.expert, "name", "Họ và tên");
     },
     expertTitle() {
-      return get(this.expert, "title", "Chuyên gia");
-    },
-    expertPhone() {
-      return get(this.expert, "phone", "Số điện thoại");
+      return get(this.expert, "artisanCategory.name", "Chuyên gia");
     },
   },
   props: {

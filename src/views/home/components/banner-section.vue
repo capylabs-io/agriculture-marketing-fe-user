@@ -5,12 +5,19 @@
       autoplay
       fixed-height="480px"
       :dragging-distance="100"
+      lazy
+      lazy-load-on-drag
     >
       <vueper-slide
         v-for="(banner, i) in banners"
         :key="i"
         :image="banner.image"
-      />
+      >
+        <template #loader>
+          <i class="icon icon-loader spinning"></i>
+          <span>Loading...</span>
+        </template>
+      </vueper-slide>
     </vueper-slides>
   </div>
 </template>

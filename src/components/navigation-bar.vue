@@ -39,8 +39,8 @@
           </div>
         </div>
         <div>
-          <div class="d-flex align-center gap-16">
-            <v-text-field
+          <div class="d-flex align-center gap-24">
+            <!-- <v-text-field
               v-model="homeStore.searchKey"
               class="nav-search-field border-radius-8"
               placeholder="Tìm kiếm"
@@ -51,7 +51,7 @@
               dense
               hide-details
               clearable
-            ></v-text-field>
+            ></v-text-field> -->
             <v-btn
               class="text-none text-caplitalize font-weight-medium px-0"
               dark

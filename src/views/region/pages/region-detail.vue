@@ -14,15 +14,22 @@
         {{ regionStore.region.name || "Vùng sản xuất" }}
       </div>
     </div>
-    <v-img
-      class="full-width"
-      :src="regionImage"
-      :aspect-ratio="16 / 9"
-      max-height="360px"
-      cover
-    >
-      <v-img class="border-radius-16 qrcode-img" :src="regionQRImage"></v-img>
-    </v-img>
+    <div class="page-container mx-auto mt-12 px-6">
+      <div class="neutral20-border border-radius-16 overflow-hidden">
+        <v-img
+          class="full-width"
+          :src="regionImage"
+          :aspect-ratio="16 / 9"
+          max-height="360px"
+          cover
+        >
+          <v-img
+            class="border-radius-16 qrcode-img"
+            :src="regionQRImage"
+          ></v-img>
+        </v-img>
+      </div>
+    </div>
     <div class="page-container mx-auto py-8 px-6">
       <div class="neutral20-border border-radius-16 pa-6 mt-6 text-center">
         <div
@@ -192,11 +199,11 @@
           </v-row>
         </div>
         <div class="text-start mt-6" v-if="currentTab == 1">
-          <!-- <div v-if="regionStore.slicedProducts.length > 0"> -->
-          <div>
+          <div v-if="regionStore.htxs.length > 0">
+            <!-- <div> -->
             <v-row class="mt-4">
               <v-col
-                v-for="htx in regionStore.htxs"
+                v-for="htx in regionStore.slicedHtxs"
                 :key="htx.id"
                 cols="12"
                 sm="6"
@@ -212,12 +219,12 @@
               v-model="regionStore.htxPage"
             ></v-pagination>
           </div>
-          <!-- <div
+          <div
             class="font-weight-bold text-center text-dp-md flex-grow-1 no-item-div d-flex flex-column justify-center"
             v-else
           >
             Không có sản phẩm nào!
-          </div> -->
+          </div>
         </div>
         <div class="text-start mt-6" v-if="currentTab == 2">
           <!-- <div v-if="regionStore.slicedProducts.length > 0"> -->
@@ -273,7 +280,7 @@
               </div>
             </v-col>
           </v-row>
-          <v-divider class="my-6"></v-divider>
+          <!-- <v-divider class="my-6"></v-divider>
           <v-row>
             <v-col cols="12" md="4">
               <div class="font-weight-semibold">Hình ảnh Giấy kiểm định</div>
@@ -296,8 +303,19 @@
                 />
               </div>
             </v-col>
-          </v-row>
+          </v-row> -->
         </div>
+      </div>
+      <div class="mt-6 border-radius-16 overflow-hidden">
+        <iframe
+          :src="regionMap"
+          height="475"
+          width="100%"
+          style="border: 0"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
       </div>
     </div>
   </div>
@@ -314,6 +332,15 @@ export default {
   },
   computed: {
     ...mapStores(regionStore),
+    regionMap() {
+      if (
+        !this.regionStore.region ||
+        !this.regionStore.region.long ||
+        !this.regionStore.region.lat
+      )
+        return process.env.VUE_APP_GOOGLEMAP_DEFAULT_URL;
+      return `https://maps.google.com/maps/embed/v1/place?key=${process.env.VUE_APP_GOOGLEMAP_API_KEY}&q=${this.regionStore.region.lat},${this.regionStore.region.long}`;
+    },
     regionImage() {
       if (!this.regionStore.region || !this.regionStore.region.thumbnail)
         return require("@/assets/no-image.png");

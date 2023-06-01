@@ -35,8 +35,10 @@ export default {
 
     await Promise.all([
       this.homeStore.fetchProducts(),
-      this.homeStore.fetchProductCategories(),
       this.homeStore.fetchPosts(),
+      this.homeStore.fetchHtxs(),
+      this.homeStore.fetchRegions(),
+      this.homeStore.fetchArtisans(),
     ]);
   },
   // eslint-disable-next-line vue/no-deprecated-destroyed-lifecycle

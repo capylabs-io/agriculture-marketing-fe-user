@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { Product, ProductCategory, Post } from "@/plugins/api.js";
+import { Product, Post, Cooperative, Area, Artisan } from "@/plugins/api.js";
 import loading from "@/plugins/loading";
 import alert from "@/plugins/alert";
 import { get } from "lodash";
@@ -10,6 +10,9 @@ export const homeStore = defineStore("home", {
     productCategories: [],
     products: [],
     posts: [],
+    htxs: [],
+    regions: [],
+    artisans: [],
     mobileNavigationDrawer: false,
     productNum: 4,
     searchKey: "",
@@ -41,8 +44,11 @@ export const homeStore = defineStore("home", {
   actions: {
     async fetchProducts() {
       try {
-        loading.show();
         const res = await Product.fetch({
+          pagination: {
+            page: 1,
+            pageSize: 4,
+          },
           populate: "*",
         });
         if (!res) {
@@ -71,8 +77,14 @@ export const homeStore = defineStore("home", {
     },
     async fetchPosts() {
       try {
-        loading.show();
         const res = await Post.fetch({
+          filters: {
+            postCategory: {
+              id: {
+                $notIn: [4, 5],
+              },
+            },
+          },
           pagination: {
             page: 1,
             pageSize: 4,
@@ -103,23 +115,106 @@ export const homeStore = defineStore("home", {
         loading.hide();
       }
     },
-    async fetchProductCategories() {
+    async fetchArtisans() {
       try {
-        loading.show();
-        const res = await ProductCategory.fetch();
+        const res = await Artisan.fetch({
+          pagination: {
+            page: 1,
+            pageSize: 4,
+          },
+          sort: "updatedAt:desc",
+          populate: "*",
+        });
         if (!res) {
-          alert.error("Error occurred when fetching product categories!", "Please try again later!");
+          alert.error("Error occurred when fetching artisans!", "Please try again later!");
           return;
         }
-        const categories = get(res, "data.data", []);
-        if (!categories && categories.length == 0) return;
-        const mappedCategories = categories.map((category) => {
+        const artisans = get(res, "data.data", []);
+        if (!artisans && artisans.length == 0) return;
+        const mappedArtisans = artisans.map((artisan) => {
           return {
-            id: category.id,
-            name: get(category, "attributes.name", "Category Name"),
+            id: artisan.id,
+            ...artisan.attributes,
+            artisanCategory: {
+              id: get(artisan, "attributes.artisanCategory.data.id", -1),
+              ...get(artisan, "attributes.artisanCategory.data.attributes", {}),
+            },
           };
         });
-        this.productCategories = mappedCategories;
+
+        this.artisans = mappedArtisans;
+        console.log("artisans", this.artisans);
+      } catch (error) {
+        alert.error("Error occurred!", error.message);
+      } finally {
+        loading.hide();
+      }
+    },
+    async fetchHtxs() {
+      try {
+        // const res = await Htx.fetch({
+        //   populate: "*",
+        // });
+        const res = await Cooperative.fetch({
+          pagination: {
+            page: 1,
+            pageSize: 4,
+          },
+          populate: "*",
+        });
+        if (!res) {
+          alert.error("Error occurred when fetching htxs!", "Please try again later!");
+          return;
+        }
+        const htxs = get(res, "data.data", []);
+        if (!htxs && htxs.length == 0) return;
+        const mappedHtxs = htxs.map((htx) => {
+          return {
+            id: htx.id,
+            ...htx.attributes,
+            htxCategory: {
+              id: get(htx, "attributes.cooperativeCategory.data.id", -1),
+              ...get(htx, "attributes.cooperativeCategory.data.attributes", {}),
+            },
+          };
+        });
+
+        this.htxs = mappedHtxs;
+      } catch (error) {
+        alert.error("Error occurred!", error.message);
+      } finally {
+        loading.hide();
+      }
+    },
+    async fetchRegions() {
+      try {
+        const res = await Area.fetch({
+          pagination: {
+            page: 1,
+            pageSize: 4,
+          },
+          sort: "updatedAt:desc",
+          populate: "*",
+        });
+        if (!res) {
+          alert.error("Error occurred when fetching regions!", "Please try again later!");
+          return;
+        }
+        const regions = get(res, "data.data", []);
+        if (!regions && regions.length == 0) return;
+        const mappedRegions = regions.map((region) => {
+          return {
+            id: region.id,
+            ...region.attributes,
+            regionCategory: {
+              id: get(region, "attributes.areaCategory.data.id", -1),
+              ...get(region, "attributes.areaCategory.data.attributes", {}),
+            },
+            author: get(region, "attributes.user.data.attributes", {}),
+          };
+        });
+
+        this.regions = mappedRegions;
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {

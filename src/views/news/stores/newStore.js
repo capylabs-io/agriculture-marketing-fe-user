@@ -61,17 +61,11 @@ export const newStore = defineStore("new", {
           // .filter((news) => news.newsCategory.id == this.currentTab)
           .filter(
             (news) =>
-              news.title
-                .toLowerCase()
-                .includes(this.searchKey.trim().toLowerCase()) ||
-              news.content
-                .toLowerCase()
-                .includes(this.searchKey.trim().toLowerCase())
+              news.title.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+              news.content.toLowerCase().includes(this.searchKey.trim().toLowerCase())
           );
       if (this.category && this.category != "all")
-        filtered = filtered.filter(
-          (news) => news.newsCategory.id == this.category
-        );
+        filtered = filtered.filter((news) => news.newsCategory.id == this.category);
       return filtered;
     },
     sortedNews() {
@@ -87,16 +81,10 @@ export const newStore = defineStore("new", {
           sortedNews.sort((a, b) => b.title.localeCompare(a.title));
           break;
         case "newsest":
-          sortedNews.sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
+          sortedNews.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
           break;
         case "oldest":
-          sortedNews.sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          );
+          sortedNews.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
           break;
       }
       return sortedNews;
@@ -105,8 +93,7 @@ export const newStore = defineStore("new", {
       if (!this.listNew || this.filteredlistNew.length == 0) return 1;
       if (this.filteredlistNew.length % this.newsPerPage == 0)
         return this.filteredlistNew.length / this.newsPerPage;
-      else
-        return Math.floor(this.filteredlistNew.length / this.newsPerPage) + 1;
+      else return Math.floor(this.filteredlistNew.length / this.newsPerPage) + 1;
     },
     totalnews() {
       if (!this.listNew || this.filteredlistNew.length == 0) return 1;
@@ -117,7 +104,13 @@ export const newStore = defineStore("new", {
     async fetchCategories() {
       try {
         loading.show();
-        const res = await PostCategory.fetch();
+        const res = await PostCategory.fetch({
+          filters: {
+            id: {
+              $notIn: [4, 5],
+            },
+          },
+        });
         if (!res) {
           alert.error(`Error occurred fetch! Please try again later!`);
           return;
@@ -143,13 +136,17 @@ export const newStore = defineStore("new", {
         loading.show();
         const res = await Post.fetch({
           ...params,
+          filters: {
+            postCategory: {
+              id: {
+                $notIn: [4, 5],
+              },
+            },
+          },
           populate: "*",
         });
         if (!res) {
-          alert.error(
-            "Error occurred when fetching news!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching news!", "Please try again later!");
           return;
         }
         const posts = get(res, "data.data", []);
@@ -164,11 +161,7 @@ export const newStore = defineStore("new", {
                 id: get(post, "attributes.postCategory.data.id", -1),
                 ...get(post, "attributes.postCategory.data.attributes", {}),
               },
-              author: get(
-                post,
-                "attributes.user.data.attributes.username",
-                "Admin"
-              ),
+              author: get(post, "attributes.user.data.attributes.username", "Admin"),
             };
           });
         this.listNew = mappedPosts;
@@ -194,17 +187,9 @@ export const newStore = defineStore("new", {
         this.news = {
           id: post.id,
           ...post.attributes,
-          newsCategory: get(
-            post,
-            "attributes.postCategory.data.attributes.name",
-            "Danh mục bài viết"
-          ),
+          newsCategory: get(post, "attributes.postCategory.data.attributes.name", "Danh mục bài viết"),
           avatar: get(post, "attributes.user.data.attributes.avatar", ""),
-          author: get(
-            post,
-            "attributes.user.data.attributes.username",
-            "Admin"
-          ),
+          author: get(post, "attributes.user.data.attributes.username", "Admin"),
         };
       } catch (error) {
         console.error(`Error: ${error}`);
@@ -218,10 +203,7 @@ export const newStore = defineStore("new", {
         loading.show();
         const res = Post.topNewPost();
         if (!res) {
-          alert.error(
-            "Error occurred when fetching listNew!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching listNew!", "Please try again later!");
           return;
         }
         const listNew = get(res, "data.data", []);
@@ -230,11 +212,7 @@ export const newStore = defineStore("new", {
           return {
             id: news.id,
             ...news.attributes,
-            newsCategory: get(
-              news,
-              "attributes.postCategory.data.attributes",
-              {}
-            ),
+            newsCategory: get(news, "attributes.postCategory.data.attributes", {}),
             author: get(news, "attributes.user.data.attributes", {}),
           };
         });

@@ -36,17 +36,11 @@ export const artisanStore = defineStore("artisan", {
       if (this.searchKey)
         filtered = filtered.filter(
           (artisan) =>
-            artisan.name
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase()) ||
-            artisan.code
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase())
+            artisan.name.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+            artisan.code.toLowerCase().includes(this.searchKey.trim().toLowerCase())
         );
       if (this.filterCategory) {
-        filtered = filtered.filter(
-          (artisan) => this.filterCategory.id == artisan.artisanCategory.id
-        );
+        filtered = filtered.filter((artisan) => this.filterCategory.id == artisan.artisanCategory.id);
       }
       return filtered;
     },
@@ -63,16 +57,10 @@ export const artisanStore = defineStore("artisan", {
           break;
         default:
         case "newest":
-          sortedArtisans.sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
+          sortedArtisans.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
           break;
         case "oldest":
-          sortedArtisans.sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          );
+          sortedArtisans.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
           break;
       }
       return sortedArtisans;
@@ -81,10 +69,7 @@ export const artisanStore = defineStore("artisan", {
       if (!this.artisans || this.filteredArtisans.length == 0) return 1;
       if (this.filteredArtisans.length % this.artisansPerPage == 0)
         return this.filteredArtisans.length / this.artisansPerPage;
-      else
-        return (
-          Math.floor(this.filteredArtisans.length / this.artisansPerPage) + 1
-        );
+      else return Math.floor(this.filteredArtisans.length / this.artisansPerPage) + 1;
     },
     totalFilteredArtisan() {
       if (!this.artisans || this.artisans.length == 0) return 0;
@@ -97,10 +82,7 @@ export const artisanStore = defineStore("artisan", {
     artisanImages() {
       if (!this.artisan) return [];
       let images = [this.artisan.images];
-      if (
-        this.artisan.imageCollection &&
-        this.artisan.imageCollection.length > 0
-      )
+      if (this.artisan.imageCollection && this.artisan.imageCollection.length > 0)
         images = images.concat(this.artisan.imageCollection);
       return images;
     },
@@ -132,10 +114,7 @@ export const artisanStore = defineStore("artisan", {
           populate: "*",
         });
         if (!res) {
-          alert.error(
-            "Error occurred when fetching artisans!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching artisans!", "Please try again later!");
           return;
         }
         const artisans = get(res, "data.data", []);
@@ -163,10 +142,7 @@ export const artisanStore = defineStore("artisan", {
         loading.show();
         const res = await ArtisanCategory.fetch();
         if (!res) {
-          alert.error(
-            "Error occurred when fetching artisan categories!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching artisan categories!", "Please try again later!");
           return;
         }
         const categories = get(res, "data.data", []);
@@ -178,9 +154,7 @@ export const artisanStore = defineStore("artisan", {
           };
         });
         this.categories = mappedCategories;
-        this.categoryDictionary = Object.fromEntries(
-          this.categories.map((x) => [x.id, x.name])
-        );
+        this.categoryDictionary = Object.fromEntries(this.categories.map((x) => [x.id, x.name]));
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -206,11 +180,7 @@ export const artisanStore = defineStore("artisan", {
         this.artisan = {
           id: artisans[0],
           ...artisans[0].attributes,
-          artisanCategory: get(
-            artisans[0],
-            "attributes.artisanCategory.data.attributes.name",
-            []
-          ),
+          artisanCategory: get(artisans[0], "attributes.artisanCategory.data.attributes.name", []),
           products: get(artisans[0], "attributes.products.data", []),
         };
         this.products = this.artisan.products

@@ -48,9 +48,11 @@
             </div>
             <div class="neutral80--text text-md font-weight-medium mt-1">
               <v-icon class="mr-1" color="primary">mdi-phone</v-icon>
-              (+84) {{ artisanStore.artisan.phone || "99561111" }}
+              {{ artisanStore.artisan.phone || "99561111" }}
             </div>
-            <div class="neutral80--text text-md font-weight-medium mt-1">
+            <div
+              class="neutral80--text text-md font-weight-medium mt-1 text-capitalize"
+            >
               <v-icon class="mr-1" color="primary">mdi-map-marker</v-icon>
               {{ artisanStore.artisan.address || "Bến tre" }}
             </div>
@@ -142,8 +144,8 @@
           </v-row>
         </div>
         <div class="text-start mt-6" v-if="currentTab == 1">
-          <!-- <div v-if="artisanStore.slicedProducts.length > 0"> -->
-          <div>
+          <div v-if="artisanStore.slicedProducts.length > 0">
+            <!-- <div> -->
             <v-row class="mt-4">
               <v-col
                 v-for="product in artisanStore.slicedProducts"
@@ -162,64 +164,13 @@
               v-model="artisanStore.productPage"
             ></v-pagination>
           </div>
-          <!-- <div
+          <div
             class="font-weight-bold text-center text-dp-md flex-grow-1 no-item-div d-flex flex-column justify-center"
             v-else
           >
             Không có sản phẩm nào!
-          </div> -->
+          </div>
         </div>
-        <!-- <div class="text-start mt-6" v-if="currentTab == 2">
-          <v-row>
-            <v-col cols="12" md="4">
-              <div class="font-weight-semibold">Hình ảnh Giấy chứng nhận</div>
-              <div>Giấy chứng nhận cần đầy đủ 2 mặt</div>
-            </v-col>
-            <v-col cols="12" md="8">
-              <div
-                class="d-flex align-center flex-wrap full-width gap-12"
-                :class="{
-                  'flex-column gap-16': $vuetify.breakpoint.smAndDown,
-                }"
-              >
-                <img
-                  :class="
-                    $vuetify.breakpoint.smAndDown
-                      ? 'mobile-cert-img'
-                      : 'certification-img'
-                  "
-                  :src="artisanCertificationImage"
-                  v-for="i in 3"
-                  :key="i"
-                />
-              </div>
-            </v-col>
-          </v-row>
-          <v-divider class="my-6"></v-divider>
-          <v-row>
-            <v-col cols="12" md="4">
-              <div class="font-weight-semibold">Hình ảnh Giấy kiểm định</div>
-              <div>Giấy kiểm định cần đầy đủ 2 mặt</div>
-            </v-col>
-            <v-col cols="12" md="8">
-              <div
-                class="d-flex align-center flex-wrap full-width gap-12"
-                :class="{ 'flex-column gap-16': $vuetify.breakpoint.smAndDown }"
-              >
-                <img
-                  :class="
-                    $vuetify.breakpoint.smAndDown
-                      ? 'mobile-cert-img'
-                      : 'certification-img'
-                  "
-                  :src="artisanAccreditationImage"
-                  v-for="i in 3"
-                  :key="i"
-                />
-              </div>
-            </v-col>
-          </v-row>
-        </div> -->
       </div>
     </div>
   </div>

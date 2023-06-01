@@ -38,17 +38,11 @@ export const regionStore = defineStore("region", {
       if (this.searchKey)
         filtered = filtered.filter(
           (region) =>
-            region.name
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase()) ||
-            region.code
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase())
+            region.name.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+            region.code.toLowerCase().includes(this.searchKey.trim().toLowerCase())
         );
       if (this.filterCategory) {
-        filtered = filtered.filter(
-          (region) => this.filterCategory.id == region.regionCategory.id
-        );
+        filtered = filtered.filter((region) => this.filterCategory.id == region.regionCategory.id);
       }
       return filtered;
     },
@@ -65,16 +59,10 @@ export const regionStore = defineStore("region", {
           break;
         default:
         case "newest":
-          sortedRegions.sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
+          sortedRegions.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
           break;
         case "oldest":
-          sortedRegions.sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          );
+          sortedRegions.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
           break;
       }
       return sortedRegions;
@@ -83,10 +71,7 @@ export const regionStore = defineStore("region", {
       if (!this.regions || this.filteredRegions.length == 0) return 1;
       if (this.filteredRegions.length % this.regionsPerPage == 0)
         return this.filteredRegions.length / this.regionsPerPage;
-      else
-        return (
-          Math.floor(this.filteredRegions.length / this.regionsPerPage) + 1
-        );
+      else return Math.floor(this.filteredRegions.length / this.regionsPerPage) + 1;
     },
     totalFilteredRegion() {
       if (!this.regions || this.regions.length == 0) return 0;
@@ -111,23 +96,19 @@ export const regionStore = defineStore("region", {
     },
     slicedProducts() {
       if (!this.products || this.products.length == 0) return [];
-      return this.filteredRegions.slice(
+      return this.products.slice(
         (this.productPage - 1) * this.productsPerPage,
         this.productPage * this.productsPerPage
       );
     },
     totalHtxPage() {
       if (!this.htxs || this.htxs.length == 0) return 1;
-      if (this.htxs.length % this.htxsPerPage == 0)
-        return this.htxs.length / this.htxsPerPage;
+      if (this.htxs.length % this.htxsPerPage == 0) return this.htxs.length / this.htxsPerPage;
       else return Math.floor(this.htxs.length / this.htxsPerPage) + 1;
     },
     slicedHtxs() {
       if (!this.htxs || this.htxs.length == 0) return [];
-      return this.filteredRegions.slice(
-        (this.htxPage - 1) * this.htxsPerPage,
-        this.htxPage * this.htxsPerPage
-      );
+      return this.htxs.slice((this.htxPage - 1) * this.htxsPerPage, this.htxPage * this.htxsPerPage);
     },
   },
   actions: {
@@ -144,10 +125,7 @@ export const regionStore = defineStore("region", {
           populate: "*",
         });
         if (!res) {
-          alert.error(
-            "Error occurred when fetching regions!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching regions!", "Please try again later!");
           return;
         }
         const regions = get(res, "data.data", []);
@@ -176,10 +154,7 @@ export const regionStore = defineStore("region", {
         loading.show();
         const res = await AreaCategory.fetch();
         if (!res) {
-          alert.error(
-            "Error occurred when fetching region categories!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching region categories!", "Please try again later!");
           return;
         }
         const categories = get(res, "data.data", []);
@@ -191,9 +166,7 @@ export const regionStore = defineStore("region", {
           };
         });
         this.categories = mappedCategories;
-        this.categoryDictionary = Object.fromEntries(
-          this.categories.map((x) => [x.id, x.name])
-        );
+        this.categoryDictionary = Object.fromEntries(this.categories.map((x) => [x.id, x.name]));
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -218,15 +191,13 @@ export const regionStore = defineStore("region", {
         this.region = {
           id: regions[0],
           ...regions[0].attributes,
-          regionCategory: get(
-            regions[0],
-            "attributes.areaCategory.data.attributes.name",
-            "---"
-          ),
+          regionCategory: get(regions[0], "attributes.areaCategory.data.attributes.name", "---"),
           cooperatives: get(regions[0], "attributes.cooperatives.data", []),
           products: get(regions[0], "attributes.products.data", []),
           certification: get(regions[0], "attributes.certification", []),
         };
+        console.log("region", this.region);
+
         this.htxs = this.region.cooperatives.map((htx) => {
           return {
             id: htx.id,
@@ -237,6 +208,7 @@ export const regionStore = defineStore("region", {
             },
           };
         });
+
         this.products = this.region.products
           .filter((product) => product.attributes.status == "publish")
           .map((product) => {

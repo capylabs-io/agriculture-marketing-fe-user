@@ -48,9 +48,12 @@
         v-if="$vuetify.breakpoint.mdAndUp"
       >
         <div
-          v-for="post in homeStore.otherPosts"
+          v-for="(post, i) in homeStore.otherPosts"
           class="d-flex cursor-pointer"
+          data-aos="fade-left"
+          data-aos-duration="500"
           :key="post.id"
+          :data-aos-delay="i * 200"
           @click="goToPost(post.id)"
         >
           <div>
@@ -131,7 +134,7 @@ export default {
     },
     goToPost(id) {
       if (!id) return;
-      this.$router.push("/news/" + id);
+      this.$router.push("/bai-viet/" + id);
     },
     stripHtml(html) {
       // Create a new div element

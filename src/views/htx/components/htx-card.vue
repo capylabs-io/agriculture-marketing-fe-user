@@ -4,7 +4,7 @@
     @click="goToHtxDetail()"
   >
     <v-img :src="htxImage" :aspect-ratio="4 / 3" cover></v-img>
-    <div class="full-height d-flex flex-column pt-3 pb-2">
+    <div class="full-height d-flex flex-column py-3">
       <div
         class="d-flex align-center justify-center product-id text-center text-sm text-uppercase"
       >
@@ -14,9 +14,11 @@
       <div class="text-center text-xl font-weight-medium px-4 pt-1 flex-grow-1">
         {{ htx.name }}
       </div>
-      <v-divider class="mt-3"></v-divider>
-      <div class="text-sm text-center mt-2 primary--text">
-        {{ htx.htxCategory.name }}
+      <div v-if="htx.htxCategory && htx.htxCategory.id != -1">
+        <v-divider class="mt-3"></v-divider>
+        <div class="text-sm text-center mt-2 primary--text">
+          {{ htx.htxCategory.name }}
+        </div>
       </div>
     </div>
   </div>

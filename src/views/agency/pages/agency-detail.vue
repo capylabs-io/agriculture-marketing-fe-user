@@ -254,7 +254,7 @@
               </div>
             </v-col>
           </v-row>
-          <v-divider class="my-6"></v-divider>
+          <!-- <v-divider class="my-6"></v-divider>
           <v-row>
             <v-col cols="12" md="4">
               <div class="font-weight-semibold">Hình ảnh Giấy kiểm định</div>
@@ -277,8 +277,19 @@
                 />
               </div>
             </v-col>
-          </v-row>
+          </v-row> -->
         </div>
+      </div>
+      <div class="mt-6 border-radius-16 overflow-hidden">
+        <iframe
+          :src="agencyMap"
+          height="475"
+          width="100%"
+          style="border: 0"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
       </div>
     </div>
   </div>
@@ -294,6 +305,15 @@ export default {
   },
   computed: {
     ...mapStores(agencyStore),
+    agencyMap() {
+      if (
+        !this.agencyStore.agency ||
+        !this.agencyStore.agency.long ||
+        !this.agencyStore.agency.lat
+      )
+        return process.env.VUE_APP_GOOGLEMAP_DEFAULT_URL;
+      return `https://maps.google.com/maps/embed/v1/place?key=${process.env.VUE_APP_GOOGLEMAP_API_KEY}&q=${this.agencyStore.agency.lat},${this.agencyStore.agency.long}`;
+    },
     agencyImage() {
       if (!this.agencyStore.agency || !this.agencyStore.agency.thumbnail)
         return require("@/assets/no-image.png");
