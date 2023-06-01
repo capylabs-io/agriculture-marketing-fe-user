@@ -61,6 +61,14 @@ export const vueFilterRegister = () => {
     return number;
   });
 
+  Vue.filter("numberWithCommas", (x) => {
+    if (!x) return "---";
+    x = x.toString();
+    var pattern = /(-?\d+)(\d{3})/;
+    while (pattern.test(x)) x = x.replace(pattern, "$1.$2");
+    return x;
+  });
+
   Vue.filter("formatNumber", (number, maximumFractionDigits = 5) => {
     const nf = new Intl.NumberFormat("en-US", {
       maximumFractionDigits: maximumFractionDigits,

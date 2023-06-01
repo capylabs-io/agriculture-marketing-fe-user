@@ -315,15 +315,15 @@ body {
   box-shadow: none !important;
   border-radius: 8px !important;
 }
-.v-expansion-panel-content__wrap {
-  padding: 0 !important;
-}
-.v-expansion-panel-header {
-  padding: 0 !important;
-}
-.v-expansion-panel--active > .v-expansion-panel-header {
-  min-height: 32px !important;
-}
+// .v-expansion-panel-content__wrap {
+//   padding: 0 !important;
+// }
+// .v-expansion-panel-header {
+//   padding: 0 !important;
+// }
+// .v-expansion-panel--active > .v-expansion-panel-header {
+//   min-height: 32px !important;
+// }
 
 .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
   font-weight: 600 !important;

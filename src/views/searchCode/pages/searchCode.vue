@@ -2,10 +2,18 @@
 <template>
   <div class="page-container mx-auto pt-15 pb-8 px-6">
     <div class="d-fex flex-column justify-center align-center text-center">
-      <div class="text-dp-md font-weight-medium">
+      <div
+        class="font-weight-semibold"
+        :class="$vuetify.breakpoint.smAndDown ? 'text-dp-sm' : 'text-dp-md'"
+      >
         Truy xuất nguồn gốc cây và hoa cảnh
       </div>
-      <div class="text-md mt-2">Chính xác, nhanh chóng, thuận lợi</div>
+      <div
+        class="mt-2"
+        :class="$vuetify.breakpoint.smAndDown ? 'text-lg' : 'text-xl'"
+      >
+        Chính xác, nhanh chóng, thuận lợi
+      </div>
       <div>
         <v-text-field
           class="border-radius-8 border-neutral20 full-width mt-6 search-question mx-auto"
@@ -148,7 +156,12 @@
       <div class="text-md mt-2">
         Nếu như vẫn còn thắc mắc cần được giải đáp, hãy liên hệ với chúng tôi
       </div>
-      <v-btn class="border-radius-6 mt-8 text-none" color="primary" depressed>
+      <v-btn
+        class="border-radius-6 mt-8 text-none"
+        color="primary"
+        href="/lien-he"
+        depressed
+      >
         Liên hệ ngay
       </v-btn>
     </div>

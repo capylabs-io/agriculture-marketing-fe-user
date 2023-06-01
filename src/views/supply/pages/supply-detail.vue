@@ -51,7 +51,7 @@
                 class="font-weight-semibold text-dp-xs d-flex align-center my-2"
                 v-if="$vuetify.breakpoint.mdAndUp"
               >
-                {{ numberWithCommas(supplyStore.supply.price) || "---"
+                {{ supplyStore.supply.price | numberWithCommas
                 }}<span class="neutral80--text text-xs ml-1">vnđ</span>
               </div>
               <div
@@ -60,7 +60,7 @@
               >
                 Giá:
                 <span class="font-weight-bold ml-1 text-lg"
-                  >{{ numberWithCommas(supplyStore.supply.price) || "---" }}
+                  >{{ supplyStore.supply.price | numberWithCommas }}
                 </span>
                 <span class="neutral80--text text-xs ml-1">vnđ</span>
               </div>
@@ -133,20 +133,61 @@
               </div>
             </div>
             <div class="text-start mt-4" v-if="currentTab == 1">
-              <div>
-                <div class="font-weight-semibold">Nơi trồng</div>
-                <div class="mt-2">Không có thông tin</div>
-                <v-divider class="mt-4"></v-divider>
-              </div>
-              <div class="mt-4">
-                <div class="font-weight-semibold">Địa chỉ</div>
-                <div class="mt-2">Không có thông tin</div>
-                <v-divider class="mt-4"></v-divider>
-              </div>
-              <div class="mt-4">
-                <div class="font-weight-semibold">Số điện thoại</div>
-                <div class="mt-2">Không có thông tin</div>
-              </div>
+              <v-expansion-panels class="border-radius-8" accordion>
+                <v-expansion-panel>
+                  <v-expansion-panel-header class="font-weight-semibold px-4"
+                    >Đại lý</v-expansion-panel-header
+                  >
+                  <v-expansion-panel-content>
+                    <v-divider></v-divider>
+                    <div
+                      class="d-flex mt-4"
+                      v-if="
+                        supplyStore.supply.store &&
+                        supplyStore.supply.store.id != -1
+                      "
+                    >
+                      <div>
+                        <v-img
+                          class="relation-img border-radius-8"
+                          :src="
+                            relationImage(supplyStore.supply.store.thumbnail)
+                          "
+                          :aspect-ratio="4 / 3"
+                          cover
+                        ></v-img>
+                      </div>
+                      <div class="ml-4 flex-grow-1">
+                        <div class="font-weight-semibold text-md">
+                          {{ supplyStore.supply.store.name || "Vùng sản xuất" }}
+                        </div>
+                        <div class="neutral70--text text-sm mt-1">
+                          {{ supplyStore.supply.store.code || "Mã truy xuất" }}
+                        </div>
+                        <v-btn
+                          class="text-none text-capitalize mt-3"
+                          elevation="0"
+                          color="primary"
+                          @click="
+                            $router.push(
+                              '/dai-ly/' + supplyStore.supply.store.code
+                            )
+                          "
+                          small
+                        >
+                          Xem chi tiết
+                        </v-btn>
+                      </div>
+                    </div>
+                    <div
+                      class="text-md font-weight-medium text-center py-4"
+                      v-else
+                    >
+                      Không có thông tin!
+                    </div>
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
             </div>
             <div class="text-start mt-4" v-if="currentTab == 2">
               <div>
@@ -224,14 +265,6 @@ export default {
     const code = this.$route.params.code;
     await this.supplyStore.fetchSupply(code);
   },
-  methods:{
-    numberWithCommas(x) {
-      x = x.toString();
-      var pattern = /(-?\d+)(\d{3})/;
-      while (pattern.test(x)) x = x.replace(pattern, "$1.$2");
-      return x;
-    },
-  }
 };
 </script>
 

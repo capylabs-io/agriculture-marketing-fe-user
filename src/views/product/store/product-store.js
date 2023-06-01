@@ -24,9 +24,7 @@ export const productStore = defineStore("product", {
       const filterCategories = this.filterCategory.map((categoryId) =>
         get(this.categoryDictionary, categoryId, "Danh mục khác")
       );
-      const filterPrices = this.filterPrice.map((filterPrice) =>
-        helpers.getFilterPriceText(filterPrice)
-      );
+      const filterPrices = this.filterPrice.map((filterPrice) => helpers.getFilterPriceText(filterPrice));
       let filters = filterCategories.concat(filterPrices);
       if (this.searchKey) filters.push("Từ khoá: " + this.searchKey);
       return filters;
@@ -44,29 +42,17 @@ export const productStore = defineStore("product", {
       if (this.searchKey)
         filtered = filtered.filter(
           (product) =>
-            product.name
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase()) ||
-            product.code
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase()) ||
-            product.origin
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase())
+            product.name.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+            product.code.toLowerCase().includes(this.searchKey.trim().toLowerCase()) ||
+            product.origin.toLowerCase().includes(this.searchKey.trim().toLowerCase())
         );
       if (this.filterCategory && this.filterCategory.length > 0) {
-        filtered = filtered.filter((product) =>
-          this.filterCategory.includes(product.productCategory.id)
-        );
+        filtered = filtered.filter((product) => this.filterCategory.includes(product.productCategory.id));
       }
       if (this.filterPrice && this.filterPrice.length > 0) {
         filtered = filtered.filter((product) => {
           if (!product.price || +product.price < 0) return false;
-          if (
-            this.filterPrice.includes("lowerThan500k") &&
-            +product.price < 500000
-          )
-            return true;
+          if (this.filterPrice.includes("lowerThan500k") && +product.price < 500000) return true;
           if (
             this.filterPrice.includes("between500kAnd1mil") &&
             +product.price >= 500000 &&
@@ -79,11 +65,7 @@ export const productStore = defineStore("product", {
             +product.price < 5000000
           )
             return true;
-          if (
-            this.filterPrice.includes("over5mil") &&
-            +product.price >= 5000000
-          )
-            return true;
+          if (this.filterPrice.includes("over5mil") && +product.price >= 5000000) return true;
           return false;
         });
       }
@@ -103,16 +85,10 @@ export const productStore = defineStore("product", {
           break;
         default:
         case "newest":
-          sortedProducts.sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
+          sortedProducts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
           break;
         case "oldest":
-          sortedProducts.sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          );
+          sortedProducts.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
           break;
         case "price:asc":
           sortedProducts
@@ -131,10 +107,7 @@ export const productStore = defineStore("product", {
       if (!this.products || this.filteredProducts.length == 0) return 1;
       if (this.filteredProducts.length % this.productsPerPage == 0)
         return this.filteredProducts.length / this.productsPerPage;
-      else
-        return (
-          Math.floor(this.filteredProducts.length / this.productsPerPage) + 1
-        );
+      else return Math.floor(this.filteredProducts.length / this.productsPerPage) + 1;
     },
     totalFilteredProduct() {
       if (!this.products || this.products.length == 0) return 0;
@@ -147,10 +120,7 @@ export const productStore = defineStore("product", {
     productImages() {
       if (!this.product) return [];
       let images = [this.product.images];
-      if (
-        this.product.imageCollection &&
-        this.product.imageCollection.length > 0
-      )
+      if (this.product.imageCollection && this.product.imageCollection.length > 0)
         images = images.concat(this.product.imageCollection);
       return images;
     },
@@ -169,10 +139,7 @@ export const productStore = defineStore("product", {
           populate: "*",
         });
         if (!res) {
-          alert.error(
-            "Error occurred when fetching products!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching products!", "Please try again later!");
           return;
         }
         const products = get(res, "data.data", []);
@@ -185,11 +152,7 @@ export const productStore = defineStore("product", {
               ...product.attributes,
               productCategory: {
                 id: get(product, "attributes.productCategory.data.id", -1),
-                ...get(
-                  product,
-                  "attributes.productCategory.data.attributes",
-                  {}
-                ),
+                ...get(product, "attributes.productCategory.data.attributes", {}),
               },
               author: get(product, "attributes.user.data.attributes", {}),
             };
@@ -206,10 +169,7 @@ export const productStore = defineStore("product", {
         loading.show();
         const res = await ProductCategory.fetch();
         if (!res) {
-          alert.error(
-            "Error occurred when fetching product categories!",
-            "Please try again later!"
-          );
+          alert.error("Error occurred when fetching product categories!", "Please try again later!");
           return;
         }
         const categories = get(res, "data.data", []);
@@ -221,9 +181,7 @@ export const productStore = defineStore("product", {
           };
         });
         this.categories = mappedCategories;
-        this.categoryDictionary = Object.fromEntries(
-          this.categories.map((x) => [x.id, x.name])
-        );
+        this.categoryDictionary = Object.fromEntries(this.categories.map((x) => [x.id, x.name]));
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -249,12 +207,24 @@ export const productStore = defineStore("product", {
           id: products[0],
           ...products[0].attributes,
         };
-        this.product.productCategory = get(
-          this.product,
-          "productCategory.data.attributes.name",
-          "---"
-        );
+        this.product.productCategory = get(this.product, "productCategory.data.attributes.name", "---");
         this.product.user = get(this.product, "user.data.attributes");
+        this.product.area = {
+          id: get(this.product, "area.data.id", -1),
+          ...get(this.product, "area.data.attributes", {}),
+        };
+        this.product.cooperative = {
+          id: get(this.product, "cooperative.data.id", -1),
+          ...get(this.product, "cooperative.data.attributes", {}),
+        };
+        this.product.artisan = {
+          id: get(this.product, "artisan.data.id", -1),
+          ...get(this.product, "artisan.data.attributes", {}),
+        };
+        this.product.store = {
+          id: get(this.product, "store.data.id", -1),
+          ...get(this.product, "store.data.attributes", {}),
+        };
       } catch (error) {
         console.error(`Error: ${error}`);
         alert.error(error);
