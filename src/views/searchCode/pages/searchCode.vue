@@ -6,7 +6,7 @@
         class="font-weight-semibold"
         :class="$vuetify.breakpoint.smAndDown ? 'text-dp-sm' : 'text-dp-md'"
       >
-        Truy xuất nguồn gốc cây và hoa cảnh
+        Truy xuất nguồn gốc cây và hoa cảnh, vật tư
       </div>
       <div
         class="mt-2"
@@ -14,9 +14,9 @@
       >
         Chính xác, nhanh chóng, thuận lợi
       </div>
-      <div>
+      <div class="mt-6">
         <v-text-field
-          class="border-radius-8 border-neutral20 full-width mt-6 search-question mx-auto"
+          class="border-radius-8 border-neutral20 full-width search-question mx-auto mt-2"
           placeholder="Tìm kiếm theo Mã Truy Xuất được cung cấp"
           flat
           v-model="searchCodeStore.searchCode"
@@ -33,6 +33,15 @@
             </div>
           </template></v-text-field
         >
+        <div
+          class="mt-3 neutral70--text"
+          :class="$vuetify.breakpoint.smAndDown ? 'text-sm' : 'text-md'"
+        >
+          <span class="error--text">(*)</span>
+          Xin vui lòng nhập
+          <span class="font-weight-semibold text-capitalize">Mã truy xuất</span>
+          đúng định dạng
+        </div>
       </div>
     </div>
     <!-- <div class="expansion-content-form mx-auto mt-5 pa-4">
@@ -204,6 +213,7 @@ export default {
   methods: {
     toggleSearch() {},
     onClickSearchCode() {
+      if (this.showCode == this.searchCodeStore.searchCode) return;
       this.showCode = this.searchCodeStore.searchCode;
       this.$router.replace({
         query: { code: this.searchCodeStore.searchCode },

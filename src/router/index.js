@@ -139,6 +139,11 @@ const routes = [
     name: "Search Code",
     component: () => import("../views/searchCode/pages/searchCode.vue"),
   },
+  {
+    path: "/tim-kiem-tat-ca",
+    name: "Search All",
+    component: () => import("../views/searchAll/pages/searchAll.vue"),
+  },
 ];
 
 const router = new VueRouter({

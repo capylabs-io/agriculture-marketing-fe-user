@@ -39,19 +39,20 @@
           </div>
         </div>
         <div>
-          <div class="d-flex align-center gap-24">
-            <!-- <v-text-field
-              v-model="homeStore.searchKey"
+          <div class="d-flex align-center gap-16">
+            <v-text-field
+              v-model="searchCode"
               class="nav-search-field border-radius-8"
               placeholder="Tìm kiếm"
               append-icon="mdi-magnify"
+              @click:append="goToSearch"
               flat
               solo
               outlined
               dense
               hide-details
               clearable
-            ></v-text-field> -->
+            ></v-text-field>
             <v-btn
               class="text-none text-caplitalize font-weight-medium px-0"
               dark
@@ -242,14 +243,32 @@
 
 <script>
 import { mapStores } from "pinia";
-import { homeStore } from "@/views/home/store/home-store";
+import { searchCodeStore } from "@/views/searchCode/stores/searchCode-Store";
 export default {
   computed: {
-    ...mapStores(homeStore),
+    ...mapStores(searchCodeStore),
+  },
+  data() {
+    return {
+      searchCode: "",
+    };
   },
   methods: {
     goToHome() {
       this.$router.push("/").catch(() => {});
+    },
+    goToSearch() {
+      if (this.$route.path.includes("tim-kiem-tat-ca")) {
+        this.searchCodeStore.searchCode = this.searchCode;
+        this.searchCode = "";
+        this.searchCodeStore.fetchSearchAll();
+        return;
+      }
+      this.$router.push({
+        path: "/tim-kiem-tat-ca",
+      });
+      this.searchCodeStore.searchCode = this.searchCode;
+      this.searchCode = "";
     },
     goToLogin() {
       window.open("https://quanly-trungtamcaycanh.capylabs.io");
