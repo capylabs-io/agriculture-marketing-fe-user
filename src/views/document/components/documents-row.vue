@@ -4,6 +4,7 @@
       <div class="cursor-pointer" @click="goToNewsDetail()">
         <v-clamp
           class="font-weight-semibold text-lg text-decoration-underline Blue10--text cursor-pointer"
+          @click="goToNewsDetail()"
           :max-lines="2"
           >{{ stripHtml(document.field) }}</v-clamp
         >
@@ -48,8 +49,10 @@ export default {
   },
   methods: {
     goToNewsDetail() {
-      if (this.document && this.document.id) return;
-      this.$router.push(`/tai-lieu/${this.document.id}`);
+      if (this.document && this.document.id) {
+        this.$router.push(`/tai-lieu/${this.document.id}`);
+      }
+      console.log(this.document.id);
     },
     stripHtml(html) {
       // Create a new div element
