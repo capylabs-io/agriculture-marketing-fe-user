@@ -146,7 +146,6 @@ export const htxStore = defineStore("htx", {
         });
 
         this.htxs = mappedHtxs;
-        console.log("htxs", this.htxs);
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
