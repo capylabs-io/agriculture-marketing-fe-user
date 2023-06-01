@@ -44,19 +44,19 @@
           <div class="mt-2">
             <div class="neutral80--text text-md font-weight-medium">
               <v-icon class="mr-1" color="primary">mdi-account</v-icon>
-              Nguyễn Văn Anh
+              {{ agencyStore.agency.representative || "Nguyễn Văn Anh" }}
             </div>
             <div class="neutral80--text text-md font-weight-medium mt-1">
               <v-icon class="mr-1" color="primary">mdi-leaf</v-icon>
-              Hợp tác xã trồng trọt
+              {{ agencyStore.agency.agencyCategory || "Hợp tác xã trồng trọt" }}
             </div>
             <div class="neutral80--text text-md font-weight-medium mt-1">
               <v-icon class="mr-1" color="primary">mdi-phone</v-icon>
-              (+84) 99561111
+              (+84) {{ agencyStore.agency.phone || "99561111" }}
             </div>
             <div class="neutral80--text text-md font-weight-medium mt-1">
               <v-icon class="mr-1" color="primary">mdi-map-marker</v-icon>
-              Bến Tre
+              {{ agencyStore.agency.address || "Bến Tre" }}
             </div>
           </div>
         </div>
@@ -127,7 +127,9 @@
               <div class="font-weight-semibold">Người đại diện</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>Nguyễn Văn Anh</div>
+              <div>
+                {{ agencyStore.agency.representative || "Nguyễn Văn Anh" }}
+              </div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
@@ -136,7 +138,7 @@
               <div class="font-weight-semibold">Loại hình</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>Trồng trọt</div>
+              <div></div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
@@ -145,7 +147,9 @@
               <div class="font-weight-semibold">Mã số thuế</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>111000378274</div>
+              <div>
+                {{ agencyStore.agency.taxCode || "111000378274" }}
+              </div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
@@ -154,7 +158,10 @@
               <div class="font-weight-semibold">Mã số Đăng kí kinh doanh</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>942854984</div>
+              <div>
+                942854984
+                {{ agencyStore.agency.businessCode || "942854984" }}
+              </div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
@@ -163,7 +170,9 @@
               <div class="font-weight-semibold">Số điện thoại</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>09458141111</div>
+              <div>
+                {{ agencyStore.agency.phone || "09458141111" }}
+              </div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
@@ -172,7 +181,9 @@
               <div class="font-weight-semibold">Email</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>HTX.BenTre@gmail.com</div>
+              <div>
+                {{ agencyStore.agency.email || "HTX.BenTre@gmail.com" }}
+              </div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
@@ -181,7 +192,11 @@
               <div class="font-weight-semibold">Địa chỉ</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>Số 12 xã Tân Thời tỉnh Bến Tre</div>
+              <div>
+                {{
+                  agencyStore.agency.address || "Số 12 xã Tân Thời tỉnh Bến Tre"
+                }}
+              </div>
             </v-col>
           </v-row>
         </div>
@@ -189,8 +204,14 @@
           <!-- <div v-if="agencyStore.slicedProducts.length > 0"> -->
           <div>
             <v-row class="mt-4">
-              <v-col v-for="i in 6" :key="i" cols="12" sm="6" md="3">
-                <ProductCard :product="agencyStore.agency"></ProductCard>
+              <v-col
+                v-for="product in agencyStore.products"
+                :key="product"
+                cols="12"
+                sm="6"
+                md="3"
+              >
+                <ProductCard :product="product"></ProductCard>
               </v-col>
             </v-row>
 
@@ -226,9 +247,9 @@
                       ? 'mobile-cert-img'
                       : 'certification-img'
                   "
-                  :src="agencyCertificationImage"
-                  v-for="i in 3"
-                  :key="i"
+                  :src="image"
+                  v-for="image in agencyCertificationImage"
+                  :key="image"
                 />
               </div>
             </v-col>
@@ -274,17 +295,18 @@ export default {
   computed: {
     ...mapStores(agencyStore),
     agencyImage() {
-      if (!this.agencyStore.agency || !this.agencyStore.agency.images)
+      if (!this.agencyStore.agency || !this.agencyStore.agency.thumbnail)
         return require("@/assets/no-image.png");
-      return this.agencyStore.agency.images;
+      return this.agencyStore.agency.thumbnail;
     },
     agencyCertificationImage() {
-      if (
-        !this.agencyStore.agency ||
-        !this.agencyStore.agency.certificationImages
-      )
-        return require("@/assets/no-image.png");
-      return this.agencyStore.agency.certificationImages;
+      if (!this.agencyStore.agency || !this.agencyStore.agency.certification)
+        return [
+          require("@/assets/no-image.png"),
+          require("@/assets/no-image.png"),
+          require("@/assets/no-image.png"),
+        ];
+      return this.agencyStore.agency.certification;
     },
     agencyAccreditationImage() {
       if (
@@ -295,9 +317,9 @@ export default {
       return this.agencyStore.agency.accreditationImages;
     },
     agencyQRImage() {
-      if (!this.agencyStore.agency || !this.agencyStore.agency.qrCodeImage)
+      if (!this.agencyStore.agency || !this.agencyStore.agency.qrCode)
         return require("@/assets/qrcode-example.png");
-      return this.agencyStore.agency.qrCodeImage;
+      return this.agencyStore.agency.qrCode;
     },
   },
   data() {

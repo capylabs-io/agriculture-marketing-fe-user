@@ -6,7 +6,7 @@
     >
       <div class="cursor-pointer" @click="$router.push('/')">Trang chủ</div>
       <span class="mx-2">/</span>
-      <div class="cursor-pointer" @click="$router.push('/region')">
+      <div class="cursor-pointer" @click="$router.push('/vung-san-xuat')">
         Danh sách Vùng sản xuất
       </div>
       <span class="mx-2">/</span>
@@ -136,7 +136,9 @@
               <div class="font-weight-semibold">Loại</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>Vùng trồng trọt</div>
+              <div>
+                {{ regionStore.region.regionCategory || "Vùng trồng trọt" }}
+              </div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
@@ -145,7 +147,7 @@
               <div class="font-weight-semibold">Địa giới</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>09458141111</div>
+              <div></div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
@@ -154,7 +156,7 @@
               <div class="font-weight-semibold">Diện tích</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>10000 km2</div>
+              <div>{{ regionStore.region.acreage || "0" }} km2</div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
@@ -163,7 +165,7 @@
               <div class="font-weight-semibold">Số điện thoại</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>09458141111</div>
+              <div>{{ regionStore.region.phone || "09458141111" }}</div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
@@ -172,7 +174,9 @@
               <div class="font-weight-semibold">Email</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>HTX.BenTre@gmail.com</div>
+              <div>
+                {{ regionStore.region.email || "HTX.BenTre@gmail.com" }}
+              </div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
@@ -181,7 +185,9 @@
               <div class="font-weight-semibold">Người đại diện</div>
             </v-col>
             <v-col cols="12" md="9">
-              <div>Nguyễn Văn Anh</div>
+              <div>
+                {{ regionStore.region.representative || "Nguyễn Văn Anh" }}
+              </div>
             </v-col>
           </v-row>
         </div>
@@ -189,8 +195,14 @@
           <!-- <div v-if="regionStore.slicedProducts.length > 0"> -->
           <div>
             <v-row class="mt-4">
-              <v-col v-for="i in 6" :key="i" cols="12" sm="6" md="3">
-                <HtxCard :htx="regionStore.region"></HtxCard>
+              <v-col
+                v-for="htx in regionStore.htxs"
+                :key="htx.id"
+                cols="12"
+                sm="6"
+                md="3"
+              >
+                <HtxCard :htx="htx"></HtxCard>
               </v-col>
             </v-row>
 
@@ -211,8 +223,14 @@
           <!-- <div v-if="regionStore.slicedProducts.length > 0"> -->
           <div>
             <v-row class="mt-4">
-              <v-col v-for="i in 6" :key="i" cols="12" sm="6" md="3">
-                <ProductCard :product="regionStore.region"></ProductCard>
+              <v-col
+                v-for="product in regionStore.products"
+                :key="product.id"
+                cols="12"
+                sm="6"
+                md="3"
+              >
+                <ProductCard :product="product"></ProductCard>
               </v-col>
             </v-row>
 
@@ -248,9 +266,9 @@
                       ? 'mobile-cert-img'
                       : 'certification-img'
                   "
-                  :src="regionCertificationImage"
-                  v-for="i in 3"
-                  :key="i"
+                  :src="image"
+                  v-for="image in regionCertificationImage"
+                  :key="image"
                 />
               </div>
             </v-col>
@@ -297,17 +315,18 @@ export default {
   computed: {
     ...mapStores(regionStore),
     regionImage() {
-      if (!this.regionStore.region || !this.regionStore.region.images)
+      if (!this.regionStore.region || !this.regionStore.region.thumbnail)
         return require("@/assets/no-image.png");
-      return this.regionStore.region.images;
+      return this.regionStore.region.thumbnail;
     },
     regionCertificationImage() {
-      if (
-        !this.regionStore.region ||
-        !this.regionStore.region.certificationImages
-      )
-        return require("@/assets/no-image.png");
-      return this.regionStore.region.certificationImages;
+      if (!this.regionStore.region || !this.regionStore.region.certification)
+        return [
+          require("@/assets/no-image.png"),
+          require("@/assets/no-image.png"),
+          require("@/assets/no-image.png"),
+        ];
+      return this.regionStore.region.certification;
     },
     regionAccreditationImage() {
       if (
@@ -318,9 +337,9 @@ export default {
       return this.regionStore.region.accreditationImages;
     },
     regionQRImage() {
-      if (!this.regionStore.region || !this.regionStore.region.qrCodeImage)
+      if (!this.regionStore.region || !this.regionStore.region.qrCode)
         return require("@/assets/qrcode-example.png");
-      return this.regionStore.region.qrCodeImage;
+      return this.regionStore.region.qrCode;
     },
   },
   data() {

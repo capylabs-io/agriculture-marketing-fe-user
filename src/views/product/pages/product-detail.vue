@@ -51,7 +51,7 @@
                 class="font-weight-semibold text-dp-xs d-flex align-center my-2"
                 v-if="$vuetify.breakpoint.mdAndUp"
               >
-                {{ productStore.product.price || "---"
+                {{ numberWithCommas(productStore.product.price) || "---"
                 }}<span class="neutral80--text text-xs ml-1">vnđ</span>
               </div>
               <div
@@ -60,7 +60,7 @@
               >
                 Giá:
                 <span class="font-weight-bold ml-1 text-lg"
-                  >{{ productStore.product.price || "---" }}
+                  >{{ numberWithCommas(productStore.product.price) || "---" }}
                 </span>
                 <span class="neutral80--text text-xs ml-1">vnđ</span>
               </div>
@@ -212,6 +212,14 @@ export default {
       if (!this.productStore.product || !this.productStore.product.qrCodeImage)
         return require("@/assets/qrcode-example.png");
       return this.productStore.product.qrCodeImage;
+    },
+  },
+  methods: {
+    numberWithCommas(x) {
+      x = x.toString();
+      var pattern = /(-?\d+)(\d{3})/;
+      while (pattern.test(x)) x = x.replace(pattern, "$1.$2");
+      return x;
     },
   },
   data() {

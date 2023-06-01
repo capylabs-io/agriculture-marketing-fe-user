@@ -24,9 +24,9 @@
 export default {
   computed: {
     regionImage() {
-      if (!this.region || !this.region.images)
+      if (!this.region || !this.region.thumbnail)
         return require("@/assets/no-image.png");
-      return this.region.images;
+      return this.region.thumbnail;
     },
   },
   props: {

@@ -135,6 +135,7 @@ export const productStore = defineStore("product", {
       try {
         loading.show();
         const res = await Product.fetch({
+          sort: "updatedAt:desc",
           populate: "*",
         });
         if (!res) {

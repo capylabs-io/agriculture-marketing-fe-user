@@ -26,9 +26,9 @@
 export default {
   computed: {
     agencyImage() {
-      if (!this.agency || !this.agency.images)
+      if (!this.agency || !this.agency.thumbnail)
         return require("@/assets/no-image.png");
-      return this.agency.images;
+      return this.agency.thumbnail;
     },
   },
   props: {
