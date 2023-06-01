@@ -286,4 +286,8 @@ export default {
 .right-border {
   border-right: 1px solid var(--v-neutral20-base) !important;
 }
+.relation-img {
+  width: 96px;
+  height: 96px;
+}
 </style>
