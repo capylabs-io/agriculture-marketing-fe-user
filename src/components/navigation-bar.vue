@@ -186,7 +186,7 @@
                   v-bind="attrs"
                   v-on="on"
                 >
-                  Thư viện ảnh
+                  Thư viện
                   <v-icon class="ml-1" small dark>mdi-chevron-down</v-icon>
                 </div>
               </router-link>
