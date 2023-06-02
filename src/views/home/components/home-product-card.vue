@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     goTo() {
-      this.$router.push(`/products/${this.productCode}`);
+      this.$router.push(`/cay-canh/${this.productCode}`);
     },
   },
 };
