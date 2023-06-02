@@ -16,7 +16,7 @@
       outlined
       small
     >
-      Chi Tiết <v-icon small>mdi-arrow-right</v-icon>
+      Chi Tiết
     </v-btn>
   </div>
 </template>
