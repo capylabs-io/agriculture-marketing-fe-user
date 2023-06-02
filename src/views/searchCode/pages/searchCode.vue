@@ -208,7 +208,7 @@ export default {
     const code = this.$route.query.code;
     this.searchCodeStore.searchCode = code;
     this.showCode = code;
-    this.searchCodeStore.fetchsearchCodes(code);
+    this.searchCodeStore.fetchSearchCodes(code);
   },
   methods: {
     toggleSearch() {},
@@ -218,7 +218,7 @@ export default {
       this.$router.replace({
         query: { code: this.searchCodeStore.searchCode },
       });
-      this.searchCodeStore.fetchsearchCodes(this.searchCodeStore.searchCode);
+      this.searchCodeStore.fetchSearchCodes(this.searchCodeStore.searchCode);
     },
   },
 };
