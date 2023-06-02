@@ -54,6 +54,7 @@
               </div>
             </div>
             <div class="d-flex">
+              <v-btn color="primary" icon><v-icon>mdi-share</v-icon></v-btn>
               <v-btn color="primary" icon><v-icon>mdi-facebook</v-icon></v-btn>
               <v-btn color="primary" icon><v-icon>mdi-email</v-icon></v-btn>
             </div>

@@ -111,7 +111,7 @@
                 :class="{ active: currentTab == 2 }"
                 @click="currentTab = 2"
               >
-                Xác thực
+                Chứng nhận
               </div>
             </div>
             <div class="text-start mt-4" v-if="currentTab == 0">

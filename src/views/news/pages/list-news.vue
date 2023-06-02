@@ -2,14 +2,14 @@
 <template>
   <div>
     <div class="page-container mx-auto py-12 px-8">
-      <div class="text-center">
+      <!-- <div class="text-center">
         <div class="text-dp-md font-weight-semibold text-uppercase">
           Tin tức
         </div>
         <div class="text-md mt-2">
           Nơi cung cấp các thông tin, kiến thức, kinh nghiệm mới nhất
         </div>
-      </div>
+      </div> -->
 
       <div class="mt-12">
         <v-row>
@@ -197,18 +197,18 @@
           >
             <div
               class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-              :class="{ active: isGrid }"
-              @click="isGrid = true"
-            >
-              <v-icon small :dark="isGrid">mdi-grid</v-icon>
-            </div>
-            <v-divider vertical></v-divider>
-            <div
-              class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
               :class="{ active: !isGrid }"
               @click="isGrid = false"
             >
               <v-icon small :dark="!isGrid">mdi-view-list</v-icon>
+            </div>
+            <v-divider vertical></v-divider>
+            <div
+              class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+              :class="{ active: isGrid }"
+              @click="isGrid = true"
+            >
+              <v-icon small :dark="isGrid">mdi-grid</v-icon>
             </div>
           </div>
         </div>
@@ -288,7 +288,7 @@ export default {
   data() {
     return {
       currentTab: 0,
-      isGrid: true,
+      isGrid: false,
     };
   },
   async created() {

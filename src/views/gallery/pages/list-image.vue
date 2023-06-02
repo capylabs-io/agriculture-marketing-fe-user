@@ -23,7 +23,6 @@
             >
               <img
                 class="big-post-img full-width"
-                :aspect-ratio="1 / 1"
                 :src="productImage(galleryStore.newestPost.images)"
                 cover
               />
@@ -261,8 +260,8 @@ export default {
   bottom: 0;
 }
 .big-post-img {
-  height: 320px;
-  object-fit: cover;
+  aspect-ratio: 16/9 !important;
+  object-fit: cover !important;
 }
 .post-img {
   width: 180px;

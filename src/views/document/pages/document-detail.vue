@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="page-container mx-auto pt-6 pb-8 px-6">
-      <div class="text-dp-md font-weight-medium mt-10">Chi tiết tài liệu</div>
+      <div class="text-dp-md font-weight-medium mt-10">Chi tiết văn bản</div>
       <div class="mt-5 table-detail border-radius-16 neutral20-border mb-16">
         <v-row no-gutters>
           <v-col cols="12" md="3" class="d-flex align-center pa-4"

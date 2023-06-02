@@ -114,7 +114,7 @@
           <v-divider class="my-4"></v-divider>
           <v-row>
             <v-col cols="12" md="3">
-              <div class="font-weight-semibold">Chức vụ</div>
+              <div class="font-weight-semibold">Danh xưng</div>
             </v-col>
             <v-col cols="12" md="9">
               <div>

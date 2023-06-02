@@ -34,8 +34,10 @@
             max-width="64px"
           ></v-img>
           <div class="text-uppercase font-weight-bold text-dp-xs ml-4">
-            Trung Tâm truy xuất nguồn gốc <br />
-            cây và hoa cảnh TỈNH Bến Tre
+            <!-- Trung Tâm truy xuất nguồn gốc <br />
+            cây và hoa cảnh TỈNH Bến Tre -->
+            Cổng thông tin giới thiệu sản phẩm và truy xuất <br />
+            nguồn gốc hoa cây cảnh tỉnh Bến Tre.
           </div>
         </div>
         <div>
@@ -221,7 +223,7 @@
             <div
               class="text-none white--text text-uppercase font-weight-medium px-3 py-2 text-sm"
             >
-              Tài liệu
+              Văn bản
             </div>
           </router-link>
           <router-link

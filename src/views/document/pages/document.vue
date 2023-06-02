@@ -2,7 +2,7 @@
 <template>
   <div class="page-container mx-auto pt-15 pb-8 px-6">
     <div class="d-fex flex-column justify-center align-center text-center">
-      <div class="text-dp-md font-weight-medium">Tài liệu</div>
+      <div class="text-dp-md font-weight-medium">Văn Bản</div>
       <div class="text-md mt-2">
         Các văn bản hành chính, công văn, nghị định,... có liên quan
       </div>
