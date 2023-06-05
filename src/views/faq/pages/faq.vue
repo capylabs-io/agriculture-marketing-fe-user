@@ -88,7 +88,14 @@
           Câu hỏi về hệ thống
         </v-row> -->
       </v-col>
-      <v-col cols="12" md="1" v-if="!$vuetify.breakpoint.smAndDown"></v-col>
+      <v-col
+        cols="12"
+        md="1"
+        v-if="!$vuetify.breakpoint.smAndDown"
+        class="text-center"
+      >
+        <v-divider vertical></v-divider
+      ></v-col>
       <v-col cols="12" md="9">
         <div
           v-for="(faq, index) in faqStore.slicedfaqs"

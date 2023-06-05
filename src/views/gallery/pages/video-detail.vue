@@ -28,8 +28,10 @@
         <video width="100%" :src="galleryStore.post.videoContent" controls>
           Your browser does not support the video tag.
         </video>
+        <youtube video-id="G93xZctCiMM" ref="youtube"></youtube>
       </div>
       <v-divider class="mt-8"></v-divider>
+
       <v-row class="mt-6">
         <v-col cols="12" md="8">
           <div
@@ -90,6 +92,7 @@
 import { mapStores } from "pinia";
 import { galleryStore } from "../stores/galleryStore";
 import VClamp from "vue-clamp";
+import { Youtube } from "vue-youtube/dist/vue-youtube.js";
 
 export default {
   computed: {
@@ -102,6 +105,7 @@ export default {
   },
   components: {
     // NewCard: () => import("../components/image-card.vue"),
+    Youtube,
     VClamp,
   },
   data() {
@@ -140,6 +144,9 @@ export default {
           pageSize: 5,
         },
       });
+    },
+    playVideo() {
+      this.$refs.youtube.player.playVideo();
     },
   },
 };

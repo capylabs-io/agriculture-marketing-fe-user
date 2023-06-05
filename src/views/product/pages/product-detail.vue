@@ -87,7 +87,7 @@
             </div>
           </div>
           <div class="neutral20-border border-radius-16 pa-4 mt-6 text-center">
-            <div
+            <!-- <div
               class="d-inline-flex align-center neutral20-border border-radius-8 mx-auto overflow-hidden"
             >
               <div
@@ -113,8 +113,11 @@
               >
                 Chứng nhận
               </div>
-            </div>
-            <div class="text-start mt-4" v-if="currentTab == 0">
+            </div> -->
+            <div class="text-start">
+              <div class="cursor-pointer text-lg pb-4 font-weight-medium">
+                1. Thông tin
+              </div>
               <div>
                 <div class="font-weight-semibold">Mô tả sản phẩm</div>
                 <div
@@ -131,7 +134,12 @@
                 ></div>
               </div>
             </div>
-            <div class="text-start mt-4" v-if="currentTab == 1">
+            <v-divider class="mt-4"></v-divider>
+
+            <div class="text-start mt-4">
+              <div class="cursor-pointer text-lg pb-4 font-weight-medium">
+                2. Nguồn gốc
+              </div>
               <v-expansion-panels class="border-radius-8" accordion>
                 <v-expansion-panel>
                   <v-expansion-panel-header class="font-weight-semibold px-4"
@@ -368,7 +376,12 @@
                 </v-expansion-panel>
               </v-expansion-panels>
             </div>
-            <div class="text-start mt-4" v-if="currentTab == 2">
+            <v-divider class="mt-4"></v-divider>
+
+            <div class="text-start mt-4">
+              <div class="cursor-pointer text-lg pb-4 font-weight-medium">
+                3. Chứng nhận
+              </div>
               <div>
                 <div class="font-weight-semibold">Giấy chứng nhận</div>
                 <v-img

@@ -101,6 +101,9 @@
           :src="require('@/assets/search-not-found.png')"
           cover
         ></v-img>
+        <div class="text-xl font-weight-semibold">
+          không tìm thấy kết quả nào
+        </div>
       </div>
     </div>
     <div class="mt-12" v-if="searchCodeStore.searchSelection == 'seed'">
@@ -158,6 +161,9 @@
           :src="require('@/assets/search-not-found.png')"
           cover
         ></v-img>
+        <div class="text-xl font-weight-semibold">
+          không tìm thấy kết quả nào
+        </div>
       </div>
     </div>
     <div class="mt-12" v-if="searchCodeStore.searchSelection == 'supply'">
@@ -214,6 +220,9 @@
           :src="require('@/assets/search-not-found.png')"
           cover
         ></v-img>
+        <div class="text-xl font-weight-semibold">
+          không tìm thấy kết quả nào
+        </div>
       </div>
     </div>
     <div class="mt-12" v-if="searchCodeStore.searchSelection == 'artisan'">
@@ -271,6 +280,9 @@
           :src="require('@/assets/search-not-found.png')"
           cover
         ></v-img>
+        <div class="text-xl font-weight-semibold">
+          không tìm thấy kết quả nào
+        </div>
       </div>
     </div>
     <div class="mt-12" v-if="searchCodeStore.searchSelection == 'region'">
@@ -328,6 +340,9 @@
           :src="require('@/assets/search-not-found.png')"
           cover
         ></v-img>
+        <div class="text-xl font-weight-semibold">
+          không tìm thấy kết quả nào
+        </div>
       </div>
     </div>
     <div class="mt-12" v-if="searchCodeStore.searchSelection == 'htx'">
@@ -384,6 +399,9 @@
           :src="require('@/assets/search-not-found.png')"
           cover
         ></v-img>
+        <div class="text-xl font-weight-semibold">
+          không tìm thấy kết quả nào
+        </div>
       </div>
     </div>
     <div class="mt-12" v-if="searchCodeStore.searchSelection == 'agency'">
@@ -440,6 +458,9 @@
           :src="require('@/assets/search-not-found.png')"
           cover
         ></v-img>
+        <div class="text-xl font-weight-semibold">
+          không tìm thấy kết quả nào
+        </div>
       </div>
     </div>
     <div class="mt-12" v-if="searchCodeStore.searchSelection == 'new'">
@@ -506,6 +527,9 @@
           :src="require('@/assets/search-not-found.png')"
           cover
         ></v-img>
+        <div class="text-xl font-weight-semibold">
+          không tìm thấy kết quả nào
+        </div>
       </div>
     </div>
     <div class="mt-12" v-if="searchCodeStore.searchSelection == 'document'">
@@ -574,6 +598,9 @@
           :src="require('@/assets/search-not-found.png')"
           cover
         ></v-img>
+        <div class="text-xl font-weight-semibold">
+          không tìm thấy kết quả nào
+        </div>
       </div>
     </div>
 
@@ -640,6 +667,9 @@
           :src="require('@/assets/search-not-found.png')"
           cover
         ></v-img>
+        <div class="text-xl font-weight-semibold">
+          không tìm thấy kết quả nào
+        </div>
       </div>
     </div>
     <div

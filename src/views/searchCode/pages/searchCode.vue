@@ -147,6 +147,9 @@
           :src="require('@/assets/search-not-found.png')"
           cover
         ></v-img>
+        <div class="text-xl font-weight-semibold">
+          không tìm thấy kết quả nào
+        </div>
       </div>
     </div>
     <div
