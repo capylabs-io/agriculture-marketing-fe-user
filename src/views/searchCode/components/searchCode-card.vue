@@ -4,18 +4,28 @@
     @click="goToDetail()"
   >
     <v-img :src="resultImage" :aspect-ratio="1 / 1" cover></v-img>
-    <div class="pa-4 d-flex flex-column full-height">
-      <div class="text-xs neutral60--text font-weight-medium">
-        {{ resultCode }}
-      </div>
-      <div class="text-sm font-weight-medium flex-grow-1 mt-1">
-        {{ resultName }}
-      </div>
-      <div class="font-weight-medium d-flex align-center mt-3">
-        <div class="text-lg font-weight-bold">
-          {{ numberWithCommas(resultPrice) || "---" }}
+    <div class="pa-4 d-flex full-height align-center">
+      <div class="d-flex flex-column flex-grow-1">
+        <div class="text-sm neutral60--text font-weight-medium">
+          {{ resultCode }}
         </div>
-        <div class="ml-1 text-xs neutral80--text">vnd</div>
+        <div class="text-md font-weight-medium flex-grow-1 mt-1">
+          {{ resultName }}
+        </div>
+        <div class="font-weight-medium d-flex align-center mt-3">
+          <div class="text-xl font-weight-bold">
+            {{ numberWithCommas(resultPrice) || "---" }}
+          </div>
+          <div class="ml-1 text-xs neutral80--text">vnd</div>
+        </div>
+      </div>
+      <div class="neutral20-border border-radius-8">
+        <v-img
+          class="qrcode-img"
+          :aspect-ratio="1 / 1"
+          :src="productQRImage"
+          contain
+        ></v-img>
       </div>
     </div>
   </div>
@@ -24,6 +34,11 @@
 <script>
 export default {
   computed: {
+    productQRImage() {
+      if (!this.result || !this.result.qrCodeImage)
+        return require("@/assets/qrcode-example.png");
+      return this.result.qrCodeImage;
+    },
     resultImage() {
       if (!this.result || !this.result.images)
         return require("@/assets/no-image.png");
@@ -78,5 +93,9 @@ export default {
 .result-id {
   background-color: var(--v-primary10-base) !important;
   border-bottom: 1px solid var(--v-neutral30-base);
+}
+.qrcode-img {
+  width: 86px;
+  height: 86px;
 }
 </style>

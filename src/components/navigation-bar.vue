@@ -33,11 +33,11 @@
             max-height="64px"
             max-width="64px"
           ></v-img>
-          <div class="text-uppercase font-weight-bold text-dp-xs ml-4">
+          <div class="text-uppercase font-weight-bold text-xl ml-4 mt-1">
             <!-- Trung Tâm truy xuất nguồn gốc <br />
             cây và hoa cảnh TỈNH Bến Tre -->
-            Cổng thông tin giới thiệu sản phẩm và truy xuất <br />
-            nguồn gốc hoa cây cảnh tỉnh Bến Tre.
+            Cổng thông tin giới thiệu sản phẩm và <br />
+            truy xuất nguồn gốc hoa cây cảnh tỉnh Bến Tre
           </div>
         </div>
         <div>

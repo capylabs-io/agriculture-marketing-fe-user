@@ -52,9 +52,7 @@ export const searchCodeStore = defineStore("searchCode", {
       const filterCategories = this.filterCategory.map((categoryId) =>
         get(this.categoryDictionary, categoryId, "Danh mục khác")
       );
-      const filterPrices = this.filterPrice.map((filterPrice) =>
-        helpers.getFilterPriceText(filterPrice)
-      );
+      const filterPrices = this.filterPrice.map((filterPrice) => helpers.getFilterPriceText(filterPrice));
       let filters = filterCategories.concat(filterPrices);
       if (this.searchKey) filters.push("Từ khoá: " + this.searchKey);
       return filters;
@@ -71,10 +69,7 @@ export const searchCodeStore = defineStore("searchCode", {
       if (!this.searchResults || this.searchResults.length == 0) return 1;
       if (this.searchResults.length % this.searchResultsPerPage == 0)
         return this.searchResults.length / this.searchResultsPerPage;
-      else
-        return (
-          Math.floor(this.searchResults.length / this.searchResultsPerPage) + 1
-        );
+      else return Math.floor(this.searchResults.length / this.searchResultsPerPage) + 1;
     },
     //////
 
@@ -85,10 +80,7 @@ export const searchCodeStore = defineStore("searchCode", {
     searchCodeImages() {
       if (!this.searchCode) return [];
       let images = [this.searchCode.images];
-      if (
-        this.searchCode.imageCollection &&
-        this.searchCode.imageCollection.length > 0
-      )
+      if (this.searchCode.imageCollection && this.searchCode.imageCollection.length > 0)
         images = images.concat(this.searchCode.imageCollection);
       return images;
     },
@@ -101,45 +93,35 @@ export const searchCodeStore = defineStore("searchCode", {
     },
     slicedsearchAll(results, itemPage, itemPerPage) {
       if (!results || results.length == 0) return [];
-      return results.slice(
-        (itemPage - 1) * itemPerPage,
-        itemPage * itemPerPage
-      );
+      return results.slice((itemPage - 1) * itemPerPage, itemPage * itemPerPage);
     },
     totalsearchAllPage(results, itemPerPage) {
       if (!results || results.length == 0) return 1;
-      if (results.length % itemPerPage == 0)
-        return results.length / itemPerPage;
+      if (results.length % itemPerPage == 0) return results.length / itemPerPage;
       else return Math.floor(results.length / itemPerPage) + 1;
     },
 
     //////
-    async fetchSearchCodes(code) {
+    async fetchSearchCodes() {
       try {
         loading.show();
+        if (!this.searchCode) return;
+        const query = {
+          filters: {
+            status: "publish",
+            code: this.searchCode.trim(),
+          },
+          sort: "updatedAt:desc",
+          populate: "*",
+          pagination: {
+            page: 1,
+            pageSize: 1,
+          },
+        };
         const [productRes, supplyRes, seedlingRes] = await Promise.all([
-          Product.fetch({
-            filters: {
-              status: "publish",
-            },
-            sort: "updatedAt:desc",
-
-            populate: "*",
-          }),
-          Supply.fetch({
-            filters: {
-              status: "publish",
-            },
-            sort: "updatedAt:desc",
-            populate: "*",
-          }),
-          Seed.fetch({
-            filters: {
-              status: "publish",
-            },
-            sort: "updatedAt:desc",
-            populate: "*",
-          }),
+          Product.fetch(query),
+          Supply.fetch(query),
+          Seed.fetch(query),
         ]);
 
         const products = get(productRes, "data.data", []);
@@ -147,58 +129,40 @@ export const searchCodeStore = defineStore("searchCode", {
         const seeds = get(seedlingRes, "data.data", []);
 
         if (!products && products.length == 0) return;
-        const mappedProducts = products
-          .filter((product) =>
-            product.attributes.code
-              .toLowerCase()
-              .includes(code.trim().toLowerCase())
-          )
-          .map((product) => {
-            return {
-              //   id: product.id,
-              code: product.attributes.code,
-              images: product.attributes.images,
-              name: product.attributes.name,
-              price: product.attributes.price,
-              type: "product",
-            };
-          });
+        const mappedProducts = products.map((product) => {
+          return {
+            id: product.id,
+            code: product.attributes.code,
+            images: product.attributes.images,
+            name: product.attributes.name,
+            price: product.attributes.price,
+            type: "product",
+          };
+        });
 
         if (!supplies && supplies.length == 0) return;
-        const mappedSupplies = supplies
-          .filter((supply) =>
-            supply.attributes.code
-              .toLowerCase()
-              .includes(code.trim().toLowerCase())
-          )
-          .map((supply) => {
-            return {
-              //   id: supply.id,
-              code: supply.attributes.code,
-              images: supply.attributes.images,
-              name: supply.attributes.name,
-              price: supply.attributes.price,
-              type: "supply",
-            };
-          });
+        const mappedSupplies = supplies.map((supply) => {
+          return {
+            id: supply.id,
+            code: supply.attributes.code,
+            images: supply.attributes.images,
+            name: supply.attributes.name,
+            price: supply.attributes.price,
+            type: "supply",
+          };
+        });
 
         if (!seeds && seeds.length == 0) return;
-        const mappedSeeds = seeds
-          .filter((seed) =>
-            seed.attributes.code
-              .toLowerCase()
-              .includes(code.trim().toLowerCase())
-          )
-          .map((seed) => {
-            return {
-              //   id: seed.id,
-              code: seed.attributes.code,
-              images: seed.attributes.images,
-              name: seed.attributes.name,
-              price: seed.attributes.price,
-              type: "seed",
-            };
-          });
+        const mappedSeeds = seeds.map((seed) => {
+          return {
+            id: seed.id,
+            code: seed.attributes.code,
+            images: seed.attributes.images,
+            name: seed.attributes.name,
+            price: seed.attributes.price,
+            type: "seed",
+          };
+        });
         this.seeds = mappedSeeds;
         this.supplies = mappedSupplies;
         this.products = mappedProducts;
@@ -231,12 +195,8 @@ export const searchCodeStore = defineStore("searchCode", {
               .filter((product) => product.attributes.status == "publish")
               .filter(
                 (product) =>
-                  product.attributes.code
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase()) ||
-                  product.attributes.name
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase())
+                  product.attributes.code.toLowerCase().includes(this.searchCode.trim().toLowerCase()) ||
+                  product.attributes.name.toLowerCase().includes(this.searchCode.trim().toLowerCase())
               )
               .map((product) => {
                 return {
@@ -244,11 +204,7 @@ export const searchCodeStore = defineStore("searchCode", {
                   ...product.attributes,
                   productCategory: {
                     id: get(product, "attributes.productCategory.data.id", -1),
-                    ...get(
-                      product,
-                      "attributes.productCategory.data.attributes",
-                      {}
-                    ),
+                    ...get(product, "attributes.productCategory.data.attributes", {}),
                   },
                   author: get(product, "attributes.user.data.attributes", {}),
                 };
@@ -270,12 +226,8 @@ export const searchCodeStore = defineStore("searchCode", {
               .filter((seed) => seed.attributes.status == "publish")
               .filter(
                 (seed) =>
-                  seed.attributes.code
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase()) ||
-                  seed.attributes.name
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase())
+                  seed.attributes.code.toLowerCase().includes(this.searchCode.trim().toLowerCase()) ||
+                  seed.attributes.name.toLowerCase().includes(this.searchCode.trim().toLowerCase())
               )
               .map((seed) => {
                 return {
@@ -283,11 +235,7 @@ export const searchCodeStore = defineStore("searchCode", {
                   ...seed.attributes,
                   seedCategory: {
                     id: get(seed, "attributes.seedlingCategory.data.id", -1),
-                    ...get(
-                      seed,
-                      "attributes.seedlingCategory.data.attributes",
-                      {}
-                    ),
+                    ...get(seed, "attributes.seedlingCategory.data.attributes", {}),
                   },
                   author: get(seed, "attributes.user.data.attributes", {}),
                 };
@@ -309,12 +257,8 @@ export const searchCodeStore = defineStore("searchCode", {
               .filter((supply) => supply.attributes.status == "publish")
               .filter(
                 (supply) =>
-                  supply.attributes.code
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase()) ||
-                  supply.attributes.name
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase())
+                  supply.attributes.code.toLowerCase().includes(this.searchCode.trim().toLowerCase()) ||
+                  supply.attributes.name.toLowerCase().includes(this.searchCode.trim().toLowerCase())
               )
               .map((supply) => {
                 return {
@@ -322,11 +266,7 @@ export const searchCodeStore = defineStore("searchCode", {
                   ...supply.attributes,
                   supplyCategory: {
                     id: get(supply, "attributes.supplyCategory.data.id", -1),
-                    ...get(
-                      supply,
-                      "attributes.supplyCategory.data.attributes",
-                      {}
-                    ),
+                    ...get(supply, "attributes.supplyCategory.data.attributes", {}),
                   },
                   author: get(supply, "attributes.user.data.attributes", {}),
                 };
@@ -345,12 +285,8 @@ export const searchCodeStore = defineStore("searchCode", {
             const mappedArtisans = artisans
               .filter(
                 (artisan) =>
-                  artisan.attributes.code
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase()) ||
-                  artisan.attributes.name
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase())
+                  artisan.attributes.code.toLowerCase().includes(this.searchCode.trim().toLowerCase()) ||
+                  artisan.attributes.name.toLowerCase().includes(this.searchCode.trim().toLowerCase())
               )
               .map((artisan) => {
                 return {
@@ -358,11 +294,7 @@ export const searchCodeStore = defineStore("searchCode", {
                   ...artisan.attributes,
                   artisanCategory: {
                     id: get(artisan, "attributes.artisanCategory.data.id", -1),
-                    ...get(
-                      artisan,
-                      "attributes.artisanCategory.data.attributes",
-                      {}
-                    ),
+                    ...get(artisan, "attributes.artisanCategory.data.attributes", {}),
                   },
                 };
               });
@@ -380,12 +312,8 @@ export const searchCodeStore = defineStore("searchCode", {
             const mappedRegions = regions
               .filter(
                 (region) =>
-                  region.attributes.code
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase()) ||
-                  region.attributes.name
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase())
+                  region.attributes.code.toLowerCase().includes(this.searchCode.trim().toLowerCase()) ||
+                  region.attributes.name.toLowerCase().includes(this.searchCode.trim().toLowerCase())
               )
               .map((region) => {
                 return {
@@ -393,11 +321,7 @@ export const searchCodeStore = defineStore("searchCode", {
                   ...region.attributes,
                   regionCategory: {
                     id: get(region, "attributes.areaCategory.data.id", -1),
-                    ...get(
-                      region,
-                      "attributes.areaCategory.data.attributes",
-                      {}
-                    ),
+                    ...get(region, "attributes.areaCategory.data.attributes", {}),
                   },
                   author: get(region, "attributes.user.data.attributes", {}),
                 };
@@ -417,12 +341,8 @@ export const searchCodeStore = defineStore("searchCode", {
             const mappedHtxs = htxs
               .filter(
                 (htx) =>
-                  htx.attributes.code
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase()) ||
-                  htx.attributes.name
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase())
+                  htx.attributes.code.toLowerCase().includes(this.searchCode.trim().toLowerCase()) ||
+                  htx.attributes.name.toLowerCase().includes(this.searchCode.trim().toLowerCase())
               )
               .map((htx) => {
                 return {
@@ -430,11 +350,7 @@ export const searchCodeStore = defineStore("searchCode", {
                   ...htx.attributes,
                   htxCategory: {
                     id: get(htx, "attributes.cooperativeCategory.data.id", -1),
-                    ...get(
-                      htx,
-                      "attributes.cooperativeCategory.data.attributes",
-                      {}
-                    ),
+                    ...get(htx, "attributes.cooperativeCategory.data.attributes", {}),
                   },
                 };
               });
@@ -452,12 +368,8 @@ export const searchCodeStore = defineStore("searchCode", {
             const mappedAgencies = agencys
               .filter(
                 (agency) =>
-                  agency.attributes.code
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase()) ||
-                  agency.attributes.name
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase())
+                  agency.attributes.code.toLowerCase().includes(this.searchCode.trim().toLowerCase()) ||
+                  agency.attributes.name.toLowerCase().includes(this.searchCode.trim().toLowerCase())
               )
               .map((agency) => {
                 return {
@@ -465,11 +377,7 @@ export const searchCodeStore = defineStore("searchCode", {
                   ...agency.attributes,
                   agencyCategory: {
                     id: get(agency, "attributes.storeCategory.data.id", -1),
-                    ...get(
-                      agency,
-                      "attributes.storeCategory.data.attributes",
-                      {}
-                    ),
+                    ...get(agency, "attributes.storeCategory.data.attributes", {}),
                   },
                 };
               });
@@ -489,9 +397,7 @@ export const searchCodeStore = defineStore("searchCode", {
             if (!posts && posts.length == 0) return;
             const mappedPosts = posts
               .filter((post) =>
-                post.attributes.title
-                  .toLowerCase()
-                  .includes(this.searchCode.trim().toLowerCase())
+                post.attributes.title.toLowerCase().includes(this.searchCode.trim().toLowerCase())
               )
               .map((post) => {
                 return {
@@ -501,11 +407,7 @@ export const searchCodeStore = defineStore("searchCode", {
                     id: get(post, "attributes.postCategory.data.id", -1),
                     ...get(post, "attributes.postCategory.data.attributes", {}),
                   },
-                  author: get(
-                    post,
-                    "attributes.user.data.attributes.username",
-                    "Admin"
-                  ),
+                  author: get(post, "attributes.user.data.attributes.username", "Admin"),
                 };
               });
             this.posts = mappedPosts;
@@ -521,28 +423,16 @@ export const searchCodeStore = defineStore("searchCode", {
             const mappeddocuments = documents
               .filter(
                 (document) =>
-                  document.attributes.title
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase()) ||
-                  document.attributes.numberOf
-                    .toLowerCase()
-                    .includes(this.searchCode.trim().toLowerCase())
+                  document.attributes.title.toLowerCase().includes(this.searchCode.trim().toLowerCase()) ||
+                  document.attributes.numberOf.toLowerCase().includes(this.searchCode.trim().toLowerCase())
               )
               .map((document) => {
                 return {
                   id: document.id,
                   ...document.attributes,
                   documentCategory: {
-                    id: get(
-                      document,
-                      "attributes.documentCategory.data.id",
-                      -1
-                    ),
-                    ...get(
-                      document,
-                      "attributes.documentCategory.data.attributes",
-                      {}
-                    ),
+                    id: get(document, "attributes.documentCategory.data.id", -1),
+                    ...get(document, "attributes.documentCategory.data.attributes", {}),
                   },
                 };
               });
@@ -558,9 +448,7 @@ export const searchCodeStore = defineStore("searchCode", {
             if (!faqs && faqs.length == 0) return;
             const mappedfaqs = faqs
               .filter((faqs) =>
-                faqs.attributes.question
-                  .toLowerCase()
-                  .includes(this.searchCode.trim().toLowerCase())
+                faqs.attributes.question.toLowerCase().includes(this.searchCode.trim().toLowerCase())
               )
               .map((faqs) => {
                 return {
