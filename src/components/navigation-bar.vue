@@ -64,6 +64,7 @@
             <v-btn
               class="text-none text-caplitalize font-weight-medium px-0"
               dark
+              href="https://quanly-trungtamcaycanh.capylabs.io/"
               text
               >Đăng nhập</v-btn
             >

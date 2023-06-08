@@ -87,7 +87,7 @@
             </div>
           </div>
           <div class="neutral20-border border-radius-16 pa-4 mt-6 text-center">
-            <!-- <div
+            <div
               class="d-inline-flex align-center neutral20-border border-radius-8 mx-auto overflow-hidden"
             >
               <div
@@ -113,8 +113,8 @@
               >
                 Chứng nhận
               </div>
-            </div> -->
-            <div class="text-start mt-4">
+            </div>
+            <div class="text-start mt-4" v-if="currentTab == 0">
               <div class="cursor-pointer text-lg pb-4 font-weight-medium">
                 1. Thông tin
               </div>
@@ -128,220 +128,246 @@
                 <div class="mt-2" v-html="seedStore.seed.careInstruction"></div>
               </div>
             </div>
-            <v-divider class="mt-4"></v-divider>
-            <div class="text-start mt-4">
+
+            <div class="text-start mt-4" v-if="currentTab == 1">
               <div class="cursor-pointer text-lg pb-4 font-weight-medium">
                 2. Nguồn gốc
               </div>
-              <v-expansion-panels class="border-radius-8" accordion>
-                <v-expansion-panel>
-                  <v-expansion-panel-header class="font-weight-semibold px-4"
-                    >Vùng sản xuất</v-expansion-panel-header
+              <div>
+                <div class="font-weight-semibold">Vùng sản xuất:</div>
+                <div class="d-flex full-height align-center mt-4">
+                  <div
+                    class="d-flex flex-grow-1"
+                    v-if="seedStore.seed.area && seedStore.seed.area.id != -1"
                   >
-                  <v-expansion-panel-content>
-                    <v-divider></v-divider>
-                    <div
-                      class="d-flex mt-4"
-                      v-if="seedStore.seed.area && seedStore.seed.area.id != -1"
-                    >
-                      <div>
-                        <v-img
-                          class="relation-img border-radius-8"
-                          :src="relationImage(seedStore.seed.area.thumbnail)"
-                          :aspect-ratio="4 / 3"
-                          cover
-                        ></v-img>
-                      </div>
-                      <div class="ml-4 flex-grow-1">
-                        <div class="font-weight-semibold text-md">
-                          {{ seedStore.seed.area.name || "Vùng sản xuất" }}
-                        </div>
-                        <div class="neutral70--text text-sm mt-1">
-                          {{ seedStore.seed.area.code || "Mã truy xuất" }}
-                        </div>
-                        <v-btn
-                          class="text-none text-capitalize mt-3"
-                          elevation="0"
-                          color="primary"
-                          @click="
-                            $router.push(
-                              '/vung-san-xuat/' + seedStore.seed.area.code
-                            )
-                          "
-                          small
-                        >
-                          Xem chi tiết
-                        </v-btn>
-                      </div>
+                    <div>
+                      <v-img
+                        class="relation-img border-radius-8"
+                        :src="relationImage(seedStore.seed.area.thumbnail)"
+                        :aspect-ratio="4 / 3"
+                        cover
+                      ></v-img>
                     </div>
-                    <div
-                      class="text-md font-weight-medium text-center py-4"
-                      v-else
-                    >
-                      Không có thông tin!
+                    <div class="ml-4 flex-grow-1">
+                      <div class="font-weight-semibold text-md">
+                        {{ seedStore.seed.area.name || "Vùng sản xuất" }}
+                      </div>
+                      <div class="neutral70--text text-sm mt-1">
+                        {{ seedStore.seed.area.code || "Mã truy xuất" }}
+                      </div>
+                      <v-btn
+                        class="text-none text-capitalize mt-3"
+                        elevation="0"
+                        color="primary"
+                        @click="
+                          $router.push(
+                            '/vung-san-xuat/' + seedStore.seed.area.code
+                          )
+                        "
+                        small
+                      >
+                        Xem chi tiết
+                      </v-btn>
                     </div>
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-                <v-expansion-panel>
-                  <v-expansion-panel-header class="font-weight-semibold px-4"
-                    >Hợp tác xã</v-expansion-panel-header
+                  </div>
+                  <div
+                    class="text-md font-weight-medium text-center py-4"
+                    v-else
                   >
-                  <v-expansion-panel-content>
-                    <v-divider></v-divider>
-                    <div
-                      class="d-flex mt-4"
-                      v-if="
-                        seedStore.seed.cooperative &&
-                        seedStore.seed.cooperative.id != -1
-                      "
-                    >
-                      <div>
-                        <v-img
-                          class="relation-img border-radius-8"
-                          :src="
-                            relationImage(seedStore.seed.cooperative.thumbnail)
-                          "
-                          :aspect-ratio="4 / 3"
-                          cover
-                        ></v-img>
-                      </div>
-                      <div class="ml-4 flex-grow-1">
-                        <div class="font-weight-semibold text-md">
-                          {{
-                            seedStore.seed.cooperative.name || "Vùng sản xuất"
-                          }}
-                        </div>
-                        <div class="neutral70--text text-sm mt-1">
-                          {{
-                            seedStore.seed.cooperative.code || "Mã truy xuất"
-                          }}
-                        </div>
-                        <v-btn
-                          class="text-none text-capitalize mt-3"
-                          elevation="0"
-                          color="primary"
-                          @click="
-                            $router.push(
-                              '/hop-tac-xa/' + seedStore.seed.cooperative.code
-                            )
-                          "
-                          small
-                        >
-                          Xem chi tiết
-                        </v-btn>
-                      </div>
-                    </div>
-                    <div
-                      class="text-md font-weight-medium text-center py-4"
-                      v-else
-                    >
-                      Không có thông tin!
-                    </div>
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-                <v-expansion-panel>
-                  <v-expansion-panel-header class="font-weight-semibold px-4"
-                    >Nghệ nhân</v-expansion-panel-header
+                    Không có thông tin!
+                  </div>
+                  <div
+                    class="neutral20-border border-radius-8"
+                    v-if="seedStore.seed.area.qrCode"
                   >
-                  <v-expansion-panel-content>
-                    <v-divider></v-divider>
-                    <div
-                      class="d-flex mt-4"
-                      v-if="
-                        seedStore.seed.artisan &&
-                        seedStore.seed.artisan.id != -1
-                      "
-                    >
-                      <div>
-                        <v-img
-                          class="relation-img border-radius-8"
-                          :src="relationImage(seedStore.seed.artisan.thumbnail)"
-                          :aspect-ratio="4 / 3"
-                          cover
-                        ></v-img>
-                      </div>
-                      <div class="ml-4 flex-grow-1">
-                        <div class="font-weight-semibold text-md">
-                          {{ seedStore.seed.artisan.name || "Vùng sản xuất" }}
-                        </div>
-                        <div class="neutral70--text text-sm mt-1">
-                          {{ seedStore.seed.artisan.code || "Mã truy xuất" }}
-                        </div>
-                        <v-btn
-                          class="text-none text-capitalize mt-3"
-                          elevation="0"
-                          color="primary"
-                          @click="
-                            $router.push(
-                              '/nghe-nhan/' + seedStore.seed.artisan.code
-                            )
-                          "
-                          small
-                        >
-                          Xem chi tiết
-                        </v-btn>
-                      </div>
-                    </div>
-                    <div
-                      class="text-md font-weight-medium text-center py-4"
-                      v-else
-                    >
-                      Không có thông tin!
-                    </div>
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-                <v-expansion-panel>
-                  <v-expansion-panel-header class="font-weight-semibold px-4"
-                    >Đại lý</v-expansion-panel-header
+                    <v-img
+                      class="qrcode-img-card"
+                      :aspect-ratio="1 / 1"
+                      :src="relationImage(seedStore.seed.area.qrCode)"
+                      contain
+                    ></v-img>
+                  </div>
+                </div>
+              </div>
+              <v-divider class="mt-3"></v-divider>
+              <div class="mt-3">
+                <div class="font-weight-semibold">Hợp tác xã:</div>
+                <div class="mt-4 d-flex full-height align-center">
+                  <div
+                    class="d-flex flex-grow-1"
+                    v-if="
+                      seedStore.seed.cooperative &&
+                      seedStore.seed.cooperative.id != -1
+                    "
                   >
-                  <v-expansion-panel-content>
-                    <v-divider></v-divider>
-                    <div
-                      class="d-flex mt-4"
-                      v-if="
-                        seedStore.seed.store && seedStore.seed.store.id != -1
-                      "
-                    >
-                      <div>
-                        <v-img
-                          class="relation-img border-radius-8"
-                          :src="relationImage(seedStore.seed.store.thumbnail)"
-                          :aspect-ratio="4 / 3"
-                          cover
-                        ></v-img>
-                      </div>
-                      <div class="ml-4 flex-grow-1">
-                        <div class="font-weight-semibold text-md">
-                          {{ seedStore.seed.store.name || "Vùng sản xuất" }}
-                        </div>
-                        <div class="neutral70--text text-sm mt-1">
-                          {{ seedStore.seed.store.code || "Mã truy xuất" }}
-                        </div>
-                        <v-btn
-                          class="text-none text-capitalize mt-3"
-                          elevation="0"
-                          color="primary"
-                          @click="
-                            $router.push('/dai-ly/' + seedStore.seed.store.code)
-                          "
-                          small
-                        >
-                          Xem chi tiết
-                        </v-btn>
-                      </div>
+                    <div>
+                      <v-img
+                        class="relation-img border-radius-8"
+                        :src="
+                          relationImage(seedStore.seed.cooperative.thumbnail)
+                        "
+                        :aspect-ratio="4 / 3"
+                        cover
+                      ></v-img>
                     </div>
-                    <div
-                      class="text-md font-weight-medium text-center py-4"
-                      v-else
-                    >
-                      Không có thông tin!
+                    <div class="ml-4 flex-grow-1">
+                      <div class="font-weight-semibold text-md">
+                        {{ seedStore.seed.cooperative.name || "Vùng sản xuất" }}
+                      </div>
+                      <div class="neutral70--text text-sm mt-1">
+                        {{ seedStore.seed.cooperative.code || "Mã truy xuất" }}
+                      </div>
+                      <v-btn
+                        class="text-none text-capitalize mt-3"
+                        elevation="0"
+                        color="primary"
+                        @click="
+                          $router.push(
+                            '/hop-tac-xa/' + seedStore.seed.cooperative.code
+                          )
+                        "
+                        small
+                      >
+                        Xem chi tiết
+                      </v-btn>
                     </div>
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
+                  </div>
+                  <div
+                    class="text-md font-weight-medium text-center py-4"
+                    v-else
+                  >
+                    Không có thông tin!
+                  </div>
+                  <div
+                    class="neutral20-border border-radius-8"
+                    v-if="seedStore.seed.cooperative.qrCode"
+                  >
+                    <v-img
+                      class="qrcode-img-card"
+                      :aspect-ratio="1 / 1"
+                      :src="relationImage(seedStore.seed.cooperative.qrCode)"
+                      contain
+                    ></v-img>
+                  </div>
+                </div>
+              </div>
+              <v-divider class="mt-3"></v-divider>
+              <div class="mt-3">
+                <div class="font-weight-semibold">Nghệ nhân:</div>
+                <div class="mt-4 d-flex full-height align-center">
+                  <div
+                    class="d-flex flex-grow-1"
+                    v-if="
+                      seedStore.seed.artisan && seedStore.seed.artisan.id != -1
+                    "
+                  >
+                    <div>
+                      <v-img
+                        class="relation-img border-radius-8"
+                        :src="relationImage(seedStore.seed.artisan.thumbnail)"
+                        :aspect-ratio="4 / 3"
+                        cover
+                      ></v-img>
+                    </div>
+                    <div class="ml-4 flex-grow-1">
+                      <div class="font-weight-semibold text-md">
+                        {{ seedStore.seed.artisan.name || "Vùng sản xuất" }}
+                      </div>
+                      <div class="neutral70--text text-sm mt-1">
+                        {{ seedStore.seed.artisan.code || "Mã truy xuất" }}
+                      </div>
+                      <v-btn
+                        class="text-none text-capitalize mt-3"
+                        elevation="0"
+                        color="primary"
+                        @click="
+                          $router.push(
+                            '/nghe-nhan/' + seedStore.seed.artisan.code
+                          )
+                        "
+                        small
+                      >
+                        Xem chi tiết
+                      </v-btn>
+                    </div>
+                  </div>
+                  <div
+                    class="text-md font-weight-medium text-center py-4"
+                    v-else
+                  >
+                    Không có thông tin!
+                  </div>
+                  <div
+                    class="neutral20-border border-radius-8"
+                    v-if="seedStore.seed.artisan.qrCode"
+                  >
+                    <v-img
+                      class="qrcode-img-card"
+                      :aspect-ratio="1 / 1"
+                      :src="relationImage(seedStore.seed.artisan.qrCode)"
+                      contain
+                    ></v-img>
+                  </div>
+                </div>
+              </div>
+              <v-divider class="mt-3"></v-divider>
+              <div class="mt-3">
+                <div class="font-weight-semibold">Đại lý:</div>
+                <div class="mt-4 d-flex full-height align-center">
+                  <div
+                    class="d-flex flex-grow-1"
+                    v-if="seedStore.seed.store && seedStore.seed.store.id != -1"
+                  >
+                    <div>
+                      <v-img
+                        class="relation-img border-radius-8"
+                        :src="relationImage(seedStore.seed.store.thumbnail)"
+                        :aspect-ratio="4 / 3"
+                        cover
+                      ></v-img>
+                    </div>
+                    <div class="ml-4 flex-grow-1">
+                      <div class="font-weight-semibold text-md">
+                        {{ seedStore.seed.store.name || "Vùng sản xuất" }}
+                      </div>
+                      <div class="neutral70--text text-sm mt-1">
+                        {{ seedStore.seed.store.code || "Mã truy xuất" }}
+                      </div>
+                      <v-btn
+                        class="text-none text-capitalize mt-3"
+                        elevation="0"
+                        color="primary"
+                        @click="
+                          $router.push('/dai-ly/' + seedStore.seed.store.code)
+                        "
+                        small
+                      >
+                        Xem chi tiết
+                      </v-btn>
+                    </div>
+                  </div>
+                  <div
+                    class="text-md font-weight-medium text-center py-4"
+                    v-else
+                  >
+                    Không có thông tin!
+                  </div>
+                  <div
+                    class="neutral20-border border-radius-8"
+                    v-if="seedStore.seed.store.qrCode"
+                  >
+                    <v-img
+                      class="qrcode-img-card"
+                      :aspect-ratio="1 / 1"
+                      :src="relationImage(seedStore.seed.store.qrCode)"
+                      contain
+                    ></v-img>
+                  </div>
+                </div>
+              </div>
             </div>
-            <v-divider class="mt-4"></v-divider>
-            <div class="text-start mt-4">
+
+            <div class="text-start mt-4" v-if="currentTab == 2">
               <div class="cursor-pointer text-lg pb-4 font-weight-medium">
                 3. Chứng nhận
               </div>
@@ -438,5 +464,9 @@ export default {
 .relation-img {
   width: 96px;
   height: 96px;
+}
+.qrcode-img-card {
+  width: 92px;
+  height: 92px;
 }
 </style>
