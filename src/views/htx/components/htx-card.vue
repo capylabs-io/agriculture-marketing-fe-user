@@ -29,7 +29,7 @@ export default {
   computed: {
     htxImage() {
       if (!this.htx || !this.htx.thumbnail)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.htx.thumbnail;
     },
   },

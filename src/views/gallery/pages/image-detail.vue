@@ -90,7 +90,7 @@ export default {
     ...mapStores(galleryStore),
     postImage() {
       if (!this.galleryStore.post || !this.galleryStore.post.images)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.galleryStore.post.images;
     },
   },

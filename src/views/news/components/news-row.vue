@@ -1,24 +1,26 @@
 <template>
   <v-row>
     <v-col class="d-flex full-width" cols="12" md="9">
-      <img
-        class="post-img border-radius-8 cursor-pointer"
-        :src="postImage"
-        @click="goToNewsDetail()"
-      />
-      <div class="ml-6 cursor-pointer" @click="goToNewsDetail()">
-        <v-clamp class="font-weight-semibold text-lg" :max-lines="2">{{
-          stripHtml(post.title)
-        }}</v-clamp>
-        <v-clamp class="text-sm mt-3" :max-lines="3">{{
-          stripHtml(post.content)
-        }}</v-clamp>
-        <div class="d-flex justify-space-between align-center mt-3 text-sm">
-          <div class="neutral80--text font-weight-medium">
-            {{ post.author }}
-          </div>
-          <div class="font-weight-medium neutral40--text">
-            {{ post.createdAt | ddmmyyyy }}
+      <div class="full-width d-flex">
+        <img
+          class="post-img border-radius-8 cursor-pointer"
+          :src="postImage"
+          @click="goToNewsDetail()"
+        />
+        <div class="ml-6 cursor-pointer flex-grow-1" @click="goToNewsDetail()">
+          <v-clamp class="font-weight-semibold text-lg" :max-lines="2">{{
+            stripHtml(post.title)
+          }}</v-clamp>
+          <v-clamp class="text-sm mt-3" :max-lines="3">{{
+            stripHtml(post.content)
+          }}</v-clamp>
+          <div class="d-flex justify-space-between align-center mt-3 text-sm">
+            <div class="neutral80--text font-weight-medium">
+              {{ post.author }}
+            </div>
+            <div class="font-weight-medium neutral40--text">
+              {{ post.createdAt | ddmmyyyy }}
+            </div>
           </div>
         </div>
       </div>
@@ -49,7 +51,7 @@ export default {
     ...mapStores(newStore),
     postImage() {
       if (!this.post || !this.post.images)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.post.images;
     },
   },

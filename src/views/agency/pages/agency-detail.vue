@@ -88,6 +88,14 @@
           <v-divider vertical></v-divider>
           <div
             class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+            :class="{ active: currentTab == 3 }"
+            @click="currentTab = 3"
+          >
+            Giới thiệu tổng quan
+          </div>
+          <v-divider vertical></v-divider>
+          <div
+            class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
             :class="{ active: currentTab == 2 }"
             @click="currentTab = 2"
           >
@@ -113,15 +121,7 @@
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
-          <v-row>
-            <v-col cols="12" md="3">
-              <div class="font-weight-semibold">Giới thiệu tổng quan</div>
-            </v-col>
-            <v-col cols="12" md="9">
-              <div v-html="agencyStore.agency.description"></div>
-            </v-col>
-          </v-row>
-          <v-divider class="my-4"></v-divider>
+
           <v-row>
             <v-col cols="12" md="3">
               <div class="font-weight-semibold">Người đại diện</div>
@@ -283,6 +283,17 @@
             </v-col>
           </v-row> -->
         </div>
+        <div class="text-start mt-6" v-if="currentTab == 4">
+          <v-row v-if="agencyStore.agency.description">
+            <div v-html="agencyStore.agency.description"></div>
+          </v-row>
+          <v-row
+            class="font-weight-bold text-center text-dp-md flex-grow-1 no-item-div d-flex flex-column justify-center"
+            v-else
+          >
+            Không có thông tin!
+          </v-row>
+        </div>
       </div>
       <div class="mt-6 border-radius-16 overflow-hidden">
         <iframe
@@ -320,15 +331,15 @@ export default {
     },
     agencyImage() {
       if (!this.agencyStore.agency || !this.agencyStore.agency.thumbnail)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.agencyStore.agency.thumbnail;
     },
     agencyCertificationImage() {
       if (!this.agencyStore.agency || !this.agencyStore.agency.certification)
         return [
-          require("@/assets/no-image.png"),
-          require("@/assets/no-image.png"),
-          require("@/assets/no-image.png"),
+          require("@/assets/no-image.webp"),
+          require("@/assets/no-image.webp"),
+          require("@/assets/no-image.webp"),
         ];
       return this.agencyStore.agency.certification;
     },
@@ -337,7 +348,7 @@ export default {
         !this.agencyStore.agency ||
         !this.agencyStore.agency.accreditationImages
       )
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.agencyStore.agency.accreditationImages;
     },
     agencyQRImage() {

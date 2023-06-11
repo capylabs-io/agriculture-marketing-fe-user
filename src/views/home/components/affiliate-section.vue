@@ -53,55 +53,55 @@ export default {
     return {
       partners: [
         {
-          logo: require("@/assets/components/home/logos/Logo.png"),
+          logo: require("@/assets/components/home/logos/Logo.webp"),
           link: "https://vnpc.gs1.gov.vn/",
           title:
             "Tổng cục tiêu chuẩn đo lường chất lượng trung tâm mã số, mã vạch Quốc Gia",
         },
         {
-          logo: require("@/assets/components/home/logos/Logo-1.png"),
+          logo: require("@/assets/components/home/logos/Logo-1.webp"),
           link: "https://vnpc.gs1.gov.vn/",
           title:
             "Tổng cục tiêu chuẩn đo lường chất lượng trung tâm mã số, mã vạch Quốc Gia",
         },
         {
-          logo: require("@/assets/components/home/logos/Logo-2.png"),
+          logo: require("@/assets/components/home/logos/Logo-2.webp"),
           link: "https://vnpc.gs1.gov.vn/",
           title:
             "Tổng cục tiêu chuẩn đo lường chất lượng trung tâm mã số, mã vạch Quốc Gia",
         },
         {
-          logo: require("@/assets/components/home/logos/Logo-3.png"),
+          logo: require("@/assets/components/home/logos/Logo-3.webp"),
           link: "https://vnpc.gs1.gov.vn/",
           title:
             "Tổng cục tiêu chuẩn đo lường chất lượng trung tâm mã số, mã vạch Quốc Gia",
         },
         {
-          logo: require("@/assets/components/home/logos/Logo-4.png"),
+          logo: require("@/assets/components/home/logos/Logo-4.webp"),
           link: "https://vnpc.gs1.gov.vn/",
           title:
             "Tổng cục tiêu chuẩn đo lường chất lượng trung tâm mã số, mã vạch Quốc Gia",
         },
         {
-          logo: require("@/assets/components/home/logos/Logo-5.png"),
+          logo: require("@/assets/components/home/logos/Logo-5.webp"),
           link: "https://vnpc.gs1.gov.vn/",
           title:
             "Tổng cục tiêu chuẩn đo lường chất lượng trung tâm mã số, mã vạch Quốc Gia",
         },
         {
-          logo: require("@/assets/components/home/logos/Logo-6.png"),
+          logo: require("@/assets/components/home/logos/Logo-6.webp"),
           link: "https://vnpc.gs1.gov.vn/",
           title:
             "Tổng cục tiêu chuẩn đo lường chất lượng trung tâm mã số, mã vạch Quốc Gia",
         },
         {
-          logo: require("@/assets/components/home/logos/Logo-1.png"),
+          logo: require("@/assets/components/home/logos/Logo-1.webp"),
           link: "https://vnpc.gs1.gov.vn/",
           title:
             "Tổng cục tiêu chuẩn đo lường chất lượng trung tâm mã số, mã vạch Quốc Gia",
         },
         {
-          logo: require("@/assets/components/home/logos/Logo-1.png"),
+          logo: require("@/assets/components/home/logos/Logo-1.webp"),
           link: "https://vnpc.gs1.gov.vn/",
           title:
             "Tổng cục tiêu chuẩn đo lường chất lượng trung tâm mã số, mã vạch Quốc Gia",

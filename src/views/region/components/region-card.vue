@@ -25,7 +25,7 @@ export default {
   computed: {
     regionImage() {
       if (!this.region || !this.region.thumbnail)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.region.thumbnail;
     },
   },

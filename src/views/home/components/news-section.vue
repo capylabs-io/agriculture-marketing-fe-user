@@ -19,6 +19,8 @@
           data-aos-duration="500"
         >
           <img
+            sizes="1000"
+            v-if="productImage(homeStore.newestPost.images)"
             :class="
               $vuetify.breakpoint.smAndDown
                 ? 'mobile-big-post-img'
@@ -26,6 +28,19 @@
             "
             :src="productImage(homeStore.newestPost.images)"
           />
+
+          <v-skeleton-loader
+            v-else
+            :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
+            class="mx-auto"
+            :class="
+              $vuetify.breakpoint.smAndDown
+                ? 'mobile-big-post-img'
+                : 'big-post-img full-height'
+            "
+            type="image"
+          ></v-skeleton-loader>
+
           <div class="pa-4">
             <div class="primary--text font-weight-semibold">
               {{ homeStore.newestPost.postCategory.name }}
@@ -121,6 +136,11 @@ export default {
   components: {
     VClamp,
   },
+  inject: {
+    theme: {
+      default: { isDark: false },
+    },
+  },
   computed: {
     ...mapStores(homeStore),
     newestPostTitle() {
@@ -129,7 +149,7 @@ export default {
   },
   methods: {
     productImage(image) {
-      if (!image) return require("@/assets/no-image.png");
+      if (!image) return;
       return image;
     },
     goToPost(id) {
@@ -159,9 +179,9 @@ export default {
   background-color: var(--v-primary5-base) !important;
 }
 .big-post-img {
-  max-width: 274px;
-  height: 100%;
-  object-fit: cover;
+  max-width: 274px !important;
+  height: 100% !important;
+  object-fit: cover !important;
 }
 .mobile-big-post-img {
   max-width: 100%;

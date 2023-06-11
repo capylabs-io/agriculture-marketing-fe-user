@@ -20,7 +20,7 @@ export default {
   computed: {
     artisanImage() {
       if (!this.artisan || !this.artisan.thumbnail)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.artisan.thumbnail;
     },
   },

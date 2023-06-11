@@ -26,7 +26,7 @@ export default {
   computed: {
     seedImage() {
       if (!this.seed || !this.seed.images)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.seed.images;
     },
   },

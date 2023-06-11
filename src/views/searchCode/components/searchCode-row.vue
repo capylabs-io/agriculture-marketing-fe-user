@@ -41,7 +41,7 @@ export default {
     // ...mapStores(newStore),
     searchImage() {
       if (!this.searchinfo || !this.searchinfo.images)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.searchinfo.images;
     },
   },

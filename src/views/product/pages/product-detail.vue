@@ -448,7 +448,7 @@ export default {
     ...mapStores(productStore),
     productImage() {
       if (!this.productStore.product || !this.productStore.product.images)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.productStore.product.images;
     },
     productCertificationImage() {
@@ -456,7 +456,7 @@ export default {
         !this.productStore.product ||
         !this.productStore.product.certificationImages
       )
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.productStore.product.certificationImages;
     },
     productAccreditationImage() {
@@ -464,7 +464,7 @@ export default {
         !this.productStore.product ||
         !this.productStore.product.accreditationImages
       )
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.productStore.product.accreditationImages;
     },
     productQRImage() {
@@ -475,7 +475,7 @@ export default {
   },
   methods: {
     relationImage(image) {
-      if (!image) return require("@/assets/no-image.png");
+      if (!image) return require("@/assets/no-image.webp");
       return image;
     },
   },

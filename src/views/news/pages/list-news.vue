@@ -303,7 +303,7 @@ export default {
       this.newStore.currentTab = index;
     },
     productImage(image) {
-      if (!image) return require("@/assets/no-image.png");
+      if (!image) return require("@/assets/no-image.webp");
       return image;
     },
     goToPost(id) {
