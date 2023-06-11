@@ -27,7 +27,7 @@ export default {
   computed: {
     agencyImage() {
       if (!this.agency || !this.agency.thumbnail)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.agency.thumbnail;
     },
   },

@@ -62,7 +62,7 @@ export default {
   border: none !important;
 }
 .product-section {
-  background: url("@/assets/components/home/bg.png");
+  background: url("@/assets/components/home/bg.webp");
   background-position: right center;
   background-size: cover;
   min-height: 560px;

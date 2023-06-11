@@ -33,7 +33,7 @@ export default {
   computed: {
     agentImage() {
       if (!this.agent || !this.agent.images)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.agent.images;
     },
     agentCode() {

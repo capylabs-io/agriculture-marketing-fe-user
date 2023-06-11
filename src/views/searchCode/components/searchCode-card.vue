@@ -41,7 +41,7 @@ export default {
     },
     resultImage() {
       if (!this.result || !this.result.images)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.result.images;
     },
     resultCode() {

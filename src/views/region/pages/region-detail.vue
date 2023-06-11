@@ -62,6 +62,14 @@
           <v-divider vertical></v-divider>
           <div
             class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+            :class="{ active: currentTab == 4 }"
+            @click="currentTab = 4"
+          >
+            Giới thiệu tổng quan
+          </div>
+          <v-divider vertical></v-divider>
+          <div
+            class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
             :class="{ active: currentTab == 3 }"
             @click="currentTab = 3"
           >
@@ -129,15 +137,7 @@
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
-          <v-row>
-            <v-col cols="12" md="3">
-              <div class="font-weight-semibold">Giới thiệu tổng quan</div>
-            </v-col>
-            <v-col cols="12" md="9">
-              <div v-html="regionStore.region.description"></div>
-            </v-col>
-          </v-row>
-          <v-divider class="my-4"></v-divider>
+
           <v-row>
             <v-col cols="12" md="3">
               <div class="font-weight-semibold">Loại</div>
@@ -305,6 +305,17 @@
             </v-col>
           </v-row> -->
         </div>
+        <div class="text-start mt-6" v-if="currentTab == 4">
+          <v-row v-if="regionStore.region.description">
+            <div v-html="regionStore.region.description"></div>
+          </v-row>
+          <v-row
+            class="font-weight-bold text-center text-dp-md flex-grow-1 no-item-div d-flex flex-column justify-center"
+            v-else
+          >
+            Không có thông tin!
+          </v-row>
+        </div>
       </div>
       <div class="mt-6 border-radius-16 overflow-hidden">
         <iframe
@@ -343,15 +354,15 @@ export default {
     },
     regionImage() {
       if (!this.regionStore.region || !this.regionStore.region.thumbnail)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.regionStore.region.thumbnail;
     },
     regionCertificationImage() {
       if (!this.regionStore.region || !this.regionStore.region.certification)
         return [
-          require("@/assets/no-image.png"),
-          require("@/assets/no-image.png"),
-          require("@/assets/no-image.png"),
+          require("@/assets/no-image.webp"),
+          require("@/assets/no-image.webp"),
+          require("@/assets/no-image.webp"),
         ];
       return this.regionStore.region.certification;
     },
@@ -360,7 +371,7 @@ export default {
         !this.regionStore.region ||
         !this.regionStore.region.accreditationImages
       )
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.regionStore.region.accreditationImages;
     },
     regionQRImage() {

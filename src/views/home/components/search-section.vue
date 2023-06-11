@@ -35,7 +35,7 @@
             class="full-width border-radius-12 mt-8"
             height="56"
             placeholder="Nhập mã truy xuất"
-            v-model="searchCode"
+            v-model="searchCodeStore.searchCode"
             flat
             solo
             outlined
@@ -83,7 +83,7 @@
       >
         <img
           class="map-img"
-          :src="require('@/assets/components/home/map.png')"
+          :src="require('@/assets/components/home/map.webp')"
         />
       </v-col>
     </v-row>
@@ -100,7 +100,6 @@ export default {
   data() {
     return {
       data: "",
-      searchCode: "",
     };
   },
   methods: {
@@ -108,7 +107,6 @@ export default {
     goToSearch() {
       this.$router.push({
         path: "/tim-kiem",
-        query: { code: this.searchCode },
       });
     },
   },
@@ -117,7 +115,7 @@ export default {
 
 <style scoped>
 .search-section {
-  background: url("@/assets/components/home/search-bg.png");
+  background: url("@/assets/components/home/search-bg.webp");
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 640px;

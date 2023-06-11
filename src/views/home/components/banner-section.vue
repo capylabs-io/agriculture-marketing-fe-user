@@ -38,7 +38,7 @@ export default {
           link: "",
         },
         {
-          image: require("@/assets/components/home/banner.png"),
+          image: require("@/assets/components/home/banner.webp"),
           link: "",
         },
       ],
@@ -52,7 +52,7 @@ export default {
   height: calc(100vh - 64px) !important;
 }
 .left-section-image {
-  background: url("@/assets/components/landing/section1-left.png") !important;
+  background: url("@/assets/components/landing/section1-left.webp") !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
   background-position: center 80% !important;

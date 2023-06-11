@@ -83,6 +83,14 @@
           >
             Sản phẩm
           </div>
+          <v-divider vertical></v-divider>
+          <div
+            class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+            :class="{ active: currentTab == 2 }"
+            @click="currentTab = 2"
+          >
+            Giới thiệu tổng quan
+          </div>
         </div>
         <div class="text-start mt-6" v-if="currentTab == 0">
           <v-row>
@@ -103,15 +111,7 @@
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
-          <v-row>
-            <v-col cols="12" md="3">
-              <div class="font-weight-semibold">Giới thiệu tổng quan</div>
-            </v-col>
-            <v-col cols="12" md="9">
-              <div v-html="artisanStore.artisan.description"></div>
-            </v-col>
-          </v-row>
-          <v-divider class="my-4"></v-divider>
+
           <v-row>
             <v-col cols="12" md="3">
               <div class="font-weight-semibold">Danh xưng</div>
@@ -171,6 +171,17 @@
             Không có sản phẩm nào!
           </div>
         </div>
+        <div class="text-start mt-8" v-if="currentTab == 2">
+          <v-row v-if="artisanStore.artisan.description">
+            <div v-html="artisanStore.artisan.description"></div>
+          </v-row>
+          <v-row
+            class="font-weight-bold text-center text-dp-md flex-grow-1 no-item-div d-flex flex-column justify-center"
+            v-else
+          >
+            Không có thông tin!
+          </v-row>
+        </div>
       </div>
     </div>
   </div>
@@ -188,7 +199,7 @@ export default {
     ...mapStores(artisanStore),
     artisanImage() {
       if (!this.artisanStore.artisan || !this.artisanStore.artisan.thumbnail)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.artisanStore.artisan.thumbnail;
     },
     artisanCertificationImage() {
@@ -196,7 +207,7 @@ export default {
         !this.artisanStore.artisan ||
         !this.artisanStore.artisan.certificationImages
       )
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.artisanStore.artisan.certificationImages;
     },
     artisanAccreditationImage() {
@@ -204,7 +215,7 @@ export default {
         !this.artisanStore.artisan ||
         !this.artisanStore.artisan.accreditationImages
       )
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.artisanStore.artisan.accreditationImages;
     },
     artisanQRImage() {

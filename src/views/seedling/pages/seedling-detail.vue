@@ -412,17 +412,17 @@ export default {
     ...mapStores(seedStore),
     seedImage() {
       if (!this.seedStore.seed || !this.seedStore.seed.images)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.seedStore.seed.images;
     },
     seedCertificationImage() {
       if (!this.seedStore.seed || !this.seedStore.seed.certificationImages)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.seedStore.seed.certificationImages;
     },
     seedAccreditationImage() {
       if (!this.seedStore.seed || !this.seedStore.seed.accreditationImages)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.seedStore.seed.accreditationImages;
     },
     seedQRImage() {
@@ -438,7 +438,7 @@ export default {
   },
   methods: {
     relationImage(image) {
-      if (!image) return require("@/assets/no-image.png");
+      if (!image) return require("@/assets/no-image.webp");
       return image;
     },
   },

@@ -26,7 +26,7 @@ export default {
   computed: {
     supplyImage() {
       if (!this.supply || !this.supply.images)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.supply.images;
     },
   },
