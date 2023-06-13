@@ -128,22 +128,14 @@ export default {
   },
 
   created() {
-    const code = this.$route.query.code;
-    this.searchCodeStore.searchCode = code;
-    this.showCode = code;
+    this.showCode = this.searchCodeStore.searchCode;
     this.searchCodeStore.fetchSearchCodes();
   },
   methods: {
     toggleSearch() {},
     onClickSearchCode() {
-      if (
-        !this.searchCodeStore.searchCode ||
-        this.showCode == this.searchCodeStore.searchCode
-      )
-        return;
-      this.$router.replace({
-        query: { code: this.searchCodeStore.searchCode },
-      });
+      if (!this.searchCodeStore.searchCode) return;
+      this.searchCodeStore.fetchSearchCodes();
     },
   },
 };

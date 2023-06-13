@@ -16,11 +16,9 @@ import { vueFilterRegister } from "@/plugins/filter";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import * as VueGoogleMaps from "vue2-google-maps";
-import VueYoutube from "vue-youtube";
 
 const pinia = createPinia();
 Vue.use(PiniaVuePlugin);
-Vue.use(VueYoutube);
 Vue.config.productionTip = false;
 pinia.use(({ store }) => {
   store.router = markRaw(router);

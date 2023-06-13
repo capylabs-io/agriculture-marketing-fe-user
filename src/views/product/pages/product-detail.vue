@@ -87,7 +87,7 @@
             </div>
           </div>
           <div class="neutral20-border border-radius-16 pa-4 mt-6 text-center">
-            <!-- <div
+            <div
               class="d-inline-flex align-center neutral20-border border-radius-8 mx-auto overflow-hidden"
             >
               <div
@@ -113,8 +113,8 @@
               >
                 Chứng nhận
               </div>
-            </div> -->
-            <div class="text-start">
+            </div>
+            <div class="text-start mt-4" v-if="currentTab == 0">
               <div class="cursor-pointer text-lg pb-4 font-weight-medium">
                 1. Thông tin
               </div>
@@ -134,251 +134,276 @@
                 ></div>
               </div>
             </div>
-            <v-divider class="mt-4"></v-divider>
 
-            <div class="text-start mt-4">
+            <div class="text-start mt-4" v-if="currentTab == 1">
               <div class="cursor-pointer text-lg pb-4 font-weight-medium">
                 2. Nguồn gốc
               </div>
-              <v-expansion-panels class="border-radius-8" accordion>
-                <v-expansion-panel>
-                  <v-expansion-panel-header class="font-weight-semibold px-4"
-                    >Vùng sản xuất</v-expansion-panel-header
+              <div>
+                <div class="font-weight-semibold">Vùng sản xuất:</div>
+                <div class="d-flex full-height align-center mt-4">
+                  <div
+                    class="d-flex flex-grow-1"
+                    v-if="
+                      productStore.product.area &&
+                      productStore.product.area.id != -1
+                    "
                   >
-                  <v-expansion-panel-content>
-                    <v-divider></v-divider>
-                    <div
-                      class="d-flex mt-4"
-                      v-if="
-                        productStore.product.area &&
-                        productStore.product.area.id != -1
-                      "
-                    >
-                      <div>
-                        <v-img
-                          class="relation-img border-radius-8"
-                          :src="
-                            relationImage(productStore.product.area.thumbnail)
-                          "
-                          :aspect-ratio="4 / 3"
-                          cover
-                        ></v-img>
-                      </div>
-                      <div class="ml-4 flex-grow-1">
-                        <div class="font-weight-semibold text-md">
-                          {{
-                            productStore.product.area.name || "Vùng sản xuất"
-                          }}
-                        </div>
-                        <div class="neutral70--text text-sm mt-1">
-                          {{ productStore.product.area.code || "Mã truy xuất" }}
-                        </div>
-                        <v-btn
-                          class="text-none text-capitalize mt-3"
-                          elevation="0"
-                          color="primary"
-                          @click="
-                            $router.push(
-                              '/vung-san-xuat/' + productStore.product.area.code
-                            )
-                          "
-                          small
-                        >
-                          Xem chi tiết
-                        </v-btn>
-                      </div>
+                    <div>
+                      <v-img
+                        class="relation-img border-radius-8"
+                        :src="
+                          relationImage(productStore.product.area.thumbnail)
+                        "
+                        :aspect-ratio="4 / 3"
+                        cover
+                      ></v-img>
                     </div>
-                    <div
-                      class="text-md font-weight-medium text-center py-4"
-                      v-else
-                    >
-                      Không có thông tin!
+                    <div class="ml-4 flex-grow-1">
+                      <div class="font-weight-semibold text-md">
+                        {{ productStore.product.area.name || "Vùng sản xuất" }}
+                      </div>
+                      <div class="neutral70--text text-sm mt-1">
+                        {{ productStore.product.area.code || "Mã truy xuất" }}
+                      </div>
+                      <v-btn
+                        class="text-none text-capitalize mt-3"
+                        elevation="0"
+                        color="primary"
+                        @click="
+                          $router.push(
+                            '/vung-san-xuat/' + productStore.product.area.code
+                          )
+                        "
+                        small
+                      >
+                        Xem chi tiết
+                      </v-btn>
                     </div>
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-                <v-expansion-panel>
-                  <v-expansion-panel-header class="font-weight-semibold px-4"
-                    >Hợp tác xã</v-expansion-panel-header
+                  </div>
+                  <div
+                    class="text-md font-weight-medium text-center py-4"
+                    v-else
                   >
-                  <v-expansion-panel-content>
-                    <v-divider></v-divider>
-                    <div
-                      class="d-flex mt-4"
-                      v-if="
-                        productStore.product.cooperative &&
-                        productStore.product.cooperative.id != -1
-                      "
-                    >
-                      <div>
-                        <v-img
-                          class="relation-img border-radius-8"
-                          :src="
-                            relationImage(
-                              productStore.product.cooperative.thumbnail
-                            )
-                          "
-                          :aspect-ratio="4 / 3"
-                          cover
-                        ></v-img>
-                      </div>
-                      <div class="ml-4 flex-grow-1">
-                        <div class="font-weight-semibold text-md">
-                          {{
-                            productStore.product.cooperative.name ||
-                            "Vùng sản xuất"
-                          }}
-                        </div>
-                        <div class="neutral70--text text-sm mt-1">
-                          {{
-                            productStore.product.cooperative.code ||
-                            "Mã truy xuất"
-                          }}
-                        </div>
-                        <v-btn
-                          class="text-none text-capitalize mt-3"
-                          elevation="0"
-                          color="primary"
-                          @click="
-                            $router.push(
-                              '/hop-tac-xa/' +
-                                productStore.product.cooperative.code
-                            )
-                          "
-                          small
-                        >
-                          Xem chi tiết
-                        </v-btn>
-                      </div>
-                    </div>
-                    <div
-                      class="text-md font-weight-medium text-center py-4"
-                      v-else
-                    >
-                      Không có thông tin!
-                    </div>
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-                <v-expansion-panel>
-                  <v-expansion-panel-header class="font-weight-semibold px-4"
-                    >Nghệ nhân</v-expansion-panel-header
+                    Không có thông tin!
+                  </div>
+                  <div
+                    class="neutral20-border border-radius-8"
+                    v-if="productStore.product.area.qrCode"
                   >
-                  <v-expansion-panel-content>
-                    <v-divider></v-divider>
-                    <div
-                      class="d-flex mt-4"
-                      v-if="
-                        productStore.product.artisan &&
-                        productStore.product.artisan.id != -1
-                      "
-                    >
-                      <div>
-                        <v-img
-                          class="relation-img border-radius-8"
-                          :src="
-                            relationImage(
-                              productStore.product.artisan.thumbnail
-                            )
-                          "
-                          :aspect-ratio="4 / 3"
-                          cover
-                        ></v-img>
-                      </div>
-                      <div class="ml-4 flex-grow-1">
-                        <div class="font-weight-semibold text-md">
-                          {{
-                            productStore.product.artisan.name || "Vùng sản xuất"
-                          }}
-                        </div>
-                        <div class="neutral70--text text-sm mt-1">
-                          {{
-                            productStore.product.artisan.code || "Mã truy xuất"
-                          }}
-                        </div>
-                        <v-btn
-                          class="text-none text-capitalize mt-3"
-                          elevation="0"
-                          color="primary"
-                          @click="
-                            $router.push(
-                              '/nghe-nhan/' + productStore.product.artisan.code
-                            )
-                          "
-                          small
-                        >
-                          Xem chi tiết
-                        </v-btn>
-                      </div>
-                    </div>
-                    <div
-                      class="text-md font-weight-medium text-center py-4"
-                      v-else
-                    >
-                      Không có thông tin!
-                    </div>
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-                <v-expansion-panel>
-                  <v-expansion-panel-header class="font-weight-semibold px-4"
-                    >Đại lý</v-expansion-panel-header
+                    <v-img
+                      class="qrcode-img-card"
+                      :aspect-ratio="1 / 1"
+                      :src="relationImage(productStore.product.area.qrCode)"
+                      contain
+                    ></v-img>
+                  </div>
+                </div>
+              </div>
+              <v-divider class="mt-3"></v-divider>
+              <div class="mt-3">
+                <div class="font-weight-semibold">Hợp tác xã:</div>
+                <div class="mt-4 d-flex full-height align-center">
+                  <div
+                    class="d-flex flex-grow-1"
+                    v-if="
+                      productStore.product.cooperative &&
+                      productStore.product.cooperative.id != -1
+                    "
                   >
-                  <v-expansion-panel-content>
-                    <v-divider></v-divider>
-                    <div
-                      class="d-flex mt-4"
-                      v-if="
-                        productStore.product.store &&
-                        productStore.product.store.id != -1
+                    <div>
+                      <v-img
+                        class="relation-img border-radius-8"
+                        :src="
+                          relationImage(
+                            productStore.product.cooperative.thumbnail
+                          )
+                        "
+                        :aspect-ratio="4 / 3"
+                        cover
+                      ></v-img>
+                    </div>
+                    <div class="ml-4 flex-grow-1">
+                      <div class="font-weight-semibold text-md">
+                        {{
+                          productStore.product.cooperative.name ||
+                          "Vùng sản xuất"
+                        }}
+                      </div>
+                      <div class="neutral70--text text-sm mt-1">
+                        {{
+                          productStore.product.cooperative.code ||
+                          "Mã truy xuất"
+                        }}
+                      </div>
+                      <v-btn
+                        class="text-none text-capitalize mt-3"
+                        elevation="0"
+                        color="primary"
+                        @click="
+                          $router.push(
+                            '/hop-tac-xa/' +
+                              productStore.product.cooperative.code
+                          )
+                        "
+                        small
+                      >
+                        Xem chi tiết
+                      </v-btn>
+                    </div>
+                  </div>
+                  <div
+                    class="text-md font-weight-medium text-center py-4"
+                    v-else
+                  >
+                    Không có thông tin!
+                  </div>
+                  <div
+                    class="neutral20-border border-radius-8"
+                    v-if="productStore.product.cooperative.qrCode"
+                  >
+                    <v-img
+                      class="qrcode-img-card"
+                      :aspect-ratio="1 / 1"
+                      :src="
+                        relationImage(productStore.product.cooperative.qrCode)
                       "
-                    >
-                      <div>
-                        <v-img
-                          class="relation-img border-radius-8"
-                          :src="
-                            relationImage(productStore.product.store.thumbnail)
-                          "
-                          :aspect-ratio="4 / 3"
-                          cover
-                        ></v-img>
-                      </div>
-                      <div class="ml-4 flex-grow-1">
-                        <div class="font-weight-semibold text-md">
-                          {{
-                            productStore.product.store.name || "Vùng sản xuất"
-                          }}
-                        </div>
-                        <div class="neutral70--text text-sm mt-1">
-                          {{
-                            productStore.product.store.code || "Mã truy xuất"
-                          }}
-                        </div>
-                        <v-btn
-                          class="text-none text-capitalize mt-3"
-                          elevation="0"
-                          color="primary"
-                          @click="
-                            $router.push(
-                              '/dai-ly/' + productStore.product.store.code
-                            )
-                          "
-                          small
-                        >
-                          Xem chi tiết
-                        </v-btn>
-                      </div>
+                      contain
+                    ></v-img>
+                  </div>
+                </div>
+              </div>
+              <v-divider class="mt-3"></v-divider>
+              <div class="mt-3">
+                <div class="font-weight-semibold">Nghệ nhân:</div>
+                <div class="mt-4 d-flex full-height align-center">
+                  <div
+                    class="d-flex flex-grow-1"
+                    v-if="
+                      productStore.product.artisan &&
+                      productStore.product.artisan.id != -1
+                    "
+                  >
+                    <div>
+                      <v-img
+                        class="relation-img border-radius-8"
+                        :src="
+                          relationImage(productStore.product.artisan.thumbnail)
+                        "
+                        :aspect-ratio="4 / 3"
+                        cover
+                      ></v-img>
                     </div>
-                    <div
-                      class="text-md font-weight-medium text-center py-4"
-                      v-else
-                    >
-                      Không có thông tin!
+                    <div class="ml-4 flex-grow-1">
+                      <div class="font-weight-semibold text-md">
+                        {{
+                          productStore.product.artisan.name || "Vùng sản xuất"
+                        }}
+                      </div>
+                      <div class="neutral70--text text-sm mt-1">
+                        {{
+                          productStore.product.artisan.code || "Mã truy xuất"
+                        }}
+                      </div>
+                      <v-btn
+                        class="text-none text-capitalize mt-3"
+                        elevation="0"
+                        color="primary"
+                        @click="
+                          $router.push(
+                            '/nghe-nhan/' + productStore.product.artisan.code
+                          )
+                        "
+                        small
+                      >
+                        Xem chi tiết
+                      </v-btn>
                     </div>
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
+                  </div>
+                  <div
+                    class="text-md font-weight-medium text-center py-4"
+                    v-else
+                  >
+                    Không có thông tin!
+                  </div>
+                  <div
+                    class="neutral20-border border-radius-8"
+                    v-if="productStore.product.artisan.qrCode"
+                  >
+                    <v-img
+                      class="qrcode-img-card"
+                      :aspect-ratio="1 / 1"
+                      :src="relationImage(productStore.product.artisan.qrCode)"
+                      contain
+                    ></v-img>
+                  </div>
+                </div>
+              </div>
+              <v-divider class="mt-3"></v-divider>
+              <div class="mt-3">
+                <div class="font-weight-semibold">Đại lý:</div>
+                <div class="mt-4 d-flex full-height align-center">
+                  <div
+                    class="d-flex flex-grow-1"
+                    v-if="
+                      productStore.product.store &&
+                      productStore.product.store.id != -1
+                    "
+                  >
+                    <div>
+                      <v-img
+                        class="relation-img border-radius-8"
+                        :src="
+                          relationImage(productStore.product.store.thumbnail)
+                        "
+                        :aspect-ratio="4 / 3"
+                        cover
+                      ></v-img>
+                    </div>
+                    <div class="ml-4 flex-grow-1">
+                      <div class="font-weight-semibold text-md">
+                        {{ productStore.product.store.name || "Vùng sản xuất" }}
+                      </div>
+                      <div class="neutral70--text text-sm mt-1">
+                        {{ productStore.product.store.code || "Mã truy xuất" }}
+                      </div>
+                      <v-btn
+                        class="text-none text-capitalize mt-3"
+                        elevation="0"
+                        color="primary"
+                        @click="
+                          $router.push(
+                            '/dai-ly/' + productStore.product.store.code
+                          )
+                        "
+                        small
+                      >
+                        Xem chi tiết
+                      </v-btn>
+                    </div>
+                  </div>
+                  <div
+                    class="text-md font-weight-medium text-center py-4"
+                    v-else
+                  >
+                    Không có thông tin!
+                  </div>
+                  <div
+                    class="neutral20-border border-radius-8"
+                    v-if="productStore.product.store.qrCode"
+                  >
+                    <v-img
+                      class="qrcode-img-card"
+                      :aspect-ratio="1 / 1"
+                      :src="relationImage(productStore.product.store.qrCode)"
+                      contain
+                    ></v-img>
+                  </div>
+                </div>
+              </div>
             </div>
-            <v-divider class="mt-4"></v-divider>
 
-            <div class="text-start mt-4">
+            <div class="text-start mt-4" v-if="currentTab == 2">
               <div class="cursor-pointer text-lg pb-4 font-weight-medium">
                 3. Chứng nhận
               </div>
@@ -423,7 +448,7 @@ export default {
     ...mapStores(productStore),
     productImage() {
       if (!this.productStore.product || !this.productStore.product.images)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.productStore.product.images;
     },
     productCertificationImage() {
@@ -431,7 +456,7 @@ export default {
         !this.productStore.product ||
         !this.productStore.product.certificationImages
       )
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.productStore.product.certificationImages;
     },
     productAccreditationImage() {
@@ -439,7 +464,7 @@ export default {
         !this.productStore.product ||
         !this.productStore.product.accreditationImages
       )
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.productStore.product.accreditationImages;
     },
     productQRImage() {
@@ -450,7 +475,7 @@ export default {
   },
   methods: {
     relationImage(image) {
-      if (!image) return require("@/assets/no-image.png");
+      if (!image) return require("@/assets/no-image.webp");
       return image;
     },
   },
@@ -491,6 +516,10 @@ export default {
 .qrcode-img {
   width: 128px;
   height: 128px;
+}
+.qrcode-img-card {
+  width: 92px;
+  height: 92px;
 }
 .right-border {
   border-right: 1px solid var(--v-neutral20-base) !important;

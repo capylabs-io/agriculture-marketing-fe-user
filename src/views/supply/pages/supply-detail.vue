@@ -87,7 +87,7 @@
             </div>
           </div>
           <div class="neutral20-border border-radius-16 pa-4 mt-6 text-center">
-            <!-- <div
+            <div
               class="d-inline-flex align-center neutral20-border border-radius-8 mx-auto overflow-hidden"
             >
               <div
@@ -96,7 +96,7 @@
                 @click="currentTab = 0"
               >
                 Thông tin
-              </div>  
+              </div>
               <v-divider vertical></v-divider>
               <div
                 class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
@@ -113,8 +113,8 @@
               >
                 Chứng nhận
               </div>
-            </div> -->
-            <div class="text-start">
+            </div>
+            <div class="text-start mt-4" v-if="currentTab == 0">
               <div class="cursor-pointer text-lg pb-4 font-weight-medium">
                 1. Thông tin
               </div>
@@ -135,71 +135,74 @@
                 ></div>
               </div>
             </div>
-            <v-divider class="mt-4"></v-divider>
 
-            <div class="text-start mt-4">
+            <div class="text-start mt-4" v-if="currentTab == 1">
               <div class="cursor-pointer text-lg pb-4 font-weight-medium">
                 2. Nguồn gốc
               </div>
-              <v-expansion-panels class="border-radius-8" accordion>
-                <v-expansion-panel>
-                  <v-expansion-panel-header class="font-weight-semibold px-4"
-                    >Đại lý</v-expansion-panel-header
+              <div class="mt-3">
+                <div class="font-weight-semibold">Đại lý:</div>
+                <div class="mt-4 d-flex full-height align-center">
+                  <div
+                    class="d-flex flex-grow-1"
+                    v-if="
+                      supplyStore.supply.store &&
+                      supplyStore.supply.store.id != -1
+                    "
                   >
-                  <v-expansion-panel-content>
-                    <v-divider></v-divider>
-                    <div
-                      class="d-flex mt-4"
-                      v-if="
-                        supplyStore.supply.store &&
-                        supplyStore.supply.store.id != -1
-                      "
-                    >
-                      <div>
-                        <v-img
-                          class="relation-img border-radius-8"
-                          :src="
-                            relationImage(supplyStore.supply.store.thumbnail)
-                          "
-                          :aspect-ratio="4 / 3"
-                          cover
-                        ></v-img>
-                      </div>
-                      <div class="ml-4 flex-grow-1">
-                        <div class="font-weight-semibold text-md">
-                          {{ supplyStore.supply.store.name || "Vùng sản xuất" }}
-                        </div>
-                        <div class="neutral70--text text-sm mt-1">
-                          {{ supplyStore.supply.store.code || "Mã truy xuất" }}
-                        </div>
-                        <v-btn
-                          class="text-none text-capitalize mt-3"
-                          elevation="0"
-                          color="primary"
-                          @click="
-                            $router.push(
-                              '/dai-ly/' + supplyStore.supply.store.code
-                            )
-                          "
-                          small
-                        >
-                          Xem chi tiết
-                        </v-btn>
-                      </div>
+                    <div>
+                      <v-img
+                        class="relation-img border-radius-8"
+                        :src="relationImage(supplyStore.supply.store.thumbnail)"
+                        :aspect-ratio="4 / 3"
+                        cover
+                      ></v-img>
                     </div>
-                    <div
-                      class="text-md font-weight-medium text-center py-4"
-                      v-else
-                    >
-                      Không có thông tin!
+                    <div class="ml-4 flex-grow-1">
+                      <div class="font-weight-semibold text-md">
+                        {{ supplyStore.supply.store.name || "Vùng sản xuất" }}
+                      </div>
+                      <div class="neutral70--text text-sm mt-1">
+                        {{ supplyStore.supply.store.code || "Mã truy xuất" }}
+                      </div>
+                      <v-btn
+                        class="text-none text-capitalize mt-3"
+                        elevation="0"
+                        color="primary"
+                        @click="
+                          $router.push(
+                            '/dai-ly/' + supplyStore.supply.store.code
+                          )
+                        "
+                        small
+                      >
+                        Xem chi tiết
+                      </v-btn>
                     </div>
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
+                  </div>
+                  <div
+                    class="text-md font-weight-medium text-center py-4"
+                    v-else
+                  >
+                    Không có thông tin!
+                  </div>
+                  <div
+                    class="neutral20-border border-radius-8"
+                    v-if="supplyStore.supply.store.qrCode"
+                  >
+                    <v-img
+                      class="qrcode-img-card"
+                      :aspect-ratio="1 / 1"
+                      :src="relationImage(supplyStore.supply.store.qrCode)"
+                      contain
+                    ></v-img>
+                  </div>
+                </div>
+              </div>
             </div>
             <v-divider class="mt-4"></v-divider>
 
-            <div class="text-start mt-4">
+            <div class="text-start mt-4" v-if="currentTab == 2">
               <div class="cursor-pointer text-lg pb-4 font-weight-medium">
                 3. Chứng nhận
               </div>
@@ -244,7 +247,7 @@ export default {
     ...mapStores(supplyStore),
     supplyImage() {
       if (!this.supplyStore.supply || !this.supplyStore.supply.images)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.supplyStore.supply.images;
     },
     supplyCertificationImage() {
@@ -252,7 +255,7 @@ export default {
         !this.supplyStore.supply ||
         !this.supplyStore.supply.certificationImages
       )
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.supplyStore.supply.certificationImages;
     },
     supplyAccreditationImage() {
@@ -260,7 +263,7 @@ export default {
         !this.supplyStore.supply ||
         !this.supplyStore.supply.accreditationImages
       )
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.supplyStore.supply.accreditationImages;
     },
     supplyQRImage() {
@@ -271,7 +274,7 @@ export default {
   },
   methods: {
     relationImage(image) {
-      if (!image) return require("@/assets/no-image.png");
+      if (!image) return require("@/assets/no-image.webp");
       return image;
     },
   },
@@ -302,5 +305,9 @@ export default {
 .relation-img {
   width: 96px;
   height: 96px;
+}
+.qrcode-img-card {
+  width: 92px;
+  height: 92px;
 }
 </style>

@@ -178,7 +178,7 @@ export const contactStore = defineStore("contact", {
         let query = {
           ...this.contacts,
         };
-        const res = await Contact.create(query);
+        const res = await Contact.create({ data: query });
         if (!res) {
           alert.error("Error occurred!", "Please try again later!");
           return;

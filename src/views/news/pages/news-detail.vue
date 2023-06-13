@@ -72,7 +72,7 @@ export default {
     ...mapStores(newStore),
     postImage() {
       if (!this.newStore.news || !this.newStore.news.images)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.newStore.news.images;
     },
   },

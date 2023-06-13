@@ -33,7 +33,7 @@ export default {
   computed: {
     originImage() {
       if (!this.origin || !this.origin.images)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.origin.images;
     },
     originCode() {

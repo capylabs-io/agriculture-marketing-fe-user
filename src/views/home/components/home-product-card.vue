@@ -33,7 +33,7 @@ export default {
   computed: {
     productImage() {
       if (!this.product || !this.product.images)
-        return require("@/assets/no-image.png");
+        return require("@/assets/no-image.webp");
       return this.product.images;
     },
     productCode() {
