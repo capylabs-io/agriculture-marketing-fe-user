@@ -172,7 +172,7 @@
           </div>
         </div>
         <div class="text-start mt-8" v-if="currentTab == 2">
-          <v-row v-if="artisanStore.artisan.description">
+          <v-row v-if="artisanStore.artisan.description" class="px-10 py-4">
             <div v-html="artisanStore.artisan.description"></div>
           </v-row>
           <v-row

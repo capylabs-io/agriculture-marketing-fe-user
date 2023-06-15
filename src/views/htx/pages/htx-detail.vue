@@ -275,7 +275,7 @@
           </v-row> -->
         </div>
         <div class="text-start mt-6" v-if="currentTab == 3">
-          <v-row v-if="htxStore.htx.description">
+          <v-row v-if="htxStore.htx.description" class="px-10 py-4">
             <div v-html="htxStore.htx.description"></div>
           </v-row>
           <v-row

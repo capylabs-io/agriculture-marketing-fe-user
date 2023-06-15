@@ -284,7 +284,7 @@
           </v-row> -->
         </div>
         <div class="text-start mt-6" v-if="currentTab == 4">
-          <v-row v-if="agencyStore.agency.description">
+          <v-row v-if="agencyStore.agency.description" class="px-10 py-4">
             <div v-html="agencyStore.agency.description"></div>
           </v-row>
           <v-row
