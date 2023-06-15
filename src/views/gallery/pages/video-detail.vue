@@ -24,10 +24,19 @@
       </div>
       <div
         class="mt-4 d-flex flex-column align-center justify-center border-radius-8 overflow-hidden"
+        v-if="!galleryStore.post.videoContent.includes('youtube')"
       >
         <video width="100%" :src="galleryStore.post.videoContent" controls>
           Your browser does not support the video tag.
         </video>
+      </div>
+      <div
+        class="mt-4 d-flex flex-column align-center justify-center border-radius-8 overflow-hidden"
+        v-else
+      >
+        <LazyYoutube maxWidth="100%" :src="galleryStore.post.videoContent">
+          Your browser does not support the video tag.
+        </LazyYoutube>
       </div>
       <v-divider class="mt-8"></v-divider>
 
@@ -55,7 +64,12 @@
               </div>
             </div>
             <div class="d-flex">
-              <v-btn color="primary" icon><v-icon>mdi-share</v-icon></v-btn>
+              <v-btn
+                color="primary"
+                icon
+                @click="copyURL(galleryStore.post.videoContent)"
+                ><v-icon>mdi-clipboard-text-outline </v-icon></v-btn
+              >
               <v-btn color="primary" icon><v-icon>mdi-facebook</v-icon></v-btn>
               <v-btn color="primary" icon><v-icon>mdi-email</v-icon></v-btn>
             </div>
@@ -91,7 +105,7 @@
 import { mapStores } from "pinia";
 import { galleryStore } from "../stores/galleryStore";
 import VClamp from "vue-clamp";
-
+import { LazyYoutube } from "vue-lazytube";
 export default {
   computed: {
     ...mapStores(galleryStore),
@@ -104,6 +118,7 @@ export default {
   components: {
     // NewCard: () => import("../components/image-card.vue"),
     VClamp,
+    LazyYoutube,
   },
   data() {
     return {
@@ -141,6 +156,14 @@ export default {
           pageSize: 5,
         },
       });
+    },
+    async copyURL(mytext) {
+      try {
+        await navigator.clipboard.writeText(mytext);
+        alert("Copied");
+      } catch ($e) {
+        alert("Cannot copy");
+      }
     },
   },
 };

@@ -16,6 +16,7 @@
     "pinia": "^2.0.36",
     "vue": "^2.6.14",
     "vue-clamp": "^0.4.1",
+    "vue-lazytube": "^1.1.1",
     "vue-router": "^3.6.5",
     "vue-snip": "^2.0.1",
     "vue2-google-maps": "^0.10.7",

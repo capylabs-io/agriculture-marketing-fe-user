@@ -14,6 +14,7 @@
         <div
           class="mt-4 d-flex flex-column align-center justify-center border-radius-8 overflow-hidden"
           :class="{ 'mx-8': $vuetify.breakpoint.mdAndUp }"
+          v-if="!galleryStore.newestPost.videoContent.includes('youtube')"
         >
           <video
             width="100%"
@@ -22,6 +23,18 @@
           >
             Your browser does not support the video tag.
           </video>
+        </div>
+        <div
+          class="mt-4 d-flex flex-column align-center justify-center border-radius-8 overflow-hidden"
+          :class="{ 'mx-8': $vuetify.breakpoint.mdAndUp }"
+          v-else
+        >
+          <LazyYoutube
+            maxWidth="100%"
+            :src="galleryStore.newestPost.videoContent"
+          >
+            Your browser does not support the video tag.
+          </LazyYoutube>
         </div>
         <div
           class="font-weight-semibold neutral60--text mt-6 cursor-pointer"
@@ -145,6 +158,7 @@
 <script>
 import { mapStores } from "pinia";
 import { galleryStore } from "../stores/galleryStore";
+import { LazyYoutube } from "vue-lazytube";
 export default {
   computed: {
     ...mapStores(galleryStore),
@@ -155,6 +169,7 @@ export default {
   components: {
     // NewCard: () => import("../components/news-card.vue"),
     imageRow: () => import("../components/image-row.vue"),
+    LazyYoutube,
     imageCard: () => import("../components/image-card.vue"),
   },
   data() {
