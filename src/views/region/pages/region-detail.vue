@@ -306,7 +306,7 @@
           </v-row> -->
         </div>
         <div class="text-start mt-6" v-if="currentTab == 4">
-          <v-row v-if="regionStore.region.description">
+          <v-row v-if="regionStore.region.description" class="px-10 py-4">
             <div v-html="regionStore.region.description"></div>
           </v-row>
           <v-row
