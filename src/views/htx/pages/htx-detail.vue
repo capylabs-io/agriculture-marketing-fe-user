@@ -75,6 +75,14 @@
             :class="{ active: currentTab == 0 }"
             @click="currentTab = 0"
           >
+            Giới thiệu tổng quan
+          </div>
+          <v-divider vertical></v-divider>
+          <div
+            class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+            :class="{ active: currentTab == 3 }"
+            @click="currentTab = 3"
+          >
             Thông tin
           </div>
           <v-divider vertical></v-divider>
@@ -88,21 +96,13 @@
           <v-divider vertical></v-divider>
           <div
             class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-            :class="{ active: currentTab == 3 }"
-            @click="currentTab = 3"
-          >
-            Giới thiệu tổng quan
-          </div>
-          <v-divider vertical></v-divider>
-          <div
-            class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
             :class="{ active: currentTab == 2 }"
             @click="currentTab = 2"
           >
             Chứng nhận
           </div>
         </div>
-        <div class="text-start mt-6" v-if="currentTab == 0">
+        <div class="text-start mt-6" v-if="currentTab == 3">
           <v-row>
             <v-col cols="12" md="3">
               <div class="font-weight-semibold">Tên Hợp tác xã</div>
@@ -274,9 +274,9 @@
             </v-col>
           </v-row> -->
         </div>
-        <div class="text-start mt-6" v-if="currentTab == 3">
-          <v-row v-if="htxStore.htx.description" class="px-10 py-4">
-            <div v-html="htxStore.htx.description"></div>
+        <div class="text-start mt-6" v-if="currentTab == 0">
+          <v-row v-if="htxStore.htx.metadata.description" class="px-10 py-4">
+            <div v-html="htxStore.htx.metadata.description"></div>
           </v-row>
           <v-row
             class="font-weight-bold text-center text-dp-md flex-grow-1 no-item-div d-flex flex-column justify-center"

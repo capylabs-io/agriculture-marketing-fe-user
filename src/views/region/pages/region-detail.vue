@@ -41,6 +41,14 @@
             :class="{ active: currentTab == 0 }"
             @click="currentTab = 0"
           >
+            Giới thiệu tổng quan
+          </div>
+          <v-divider vertical></v-divider>
+          <div
+            class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
+            :class="{ active: currentTab == 4 }"
+            @click="currentTab = 4"
+          >
             Thông tin
           </div>
           <v-divider vertical></v-divider>
@@ -58,14 +66,6 @@
             @click="currentTab = 2"
           >
             Sản phẩm
-          </div>
-          <v-divider vertical></v-divider>
-          <div
-            class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
-            :class="{ active: currentTab == 4 }"
-            @click="currentTab = 4"
-          >
-            Giới thiệu tổng quan
           </div>
           <v-divider vertical></v-divider>
           <div
@@ -118,7 +118,7 @@
             </div>
           </v-col>
         </v-row>
-        <div class="text-start mt-6" v-if="currentTab == 0">
+        <div class="text-start mt-6" v-if="currentTab == 4">
           <v-row>
             <v-col cols="12" md="3">
               <div class="font-weight-semibold">Tên vùng</div>
@@ -305,7 +305,7 @@
             </v-col>
           </v-row> -->
         </div>
-        <div class="text-start mt-6" v-if="currentTab == 4">
+        <div class="text-start mt-6" v-if="currentTab == 0">
           <v-row v-if="regionStore.region.description" class="px-10 py-4">
             <div v-html="regionStore.region.description"></div>
           </v-row>
@@ -328,6 +328,20 @@
           allowfullscreen
         ></iframe>
       </div>
+      <!-- <div
+        class="mt-6 border-radius-16 overflow-hidden map-card d-flex flex-column align-center justify-center"
+      >
+        <img :src="require('@/assets/map-frame.webp')" />
+        <img :src="require('@/assets/map1/huyenBaTri.svg')" class="map-slot" />
+        <img
+          :src="require('@/assets/map1/huyenbinhdai.svg')"
+          class="map-slot1"
+        />
+        <img
+          :src="require('@/assets/map1/huyenthachphu.svg')"
+          class="map-slot2"
+        />
+      </div> -->
     </div>
   </div>
 </template>
@@ -434,5 +448,22 @@ export default {
 }
 .mobile-cert-img {
   width: 100%;
+}
+.map-card {
+  border: 1px solid black;
+  height: 620px;
+}
+.map-slot {
+  position: absolute;
+  right: 32.6%;
+  bottom: 9.99%;
+}
+.map-slot1 {
+  position: absolute;
+  bottom: 13.78%;
+  right: 26.5%;
+}
+.map-slot2 {
+  position: absolute;
 }
 </style>

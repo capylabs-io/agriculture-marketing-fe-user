@@ -73,15 +73,14 @@
             :class="{ active: currentTab == 0 }"
             @click="currentTab = 0"
           >
-            Thông tin
+            Giới thiệu tổng quan
           </div>
-          <v-divider vertical></v-divider>
           <div
             class="cursor-pointer px-4 py-2 neutral80--text font-weight-medium"
             :class="{ active: currentTab == 1 }"
             @click="currentTab = 1"
           >
-            Sản phẩm
+            Thông tin
           </div>
           <v-divider vertical></v-divider>
           <div
@@ -89,10 +88,11 @@
             :class="{ active: currentTab == 2 }"
             @click="currentTab = 2"
           >
-            Giới thiệu tổng quan
+            Sản phẩm
           </div>
+          <v-divider vertical></v-divider>
         </div>
-        <div class="text-start mt-6" v-if="currentTab == 0">
+        <div class="text-start mt-6" v-if="currentTab == 1">
           <v-row>
             <v-col cols="12" md="3">
               <div class="font-weight-semibold">Họ và tên</div>
@@ -143,7 +143,7 @@
             </v-col>
           </v-row>
         </div>
-        <div class="text-start mt-6" v-if="currentTab == 1">
+        <div class="text-start mt-6" v-if="currentTab == 2">
           <div v-if="artisanStore.slicedProducts.length > 0">
             <!-- <div> -->
             <v-row class="mt-4">
@@ -171,7 +171,7 @@
             Không có sản phẩm nào!
           </div>
         </div>
-        <div class="text-start mt-8" v-if="currentTab == 2">
+        <div class="text-start mt-8" v-if="currentTab == 0">
           <v-row v-if="artisanStore.artisan.description" class="px-10 py-4">
             <div v-html="artisanStore.artisan.description"></div>
           </v-row>
