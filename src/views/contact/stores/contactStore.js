@@ -177,6 +177,9 @@ export const contactStore = defineStore("contact", {
         loading.show();
         let query = {
           ...this.contacts,
+          data: {
+            status: "Checked",
+          },
         };
         const res = await Contact.create({ data: query });
         if (!res) {
