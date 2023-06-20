@@ -171,8 +171,9 @@ export default {
   },
   created() {},
   methods: {
-    submitForm() {
-      this.contactStore.createContact();
+     async submitForm() {
+      await this.contactStore.createContact();
+      window.location.reload();
     },
   },
 };
