@@ -9,9 +9,9 @@
       lazy-load-on-drag
     >
       <vueper-slide
-        v-for="(banner, i) in banners"
+        v-for="(banner, i) in homeStore.banners"
         :key="i"
-        :image="banner.image"
+        :image="banner"
       >
         <template #loader>
           <i class="icon icon-loader spinning"></i>
@@ -23,12 +23,17 @@
 </template>
 
 <script>
+import { mapStores } from "pinia";
+import { homeStore } from "../store/home-store";
 import { VueperSlides, VueperSlide } from "vueperslides";
 import "vueperslides/dist/vueperslides.css";
 export default {
   components: {
     VueperSlides,
     VueperSlide,
+  },
+  computed: {
+    ...mapStores(homeStore),
   },
   data() {
     return {

@@ -1,5 +1,12 @@
 import { defineStore } from "pinia";
-import { Product, Post, Cooperative, Area, Artisan } from "@/plugins/api.js";
+import {
+  Product,
+  Post,
+  Cooperative,
+  Area,
+  Artisan,
+  HomepageConfig,
+} from "@/plugins/api.js";
 import loading from "@/plugins/loading";
 import alert from "@/plugins/alert";
 import { get } from "lodash";
@@ -16,6 +23,13 @@ export const homeStore = defineStore("home", {
     mobileNavigationDrawer: false,
     productNum: 4,
     searchKey: "",
+    favPartners: [],
+    favProducts: [],
+    favHtxs: [],
+    favAgencys: [],
+    favArtisans: [],
+    favRegions: [],
+    banners: [],
   }),
   getters: {
     slicedProducts() {
@@ -24,9 +38,12 @@ export const homeStore = defineStore("home", {
     },
     filteredProducts() {
       if (!this.products || this.products.length == 0) return [];
-      if (!this.productCategory || this.productCategory == "all") return this.products;
+      if (!this.productCategory || this.productCategory == "all")
+        return this.products;
       return this.products.filter(
-        (product) => product.productCategory && product.productCategory.id == this.productCategory
+        (product) =>
+          product.productCategory &&
+          product.productCategory.id == this.productCategory
       );
     },
     newestPost() {
@@ -42,17 +59,48 @@ export const homeStore = defineStore("home", {
     },
   },
   actions: {
+    async fetchHomeConfig() {
+      try {
+        loading.show();
+        const res = await HomepageConfig.fetch();
+        if (!res) {
+          alert.error(
+            "Error occurred when fetching favPartners!",
+            "Please try again later!"
+          );
+          return;
+        }
+        const mappedHomeConfig = get(res, "data.data.[0].attributes", {});
+        if (!mappedHomeConfig) return;
+        this.favAgencys = mappedHomeConfig.stores.config;
+        this.favArtisans = mappedHomeConfig.artisians.config;
+        this.favHtxs = mappedHomeConfig.cooperatives.config;
+        this.favProducts = mappedHomeConfig.products.config;
+        this.banners = mappedHomeConfig.banners.config;
+        this.favRegions = mappedHomeConfig.areas.config;
+        this.favPartners = mappedHomeConfig.partners.config.map(
+          (partner) => partner.partnerUrl
+        );
+      } catch (error) {
+        alert.error("Error occurred!", error.message);
+      } finally {
+        loading.hide();
+      }
+    },
     async fetchProducts() {
       try {
         const res = await Product.fetch({
-          pagination: {
-            page: 1,
-            pageSize: 4,
-          },
+          // pagination: {
+          //   page: 1,
+          //   pageSize: 4,
+          // },
           populate: "*",
         });
         if (!res) {
-          alert.error("Error occurred when fetching products!", "Please try again later!");
+          alert.error(
+            "Error occurred when fetching products!",
+            "Please try again later!"
+          );
           return;
         }
         const products = get(res, "data.data", []);
@@ -68,7 +116,10 @@ export const homeStore = defineStore("home", {
             author: get(product, "attributes.user.data.attributes", {}),
           };
         });
-        this.products = mappedProducts;
+        this.products = this.favProducts.map((code) =>
+          mappedProducts.find((product) => product.code === code)
+        );
+        // this.products = mappedProducts;
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -92,7 +143,10 @@ export const homeStore = defineStore("home", {
           populate: "*",
         });
         if (!res) {
-          alert.error("Error occurred when fetching news!", "Please try again later!");
+          alert.error(
+            "Error occurred when fetching news!",
+            "Please try again later!"
+          );
           return;
         }
         const posts = get(res, "data.data", []);
@@ -105,7 +159,11 @@ export const homeStore = defineStore("home", {
               id: get(post, "attributes.postCategory.data.id", -1),
               ...get(post, "attributes.postCategory.data.attributes", {}),
             },
-            author: get(post, "attributes.user.data.attributes.username", "Admin"),
+            author: get(
+              post,
+              "attributes.user.data.attributes.username",
+              "Admin"
+            ),
           };
         });
         this.posts = mappedPosts;
@@ -118,15 +176,18 @@ export const homeStore = defineStore("home", {
     async fetchArtisans() {
       try {
         const res = await Artisan.fetch({
-          pagination: {
-            page: 1,
-            pageSize: 4,
-          },
+          // pagination: {
+          //   page: 1,
+          //   pageSize: 4,
+          // },
           sort: "updatedAt:desc",
           populate: "*",
         });
         if (!res) {
-          alert.error("Error occurred when fetching artisans!", "Please try again later!");
+          alert.error(
+            "Error occurred when fetching artisans!",
+            "Please try again later!"
+          );
           return;
         }
         const artisans = get(res, "data.data", []);
@@ -141,9 +202,11 @@ export const homeStore = defineStore("home", {
             },
           };
         });
-
-        this.artisans = mappedArtisans;
-        console.log("artisans", this.artisans);
+        this.artisans = this.favArtisans.map((code) =>
+        mappedArtisans.find((artisan) => artisan.code === code)
+      );
+        // this.artisans = mappedArtisans;
+        // console.log("artisans", this.artisans);
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -156,14 +219,17 @@ export const homeStore = defineStore("home", {
         //   populate: "*",
         // });
         const res = await Cooperative.fetch({
-          pagination: {
-            page: 1,
-            pageSize: 4,
-          },
+          // pagination: {
+          //   page: 1,
+          //   pageSize: 4,
+          // },
           populate: "*",
         });
         if (!res) {
-          alert.error("Error occurred when fetching htxs!", "Please try again later!");
+          alert.error(
+            "Error occurred when fetching htxs!",
+            "Please try again later!"
+          );
           return;
         }
         const htxs = get(res, "data.data", []);
@@ -178,8 +244,10 @@ export const homeStore = defineStore("home", {
             },
           };
         });
-
-        this.htxs = mappedHtxs;
+        this.htxs = this.favHtxs.map((code) =>
+        mappedHtxs.find((htx) => htx.code === code)
+      );
+        // this.htxs = mappedHtxs;
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {
@@ -197,7 +265,10 @@ export const homeStore = defineStore("home", {
           populate: "*",
         });
         if (!res) {
-          alert.error("Error occurred when fetching regions!", "Please try again later!");
+          alert.error(
+            "Error occurred when fetching regions!",
+            "Please try again later!"
+          );
           return;
         }
         const regions = get(res, "data.data", []);
@@ -213,8 +284,10 @@ export const homeStore = defineStore("home", {
             author: get(region, "attributes.user.data.attributes", {}),
           };
         });
-
-        this.regions = mappedRegions;
+        this.regions = this.favRegions.map((code) =>
+        mappedRegions.find((region) => region.code === code)
+      );
+        // this.regions = mappedRegions;
       } catch (error) {
         alert.error("Error occurred!", error.message);
       } finally {

@@ -15,7 +15,7 @@
           :slide-ratio="1 / 1"
           :breakpoints="breakpoints"
         >
-          <vueper-slide v-for="(partner, i) in partners" :key="i">
+          <vueper-slide v-for="(partner, i) in homeStore.favPartners" :key="i">
             <template #content>
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
@@ -25,7 +25,7 @@
                         ? 'mobile-partner-logo'
                         : 'partner-logo'
                     "
-                    :src="partner.logo"
+                    :src="partner"
                     v-bind="attrs"
                     v-on="on"
                   />
@@ -43,11 +43,15 @@
 <script>
 import { VueperSlides, VueperSlide } from "vueperslides";
 import "vueperslides/dist/vueperslides.css";
-
+import { mapStores } from "pinia";
+import { homeStore } from "../store/home-store";
 export default {
   components: {
     VueperSlides,
     VueperSlide,
+  },
+  computed: {
+    ...mapStores(homeStore),
   },
   data() {
     return {

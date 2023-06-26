@@ -26,6 +26,7 @@ const COOPERATIVE_API = "/cooperatives/";
 const AGENCY_CATEGORY_API = "/store-categories/";
 const AGENCY_API = "/stores/";
 const CONTACT_API = "/contacts/";
+const HOMEPAGE_API = "/homepage-configs/";
 
 const APIHelper = (api) => ({
   search: (params, option) =>
@@ -113,4 +114,12 @@ export const Supply = {
 };
 export const SupplyCategory = {
   ...APIHelper(SUPPLY_CATEGORY_API),
+};
+export const HomepageConfig = {
+  ...APIHelper(HOMEPAGE_API),
+  updateConfig: (id, params, options) => {
+    return axios.put(`homepage-configs/${id}`, utils.filterObject(params), {
+      ...options,
+    });
+  },
 };

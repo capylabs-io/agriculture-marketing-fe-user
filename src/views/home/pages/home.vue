@@ -34,6 +34,7 @@ export default {
     window.addEventListener("scroll", this.handleScroll);
 
     await Promise.all([
+      this.homeStore.fetchHomeConfig(),
       this.homeStore.fetchProducts(),
       this.homeStore.fetchPosts(),
       this.homeStore.fetchHtxs(),
