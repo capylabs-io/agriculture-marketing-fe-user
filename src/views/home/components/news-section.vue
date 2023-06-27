@@ -12,6 +12,7 @@
     <v-row class="mt-4">
       <v-col class="align-self-scretch" cols="12" md="7">
         <div
+          v-if="homeStore.newestPost"
           class="d-flex border-radius-16 cursor-pointer big-post overflow-hidden full-height"
           :class="{ 'flex-column': $vuetify.breakpoint.smAndDown }"
           @click="goToPost(homeStore.newestPost.id)"
@@ -29,32 +30,41 @@
             :src="productImage(homeStore.newestPost.images)"
           />
 
-          <v-skeleton-loader
-            v-else
-            :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-            class="mx-auto"
-            :class="
-              $vuetify.breakpoint.smAndDown
-                ? 'mobile-big-post-img'
-                : 'big-post-img full-height'
-            "
-            type="image"
-          ></v-skeleton-loader>
-
           <div class="pa-4">
             <div class="primary--text font-weight-semibold">
-              {{ homeStore.newestPost.postCategory.name }}
+              {{
+                homeStore.newestPost.postCategory.name
+                  ? homeStore.newestPost.postCategory.name
+                  : ""
+              }}
             </div>
             <v-clamp
               class="font-weight-semibold text-dp-xs mt-2"
               :max-lines="4"
-              >{{ stripHtml(homeStore.newestPost.title) }}</v-clamp
+              >{{
+                homeStore.newestPost.title
+                  ? stripHtml(homeStore.newestPost.title)
+                  : ""
+              }}</v-clamp
             >
             <v-clamp class="mt-3" :max-lines="6">{{
-              stripHtml(homeStore.newestPost.content)
+              homeStore.newestPost.content
+                ? stripHtml(homeStore.newestPost.content)
+                : ""
             }}</v-clamp>
           </div>
         </div>
+        <v-skeleton-loader
+          v-else
+          :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
+          class="mx-auto"
+          :class="
+            $vuetify.breakpoint.smAndDown
+              ? 'mobile-big-post-img'
+              : 'big-post-img full-height'
+          "
+          type="card"
+        ></v-skeleton-loader>
       </v-col>
       <v-col
         class="d-flex flex-column justify-space-between gap-16"

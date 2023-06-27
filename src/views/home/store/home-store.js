@@ -203,8 +203,8 @@ export const homeStore = defineStore("home", {
           };
         });
         this.artisans = this.favArtisans.map((code) =>
-        mappedArtisans.find((artisan) => artisan.code === code)
-      );
+          mappedArtisans.find((artisan) => artisan.code === code)
+        );
         // this.artisans = mappedArtisans;
         // console.log("artisans", this.artisans);
       } catch (error) {
@@ -245,8 +245,8 @@ export const homeStore = defineStore("home", {
           };
         });
         this.htxs = this.favHtxs.map((code) =>
-        mappedHtxs.find((htx) => htx.code === code)
-      );
+          mappedHtxs.find((htx) => htx.code === code)
+        );
         // this.htxs = mappedHtxs;
       } catch (error) {
         alert.error("Error occurred!", error.message);
@@ -285,8 +285,8 @@ export const homeStore = defineStore("home", {
           };
         });
         this.regions = this.favRegions.map((code) =>
-        mappedRegions.find((region) => region.code === code)
-      );
+          mappedRegions.find((region) => region.code === code)
+        );
         // this.regions = mappedRegions;
       } catch (error) {
         alert.error("Error occurred!", error.message);

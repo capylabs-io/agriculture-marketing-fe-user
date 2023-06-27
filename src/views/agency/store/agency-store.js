@@ -7,7 +7,7 @@ import { get } from "lodash";
 
 export const agencyStore = defineStore("agency", {
   state: () => ({
-    agencyPage: 1,
+    agencyPage: 1,  
     agencysPerPage: 12,
     categories: [],
     agency: {},
