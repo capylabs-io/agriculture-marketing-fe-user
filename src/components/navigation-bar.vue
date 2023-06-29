@@ -59,6 +59,7 @@
               class="text-none text-caplitalize font-weight-medium px-0"
               dark
               text
+              href="https://quanly-trungtamcaycanh.capylabs.io/register"
               >Đăng ký</v-btn
             >
             <v-btn

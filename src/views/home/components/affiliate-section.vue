@@ -19,18 +19,20 @@
             <template #content>
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                  <img
-                    :class="
-                      $vuetify.breakpoint.smAndDown
-                        ? 'mobile-partner-logo'
-                        : 'partner-logo'
-                    "
-                    :src="partner"
-                    v-bind="attrs"
-                    v-on="on"
-                  />
+                  <a :href="partner.webUrl" target="_blank">
+                    <img
+                      :class="
+                        $vuetify.breakpoint.smAndDown
+                          ? 'mobile-partner-logo'
+                          : 'partner-logo'
+                      "
+                      :src="partner.partnerUrl"
+                      v-bind="attrs"
+                      v-on="on"
+                    />
+                  </a>
                 </template>
-                <span>{{ partner.title }}</span>
+                <span>{{ partner.name }}</span>
               </v-tooltip>
             </template>
           </vueper-slide>

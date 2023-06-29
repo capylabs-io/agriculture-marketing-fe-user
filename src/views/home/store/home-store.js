@@ -79,7 +79,7 @@ export const homeStore = defineStore("home", {
         this.banners = mappedHomeConfig.banners.config;
         this.favRegions = mappedHomeConfig.areas.config;
         this.favPartners = mappedHomeConfig.partners.config.map(
-          (partner) => partner.partnerUrl
+          (partner) => partner
         );
       } catch (error) {
         alert.error("Error occurred!", error.message);
